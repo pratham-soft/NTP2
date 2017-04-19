@@ -56,21 +56,21 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
     $scope.addEmployee = function(formObj, formName) {
         $scope.submit = true;
         var dobuser = formObj.employeeDob;
-        var newdobuser = date.split("/").reverse().join("-");
+        var newdobuser = dobuser.split("/").reverse().join("-");
         var dojuser = formObj.employeeDoj;
-        var newdoj = date.split("/").reverse().join("-");
+        var newdoj = dojuser.split("/").reverse().join("-");
         
         var dobspouse = formObj.employeeSpouseDob;
-        var newdobspouse = date.split("/").reverse().join("-");
+        var newdobspouse = dobspouse.split("/").reverse().join("-");
         
         var dobchild1 = formObj.employeeChild1Dob;
-        var newdobchild1 = date.split("/").reverse().join("-");
+        var newdobchild1 = dobchild1.split("/").reverse().join("-");
         var dobchild2 = formObj.employeeChild2Dob;
-        var newdobchild2 = date.split("/").reverse().join("-");
+        var newdobchild2 = dobchild2.split("/").reverse().join("-");
         var dobchild3 = formObj.employeeChild3Dob;
-        var newdobchild3 = date.split("/").reverse().join("-");
+        var newdobchild3 = dobchild3.split("/").reverse().join("-");
         var dobchild4 = formObj.employeeChild4Dob;
-        var newdobchild4 = date.split("/").reverse().join("-");
+        var newdobchild4 = dobchild4.split("/").reverse().join("-");
         
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
