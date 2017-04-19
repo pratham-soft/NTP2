@@ -61,16 +61,34 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
         var newdoj = dojuser.split("/").reverse().join("-");
         
         var dobspouse = formObj.employeeSpouseDob;
-        var newdobspouse = dobspouse.split("/").reverse().join("-");
+        var newdobspouse = "";
+        if(dobspouse!=undefined){
+         newdobspouse = dobspouse.split("/").reverse().join("-");   
+        }
         
         var dobchild1 = formObj.employeeChild1Dob;
-        var newdobchild1 = dobchild1.split("/").reverse().join("-");
+        var newdobchild1 = "";
+        if(dobchild1!=undefined){
+         newdobchild1 = dobchild1.split("/").reverse().join("-");   
+        }
+        
         var dobchild2 = formObj.employeeChild2Dob;
-        var newdobchild2 = dobchild2.split("/").reverse().join("-");
+        var newdobchild2 = "";
+        if(dobchild2!=undefined){
+         newdobchild2 = dobchild2.split("/").reverse().join("-");   
+        }
+        
         var dobchild3 = formObj.employeeChild3Dob;
-        var newdobchild3 = dobchild3.split("/").reverse().join("-");
+        var newdobchild3 = "";
+        if(dobchild3!=undefined){
+         newdobchild3 = dobchild3.split("/").reverse().join("-");   
+        }
+        
         var dobchild4 = formObj.employeeChild4Dob;
-        var newdobchild4 = dobchild4.split("/").reverse().join("-");
+        var newdobchild4 = "";
+        if(dobchild4!=undefined){
+         newdobchild4 = dobchild4.split("/").reverse().join("-");   
+        }
         
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
