@@ -30,8 +30,11 @@
 				<th>Actions</th>
 			</tr>
 		</thead>
+        
+
 		<tbody>
-			<tr ng-repeat="x in leads | orderBy:sortColumn:reverseSort | filter:searchLead ">
+			<tr dir-paginate="x in leads| orderBy:sortColumn:reverseSort | filter:searchLead
+ | itemsPerPage: 10">
 				<td>{{$index + 1}}</td>
                 <td><input type="checkbox" ng-click="toggleSelection(x.user_id)" name="" ng-model="selected"
                            ng-checked="exist(x.user_id)" ></td>
@@ -45,7 +48,7 @@
 			</tr>
 		</tbody>
 	</table>
-    
+    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
 </div>
 <script type="text/ng-template" id="leadDetail.html">
         <div class="modal-header">

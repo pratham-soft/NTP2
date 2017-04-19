@@ -1,8 +1,7 @@
-app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $state, $window) {
+app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $state, $window, $filter) {
     $scope.searchLead = ''; // set the default search/filter term
     $scope.selected = []; //stores checked items only
-    $scope.leads=[];
-    
+
     $scope.sortColumn = "fullName";
             $scope.reverseSort = false;
 
@@ -90,7 +89,8 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
                 for(var i=0;i<data.length;i++){
                     data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
                 }
-                $scope.leads = data;
+                $scope.leads = data; 
+//                ctrlRead();
             } else {
                 angular.element(".loader").hide();
             }
