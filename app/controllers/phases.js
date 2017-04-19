@@ -521,7 +521,7 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
     };
 });
 
-app.controller("editUnit", function($scope, $http, $state, $cookieStore, $stateParams) {
+app.controller("editUnitCtrl", function($scope, $http, $state, $cookieStore, $stateParams) {
     var projectId = $stateParams.projId;
     var phaseId = $stateParams.phaseId;
 
