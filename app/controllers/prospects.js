@@ -1,4 +1,4 @@
-app.controller("updateProspects", function($scope, $http, $cookieStore, $uibModal,$state) {
+app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uibModal,$state) {
       $scope.searchLead = '';//set the default search/filter term
     $scope.selected=[];//stores checked items only
     $scope.salesfunnelnameValues=[];
@@ -150,7 +150,7 @@ app.controller("updateProspects", function($scope, $http, $cookieStore, $uibModa
         //console.log("the real slim:"+str2)
         var modalInstance = $uibModal.open({
             templateUrl: 'updateProPage.html',
-            controller: 'updateProPage',
+            controller: 'updateProPageCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -201,7 +201,7 @@ app.controller("updateProspects", function($scope, $http, $cookieStore, $uibModa
     $scope.leadDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'leadDetail.html',
-            controller: 'prospectDetail',
+            controller: 'prospectDetailCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -215,7 +215,7 @@ app.controller("updateProspects", function($scope, $http, $cookieStore, $uibModa
     $scope.addSiteVisit = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'addSiteVisit.html',
-            controller: 'prospectDetail',
+            controller: 'prospectDetailCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -233,7 +233,7 @@ app.controller("updateProspects", function($scope, $http, $cookieStore, $uibModa
   
     
 });
-app.controller("prospectDetail", function($scope, $uibModalInstance, $state, $cookieStore, $http, myService, item) {
+app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state, $cookieStore, $http, myService, item) {
     $scope.timeslots = ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '07:00 PM', '07:30 PM', '08:30 PM'];
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
@@ -389,7 +389,7 @@ app.controller("prospectDetail", function($scope, $uibModalInstance, $state, $co
     };
 });
 
-app.controller("addProspect", function($scope, $http, $state, $cookieStore) {
+app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) {
     $scope.pageTitle = "Add Prospect";
     $scope.addLeadBtn = true;
     ($scope.getLeadSource = function() {
@@ -450,7 +450,7 @@ app.controller("addProspect", function($scope, $http, $state, $cookieStore) {
     };
 });
 
-app.controller("editProspect", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
+app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
     $scope.pageTitle = "Edit Prospect";
     $scope.editLeadBtn = true;
     ($scope.getLeadDetail = function() {

@@ -1,4 +1,4 @@
-app.controller("addAgentController", function($scope, $http, $cookieStore, $state) {
+app.controller("addAgentCtrl", function($scope, $http, $cookieStore, $state) {
     $scope.pageTitle = "Add Agent";
     $scope.addAgentBtn = true;
 
@@ -78,7 +78,7 @@ app.controller("addAgentController", function($scope, $http, $cookieStore, $stat
         }
     };
 });
-app.controller("agentsController", function($scope, $http, $cookieStore, $state, $uibModal) {
+app.controller("agentsCtrl", function($scope, $http, $cookieStore, $state, $uibModal) {
     $scope.searchAgents = ''; // set the default search/filter term
     $scope.selected=[];
     $scope.roleIdValues=[];
@@ -205,7 +205,7 @@ app.controller("agentsController", function($scope, $http, $cookieStore, $state,
         //console.log("the real slim:"+str2);
         var modalInstance = $uibModal.open({
             templateUrl: 'updateRoleId.html',
-            controller: 'updateRoleIdAndAssignedTo',
+            controller: 'updateRoleIdAndAssignedToCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -285,7 +285,7 @@ app.controller("agentsController", function($scope, $http, $cookieStore, $state,
     $scope.agentDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'agentDetail.html',
-            controller: 'agentsDetailController',
+            controller: 'agentsDetailCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -296,13 +296,13 @@ app.controller("agentsController", function($scope, $http, $cookieStore, $state,
         });
     };
 });
-app.controller("agentsDetailController", function($scope, $http, $cookieStore, $uibModalInstance, item) {
+app.controller("agentsDetailCtrl", function($scope, $http, $cookieStore, $uibModalInstance, item) {
     $scope.agentDetail = item;
     $scope.ok = function() {
         $uibModalInstance.close();
     };
 });
-app.controller("editAgentController", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
+app.controller("editAgentCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
     $scope.pageTitle = "Edit Agent";
     $scope.editAgentBtn = true;
 

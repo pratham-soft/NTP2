@@ -1,4 +1,4 @@
-app.controller("leads", function($scope, $http, $cookieStore, $uibModal, $state, $window) {
+app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $state, $window) {
     $scope.searchLead = ''; // set the default search/filter term
     $scope.selected = []; //stores checked items only
     $scope.leads=[];
@@ -170,7 +170,7 @@ app.controller("leads", function($scope, $http, $cookieStore, $uibModal, $state,
     $scope.leadDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'leadDetail.html',
-            controller: 'leadDetail',
+            controller: 'leadDetailCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -186,7 +186,7 @@ app.controller("leads", function($scope, $http, $cookieStore, $uibModal, $state,
     };
 });
 
-app.controller("leadDetail", function($scope, $uibModalInstance, $state, item) {
+app.controller("leadDetailCtrl", function($scope, $uibModalInstance, $state, item) {
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
     $scope.cities = ["New Delhi"];
@@ -232,7 +232,7 @@ app.controller("leadDetail", function($scope, $uibModalInstance, $state, item) {
     }
 });
 
-app.controller("addLead", function($scope, $http, $state, $cookieStore) {
+app.controller("addLeadCtrl", function($scope, $http, $state, $cookieStore) {
     $scope.pageTitle = "Add Lead";
     $scope.addLeadBtn = true;
     ($scope.getLeadSource = function() {
@@ -294,7 +294,7 @@ app.controller("addLead", function($scope, $http, $state, $cookieStore) {
     };
 });
 
-app.controller("editLead", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
+app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
     $scope.pageTitle = "Edit Lead";
     $scope.editLeadBtn = true;
     ($scope.getLeadSource = function() {
@@ -407,7 +407,7 @@ app.controller("editLead", function($scope, $http, $state, $cookieStore, $stateP
     };
 });
 
-app.controller("projectDetails", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
+app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
     $scope.leadId = $stateParams.leadID;
     if ($scope.leadId == undefined) {
         $state.go('/AddLead');

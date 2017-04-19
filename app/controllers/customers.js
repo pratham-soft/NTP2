@@ -1,4 +1,4 @@
-app.controller("customerController", function($scope, $http, $cookieStore, $state, $uibModal) {
+app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $uibModal) {
         $scope.sortColumn = "fullName";
         $scope.reverseSort = false;
 
@@ -45,7 +45,7 @@ app.controller("customerController", function($scope, $http, $cookieStore, $stat
     $scope.customerDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'customerDetail.html',
-            controller: 'customerDetailController',
+            controller: 'customerDetailCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -57,7 +57,7 @@ app.controller("customerController", function($scope, $http, $cookieStore, $stat
     };
 });
 
-app.controller("customerDetailController", function($scope, $http, $cookieStore, $state, $uibModalInstance, item) {
+app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";

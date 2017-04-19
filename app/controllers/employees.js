@@ -1,4 +1,4 @@
-app.controller("addEmployeeController", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window) {
+app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window) {
     $scope.pageTitle = "Add Employee";
     $scope.addEmployeeBtn = true;
     
@@ -154,7 +154,7 @@ app.controller("addEmployeeController", function($scope, $http, $state, $cookieS
     };
 });
 
-app.controller("editEmployeeController", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal) {
+app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal) {
     $scope.pageTitle = "Edit Employee";
     $scope.editEmployeeBtn = true;
     $scope.employeeId = $stateParams.employeeId;
@@ -379,7 +379,7 @@ app.controller("editEmployeeController", function($scope, $http, $cookieStore, $
     $scope.ctcDetail = function(addEmployee) {
         var modalInstance = $uibModal.open({
             templateUrl: 'ctcDetail.html',
-            controller: 'ctcDetailController',
+            controller: 'ctcDetailCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -390,7 +390,7 @@ app.controller("editEmployeeController", function($scope, $http, $cookieStore, $
         });
     };
 });
-app.controller("employeeDetailsController", function($scope, $http, $cookieStore, $uibModal, $state) {
+app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uibModal, $state) {
     $scope.selected=[];
     $scope.roleIdValues=[];
     $scope.roleIdDetails=[];
@@ -655,7 +655,7 @@ app.controller("employeeDetailsController", function($scope, $http, $cookieStore
         //console.log("the real slim:"+str2);
         var modalInstance = $uibModal.open({
             templateUrl: 'updateRoleId.html',
-            controller: 'updateRoleIdAndAssignedTo',
+            controller: 'updateRoleIdAndAssignedToCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {

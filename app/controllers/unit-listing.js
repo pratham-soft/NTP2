@@ -1,13 +1,16 @@
-app.controller("unitsListingController", function($scope, $http, $cookieStore, $state, $uibModal,$window) {
+app.controller("unitsListingCtrl", function($scope, $http, $cookieStore, $state, $uibModal,$window) {
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
     
      $scope.selected = []; //stores checked items only
     (
         
-        
+
+ 
         $scope.getProjectList = function() {
         angular.element(".loader").show();
+        $scope.unitsList="";
+       
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
@@ -21,14 +24,20 @@ app.controller("unitsListingController", function($scope, $http, $cookieStore, $
         }).error(function() {
             angular.element(".loader").hide();
         });
+           
     })();
 
     $scope.getPhaseList = function(projectName) {
+        $scope.unitsList="";
         $scope.flatType = "";
         $scope.projectDetails.phase = "";
         $scope.projectDetails.blocks = "";
-        $scope.blockList = {};
+        $scope.selectedToTopSettings = { selectedToTop: true, }
+        $scope.blockList = {};       
+        
+        //$scope. = '-1';
         angular.element(".loader").show();
+        
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/PhaseDtls/ByPhaseProjId",
@@ -37,15 +46,26 @@ app.controller("unitsListingController", function($scope, $http, $cookieStore, $
                 "Phase_Proj_Id": projectName,
                 "Phase_comp_guid": $cookieStore.get('comp_guid')
             }
-        }).success(function(data) {
-            $scope.phaseList = data;
-            angular.element(".loader").hide();
+        }).success(function(data) { 
+             if (data[0].Phase_ErrorDesc !='-1 | Phase record does not exist for this Company')
+                {
+                  $scope.phaseList = data;
+                  angular.element(".loader").hide(); 
+                }
+            else{
+                 //alert("No Phase for this Project");
+                 angular.element(".loader").hide(); 
+                 $scope.phaseList="";
+            }
+            
+            
         }).error(function() {
             angular.element(".loader").hide();
         });
     };
     $scope.getBlockList = function(phase, projectName) {
         $scope.projectDetails.blocks = "";
+        $scope.unitsList="";
         for (i = 0; i < $scope.phaseList.length; i++) {
             if ($scope.phaseList[i].Phase_Id == phase) {
                 $scope.flatType = $scope.phaseList[i].Phase_UnitType.UnitType_Name;
@@ -139,15 +159,34 @@ app.controller("unitsListingController", function($scope, $http, $cookieStore, $
                 angular.element(".loader").hide();
             });
         } else {
-            alert("Please Select the User")
+            alert("Please Select the Unit")
         }
     } //leadToProspectBtnClick end
 
-    $scope.getUnitAllocation = function(obj, formName,obj2) {
+     //RD 18/04/2017 display button flag
+      $scope.changeBtndisp = function(obj,formName,obj2) {
+        $scope.DispStatus = false;
+        $scope.DispStatus2 = false;
+        
+        $scope.getUnitAllocation(obj2,formName);
+         if (unitstatus == 1)
+         {                     
+             $scope.DispStatus = true;
+         }
+
+        else if (unitstatus == 3)
+         {
+             $scope.DispStatus2 = true;
+         }             
+                
+            
+    }
+     
+    $scope.getUnitAllocation = function(obj, formName) {
         $scope.DispStatus = false;
         $scope.DispStatus2 = false;
         $scope.submit = true;
-        $scope.message = "Old Title";
+
         $scope.unitsSrchList = '';
         if ($scope[formName].$valid) {
             var userProjData = [];
@@ -192,7 +231,7 @@ app.controller("unitsListingController", function($scope, $http, $cookieStore, $
     $scope.viewUnitCostSheet = function(item) {
         var modalInstance = $uibModal.open({
             templateUrl: 'unitCostSheet.html',
-            controller: 'unitCostSheet',
+            controller: 'unitCostSheetCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -204,7 +243,7 @@ app.controller("unitsListingController", function($scope, $http, $cookieStore, $
     }
 });
 
-app.controller("unitCostSheet", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item) {
+app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item) {
     $scope.unitId = item;
     ($scope.getUnitCostSheetDetails = function() {
         angular.element(".loader").show();
