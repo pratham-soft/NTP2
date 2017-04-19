@@ -1,4 +1,4 @@
-app.controller("generateCostSheet", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("generateCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Generate Cost Sheet";
     var blockId = $stateParams.blockId;
     ($scope.getBlockCostSheet = function() {
@@ -42,7 +42,7 @@ app.controller("generateCostSheet", function($scope, $http, $cookieStore, $state
     $scope.unitCostSheetModal = function(unitId) {
         var modalInstance = $uibModal.open({
             templateUrl: 'unitCostSheet.html',
-            controller: 'unitCostSheet',
+            controller: 'unitCostSheetCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {

@@ -1,4 +1,4 @@
-app.controller("editPhases", function($scope, $http, $cookieStore, $state, $compile, $stateParams, myService) {
+app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, myService) {
     var Phase_Proj_Id = $stateParams.projId;
     var Phase_Id = $stateParams.phaseId;
 
@@ -171,7 +171,7 @@ app.controller("editPhases", function($scope, $http, $cookieStore, $state, $comp
     };
 });
 
-app.controller("addPhases", function($scope, $http, $cookieStore, $state, $compile, $stateParams) {
+app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams) {
     $scope.pageTitle = "Add Phase";
     $scope.addPhaseBtn = true;
 
@@ -267,7 +267,7 @@ app.controller("addPhases", function($scope, $http, $cookieStore, $state, $compi
     };
 });
 
-app.controller("phases", function($scope, $http, $cookieStore, $state, $compile) {
+app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $compile) {
     $scope.typeNames = ['Flat', 'Sites', 'Villa', 'Row Houses'];
 
     ($scope.getProjectList = function() {

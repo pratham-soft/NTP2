@@ -609,7 +609,7 @@ app.controller("editUnit", function($scope, $http, $state, $cookieStore, $stateP
 });
 
 
-app.controller("updateRoleIdAndAssignedTo", function($scope, $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
+app.controller("updateRoleIdAndAssignedToCtrl", function($scope, $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
     $scope.firstDropValues=[];
     $scope.repotingDetails =[];
     $scope.roleIdDetails =[];
