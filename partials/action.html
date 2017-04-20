@@ -37,7 +37,7 @@
                 <option value="temp4">Template 4</option>
                 <option value="temp5">Template 5</option>
             </select>
-            <input type="text" class="form-control" placeholder="Write Content" name="textTemplate" id="textTemplate" ng-model="action.textTemplate" ng-required="true" ng-class="{blankInput: actionForm.textTemplate.$error.required &amp;&amp; submit}" ng-show="action.actionType != 'email'"/>
+            <textarea  class="form-control" placeholder="Write Content" name="textTemplate" id="textTemplate" ng-model="action.textTemplate" ng-required="true" ng-class="{blankInput: actionForm.textTemplate.$error.required &amp;&amp; submit}" ng-show="action.actionType != 'email'"></textarea>
          </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-show="action.template">
             <button type="button" class="btn btn-default" ng-click="previewTemplate(action.template)">
@@ -47,7 +47,7 @@
       </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="action.actionType == 'email'">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="template">Mail CC Recipient</label>
+            <label for="template">Additional Mail Recipient (CC)</label>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
                 <textarea name="mailCCRecipient" class="form-control" placeholder="Enter Email IDs seperated by comma"></textarea>
