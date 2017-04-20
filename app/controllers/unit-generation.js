@@ -2,12 +2,14 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.untDetails = [];
     $scope.projectId = $stateParams.projId;
     $scope.phaseId = $stateParams.phaseId;
+    $scope.blockId = $stateParams.blockId;
     var unitNosArr = [];
-
+    
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
+       
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
-            $scope.projectList = response.data;
+            $scope.projectList = response.data;            
             angular.element(".loader").hide();
         });
     })();
@@ -26,12 +28,17 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     $scope.typeObj = $scope.phaseList[i].Phase_UnitType;
                 }
             }
+
             angular.element(".loader").hide();
         });
+        
     })();
 
     ($scope.getBlockList = function() {
         angular.element(".loader").show();
+         
+            
+            
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/BlockDtls/ByPhaseBlocksId",
@@ -42,7 +49,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             }
         }).success(function(data) {
             console.log(data);
-            $scope.blockList = data;
+            $scope.blockList = data;            
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();

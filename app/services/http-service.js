@@ -66,4 +66,7 @@ app.service('myService', function($http) {
         }).error(function() {});
         return promise;
     };
+    
+  
+    
 });

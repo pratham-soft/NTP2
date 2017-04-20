@@ -78,7 +78,7 @@ app.controller("salaryComponentDetailsCtrl", function($scope, $http, $cookieStor
     $scope.editSalaryComponent = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'addSalaryComponent.html',
-            controller: 'editSalaryComponentController',
+            controller: 'editSalaryComponentCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -92,7 +92,7 @@ app.controller("salaryComponentDetailsCtrl", function($scope, $http, $cookieStor
     $scope.addSalaryComponent = function() {
         var modalInstance = $uibModal.open({
             templateUrl: 'addSalaryComponent.html',
-            controller: 'addSalaryComponentController',
+            controller: 'addSalaryComponentCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {

@@ -102,7 +102,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'editUnitCtrl'
         })
         .state('/UnitGeneration', {
-            url: '/UnitGeneration/:projId/:phaseId',
+            url: '/UnitGeneration/:projId/:phaseId/:blockId',
             templateUrl: 'partials/unitGeneration.html',
             controller: 'unitGenerationCtrl'
         })
@@ -271,4 +271,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/createNewEmailTemplate.html',
             controller: 'createNewEmailTemplateCtrl'
         })
+
+        
+    
 });
