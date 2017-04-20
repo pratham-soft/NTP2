@@ -89,7 +89,7 @@ app.controller("loginCtrl", function($scope, $http, $cookieStore, $window) {
                     if (pageUrl != undefined) {
                         $window.location.href = pageUrl;
                     } else {
-                        $window.location.href = '/home.html';
+                        $window.location.href = 'home.html';
                     }
                 }
                 angular.element(".loader").hide();
