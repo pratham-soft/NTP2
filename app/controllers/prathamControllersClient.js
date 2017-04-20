@@ -36,7 +36,7 @@ app.controller("unitUpdateController", function($scope, $http, $cookieStore, $st
     };
 });
 
-app.controller("updateRoleIdAndAssignedTo", function($scope, $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
+app.controller("updateRoleIdAndAssignedToCtrl", function($scope, $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
     $scope.firstDropValues=[];
     $scope.repotingDetails =[];
     $scope.roleIdDetails =[];
