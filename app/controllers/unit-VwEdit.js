@@ -3,16 +3,15 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
 
      $scope.selected = []; //stores checked items only
-    (
-        
-        $scope.getProjectList = function() {
+    
+    (   $scope.getProjectList = function() {
         angular.element(".loader").show();
         $scope.unitsList="";
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
             $scope.projectList = response.data;
             angular.element(".loader").hide();
         });
-        /*$http({
+        $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
             ContentType: 'application/json',
@@ -21,10 +20,11 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
             }
         }).success(function(data) {
             $scope.projectList = data;
+            console.log($scope.projectList);
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
-        });*/
+        });
            
     })();
 

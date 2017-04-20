@@ -1,50 +1,58 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
     <h1>Unit View/Edit</h1>
 </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
     <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li class="active">Project</li>
-        <li class="active">Unit Listing</li>
+        <li><a ui-sref="/">Home</a></li>
+        <li class="active">Unit View/Edit</li>
     </ol>
 </div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+<div>&nbsp;</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <form class="form" name="unitAllocationForm">
-        <div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr" >
+                <label for="type" >Project Name:</label>
+            </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
             <select ng-model="projectDetails.projectName" name="projectName" class="form-control" ng-change="getPhaseList(projectDetails.projectName)" ng-required="true" ng-class="{blankInput: unitAllocationForm.projectName.$error.required &amp;&amp; submit}" autofocus="true">
-            <option value="">
-               Project
+            <option value="" disabled selected>
+               --Project--
             </option>
-            <option ng-repeat="x in projectList" value="{{x.ProjId}}">
-               {{x.Proj_Name}}
+            <option ng-repeat="x in projectList" value="{{x.ProjId}}">{{x.Proj_Name}}</option>
+         </select>
+             </div>
+        </div>
+        
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+                <label for="type">Select Phase:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="getBlockList(projectDetails.phase,projectDetails.projectName)" ng-required="true" ng-class="{blankInput: unitAllocationForm.phase.$error.required &amp;&amp; submit}" >
+            <option value="" disabled selected>
+               --Phase--
             </option>
+            <option ng-repeat="x in phaseList" value="{{x.Phase_Id}}">{{x.Phase_Name}}</option>
          </select>
         </div>
-        <div>
-            <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="getBlockList(projectDetails.phase,projectDetails.projectName)" ng-required="true" ng-class="{blankInput: unitAllocationForm.phase.$error.required &amp;&amp; submit}">
-            <option value="">
-               Phase
-            </option>
-            <option ng-repeat="x in phaseList" value="{{x.Phase_Id}}">
-               {{x.Phase_Name}}
-            </option>
-         </select>
         </div>
-               <div>
-            <select class="form-control" name="block" ng-model="unitAllocationForm.block" ng-required="true" ng-class="{blankInput: unitAllocationForm.block.$error.required &amp;&amp; submit}" ng-change="checkBlockUnits(unitAllocationForm)">
-            <!-- commented as API end point not done -- RD 17/04/2017
-            <option value="">
-               All Blocks
-            </option>-->
-             <option value="">
-               Block
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+                <label for="type">Select Block:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <select ng-model="unitAllocationForm.block" name="block" class="form-control" ng-class="{blankInput: unitAllocationForm.block.$error.required &amp;&amp; submit}" ng-required="true" ng-change="checkBlockUnits(unitAllocationForm)">
+             <option value="" disabled selected>
+               --Block--
             </option>    
-            <option ng-repeat="x in blockList" value="{{x.Blocks_Id}}">
-               {{x.Blocks_Name}}
-            </option>
+            <option ng-repeat="x in blockList" value="{{x.Blocks_Id}}">{{x.Blocks_Name}}</option>
          </select>
-        </div>
-        <!-- RD 14/04/2017-->
+            </div>
+            </div>
+<!--
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="blockFloorUnits == 0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
@@ -62,10 +70,11 @@
             <input type="text" class="form-control" placeholder="Units Per Floor" name="unitsPerFloor" ng-model="unitAllocationForm.unitsPerFloor" ng-required="true" ng-class="{blankInput: unitAllocationForm.unitsPerFloor.$error.required &amp;&amp; submit}">
          </div>
       </div>
+-->
        
     </form>
 </div>
-
+<form>
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0">
    <h4>Unit Generation Formula</h4>
    <label for="unitNo">Starting Unit No. (For Each Floor): </label>
@@ -201,4 +210,3 @@
         <button type="button" class="btn btn-success" ng-click="addBlockUnit(UnitsArr,'addBlockUnitForm',unitAllocationForm)">Save</button>
     </div>
 </div>
-</script>
