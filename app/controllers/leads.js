@@ -1,8 +1,7 @@
-app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $state, $window) {
+app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $state, $window, $filter) {
     $scope.searchLead = ''; // set the default search/filter term
     $scope.selected = []; //stores checked items only
-    $scope.leads=[];
-    
+
     $scope.sortColumn = "fullName";
             $scope.reverseSort = false;
 
@@ -69,10 +68,11 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
 
         // CONFIRMATION.
         function transferComplete(e) {
-            alert("Files uploaded successfully.");
+            alert("Files uploaded successfully !");
+            $scope.importFiles();
+            
         }
-    
-
+      
     ($scope.getLeads = function() {
         angular.element(".loader").show();
         $http({
@@ -90,7 +90,8 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
                 for(var i=0;i<data.length;i++){
                     data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
                 }
-                $scope.leads = data;
+                $scope.leads = data; 
+//                ctrlRead();
             } else {
                 angular.element(".loader").hide();
             }
@@ -103,7 +104,6 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
     function printMe(val) {
         console.log("" + val);
     }
-
 
     $scope.exist = function(item) {
         return $scope.selected.indexOf(item) > -1;
@@ -184,6 +184,32 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
     $scope.viewLeadStatus = function(leadNo) {
         alert("View Lead Status: " + leadNo);
     };
+    
+    $scope.importFiles = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/ImportCSVFile",
+            ContentType: 'application/json',
+            data: {            
+                 "import_path":"csvupload",
+                 "import_filename": $scope.files[0].name,
+                 "import_compguid": $cookieStore.get('comp_guid'),
+                 "import_flag":1
+            }
+        }).success(function(data) {
+               var res = data.Comm_ErrorDesc;
+               var resSplit = res.split('|');
+             if(resSplit[0].toString()=="0 ")
+                 {
+                    $scope.getLeads(); 
+                    angular.element(".loader").hide();
+                    alert(resSplit[1].toString() + "-" + resSplit[2].toString()) 
+                 }
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    }
 });
 
 app.controller("leadDetailCtrl", function($scope, $uibModalInstance, $state, item) {

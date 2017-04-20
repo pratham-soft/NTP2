@@ -10,7 +10,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right ctaContainer">
     <button class="btn btn-primary" type="button"  ng-click="roleUpdate(employeeIds)">Update Role</button> | 
 	<a ui-sref="/AddEmployee" class="btn btn-primary">+ Add Employee</a> 
-    <button type="button" class="btn btn-success" ng-click="uploadFiles()" value="Upload">Upload<span class="glyphicon glyphicon-import"></span></button> 
+    <button type="button" class="btn btn-success" ng-click="uploadFiles()" value="Upload">Import - File<span class="glyphicon glyphicon-import"></span></button> 
      <input  class="filestyle" type="file" id="file" name="file" multiple
             onchange="angular.element(this).scope().getFileDetails(this)" />
     <p><progress id="pro" value="0"></progress></p>
@@ -32,7 +32,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="x in employees | orderBy:sortColumn:reverseSort | filter:searchEmployee">
+			<tr dir-paginate="x in employees | orderBy:sortColumn:reverseSort | filter:searchEmployee | itemsPerPage: 10">
 				<td>{{$index + 1}}</td>
                 <td><input type="checkbox" ng-click="toggleSelection(x.user_id)" name="" ng-model="selected"
                            ng-checked="exist(x.user_id)" ></td>
@@ -46,6 +46,7 @@
 			</tr>
 		</tbody>
 	</table>
+    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
 </div>
 
 <script type="text/ng-template" id="updateRoleId.html">

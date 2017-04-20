@@ -483,7 +483,8 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
 
         // CONFIRMATION.
         function transferComplete(e) {
-            alert("Files uploaded successfully.");
+            alert("Files uploaded successfully!");
+            $scope.importFiles();
         }
     
     
@@ -685,5 +686,31 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
         });
         
     };
+    
+     $scope.importFiles = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/ImportCSVFile",
+            ContentType: 'application/json',
+            data: {            
+                 "import_path":"csvupload",
+                 "import_filename": $scope.files[0].name,
+                 "import_compguid": $cookieStore.get('comp_guid'),
+                 "import_flag":2
+            }
+        }).success(function(data) {
+               var res = data.Comm_ErrorDesc;
+               var resSplit = res.split('|');
+             if(resSplit[0].toString()=="0 ")
+                 {
+                   $scope.getEmployeesDetails(); 
+                    angular.element(".loader").hide();
+                    alert(resSplit[1].toString() + "-" + resSplit[2].toString()) 
+                 }
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    }
     
 });
