@@ -628,7 +628,7 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
                 ContentType: 'application/json',
                 data: {
                     "comp_guid": $cookieStore.get('comp_guid'),
-                    "Projusrtyp": 2,
+                    "Projusrtyp": 7,
                     "Phase_Id": obj.phase,
                     "Blocks_Id": obj.blocks
                 }
