@@ -276,6 +276,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/UnitVwEdit.html',
             controller: 'unitVwEditCtrl'
         })
-        
-    
+		.state('/BookUnit-Step1', {
+            url: '/BookUnit-Step1/:unitId',
+            templateUrl: 'partials/bookUnitStep1.html',
+            controller: 'bookUnitStep1Ctrl'
+        })
 });

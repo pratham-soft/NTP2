@@ -1,3 +1,21 @@
+app.service('httpSvc', function($http) {
+    this.getUnitCostSheet = function(unitId, compId) {
+        var promise = $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstSheet/Gt",
+            ContentType: 'application/json',
+            data: {
+			  "UnitDtls_Id": unitId,
+			  "UnitDtls_comp_guid": compId
+			}
+        }).success(function(data) {
+            unitCostSheetDetail = data;
+            return unitCostSheetDetail;
+        }).error(function() {});
+        return promise;
+	};
+});
+	
 app.service('myService', function($http) {
     this.sampleFun = function(compId) {
         return compId;
@@ -65,8 +83,5 @@ app.service('myService', function($http) {
             return units;
         }).error(function() {});
         return promise;
-    };
-    
-  
-    
+    }; 
 });

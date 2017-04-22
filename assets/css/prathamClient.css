@@ -157,7 +157,7 @@ input.search{
 }
 .pageContent{
 	padding: 0;
-/*    margin-bottom: 50px;*/
+    margin-bottom: 50px;
 }
 .bgBlue{
 	border: 1px solid #3dc4f5;
@@ -842,4 +842,17 @@ td.inputType{
      border-right: 5px solid transparent;
      border-top: 10px solid black;
      display:inline-block;
+}
+.unitDetails{
+	border: 1px solid #ddd;
+	margin: 0 0 10px 0;
+}
+.unitDetails span {
+    display: block;
+    padding: 8px;
+    font-weight: bold;
+    border-bottom: 1px solid #DDD;
+}
+.unitDetails span:last-child{
+	border-bottom: 0;
 }
