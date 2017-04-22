@@ -13,6 +13,22 @@ app.service('httpSvc', function($http) {
             return unitCostSheetDetail;
         }).error(function() {});
         return promise;
+	}
+	
+	this.getUserDetails = function(userId, compId) {
+        var promise = $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/User/UserDtls",
+            ContentType: 'application/json',
+            data: {
+                "user_id": userId,
+                "user_comp_guid": compId
+            }
+        }).success(function(data) {
+            userDetail = data;
+            return userDetail;
+        }).error(function() {});
+        return promise;
 	};
 });
 	

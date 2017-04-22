@@ -1,5 +1,5 @@
 app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uibModal,$state) {
-      $scope.searchLead = '';//set the default search/filter term
+    $scope.searchLead = '';//set the default search/filter term
     $scope.selected=[];//stores checked items only
     $scope.salesfunnelnameValues=[];
     $scope.assignedtoValues=[];
@@ -392,9 +392,10 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
         }
     };
 	
-	$scope.bookUnit = function(unitObj){
+	$scope.bookUnit = function(unitObj,prospectId){
 		$uibModalInstance.close();
 		$cookieStore.put("unitObj",unitObj);
+		$cookieStore.put("prospectId",prospectId);
 		$state.go('/BookUnit-Step1');
 	}
 });

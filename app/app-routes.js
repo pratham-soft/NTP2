@@ -281,4 +281,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/bookUnitStep1.html',
             controller: 'bookUnitStep1Ctrl'
         })
+		.state('/BookUnit-Step2', {
+            url: '/BookUnit-Step2/:prospectId',
+            templateUrl: 'partials/bookUnitStep2.html',
+            controller: 'bookUnitStep2Ctrl'
+        })
+		.state('/BookUnit-Step3', {
+            url: '/BookUnit-Step3',
+            templateUrl: 'partials/bookUnitStep3.html',
+            controller: 'bookUnitStep3Ctrl'
+        })
 });
