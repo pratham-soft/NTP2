@@ -350,6 +350,10 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
                 var planApprovedType = "false";
                 var landConvertedType = "false";
                 var relinquishType = "false";
+                var ownerdob = data.UnitTypeData_dob;
+                var ownerdobnew = ownerdob.split("/").reverse().join("-");
+                var gar_dob = data.UnitTypeData_gundob;
+                var gar_dobnew = gar_dob.split("/").reverse().join("-");
 
                 if (data.UnitTypeData_minor == "0") {
                     minorType = "true";
@@ -371,13 +375,13 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
                     ownerShipType: data.UnitTypeData_Phase_Id,
                     ownerName: data.UnitTypeData_ownrnm,
                     ownerSowodo: data.UnitTypeData_sowodo,
-                    ownerDob: data.UnitTypeData_dob,
+                    ownerDob: ownerdobnew,
                     ownerAddress: data.UnitTypeData_add,
                     ownerPan: data.UnitTypeData_pan,
                     minor: minorType,
                     guardianName: data.UnitTypeData_grdnm,
                     guardianSowodo: data.UnitTypeData_gunsowodo,
-                    guardianDob: data.UnitTypeData_gundob,
+                    guardianDob: gar_dobnew,
                     guardianAddress: data.UnitTypeData_gunadd,
                     guardianPan: data.UnitTypeData_gunpan,
                     relationshipWithMinor: data.UnitTypeData_gunrltnminor,

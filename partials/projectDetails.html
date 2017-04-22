@@ -51,7 +51,7 @@
                         <th>Phase</th>
                         <th>Type</th>
                         <th>Unit</th>
-						<th>Size</th>
+						<th>Size Of Flat</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -62,7 +62,7 @@
                         <td>{{getTypeNameById(x.Phase_UnitType_Id)}}</td>
                         <td><div class="dispNone">
 						{"ProjId":{{x.ProjId}},"Phase_Id":{{x.Phase_Id}},"Blocks_Id":{{x.Blocks_Id}},"UnitDtls_Id":{{x.UnitDtls_Id}}}</div>{{x.UnitDtls_Name}} - {{x.UnitDtls_No}} - {{x.UnitDtls_Floor}} Floor</td>
-                        <td>{{x.UnitDtls_Msrmnt}} sq ft</td>
+                        <td>{{x.UnitDtls_BuliltupArea}} sq ft</td>
                         <td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(x.ProjDtl_Id,x.UnitDtls_Id)"></span></td></tr>
 				</tbody>
 			</table>

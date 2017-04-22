@@ -308,6 +308,42 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
 
     $scope.editEmployee = function(formObj, formName) {
         $scope.submit = true;
+        
+        var dobuser = formObj.employeeDob;
+        var newdobuser = dobuser.split("/").reverse().join("-");
+        var dojuser = formObj.employeeDoj;
+        var newdoj = dojuser.split("/").reverse().join("-");
+        
+        var dobspouse = formObj.employeeSpouseDob;
+        var newdobspouse = "";
+        if(dobspouse!=undefined){
+         newdobspouse = dobspouse.split("/").reverse().join("-");   
+        }
+        
+        var dobchild1 = formObj.employeeChild1Dob;
+        var newdobchild1 = "";
+        if(dobchild1!=undefined){
+         newdobchild1 = dobchild1.split("/").reverse().join("-");   
+        }
+        
+        var dobchild2 = formObj.employeeChild2Dob;
+        var newdobchild2 = "";
+        if(dobchild2!=undefined){
+         newdobchild2 = dobchild2.split("/").reverse().join("-");   
+        }
+        
+        var dobchild3 = formObj.employeeChild3Dob;
+        var newdobchild3 = "";
+        if(dobchild3!=undefined){
+         newdobchild3 = dobchild3.split("/").reverse().join("-");   
+        }
+        
+        var dobchild4 = formObj.employeeChild4Dob;
+        var newdobchild4 = "";
+        if(dobchild4!=undefined){
+         newdobchild4 = dobchild4.split("/").reverse().join("-");   
+        }
+        
         if ($scope[formName].$valid) {
             console.log(formObj);
             angular.element(".loader").show();
@@ -323,8 +359,8 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
                     "user_last_name": formObj.employeeLastName,
                     "user_mobile_no": formObj.employeeMobileNumber,
                     "user_address": formObj.employeeAddress,
-                    "user_dob": formObj.employeeDob,
-                    "user_doj": formObj.employeeDoj,
+                    "user_dob": newdobuser,
+                    "user_doj": newdoj,
                     "user_email_address": formObj.employeeEmail,
                     "user_password": formObj.user_password,
                     "Emp_pan": formObj.employeePanNumber,
@@ -349,16 +385,16 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
                     "Emp_Reference2Name": formObj.employeeReference2Name,
                     "Emp_SourceofRecruitment": formObj.employeeSourceOfRecruit,
                     "Emp_spouse_aadhar": formObj.employeeSpouseAadhar,
-                    "Emp_spouse_dob": formObj.employeeSpouseDob,
+                    "Emp_spouse_dob": newdobspouse,
                     "Emp_spouse_nm": formObj.employeeSpouseName,
                     "Emp_spouse_pan": formObj.employeeSpousePan,
-                    "Emp_child1_dob": formObj.employeeChild1Dob,
+                    "Emp_child1_dob": newdobchild1,
                     "Emp_child1_nm": formObj.employeeChild1Name,
-                    "Emp_child2_dob": formObj.employeeChild2Dob,
+                    "Emp_child2_dob": newdobchild2,
                     "Emp_child2_nm": formObj.employeeChild2Name,
-                    "Emp_child3_dob": formObj.employeeChild3Dob,
+                    "Emp_child3_dob": newdobchild3,
                     "Emp_child3_nm": formObj.employeeChild3Name,
-                    "Emp_child4_dob": formObj.employeeChild4Dob,
+                    "Emp_child4_dob": newdobchild4,
                     "Emp_child4_nm": formObj.employeeChild4Name,
                     "Emp_noof_childrn": formObj.employeeChildrenNo,
                     "user_dept_id": formObj.employeeDepartment,
@@ -379,7 +415,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
     $scope.appendFields = function(noOfChild) {
         angular.element("#children").html('');
         for (i = 1; i <= noOfChild; i++) {
-            var childDiv = '<div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Name" class="show-hide">Child ' + i + ' Name*</label><input type="text" placeholder="Child ' + i + ' Name" title="Child ' + i + ' Name" class="form-control" name="child' + i + 'Name" ng-model="addEmployee.employeeChild' + i + 'Name" /></div><div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Dob" class="show-hide">Child ' + i + ' D.O.B. (YYYY-DD-MM) *</label><input type="text" placeholder="Child ' + i + ' D.O.B. (YYYY-DD-MM)" title="Child ' + i + ' D.O.B." class="form-control" name="child' + i + 'Dob" ng-model="addEmployee.employeeChild' + i + 'Dob"/></div>';
+            var childDiv = '<div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Name" class="show-hide">Child ' + i + ' Name*</label><input type="text" placeholder="Child ' + i + ' Name" title="Child ' + i + ' Name" class="form-control" name="child' + i + 'Name" ng-model="addEmployee.employeeChild' + i + 'Name" /></div><div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Dob" class="show-hide">Child ' + i + ' D.O.B. (DD/MM/YYYY) *</label><datepicker date-format="dd/MM/yyyy"><input type="text" placeholder="Child ' + i + ' D.O.B. (DD//MM/YYYY)" title="Child ' + i + ' D.O.B." class="form-control" name="child' + i + 'Dob" ng-model="addEmployee.employeeChild' + i + 'Dob"/><i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker></div><br>';
             var childDivComplied = $compile(childDiv)($scope);
             angular.element("#children").append(childDivComplied);
         }
@@ -388,7 +424,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
     function appendFields(noOfChild) {
         angular.element("#children").html('');
         for (i = 1; i <= noOfChild; i++) {
-            var childDiv = '<div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Name" class="show-hide">Child ' + i + ' Name*</label><input type="text" placeholder="Child ' + i + ' Name" title="Child ' + i + ' Name" class="form-control" name="child' + i + 'Name" ng-model="addEmployee.employeeChild' + i + 'Name" /></div><div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Dob" class="show-hide">Child ' + i + ' D.O.B. (YYYY-DD-MM) *</label><input type="text" placeholder="Child ' + i + ' D.O.B. (YYYY-DD-MM)" title="Child ' + i + ' D.O.B." class="form-control" name="child' + i + 'Dob" ng-model="addEmployee.employeeChild' + i + 'Dob"/></div>';
+            var childDiv = '<div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Name" class="show-hide">Child ' + i + ' Name*</label><input type="text" placeholder="Child ' + i + ' Name" title="Child ' + i + ' Name" class="form-control" name="child' + i + 'Name" ng-model="addEmployee.employeeChild' + i + 'Name" /></div><div class="field"><label ng-show="addEmployee.employeeChild' + i + 'Dob" class="show-hide">Child ' + i + ' D.O.B. (DD/MM/YYYY) *</label><datepicker date-format="dd/MM/yyyy"><input type="text" placeholder="Child ' + i + ' D.O.B. (DD/MM/YYYY)" title="Child ' + i + ' D.O.B." class="form-control" name="child' + i + 'Dob" ng-model="addEmployee.employeeChild' + i + 'Dob"/><i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker></div><br>';
             var childDivComplied = $compile(childDiv)($scope);
             angular.element("#children").append(childDivComplied);
         }
