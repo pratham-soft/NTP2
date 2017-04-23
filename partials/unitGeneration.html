@@ -68,6 +68,7 @@
             </select>
          </div>
       </div>
+       <div ng-show="untGeneration.typeId == 1">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="blockFloorUnits == 0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
             <label>No. of Floors:</label>
@@ -84,8 +85,36 @@
             <input type="text" class="form-control" placeholder="Units Per Floor" name="unitsPerFloor" ng-model="untGeneration.unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}">
          </div>
       </div>
+       </div>
+       
+        <div ng-show="untGeneration.typeId == 2">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="blockFloorUnits == 0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+            <label>No. of Releases:</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" class="form-control" placeholder="No. of Releases" name="noOfFloors" ng-required="true" ng-class="{blankInput: untGenerationForm.noOfFloors.$error.required &amp;&amp; submit}">
+         </div>
+      </div>
+       </div>
+       
+       <div ng-show="untGeneration.typeId == 3">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="blockFloorUnits == 0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+            <label>No. of Releases:</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" class="form-control" placeholder="No. of Releases" name="noOfFloors" ng-required="true" ng-class="{blankInput: untGenerationForm.noOfFloors.$error.required &amp;&amp; submit}">
+         </div>
+      </div>
+       </div>
+       
+       
    </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0">
+    
+<!--  -->
+    
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0 ">
    <h4>Unit Generation Formula</h4>
    <label for="unitNo">Starting Unit No. (For Each Floor): </label>
    <input type="text" id="unitNo" name="unitNo" ng-model="untGeneration.unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}"> | 
@@ -106,7 +135,10 @@
    </button>
 </div>
 </form>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits == 0">
+
+<!-- will show this part if flats are selected -->
+<div ng-show="untGeneration.typeId == 1">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits == 0 ">
    <h4>Sample Units</h4>
 	<table class="sampleUnits">
 		<thead>
@@ -130,6 +162,188 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" ng-show="blockFloorUnits == 0">
    <button type="button" class="btn btn-primary" ng-click="generateForAllFloors('units',untDetails,untGeneration)">Generate for all floors from sample units</button>
 </div>
+</div>
+<!-- will show this part if flats are selected Ends here -->
+
+
+<!-- will show this part if plots are selected -->
+<div ng-show="untGeneration.typeId == 2">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits == 0 ">
+   <h4>Sample Units</h4>
+	<table class="sampleUnits">
+		<thead>
+            <tr>
+            <th colspan="6"></th>
+            <th colspan="2" style="text-align:center">Dimensions in</th>
+            <th colspan="3"></th>
+            </tr>
+			<tr>
+				<th> No.</th>
+				<th>Facing</th>
+				<th>East</th>
+                <th>West</th>
+                <th>North</th>
+                <th>South</th>
+                <th>East+west</th>
+                <th>North+South</th>
+				<th>Area</th>
+				<th>Release No</th>
+                <th>Corner PLot</th>
+			</tr>
+		</thead>
+		<tbody id="unitRows">
+            <form name="" class="form" method="POST" novalidate="novalidate">
+            <tr>
+               <td><input type="text" class="form-control" name="UnitDtls_No" /></td>
+                <td>
+                  <select class="form-control" name="UnitDtls_Directn" >
+                     <option value="">Select</option>
+                     <option value="E">E </option>
+                     <option value="W">W </option>
+                     <option value="N">N </option>
+                     <option value="S">S </option>
+                     <option value="NW">NW </option>
+                     <option value="NE">NE </option>
+                     <option value="SW">SW </option>
+                     <option value="SE">SE </option>
+                  </select>
+               </td>
+                <td><input type="text" class="form-control" name="UnitDtls_No"  /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Name" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Type"  /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_No" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Name"  /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Type"  /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea"  /></td>
+               <td><input type="text" class="form-control" name="unitPercentage" /></td>
+                 <td>
+                  <input type="checkbox" class="form-control">
+               </td>
+            </tr>
+         </form>
+		</tbody>
+	</table>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" ng-show="blockFloorUnits == 0">
+   <button type="button" class="btn btn-primary" ng-click="generateForAllFloors('units',untDetails,untGeneration)">Generate for all floors from sample units</button>
+</div>
+</div>
+<!-- will show this part if plots are selected Ends here -->
+
+<!-- will show this part if villas are selected -->
+<div ng-show="untGeneration.typeId == 3">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits == 0 ">
+   <h4>Sample Units</h4>
+	<table class="sampleUnits">
+		<thead>
+            <tr>
+            <th colspan="6"></th>
+            <th colspan="2" style="text-align:center">Dimensions in</th>
+            <th colspan="9"></th>
+            </tr>
+			<tr>
+				<th>Site No.</th>
+				<th>Facing   </th>
+				<th>East</th>
+                <th>West</th>
+                <th>North</th>
+                <th>South</th>
+                <th>East+west</th>
+                <th>North+South</th>
+				<th>Bedroom</th>
+				<th>Balconies</th>
+				<th>Bathrooms</th>
+				<th>Super Built-up Area</th>
+				<th>% Age</th>
+				<th>Carpet Area</th>
+				<th>Premium</th>
+				<th>Release No</th>
+                <th>Corner PLot</th>
+			</tr>
+		</thead>
+		<tbody id="unitRows">
+		     <form name="" class="form" method="POST" novalidate="novalidate">
+            <tr>
+               <td><input type="text" class="form-control" name="UnitDtls_No" /></td>
+                <td>
+                  <select style="width:70px;" class="form-control" name="UnitDtls_Directn" >
+                     <option value="">Select</option>
+                     <option value="E">E </option>
+                     <option value="W">W </option>
+                     <option value="N">N </option>
+                     <option value="S">S </option>
+                     <option value="NW">NW </option>
+                     <option value="NE">NE </option>
+                     <option value="SW">SW </option>
+                     <option value="SE">SE </option>
+                  </select>
+               </td>
+                <td><input type="text" class="form-control" name="UnitDtls_No"  /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Name" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Type"  /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_No" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Name"  /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Type"  /></td>
+               <td>
+                  <select class="form-control" name="UnitDtls_Rooms" >
+                     <option value="">Select</option>
+                     <option value="0">0</option>
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                     <option value="6">6</option>
+                     <option value="7">7</option>
+                     <option value="8">8</option>
+                  </select>
+               </td>
+               <td>
+                  <select class="form-control" name="UnitDtls_Balcn" >
+                     <option value="">Select</option>
+                     <option value="0">0</option>
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                  </select>
+               </td>
+               <td>
+                  <select class="form-control" name="UnitDtls_BRoom" >
+                     <option value="">Select</option>
+                     <option value="0">0</option>
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                  </select>
+               </td>
+               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea"  /></td>
+               <td><input type="text" class="form-control" name="unitPercentage" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_Msrmnt"  /></td>
+                <td>
+                  <select class="form-control" name="UnitDtls_Premium" >
+                     <option value="">Select</option>
+                     <option value="0">Y</option>
+                     <option value="1">N</option>
+                  </select>
+               </td>
+                <td><input type="text" class="form-control" name="UnitDtls_No"  /></td>
+                 <td>
+                  <input type="checkbox" class="form-control">
+               </td>
+            </tr>
+         </form>
+		</tbody>
+	</table>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" ng-show="blockFloorUnits == 0">
+   <button type="button" class="btn btn-primary" ng-click="generateForAllFloors('units',untDetails,untGeneration)">Generate for all floors from sample units</button>
+</div>
+</div>
+<!-- will show this part if villas are selected Ends here -->
 
 <!-- Units display in a table if a block already has units -->
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits > 0 && untGeneration.block != undefined">   
