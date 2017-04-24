@@ -8,11 +8,40 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 		discountType: 0
 	};
 	
+    var updatedCostSheetObj = {};
+    
 	$scope.getUnitCostSheet = (function() {
         angular.element(".loader").show();
         httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
             $scope.unitCostSheetDetail = response.data;
-			console.log(JSON.stringify($scope.unitCostSheetDetail));
+            
+        updatedCostSheetObj = {
+              "Untctcm_comp_guid": $cookieStore.get('comp_guid'),
+              "Untctcm_templname": "TestfromAPI",
+              "Untctcm_Blocks_Id": $scope.unitObj.Blocks_Id,
+              "Untctcm_SBA": $scope.unitCostSheetDetail.sba,
+              "Untctcm_SiteArea": 0,
+              "Untctcm_Cost": $scope.unitCostSheetDetail.basecost,
+              "Untctcm_Ascending": $scope.unitCostSheetDetail.flraiseasce,
+              "Untctcm_FlrRseCost": $scope.unitCostSheetDetail.flraisecost,
+              "Untctcm_From": $scope.unitCostSheetDetail.flraisefrm,
+              "Untctcm_To": $scope.unitCostSheetDetail.flraiseto
+        };
+            
+			var count = 0;
+            for(i=1;i<=20;i++){
+                if($scope.unitCostSheetDetail['cstcmpnme'+i]!=""){
+                    console.log($scope.unitCostSheetDetail['cstcmpnme'+i]);
+                    updatedCostSheetObj['Untctcm_code'+i] = "";
+                    updatedCostSheetObj['Untctcm_name'+i] = $scope.unitCostSheetDetail['cstcmpnme'+i];
+                    updatedCostSheetObj['Untctcm_calctyp'+i] = $scope.unitCostSheetDetail['cstcmpnme'+i];
+                    updatedCostSheetObj['Untctcm_val_formula'+i] = $scope.unitCostSheetDetail['cstcmpnme'+i];
+                    updatedCostSheetObj['Untctcm_comments'+i] = $scope.unitCostSheetDetail['cstcmpnme'+i];
+                    updatedCostSheetObj['Untctcm_calctyp'+i] = $scope.unitCostSheetDetail['cstcmpnme'+i];
+                    count++;
+                }
+            }
+            var newComponentCount = count+1;
             angular.element(".loader").hide();
         });
     })();
