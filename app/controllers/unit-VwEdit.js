@@ -103,6 +103,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
             $scope.units = response.data[0];
             $scope.blockFloorUnits = response.data[1].Blocks_UnitPerfloor;
             $scope.UnitsArr = [];
+            if($scope.units.length>1){
             for (i = 0; i < $scope.units.length; i++) {
                 var unitObj = {};
                 unitObj.UnitDtls_No = $scope.units[i].UnitDtls_No;
@@ -124,6 +125,10 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
                 unitObj.UnitDtls_SthMsrmnt = 0;
                 unitObj.UnitDtls_Status = $scope.units[i].UnitDtls_Status;
                 $scope.UnitsArr.push(unitObj);
+            }}
+            else{
+                alert("No Data found, Please add the units in the Block!");
+                $state.reload();
             }
             console.log($scope.UnitsArr);
             angular.element(".loader").hide();
