@@ -277,12 +277,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'unitVwEditCtrl'
         })
 		.state('/BookUnit-Step1', {
-            url: '/BookUnit-Step1/:unitId',
+            url: '/BookUnit-Step1',
             templateUrl: 'partials/bookUnitStep1.html',
             controller: 'bookUnitStep1Ctrl'
         })
 		.state('/BookUnit-Step2', {
-            url: '/BookUnit-Step2/:prospectId',
+            url: '/BookUnit-Step2',
             templateUrl: 'partials/bookUnitStep2.html',
             controller: 'bookUnitStep2Ctrl'
         })

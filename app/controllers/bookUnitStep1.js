@@ -155,9 +155,6 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 	}
 	
 	$scope.saveStep1 = function(prospectId){
-		alert(prospectId);
-		$state.go('/BookUnit-Step2',{
-			'prospectId':prospectId
-		});
+		$state.go('/BookUnit-Step2');
 	}
 });
