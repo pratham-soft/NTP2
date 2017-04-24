@@ -1,4 +1,4 @@
-app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $uibModal,$window, myService) {
+app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $uibModal,$window, myService, $stateParams) {
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
 
@@ -84,18 +84,20 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
         $scope.checkBlockUnits = function(formObj) {
              var projectId = formObj.projectName.$viewValue;
             var phaseId = formObj.phase.$viewValue;    
-            var blockId = formObj.block;    
+            var blockId = formObj.block;
+            
         if (blockId == undefined) {
             return;}
-        else
-            {
-             $state.go("/UnitGeneration", {
-                    projId: projectId,
-                    phaseId: phaseId,
-                    blockId:blockId
-                });
-        }
-       /* var compId = $cookieStore.get('comp_guid');
+//        else
+//            {
+//             $state.go("/UnitGeneration", {
+//                    projId: projectId,
+//                    phaseId: phaseId,
+//                    typeID:typeId,
+//                    blockId:blockId
+//                });
+//        }
+       var compId = $cookieStore.get('comp_guid');
         angular.element(".loader").show();
         myService.getUnitsByBlock(compId, blockId).then(function(response) {
             $scope.units = response.data[0];
@@ -125,7 +127,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
             }
             console.log($scope.UnitsArr);
             angular.element(".loader").hide();
-        });*/
+        });
     };
       /*  $http({
             method: "POST",
@@ -142,6 +144,37 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
             angular.element(".loader").hide();
         });*/
     };
+    
+    $scope.addBlockUnit = function(formObj, formName, parentObj) {
+        for (i = 0; i < formObj.length; i++) {
+            formObj[i].UnitDtls_comp_guid = $cookieStore.get('comp_guid');
+            /*formObj[i].UnitDtls_Unit_type_id = 3;*/
+            formObj[i].UnitDtls_Block_Id = parentObj.block;
+            formObj[i].UnitDtls_user_id = $cookieStore.get('user_id');
+        }
+
+        console.log(formObj);
+
+        var unitsData = JSON.stringify(formObj);
+
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Update",
+            ContentType: 'application/json',
+            data: unitsData
+        }).success(function(data) {
+            console.log(data);
+            $state.go("/ApplyCostSheet", {
+                "projectId": $stateParams.projId,
+                "phaseId": $stateParams.phaseId,
+                "blockId": parentObj.block
+            });
+        }).error(function() {});
+    }
+    
+    
+    
+    
     
     $scope.exist = function(item) {
         return $scope.selected.indexOf(item) > -1;
