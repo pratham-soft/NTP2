@@ -271,6 +271,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/createNewEmailTemplate.html',
             controller: 'createNewEmailTemplateCtrl'
         })
+      .state('/EditEmailTemplate', {
+            url: '/EditEmailTemplate/:tempemailid',
+            templateUrl: 'partials/createNewEmailTemplate.html',
+            controller: 'editEmailTemplateCtrl'
+        })
         .state('/UnitVwEdit', {
             url: '/UnitVwEdit',
             templateUrl: 'partials/UnitVwEdit.html',

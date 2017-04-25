@@ -16,13 +16,16 @@
 			<tr>
                 <td>#</td>
                 <td>Template Name</td>
-                <td>Subject</td>
-                <td>Module</td>
-                <td>Attachments</td>
+                <td>Subject</td>               
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
+			<tr ng-repeat="x in emailTemplates | filter:searchLead track by $index">
+				<td>{{$index + 1}}</td>
+				<td>{{x.tempemail_name}}</td>
+				<td>{{x.tempemail_subject}}</td>
+                <td><a><span class="link" ui-sref="/EditEmailTemplate({tempemailid: {{x.tempemailid}} } )" ui-sref="/EditEmailTemplate">Edit</span></a></td>
+                
 			</tr>
 		</tbody>
 	</table>
