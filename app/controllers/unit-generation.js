@@ -224,7 +224,9 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         
     };
     
-    
+    $scope.apiAlert=function(){
+        alert("Can't be saved API Not Avialable");
+    }
 
     $scope.calculatePercentage = function(id) {
         var percentage = $('#untDetails' + id + 'unitPercentage').val();
