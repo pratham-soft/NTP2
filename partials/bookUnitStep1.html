@@ -149,9 +149,9 @@
    </table>
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
       <button type="button" class="btn btn-default" ng-click="addCostComponent()">Add Cost Component</button>
-      <div class="formulaTable"></div>
+      <div class="formulaTable borderBox"></div>
    </div>
-   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderBox">
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 labelCntr">
          <label for="discount">Discount</label>
       </div>
@@ -171,19 +171,19 @@
       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
          <input type="text" class="form-control" placeholder="Dicount (Flat / %)" name="discountVal" ng-model="discount.discountVal"/>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-         <button type="button" class="btn btn-primary" ng-click="calculateFinalPrice(discount)">Calculate</button>
-      </div>
-   </div>
-   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginTop10">
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 labelCntr">
          <label>Final Cost</label>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
          <input type="text" ng-model="finalCost" class="form-control" placeholder="Final Cost" readonly="true"/>
       </div>
+           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+         <button type="button" class="btn btn-primary" ng-click="calculateFinalPrice(discount)">Calculate Final Cost</button>
+      </div>
    </div>
-   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+   </div>
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop10 padding0">
       <button type="button" class="btn btn-success" ng-click="saveStep1()">Save &amp; Next</button>
    </div>
 </div>

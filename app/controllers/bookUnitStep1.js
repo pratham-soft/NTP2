@@ -82,7 +82,10 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
         });
     };
     /* Add cost component*/
-    
+    $scope.discount = {
+        discountField:'',
+        discountVal:''
+    };
 	$scope.calculateFinalPrice = function(obj){
         var discountFormula = obj.discountField+'-'+obj.discountVal;
         $scope.updatedCostSheetObj.Untctcm_code20 = "DISC";
@@ -95,7 +98,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
     }
     
 	$scope.saveStep1 = function(){        
-        /*$state.go('/BookUnit-Step2');*/
+        $state.go('/BookUnit-Step2');
 	}
 });
 

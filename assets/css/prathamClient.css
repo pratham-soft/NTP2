@@ -857,3 +857,8 @@ td.inputType{
 .unitDetails span:last-child{
 	border-bottom: 0;
 }
+.borderBox{
+    border: 1px solid #DDD;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+}
