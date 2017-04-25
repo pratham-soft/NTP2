@@ -4,6 +4,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
     var unitNosArr = [];
+   
     
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
@@ -23,7 +24,8 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     $scope.untGeneration = {
                         projectName: $scope.projectId,
                         phase: $scope.phaseId,
-                        typeId: $scope.phaseList[i].Phase_UnitType.UnitType_Id
+                        typeId: $scope.phaseList[i].Phase_UnitType.UnitType_Id,
+                        block : $scope.blockId
                     };
                     $scope.typeObj = $scope.phaseList[i].Phase_UnitType;
                 }
@@ -56,6 +58,9 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         });
     })();
 
+     
+    
+    
     $scope.addSampleData = function(formObj, formName) {
         $scope.submit = true;
         if ($scope[formName].$valid) {
@@ -108,6 +113,118 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             /*End Update Block*/
         }
     };
+    
+    
+    
+    $scope.addSamplePlots = function(formObj, formName) {
+        $scope.submit = true;
+        formObj.noOfFloors="1";
+       
+            /*Update Block*/
+            $http({
+                method: "POST",
+                url: "http://120.138.8.150/pratham/Proj/Block/Updt",
+                ContentType: 'application/json',
+                data: {
+                    "Blocks_comp_guid": $cookieStore.get('comp_guid'),
+                    "Blocks_Id": formObj.block,
+                    "Blocks_Floors": formObj.noOfFloors,
+                    "Blocks_UnitPerfloor": formObj.unitsPerFloor,
+                    "Blocks_Devation": "true"
+                }
+            }).success(function(data) {
+                var res = data.Comm_ErrorDesc;
+                var resSplit = res.split('|');
+                console.log(resSplit[0]);
+                if (resSplit[0] == 0) {
+                    if (formObj.seperator == undefined) {
+                        formObj.seperator = "";
+                    }
+                    if (formObj.noOfFloors > 9) {
+                        floorNo = "";
+                    } else {
+                        floorNo = "";
+                    }
+
+                    angular.element("#plotRows").html('');
+                    unitNosArr = [];
+                    var unitsPerFloor = formObj.unitsPerFloor;
+                    var unitNo = parseInt(formObj.unitNo);
+                    var skipBy = parseInt(formObj.skipBy);
+                    var i = 1;
+                    while (i <= unitsPerFloor) {
+                        unitNosArr.push(unitNo);
+                        var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo +formObj.seperator + unitNo + '"name="unitNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="untDetails[' + i + '].plotFacing"> <option value="">Select</option> <option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td> <td><input type="text" class="form-control" name="plotEast" ng-model="untDetails[' + i + '].plotEast"/> </td> <td><input type="text" class="form-control" name="plotWest" ng-model="untDetails[' + i + '].plotWest"/> </td> <td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].plotNorth"/> </td> <td><input type="text" class="form-control" name="plotSouth" ng-model="untDetails[' + i + '].plotSouth"/> </td><td><input type="text" class="form-control" name="plotEastWest" ng-model="untDetails[' + i + '].plotEastWest"/> </td> <td><input type="text" class="form-control" name="plotNorthSouth" ng-model="untDetails[' + i + '].plotNorthSouth"/> </td> <td><input type="text" class="form-control" name="plotSuperArea" id="untDetails' + i + 'plotSuperArea" ng-model="untDetails[' + i + '].plotSuperArea"/> </td> <td><datepicker date-format="dd/MM/yyyy"><input type="text"  class="form-control" name="untDetails' + i + 'plotReleaseDate" ng-model="untDetails[' + i + '].plotDate"/> <i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker> </td> <td><input type="checkbox" class="form-control" name="plotCorner" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].plotCorner"/> </td> </tr>';
+                        var tableRowComplied = $compile(tableRow)($scope);
+                        angular.element("#plotRows").append(tableRowComplied);
+                        unitNo = unitNo + skipBy;
+                        i++;
+                    }
+                    console.log(unitNosArr);
+                }
+                angular.element(".loader").hide();
+            }).error(function() {
+                angular.element(".loader").hide();
+            });
+            /*End Update Block*/
+        
+    };
+    
+    $scope.addSampleVillas = function(formObj, formName) {
+        $scope.submit = true;
+        formObj.noOfFloors="1";
+       
+            /*Update Block*/
+            $http({
+                method: "POST",
+                url: "http://120.138.8.150/pratham/Proj/Block/Updt",
+                ContentType: 'application/json',
+                data: {
+                    "Blocks_comp_guid": $cookieStore.get('comp_guid'),
+                    "Blocks_Id": formObj.block,
+                    "Blocks_Floors": formObj.noOfFloors,
+                    "Blocks_UnitPerfloor": formObj.unitsPerFloor,
+                    "Blocks_Devation": "true"
+                }
+            }).success(function(data) {
+                var res = data.Comm_ErrorDesc;
+                var resSplit = res.split('|');
+                console.log(resSplit[0]);
+                if (resSplit[0] == 0) {
+                    if (formObj.seperator == undefined) {
+                        formObj.seperator = "";
+                    }
+                    if (formObj.noOfFloors > 9) {
+                        floorNo = "";
+                    } else {
+                        floorNo = "";
+                    }
+
+                    angular.element("#villaRows").html('');
+                    unitNosArr = [];
+                    var unitsPerFloor = formObj.unitsPerFloor;
+                    var unitNo = parseInt(formObj.unitNo);
+                    var skipBy = parseInt(formObj.skipBy);
+                    var i = 1;
+                    while (i <= unitsPerFloor) {
+                        unitNosArr.push(unitNo);
+                        var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo + formObj.seperator +  unitNo + '" name="villaNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="villaFacing" ng-model="untDetails[' + i + '].villaFacing"><option value="">Select</option> <option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option><option value="SW">SW</option> <option value="SE">SE</option></select></td><td><input type="text" class="form-control" name="villaEast" ng-model="untDetails[' + i + '].villaEast"/></td> <td><input type="text" class="form-control" name="villaWest" ng-model="untDetails[' + i + '].villaWest"/> </td><td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].villaNorth"/> </td> <td><input type="text" class="form-control" name="villaSouth" ng-model="untDetails[' + i + '].villaSouth"/> </td><td><input type="text" class="form-control" name="villaEastWest" ng-model="untDetails[' + i + '].villaEastWest"/></td> <td><input type="text" class="form-control" name="villaNorthSouth" ng-model="untDetails[' + i + '].villaNorthSouth"/></td><td> <select class="form-control" name="villaBedroom" ng-model="untDetails[' + i + '].villaBedroom"> <option value="">Select</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option>  <option value="6">6</option> <option value="7">7</option>  <option value="8">8</option>  </select> </td> <td> <select class="form-control" name="villaBalconies" ng-model="untDetails[' + i + '].villaBalconies"> <option value="">Select</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option></select> </td> <td> <select class="form-control" name="villaBathrooms" ng-model="untDetails[' + i + '].villaBathrooms">  <option value="">Select</option> <option value="1">1</option> <option value="2">2</option><option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </td> <td><input type="text" class="form-control" name="villaSuperArea" id="untDetails' + i + 'villaSuperArea" ng-model="untDetails[' + i + '].villaSuperArea"/></td> <td><input type="number"  id="untDetails' + i + 'unitPercentage"  class="form-control" name="villaPercentage" ng-model="untDetails[' + i + '].villaPercentage"/></td> <td><input type="text" class="form-control" ng-disabled="true" name="villaCarpetArea" id="untDetails' + i + 'villaCarpetArea" ng-model="untDetails[' + i + '].villaCarpetArea"/></td><td> <select class="form-control" name="villaPremium" ng-model="untDetails[' + i + '].villaPremium"> <option value="">Select</option> <option value="Y">Y</option> <option value="N">N</option> </select> </td><td><datepicker date-format="dd/MM/yyyy"><input type="text" placeholder="Release Date" class="form-control" name="untDetails' + i + 'villaReleaseDate" ng-model="untDetails[' + i + '].villaDate"/><i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker></td><td><input type="checkbox" class="form-control" name="plotCorner" id="untDetails' + i + 'villaCorner" ng-model="untDetails[' + i + '].villaCorner"/></td></tr>';
+                        var tableRowComplied = $compile(tableRow)($scope);
+                        angular.element("#villaRows").append(tableRowComplied);
+                        unitNo = unitNo + skipBy;
+                        i++;
+                    }
+                    console.log(unitNosArr);
+                }
+                angular.element(".loader").hide();
+            }).error(function() {
+                angular.element(".loader").hide();
+            });
+            /*End Update Block*/
+        
+    };
+    
+    
 
     $scope.calculatePercentage = function(id) {
         var percentage = $('#untDetails' + id + 'unitPercentage').val();
@@ -180,9 +297,10 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         }).error(function() {});
     };
 
-    $scope.checkBlockUnits = function(blockId) {
+    ($scope.checkBlockUnits = function(blockId) {
         if (blockId == undefined) {
-            return;
+           blockId=$scope.blockId;
+           //$scope.untGeneration.block=blockId;
         }
         var compId = $cookieStore.get('comp_guid');
         angular.element(".loader").show();
@@ -215,8 +333,11 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             console.log($scope.UnitsArr);
             angular.element(".loader").hide();
         });
-    };
+    })();
 
+   // $scope.checkBlockUnits($scope.blockId);
+    // populating units
+    
     $scope.addBlockUnit = function(formObj, formName, parentObj) {
         for (i = 0; i < formObj.length; i++) {
             formObj[i].UnitDtls_comp_guid = $cookieStore.get('comp_guid');
