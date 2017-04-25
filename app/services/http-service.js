@@ -29,7 +29,20 @@ app.service('httpSvc', function($http) {
             return userDetail;
         }).error(function() {});
         return promise;
-	};
+	}
+	
+	this.generateCustomerCostSheet = function(obj){
+		var promise = $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Proj/Cust/BldValforUtCtSt",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {
+            apiRsponse = data;
+            return apiRsponse;
+        }).error(function() {});
+        return promise;
+	}
 });
 	
 app.service('myService', function($http) {

@@ -13,8 +13,9 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
             
         $scope.updatedCostSheetObj = {
               "Untctcm_comp_guid": $cookieStore.get('comp_guid'),
+			  "untctcm_UnitDtls_Id":unitId,
               "Untctcm_templname": "TestfromAPI",
-              "Untctcm_Blocks_Id": $scope.unitObj.Blocks_Id,
+              "Untctcm_Blocks_Id": 0,
               "Untctcm_SBA": $scope.unitCostSheetDetail.sba,
               "Untctcm_SiteArea": 0,
               "Untctcm_Cost": $scope.unitCostSheetDetail.basecost,
@@ -24,15 +25,14 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
               "Untctcm_To": $scope.unitCostSheetDetail.flraiseto
         };
             
-            for(i=1;i<=20;i++){
-                if($scope.unitCostSheetDetail['cstcmpnme'+i]!=""){
-                    /*console.log($scope.unitCostSheetDetail['cstcmpnme'+i]);*/
+            for(i=1;i<=19;i++){
                     $scope.updatedCostSheetObj['Untctcm_code'+i] = "";
                     $scope.updatedCostSheetObj['Untctcm_name'+i] = $scope.unitCostSheetDetail['cstcmpnme'+i];
                     $scope.updatedCostSheetObj['Untctcm_calctyp'+i] = $scope.unitCostSheetDetail['cstcmpcalctyp'+i];
                     $scope.updatedCostSheetObj['Untctcm_val_formula'+i] = $scope.unitCostSheetDetail['cstcmpcalcfrm'+i];
                     $scope.updatedCostSheetObj['Untctcm_comments'+i] = $scope.unitCostSheetDetail['cstcmpcalccmnt'+i];
-                    count++;
+				if($scope.unitCostSheetDetail['cstcmpnme'+i]!=""){
+					count++;
                 }
             }
             /*console.log(JSON.stringify(updatedCostSheetObj));*/
@@ -83,18 +83,22 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
     };
     /* Add cost component*/
     $scope.discount = {
-        discountField:'',
+        discountType:'0',
         discountVal:''
     };
 	$scope.calculateFinalPrice = function(obj){
-        var discountFormula = obj.discountField+'-'+obj.discountVal;
         $scope.updatedCostSheetObj.Untctcm_code20 = "DISC";
         $scope.updatedCostSheetObj.Untctcm_name20 = "DISCOUNT";
-        $scope.updatedCostSheetObj.Untctcm_calctyp20 = 0;
-        $scope.updatedCostSheetObj.Untctcm_val_formula20 = discountFormula;
-        $scope.updatedCostSheetObj.Untctcm_comments20 = 0;
+        $scope.updatedCostSheetObj.Untctcm_calctyp20 = parseInt(obj.discountType);
+        $scope.updatedCostSheetObj.Untctcm_val_formula20 = obj.discountVal;
+        $scope.updatedCostSheetObj.Untctcm_comments20 = "";
         
         console.log(JSON.stringify($scope.updatedCostSheetObj));
+		httpSvc.generateCustomerCostSheet($scope.updatedCostSheetObj).then(function(response) {
+			var res = response.data.Comm_ErrorDesc;
+			resArr = res.split('|');
+			$scope.finalCost = resArr[2];
+		});
     }
     
 	$scope.saveStep1 = function(){        
