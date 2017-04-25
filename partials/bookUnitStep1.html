@@ -1,179 +1,249 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-	<h1>{{pageTitle}}</h1>
+   <h1>{{pageTitle}}</h1>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
-	<ol class="breadcrumb">
-	  <li><a ui-sref="/">Home</a></li>      
+   <ol class="breadcrumb">
+      <li><a ui-sref="/">Home</a></li>
       <li class="active">{{pageTitle}} - {{prospectId}}</li>
-	</ol>	
+   </ol>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	<div class="unitDetails">
-		<span>Project: {{unitObj.Proj_Name}}</span>
-		<span>Phase: {{unitObj.Phase_Name}}</span>
-		<span>Block: {{unitObj.Blocks_Name}}</span>
-		<span>Flat No.: {{unitCostSheetDetail.UnitDtls_No}}</span>
-	</div>
-	<h3 class="text-center">Unit Cost Sheet</h3>
-	<table class="table borderDef">
-				<tr>
-					<td>Type</td>
-					<td>{{unitCostSheetDetail.UnitDtls_Name}}</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>SBA</td>
-					<td>{{unitCostSheetDetail.sba}}</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Actual Price / Sq. Ft.</td>
-					<td>{{unitCostSheetDetail.basecost}}</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Floor Raise Charges</td>
-					<td>{{unitCostSheetDetail.flraisecost}}</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Basic Cost</td>
-					<td>{{unitCostSheetDetail.unitcostcal_basecostval}}</td>
-					<td></td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme1!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme1}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval1}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt1}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme2!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme2}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval2}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt2}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme3!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme3}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval3}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt3}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme4!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme4}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval4}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt4}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme5!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme5}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval5}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt5}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme6!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme6}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval6}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt6}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme7!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme7}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval7}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt7}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme8!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme8}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval8}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt8}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme9!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme9}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval9}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt9}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme10!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme10}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval10}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt10}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme11!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme11}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval11}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt11}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme12!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme12}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval12}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt12}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme13!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme13}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval13}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt13}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme14!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme14}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval14}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt14}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme15!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme15}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval15}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt15}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme16!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme16}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval16}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt16}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme17!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme17}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval17}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt17}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme18!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme18}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval18}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt18}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme19!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme19}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval19}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt19}}</td>
-				</tr>
-				<tr ng-show="unitCostSheetDetail.cstcmpnme20!=''">
-					<td>{{unitCostSheetDetail.cstcmpnme20}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalcval20}}</td>
-					<td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
-				</tr>
-				<tr>
-					<td><strong>Total</strong></td>
-					<td><strong>{{unitCostSheetDetail.unitcostcal_totcost}}</strong></td>
-					<td><strong>Total Cost (Excluding cost of registration)</strong></td>
-				</tr>
-			</table>
-	
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 labelCntr">
-						<label for="discount">Discount</label>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-						<input type="number" id="discount" ng-model="discount.value" ng-required="true" class="form-control"/>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 radioLabel">
-							<input type="radio" name="discountType" ng-model="discount.discountType" id="flatValue" value="0"/>
-							<label for="flatValue">Flat</label>
-							<input type="radio" name="discountType" ng-model="discount.discountType" id="percentage" value="1" disabled="true"/>
-							<label for="percentage">Percentage</label>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<button type="button" class="btn btn-primary" ng-click="calculateFinalPrice(discount,unitCostSheetDetail.unitcostcal_totcost)">Calculate</button>
-					</div>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 labelCntr">
-						<label>Final Cost</label>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-						<input type="text" ng-model="finalCost" class="form-control" placeholder="Final Cost" readonly="true"/>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<button type="button" class="btn btn-primary" ng-click="saveStep1(prospectId)">Next</button>
-					</div>
-				</div>
+   <div class="unitDetails">
+      <span>Project: {{unitObj.Proj_Name}}</span>
+      <span>Phase: {{unitObj.Phase_Name}}</span>
+      <span>Block: {{unitObj.Blocks_Name}}</span>
+      <span>Flat No.: {{unitObj.UnitDtls_No}}</span>
+   </div>
+   <h3 class="text-center">Unit Cost Sheet</h3>
+   <table class="table borderDef">
+      <tr>
+         <td>Type</td>
+         <td>{{unitCostSheetDetail.UnitDtls_Name}}</td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>SBA</td>
+         <td>{{unitCostSheetDetail.sba}}</td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>Actual Price / Sq. Ft.</td>
+         <td>{{unitCostSheetDetail.basecost}}</td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>Floor Raise Charges</td>
+         <td>{{unitCostSheetDetail.flraisecost}}</td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>Basic Cost</td>
+         <td>{{unitCostSheetDetail.unitcostcal_basecostval}}</td>
+         <td></td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme1!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme1}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval1}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt1}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme2!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme2}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval2}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt2}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme3!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme3}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval3}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt3}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme4!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme4}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval4}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt4}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme5!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme5}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval5}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt5}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme6!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme6}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval6}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt6}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme7!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme7}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval7}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt7}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme8!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme8}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval8}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt8}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme9!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme9}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval9}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt9}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme10!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme10}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval10}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt10}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme11!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme11}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval11}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt11}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme12!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme12}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval12}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt12}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme13!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme13}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval13}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt13}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme14!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme14}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval14}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt14}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme15!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme15}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval15}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt15}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme16!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme16}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval16}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt16}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme17!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme17}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval17}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt17}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme18!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme18}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval18}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt18}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme19!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme19}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval19}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt19}}</td>
+      </tr>
+      <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''">
+         <td>{{unitCostSheetDetail.cstcmpnme20}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalcval20}}</td>
+         <td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
+      </tr>
+      <tr>
+         <td><strong>Total</strong></td>
+         <td><strong>{{unitCostSheetDetail.unitcostcal_totcost}}</strong></td>
+         <td><strong>Total Cost (Excluding cost of registration)</strong></td>
+      </tr>
+   </table>
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+      <button type="button" class="btn btn-default" ng-click="addCostComponent()">Add Cost Component</button>
+      <div class="formulaTable borderBox"></div>
+   </div>
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderBox">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 labelCntr">
+         <label for="discount">Discount</label>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+         <select class="form-control" name="discountField" ng-model="discount.discountField">
+            <option value="">
+               Select
+            </option>
+            <option value="SBA">
+               SBA
+            </option>
+            <option value="APPS">
+               APPS
+            </option>
+         </select>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+         <input type="text" class="form-control" placeholder="Dicount (Flat / %)" name="discountVal" ng-model="discount.discountVal"/>
+      </div>
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginTop10">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 labelCntr">
+         <label>Final Cost</label>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+         <input type="text" ng-model="finalCost" class="form-control" placeholder="Final Cost" readonly="true"/>
+      </div>
+           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+         <button type="button" class="btn btn-primary" ng-click="calculateFinalPrice(discount)">Calculate Final Cost</button>
+      </div>
+   </div>
+   </div>
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop10 padding0">
+      <button type="button" class="btn btn-success" ng-click="saveStep1()">Save &amp; Next</button>
+   </div>
 </div>
+<script type="text/ng-template" id="formula.html">
+   <div class="modal-header">
+       <button type="button" class="close" ng-click="close()">&times;</button>
+       <h3 class="modal-title" id="modal-title">Cost Component Formula - {{fieldCount}}</h3>
+   </div>
+   <div class="modal-body" id="modal-body">
+       <div class="row">
+           <form name="formulaForm" class="form" method="POST" novalidate="novalidate">
+   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+               <label>Abbreviation</label>
+               <select class="form-control" name="abbreviation" ng-model="formula.abbreviation">
+                   <option value="">
+                       Select
+                   </option>
+                   <option value="SBA">
+                       SBA
+                   </option>
+                   <option value="APPS">
+                       APPS
+                   </option>
+               </select>
+           </div>
+           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+               <label>Operator</label>
+               <select class="form-control" name="operator" ng-model="formula.operator">
+                   <option value="">
+                       Select
+                   </option>
+                   <option value="+">
+                       +
+                   </option>
+                   <option value="-">
+                       -
+                   </option>
+                   <option value="*">
+                       *
+                   </option>
+                   <option value="/">
+                       /
+                   </option>
+                   <option value="%">
+                       %
+                   </option>
+               </select>
+           </div>
+           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+               <label class="dispBlock">&nbsp;</label>
+               <button type="button" class="btn btn-info" ng-click="addFormula(formula)">Add</button>
+           </div>
+           </form>
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop10">
+               <input type="text" class="form-control" placeholder="Formula Generated" name="formulaGen" id="formulaGen" ng-model="formulaGen"/>
+           </div>
+       </div>
+   </div>
+   <div class="modal-footer">
+       <button class="btn btn-default" type="button" ng-click="close()">Cancel</button>
+       <button class="btn btn-primary" type="button" ng-click="saveFormula()">Save</button>
+   </div>
+</script>
