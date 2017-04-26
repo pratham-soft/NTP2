@@ -70,7 +70,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
     $scope.openFormulaModal = function(val) {
         var modalInstance = $uibModal.open({
             templateUrl: 'formula.html',
-            controller: 'costComponentFormulaCtrl',
+            controller: 'bookUnitCostComponentFormulaCtrl',
             scope: $scope,
             size: 'lg',
             backdrop: 'static',
@@ -106,7 +106,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 	}
 });
 
-app.controller("costComponentFormulaCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, item) {
+app.controller("bookUnitCostComponentFormulaCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, item) {
     $scope.formula = {
         abbreviation: '',
         operator: ''
