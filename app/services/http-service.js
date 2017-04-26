@@ -43,6 +43,10 @@ app.service('httpSvc', function($http) {
         }).error(function() {});
         return promise;
 	}
+    
+    this.updatePaymentDetails = function(){
+        
+    }
 });
 	
 app.service('myService', function($http) {
