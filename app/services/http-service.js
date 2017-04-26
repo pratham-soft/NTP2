@@ -112,5 +112,23 @@ app.service('myService', function($http) {
             return units;
         }).error(function() {});
         return promise;
-    }; 
+    };
+    
+    /* RD 26/04/2017 get email tempaltes */
+    this.getEmailTempls = function(compId){
+        
+		var promise =$http({
+			method:"POST",
+			url:"http://120.138.8.150/pratham/Comp/Emltmplt/gt",
+			ContentType: 'application/json',
+            data: {
+			  "tempemailid" : 0,
+			  "tempemail_comp_guid" : compId
+			}
+	 }).success(function(data) {
+            emltmplts = data;
+            return emltmplts;
+        }).error(function() {});
+        return promise;
+	};
 });
