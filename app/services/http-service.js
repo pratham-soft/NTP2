@@ -44,8 +44,17 @@ app.service('httpSvc', function($http) {
         return promise;
 	}
     
-    this.updatePaymentDetails = function(){
-        
+    this.updatePaymentDetails = function(obj){
+        var promise = $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Cust/Cmpunitpymntsave",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {
+            apiRsponse = data;
+            return apiRsponse;
+        }).error(function() {});
+        return promise;
     }
 });
 	

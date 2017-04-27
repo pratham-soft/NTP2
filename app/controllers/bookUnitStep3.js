@@ -14,8 +14,13 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
             formObj.usruntpymtrec_user_id = prospectId;
             formObj.usruntpymtrec_unitdtls_id = unitObj.UnitDtls_Id;
             formObj.usruntpymtrec_comp_guid = comp_guid;
-            
-            console.log(JSON.stringify(formObj));
+			httpSvc.updatePaymentDetails(formObj).then(function(response){
+				var res = response.data.Comm_ErrorDesc;
+				resArr = res.split('|');
+				if(resArr[0] == 0){
+					alert("Payment updated successfully!");
+				}
+			})
         }
     }
 });
