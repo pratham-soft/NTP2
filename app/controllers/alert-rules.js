@@ -192,11 +192,44 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         actionType:"email",
         template:""
     }
-    $scope.saveAction = function(formName, formObj){
+   /* $scope.saveAction = function(formName, formObj){
         $state.go("/Schedule",{
                 ruleId: ruleId
         });
-    }
+    }*/
+      $scope.addRuleEml = function(formObj, formName) {
+        $scope.submit = true;              
+            
+        if ($scope[formName].$valid) {
+            angular.element(".loader").show();
+            console.log(formObj);
+            $http({
+                method: "POST",
+                url: "http://120.138.8.150/pratham/Comp/rulEmltmplt/Ins",
+                ContentType: 'application/json',
+                data: {
+                    "tempemail_comp_guid": $cookieStore.get('comp_guid'),
+                    "tempemail_createdby": $cookieStore.get('user_id'),
+                    "tempemail_ruleid":ruleId,                                        
+                    "tempemail_recpcc":formObj.cctxtar,
+                    "tempemail_recpbcc":"diwakar.rao@gmail.com;divu26@yahoo.com;diw26@yahoo.com",
+                    "tempemailid": formObj.templateid,
+                    "tempemail_rule": "true"
+                }
+            }).success(function(data) {
+                if (data.user_id != 0) {
+                      $state.go("/Schedule",{
+                ruleId: ruleId
+                });}
+                 else {
+                    alert("Error! " + data.user_ErrorDesc);
+                }
+                angular.element(".loader").hide();
+            }).error(function() {
+                angular.element(".loader").hide();
+            });
+        }
+    };
       $scope.getEmailTemplsFun = (function() {
         angular.element(".loader").show();        
         myService.getEmailTempls($cookieStore.get('comp_guid')).then(function(response) {

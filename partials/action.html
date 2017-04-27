@@ -40,7 +40,7 @@
             <textarea  class="form-control" placeholder="Write Content" name="textTemplate" id="textTemplate" ng-model="action.textTemplate" ng-required="true" ng-class="{blankInput: actionForm.textTemplate.$error.required &amp;&amp; submit}" ng-show="action.actionType != 'email'"></textarea>
          </div>-->
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">            
-           <select ng-model="action.template" name="template" id="template" class="form-control" ng-show="action.actionType == 'email'" ng-change="getEmailTemplsFun()" ng-required="true" ng-class="{blankInput: actionForm.template.$error.required &amp;&amp; submit}">
+           <select ng-model="action.templateid" name="templateid" id="templateid" class="form-control" ng-show="action.actionType == 'email'" ng-change="getEmailTemplsFun()" ng-required="true" ng-class="{blankInput: actionForm.template.$error.required &amp;&amp; submit}">
               <option value="">
                  Email Template
               </option>
@@ -60,13 +60,13 @@
             <label for="template">Additional Mail Recipient (CC)</label>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
-                <textarea name="mailCCRecipient" class="form-control" placeholder="Enter Email IDs seperated by comma"></textarea>
+                <textarea ng-model="action.cctxtar" name="mailCCRecipient" class="form-control" placeholder="Enter Email IDs seperated by comma"></textarea>
             </div>
         </div>
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginTop10">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0 text-center">
-         <button type="button" class="btn btn-success" ng-click="saveAction('actionForm',action)">Save Alert Rule</button>
+         <button type="button" class="btn btn-success" ng-click="addRuleEml(action,'actionForm')">Save Alert Rule</button>
             </div>
       </div>
     </form>
