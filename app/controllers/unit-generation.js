@@ -3,6 +3,8 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.projectId = $stateParams.projId;
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
+    $scope.plotvillaReleaseNo="";
+    
     var unitNosArr = [];
    
     
@@ -119,6 +121,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.addSamplePlots = function(formObj, formName) {
         $scope.submit = true;
         formObj.noOfFloors="1";
+        $scope.untDetails=[];
        
             /*Update Block*/
             $http({
@@ -151,15 +154,25 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     var unitsPerFloor = formObj.unitsPerFloor;
                     var unitNo = parseInt(formObj.unitNo);
                     var skipBy = parseInt(formObj.skipBy);
+                    str1='';
+                    for (var j =1;j<=$scope.plotvillaReleaseNo;j++){
+                        str1= str1 + "<option value="+ j +">"+j+"</option>";
+                    }
+                    //str1='<option value="1">1 </option> <option value="2">2 </option> <option value="3">3 </option> //<option value="4">4 </option> <option value="5">5 </option> <option value="6">6 </option> ';
                     var i = 1;
                     while (i <= unitsPerFloor) {
                         unitNosArr.push(unitNo);
-                        var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo +formObj.seperator + unitNo + '"name="unitNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="untDetails[' + i + '].plotFacing"> <option value="">Select</option> <option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td> <td><input type="text" class="form-control" name="plotEast" ng-model="untDetails[' + i + '].plotEast"/> </td> <td><input type="text" class="form-control" name="plotWest" ng-model="untDetails[' + i + '].plotWest"/> </td> <td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].plotNorth"/> </td> <td><input type="text" class="form-control" name="plotSouth" ng-model="untDetails[' + i + '].plotSouth"/> </td><td><input type="text" class="form-control" name="plotEastWest" ng-model="untDetails[' + i + '].plotEastWest"/> </td> <td><input type="text" class="form-control" name="plotNorthSouth" ng-model="untDetails[' + i + '].plotNorthSouth"/> </td> <td><input type="text" class="form-control" name="plotSuperArea" id="untDetails' + i + 'plotSuperArea" ng-model="untDetails[' + i + '].plotSuperArea"/> </td> <td><datepicker date-format="dd/MM/yyyy"><input type="text"  class="form-control" name="untDetails' + i + 'plotReleaseDate" ng-model="untDetails[' + i + '].plotDate"/> <i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker> </td> <td><input type="checkbox" class="form-control" name="plotCorner" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].plotCorner"/> </td> </tr>';
+                        var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo +formObj.seperator + unitNo + '"name="unitNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="untDetails[' + i + '].plotFacing"> <option selected="selected" value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td> <td><input type="text" class="form-control" name="plotEast" ng-model="untDetails[' + i + '].plotEast"/> </td> <td><input type="text" class="form-control" name="plotWest" ng-model="untDetails[' + i + '].plotWest"/> </td> <td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].plotNorth"/> </td> <td><input type="text" class="form-control" name="plotSouth" ng-model="untDetails[' + i + '].plotSouth"/> </td><td><input type="text" class="form-control" name="plotEastWest" ng-model="untDetails[' + i + '].plotEastWest"/> </td> <td><input type="text" class="form-control" name="plotNorthSouth" ng-model="untDetails[' + i + '].plotNorthSouth"/> </td> <td><input type="text" class="form-control" name="plotSuperArea" id="untDetails' + i + 'plotSuperArea" ng-model="untDetails[' + i + '].plotSuperArea"/> </td> <td> <select class="form-control" name="reolaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td><select class="form-control" name="premiumPlot" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].premiumPlot"><option value="Y">Y </option> <option selected="selected" value="N">N </option></select> </td> <td><select class="form-control" name="plotCorner" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].plotCorner"><option value="Y">Y </option> <option selected="selected" value="N">N </option></select> </td> </tr>';
                         var tableRowComplied = $compile(tableRow)($scope);
                         angular.element("#plotRows").append(tableRowComplied);
                         unitNo = unitNo + skipBy;
                         i++;
                     }
+//                    for(var i=0;i<unitsPerFloor;i++){
+//                        $scope.untDetails[i].plotCorner="N";
+//                        
+//                    }
+                    
                     console.log(unitNosArr);
                 }
                 angular.element(".loader").hide();
@@ -205,10 +218,14 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     var unitsPerFloor = formObj.unitsPerFloor;
                     var unitNo = parseInt(formObj.unitNo);
                     var skipBy = parseInt(formObj.skipBy);
+                    str1='';
+                    for (var j =1;j<=$scope.plotvillaReleaseNo;j++){
+                        str1= str1 + "<option value="+ j +">"+j+"</option>";
+                    }
                     var i = 1;
                     while (i <= unitsPerFloor) {
                         unitNosArr.push(unitNo);
-                        var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo + formObj.seperator +  unitNo + '" name="villaNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="villaFacing" ng-model="untDetails[' + i + '].villaFacing"><option value="">Select</option> <option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option><option value="SW">SW</option> <option value="SE">SE</option></select></td><td><input type="text" class="form-control" name="villaEast" ng-model="untDetails[' + i + '].villaEast"/></td> <td><input type="text" class="form-control" name="villaWest" ng-model="untDetails[' + i + '].villaWest"/> </td><td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].villaNorth"/> </td> <td><input type="text" class="form-control" name="villaSouth" ng-model="untDetails[' + i + '].villaSouth"/> </td><td><input type="text" class="form-control" name="villaEastWest" ng-model="untDetails[' + i + '].villaEastWest"/></td> <td><input type="text" class="form-control" name="villaNorthSouth" ng-model="untDetails[' + i + '].villaNorthSouth"/></td><td> <select class="form-control" name="villaBedroom" ng-model="untDetails[' + i + '].villaBedroom"> <option value="">Select</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option>  <option value="6">6</option> <option value="7">7</option>  <option value="8">8</option>  </select> </td> <td> <select class="form-control" name="villaBalconies" ng-model="untDetails[' + i + '].villaBalconies"> <option value="">Select</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option></select> </td> <td> <select class="form-control" name="villaBathrooms" ng-model="untDetails[' + i + '].villaBathrooms">  <option value="">Select</option> <option value="1">1</option> <option value="2">2</option><option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </td> <td><input type="text" class="form-control" name="villaSuperArea" id="untDetails' + i + 'villaSuperArea" ng-model="untDetails[' + i + '].villaSuperArea"/></td> <td><input type="number"  id="untDetails' + i + 'unitPercentage"  class="form-control" name="villaPercentage" ng-model="untDetails[' + i + '].villaPercentage"/></td> <td><input type="text" class="form-control" ng-disabled="true" name="villaCarpetArea" id="untDetails' + i + 'villaCarpetArea" ng-model="untDetails[' + i + '].villaCarpetArea"/></td><td> <select class="form-control" name="villaPremium" ng-model="untDetails[' + i + '].villaPremium"> <option value="">Select</option> <option value="Y">Y</option> <option value="N">N</option> </select> </td><td><datepicker date-format="dd/MM/yyyy"><input type="text" placeholder="Release Date" class="form-control" name="untDetails' + i + 'villaReleaseDate" ng-model="untDetails[' + i + '].villaDate"/><i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker></td><td><input type="checkbox" class="form-control" name="plotCorner" id="untDetails' + i + 'villaCorner" ng-model="untDetails[' + i + '].villaCorner"/></td></tr>';
+                        var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo + formObj.seperator +  unitNo + '" name="villaNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="villaFacing" ng-model="untDetails[' + i + '].villaFacing"><option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option><option value="SW">SW</option> <option value="SE">SE</option></select></td><td><input type="text" class="form-control" name="villaEast" ng-model="untDetails[' + i + '].villaEast"/></td> <td><input type="text" class="form-control" name="villaWest" ng-model="untDetails[' + i + '].villaWest"/> </td><td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].villaNorth"/> </td> <td><input type="text" class="form-control" name="villaSouth" ng-model="untDetails[' + i + '].villaSouth"/> </td><td><input type="text" class="form-control" name="villaEastWest" ng-model="untDetails[' + i + '].villaEastWest"/></td> <td><input type="text" class="form-control" name="villaNorthSouth" ng-model="untDetails[' + i + '].villaNorthSouth"/></td><td> <select class="form-control" name="villaBedroom" ng-model="untDetails[' + i + '].villaBedroom">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option>  <option value="6">6</option> <option value="7">7</option>  <option value="8">8</option>  </select> </td> <td> <select class="form-control" name="villaBalconies" ng-model="untDetails[' + i + '].villaBalconies">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option></select> </td> <td> <select class="form-control" name="villaBathrooms" ng-model="untDetails[' + i + '].villaBathrooms">   <option value="1">1</option> <option value="2">2</option><option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </td> <td><input type="text" class="form-control" name="villaSuperArea" id="untDetails' + i + 'villaSuperArea" ng-model="untDetails[' + i + '].villaSuperArea"/></td> <td><input style="width:70px;" type="number"  id="untDetails' + i + 'unitPercentage"  class="form-control" name="villaPercentage" ng-model="untDetails[' + i + '].villaPercentage"/></td> <td><input type="text" class="form-control" ng-disabled="true" name="villaCarpetArea" id="untDetails' + i + 'villaCarpetArea" ng-model="untDetails[' + i + '].villaCarpetArea"/></td><td> <select style="width:70px;" class="form-control" name="villaPremium" ng-model="untDetails[' + i + '].villaPremium">  <option value="Y">Y</option> <option value="N">N</option> </select> </td><td>  <select style="width:70px;" class="form-control" name="reolaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td><td><input type="checkbox" class="form-control" name="plotCorner" id="untDetails' + i + 'villaCorner" ng-model="untDetails[' + i + '].villaCorner"/></td></tr>';
                         var tableRowComplied = $compile(tableRow)($scope);
                         angular.element("#villaRows").append(tableRowComplied);
                         unitNo = unitNo + skipBy;
@@ -304,6 +321,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
            blockId=$scope.blockId;
            //$scope.untGeneration.block=blockId;
         }
+        if(blockId != "" ){
         var compId = $cookieStore.get('comp_guid');
         angular.element(".loader").show();
         myService.getUnitsByBlock(compId, blockId).then(function(response) {
@@ -334,7 +352,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             }
             console.log($scope.UnitsArr);
             angular.element(".loader").hide();
-        });
+        })};
     })();
 
    // $scope.checkBlockUnits($scope.blockId);

@@ -58,7 +58,7 @@
          </div>
          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
              <datepicker date-format="dd/MM/yyyy">
-                <input type="text" class="form-control" name="ownerDob" placeholder="D.O.B. (YYYY-MM-DD)" ng-model="addUnit.ownerDob" ng-required="true" ng-class="{blankInput: addUnitForm.ownerDob.$error.required &amp;&amp; submit}"/>
+                <input type="text" class="form-control" name="ownerDob" placeholder="D.O.B. (DD/MM/YYYY)" ng-model="addUnit.ownerDob" ng-required="true" ng-class="{blankInput: addUnitForm.ownerDob.$error.required &amp;&amp; submit}"/>
                     <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
             </datepicker>
          </div>
@@ -113,7 +113,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
                 <datepicker date-format="dd/MM/yyyy">
-                <input type="text" class="form-control" name="guardianDob" placeholder="D.O.B. (YYYY-MM-DD)" ng-model="addUnit.guardianDob" ng-required="addUnit.minor == 'true'" ng-class="{blankInput: addUnitForm.guardianDob.$error.required &amp;&amp; submit}"/>
+                <input type="text" class="form-control" name="guardianDob" placeholder="D.O.B. (DD/MM/YYYY)" ng-model="addUnit.guardianDob" ng-required="addUnit.minor == 'true'" ng-class="{blankInput: addUnitForm.guardianDob.$error.required &amp;&amp; submit}"/>
                     <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
             </datepicker>
             </div>
@@ -250,7 +250,7 @@
             <label for="type">Noc Date</label>
          </div>
          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
-            <input type="text" class="form-control" name="nocDate" placeholder="Noc Date (YYYY-MM-DD)" ng-model="addUnit.nocDate" ng-required="addUnit.nocObtained == 'true'" ng-class="{blankInput: addUnitForm.nocDate.$error.required &amp;&amp; submit}"/>
+            <input type="text" class="form-control" name="nocDate" placeholder="Noc Date (DD/MM/YYYY)" ng-model="addUnit.nocDate" ng-required="addUnit.nocObtained == 'true'" ng-class="{blankInput: addUnitForm.nocDate.$error.required &amp;&amp; submit}"/>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="addUnit.nocObtained == 'true'">
