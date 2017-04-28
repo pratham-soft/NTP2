@@ -410,6 +410,9 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
                 angular.element(".loader").hide();
             });
         }
+        else{
+            console.log($scope[formName].$error)
+        }
     };
 
     $scope.appendFields = function(noOfChild) {
