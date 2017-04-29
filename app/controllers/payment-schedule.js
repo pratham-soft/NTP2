@@ -84,6 +84,12 @@ app.controller("paymentScheduleChangeCtrl", function($scope, $http, $state, $coo
 
     $scope.updatePaymentSchedule = function(formObj, formName) {
         $scope.submit = true;
+        var paymentScheduleValue = formObj.paymentScheduleValue;
+         var PaymentScheduleCalcTypeValue =1;
+        if(paymentScheduleValue.includes('%'))
+            {
+             PaymentScheduleCalcTypeValue=0;
+            }
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
             $http({
@@ -94,7 +100,7 @@ app.controller("paymentScheduleChangeCtrl", function($scope, $http, $state, $coo
                     "PaymentScheduleId": item.PaymentScheduleId,
                     "PaymentScheduleBlockstageId": item.blockstageId,
                     "PaymentScheduleCompGuid": $cookieStore.get('comp_guid'),
-                    "PaymentScheduleCalcTypeValue": 1,
+                    "PaymentScheduleCalcTypeValue": PaymentScheduleCalcTypeValue,
                     "PaymentScheduleCalcValue": formObj.paymentScheduleValue
                 }
             }).success(function(data) {

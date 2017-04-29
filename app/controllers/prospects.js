@@ -357,14 +357,11 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
 
     $scope.addSiteVisit = function(formObj, formName) {
         $scope.submit = true;
-        formObj.datetime=$filter('date')(new Date(formObj.datetime),'yyyy-MM-ddTHH:mm:ssZ');
-      //  $scope.datetime = new Date(formObj.datetime);
-     //   $scope.datetime = formObj.datetime + "T"+ formObj.time;
-        $scope.datetime = formObj.datetime ;
-        var a = $scope.datetime.split("T");
-        var mydate = a[0];
-        var mytime = formObj.time;
-         $scope.datetime= mydate + mytime;
+       var time = formObj.time.toString();
+       var  newtime= time.replace( ' AM','');
+       var  nwtime= newtime.replace( ' PM','');
+        formObj.datetime=$filter('date')(new Date(formObj.datetime),'yyyy-MM-dd'+' '+ nwtime);
+ 
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
             $http({
@@ -378,7 +375,7 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
                     "sitevisit_phaseid": formObj.phase,
                     "sitevisit_blockid": formObj.blocks,
                     "sitevisit_walkin": formObj.walkIn,
-                    "sitevisit_pickupdatetime": $scope.datetime,
+                    "sitevisit_pickupdatetime": formObj.datetime,
                     "sitevisit_contactperson_name": formObj.personName,
                     "sitevisit_contactperson_mobile": formObj.personMobile,
                     "sitevisit_pickupaddress": formObj.personAddress,
