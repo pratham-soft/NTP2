@@ -197,7 +197,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
                 ruleId: ruleId
         });
     }*/
-      $scope.addRuleEml = function(formObj, formName) {
+      $scope.saveRuleEml = function(formObj, formName) {
         $scope.submit = true;              
             
         if ($scope[formName].$valid) {
@@ -244,7 +244,52 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
     $scope.monthDates = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
     $scope.pageTitle = "Schedule Alert";
     $scope.ruleId = $stateParams.ruleId;
-    $scope.previewTemplate = function(tempId){
+    /*$scope.previewTemplate = function(tempId){
         alert(tempId);
-    }
+    }*/
+    
+     $scope.saveSchedule = function(formObj, formName) {
+        $scope.submit = true;            
+        var ruleId = $stateParams.ruleId;
+        var exendt = formObj.execEndDate.split("/").reverse().join("-");
+	    var exstrtdt = formObj.execEndDate.split("/").reverse().join("-");
+        var schdwkday = '';
+        if (formObj.frequency == 3 ) 
+        {
+            schdwkday = formObj.weekDay;
+        }
+        else if (formObj.frequency == 4 )  
+        {
+            schdwkday = formObj.monthDate
+        }
+        if ($scope[formName].$valid) {
+            angular.element(".loader").show();
+            console.log(formObj);
+            $http({
+                method: "POST",
+                 url: "http://120.138.8.150/pratham/Comp/Rules/UpdtSchd",
+	         ContentType: 'application/json',
+                data: {
+                     "rule_comp_guid": $cookieStore.get('comp_guid'),
+               	     "ruleid":ruleId,                                                        
+                     "rule_trigstartdate": exstrtdt,
+                     "rule_trigenddate":exstrtdt,
+                     "rule_freq":  formObj.frequency,
+                     "rule_schdwkday": schdwkday,
+                     "rule_alterttyp":  1  
+                }
+            }).success(function(data) {
+                if (data.user_id != 0) {
+                      $state.go("/AlertRules",{
+                ruleId: ruleId
+                });}
+                 else {
+                    alert("Error! " + data.user_ErrorDesc);
+                }
+                angular.element(".loader").hide();
+            }).error(function() {
+                angular.element(".loader").hide();
+            });
+        }
+    };
 });
