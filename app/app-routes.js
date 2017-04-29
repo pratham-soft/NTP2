@@ -296,6 +296,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/bookUnitStep3.html',
             controller: 'bookUnitStep3Ctrl'
         })
+		.state('/BookUnit-Step4', {
+            url: '/BookUnit-Step4',
+            templateUrl: 'partials/bookUnitStep4.html',
+            controller: 'bookUnitStep4Ctrl'
+        })
         .state('Incentive', {
             url: '/Incentive',
             templateUrl: 'partials/incentive.html',
