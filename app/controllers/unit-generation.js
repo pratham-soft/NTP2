@@ -3,7 +3,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.projectId = $stateParams.projId;
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
-    $scope.plotvillaReleaseNo="";
+    $scope.plotvillaReleaseNo=0;
     
     var unitNosArr = [];
    
