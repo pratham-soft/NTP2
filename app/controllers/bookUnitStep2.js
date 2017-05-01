@@ -1,7 +1,11 @@
-app.controller("bookUnitStep2Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $filter, httpSvc){
+app.controller("bookUnitStep2Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $filter, httpSvc,$state){
 	$scope.pageTitle = "Book Unit - Add Customer";
     var unitObj = $cookieStore.get("unitObj");
 	var prospectId = $cookieStore.get('prospectId');
+    $scope.movetoStep3 = function()
+    {
+       $state.go('/BookUnit-Step3') ;
+    }
     
 	$scope.getUserDetails = (function() {
         angular.element(".loader").show();
