@@ -70,6 +70,7 @@ app.service('httpSvc', function($http) {
         return promise;
     }
     this.updateUnitStatus = function(obj){
+        alert("updateUnitStatus");
         var promise = $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/UpdtUnitDtls/ByUnitDtlsID",

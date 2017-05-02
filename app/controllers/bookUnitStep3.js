@@ -8,7 +8,7 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
     var updateUnitObj =  {
       "UnitDtls_comp_guid": comp_guid,
       "UnitDtls_Id": unitObj.UnitDtls_Id,
-      "UnitDtls_Status": "5",
+      "UnitDtls_Status": 5,
       "UnitDtls_user_id": prospectId
     };
     
