@@ -216,6 +216,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/createNewRule.html',
             controller: 'createNewRuleCtrl'
         })
+        .state('/EditRule', {
+            url: '/EditRule/:ruleId',
+            templateUrl: 'partials/createNewRule.html',
+            controller: 'editRuleCtrl'
+        })
         .state('/SalesFunnel', {
             url: '/SalesFunnel',
             templateUrl: 'partials/salesFunnelListing.html',

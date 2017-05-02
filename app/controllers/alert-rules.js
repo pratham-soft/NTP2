@@ -18,12 +18,20 @@ app.controller("alertRulesCtrl", function($scope, $http, $cookieStore, $state, $
 		})
 	})();
 });
-app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {
+app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile,myService) {
     $scope.pageTitle = "Create New Alert Rule";
     $scope.createNewRule = {
         rule_moduleid: ''
     };
-    $scope.getModules = (function() {
+    
+    $scope.getModulesFun = (function() {
+        angular.element(".loader").show();        
+        myService.getModules().then(function(response) {
+        $scope.modules = response.data;
+        angular.element(".loader").hide();
+    });
+    })();
+ /*   $scope.getModules = (function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -38,7 +46,7 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
         }).error(function() {
             angular.element(".loader").hide();
         });
-    })();
+    })();*/
 
     $scope.getActionTypes = function(moduleId) {
         angular.element(".loader").show();
@@ -85,6 +93,53 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
             });
         }
     }
+});
+
+    app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter,myService) {
+    $scope.pageTitle = "Edit Alert Rule";
+    var ruleid    = $stateParams.ruleId;
+    var moduleid ='';
+        $scope.createNewRule={};
+         $scope.modules=[{}];
+
+    $scope.getModulesFun = (function() {
+        angular.element(".loader").show();        
+        myService.getModules().then(function(response) {
+        $scope.modules = response.data;
+        console.log($scope.modules);
+        angular.element(".loader").hide();
+    });
+    })();
+        
+    ($scope.geteditRule = function() {
+
+            $http({
+			method:"POST",
+			url:"http://120.138.8.150/pratham/Comp/RulesVwGet",
+			ContentType: 'application/json',
+            data: {
+			  "rule_user_id" : $cookieStore.get('user_id'),
+			  "rule_comp_guid" : $cookieStore.get('comp_guid'),
+               "ruleid": ruleid
+			}
+		}).success(function(data){
+                
+		if (data[0].ErrorDesc == '0') {
+               $scope.createNewRule.rule_description= data[0].rule_description; 
+               $scope.createNewRule.rule_name= data[0].rule_name;                            
+               $scope.createNewRule.rule_moduleid = data[0].rule_moduleid;
+            }
+            
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+        
+    }
+
+   
+)();
+     
 });
 
 app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {

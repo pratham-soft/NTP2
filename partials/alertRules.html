@@ -20,6 +20,7 @@
 				<th>Rule Description</th>
 				<th>Module Name</th>
 				<th>Action</th>
+                <th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,6 +30,8 @@
 				<td>{{x.rule_description}}</td>
 				<td>{{x.rule_modname}}</td>
 				<td>{{x.rule_actname}}</td>
+
+                <td><a ui-sref="/EditRule({ ruleId: {{x.ruleid}} })"><span class="link">Edit</span></a> </td>  
 			</tr>
 		</tbody>
 	</table>

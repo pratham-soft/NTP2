@@ -157,4 +157,22 @@ app.service('myService', function($http) {
         }).error(function() {});
         return promise;
 	};
+    
+      /* RD 02/05/2017 get email tempaltes */
+    this.getModules = function(){
+        
+		var promise =$http({
+			method:"POST",
+			url:"http://120.138.8.150/pratham/Comp/ModulesGet",
+			ContentType: 'application/json',
+            data: {
+			     "module_id": 0
+			}
+	 }).success(function(data) {
+            modules = data;
+            return modules;
+        }).error(function() {});
+        return promise;
+	};
+    
 });
