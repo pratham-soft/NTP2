@@ -5,6 +5,13 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
 	var prospectId = $cookieStore.get('prospectId');
     var comp_guid = $cookieStore.get('comp_guid');
 	
+    var updateUnitObj =  {
+      "UnitDtls_comp_guid": comp_guid,
+      "UnitDtls_Id": unitObj.UnitDtls_Id,
+      "UnitDtls_Status": "5",
+      "UnitDtls_user_id": prospectId
+    };
+    
     $scope.paymentDetails = {
         usruntpymtrec_pymttype: "1"
     };
@@ -22,7 +29,13 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
 				resArr = res.split('|');
 				if(resArr[0] == 0){
 					alert("Payment updated successfully!");
-					$state.go('/BookUnit-Step4');
+                    httpSvc.updateUnitStatus(updateUnitObj).then(function(response){
+                        var updateUnitRes = response.data;
+                        if(updateUnitRes[0].UnitDtls_ErrorDesc == "0"){
+                            alert("Unit status changed to booked!");
+                            $state.go('/BookUnit-Step4');
+                        }
+                    });
 				}
 			})
         }
