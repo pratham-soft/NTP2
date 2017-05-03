@@ -79,8 +79,7 @@
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
             <input type="text" class="form-control" placeholder="No. of Floors" name="noOfFloors" ng-model="untGeneration.noOfFloors" ng-required="true" ng-class="{blankInput: untGenerationForm.noOfFloors.$error.required &amp;&amp; submit}">
          </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="blockFloorUnits == 0">
+           
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
             <label>Units Per Floor:</label>
          </div>
@@ -88,30 +87,6 @@
             <input type="text" class="form-control" placeholder="Units Per Floor" name="unitsPerFloor" ng-model="untGeneration.unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}">
          </div>
            </div></div>
-           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf"  ng-show="untGeneration.typeId == 1">
-           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0 ">
-           <h4>Unit Generation Formula</h4>
-           <label for="unitNo">Starting Unit No. (For Each Floor): </label>
-           <input type="text" id="unitNo" name="unitNo" ng-model="untGeneration.unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}"> | 
-           <label for="skipBy">Skip By:</label>
-           <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> | 
-        <!--
-           <label for="afn">Add Floor No.:</label>
-           <input type="checkbox" id="afn" ng-model="untGeneration.afn"> |
-        -->
-           <label for="seperator">Seperator:</label>
-           <input type="text" id="seperator" ng-model="untGeneration.seperator"> |  
-           <label for="agf">Add Ground Floor:</label>
-           <input type="checkbox" id="agf" ng-model="untGeneration.agf">
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
-           <button type="button" class="btn btn-success" ng-click="addSampleData(untGeneration,'untGenerationForm')">
-               Add Sample Units
-           </button>
-               </div></div>
-       
-       
-       
        
        <div ng-hide="untGeneration.typeId == 1">
         <div ng-show="blockFloorUnits == 0">
@@ -133,6 +108,33 @@
             </div></div>
        
 </div>
+    
+     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf"  ng-show="untGeneration.typeId == 1">
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0 ">
+           <h4>Unit Generation Formula</h4>
+           <label for="unitNo">Starting Unit No. (For Each Floor): </label>
+           <input type="text" id="unitNo" name="unitNo" ng-model="untGeneration.unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}"> | 
+           <label for="skipBy">Skip By:</label>
+           <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> | 
+        <!--
+           <label for="afn">Add Floor No.:</label>
+           <input type="checkbox" id="afn" ng-model="untGeneration.afn"> |
+        -->
+           <label for="seperator">Seperator:</label>
+           <input type="text" id="seperator" ng-model="untGeneration.seperator"> |  
+           <label for="agf">Add Ground Floor:</label>
+           <input type="checkbox" id="agf" ng-model="untGeneration.agf">
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
+           <button type="button" class="btn btn-success" ng-click="addSampleData(untGeneration,'untGenerationForm')">
+               Add Sample Units
+           </button>
+               </div></div>
+    
+    
+    
+    
+    
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf"  ng-show="untGeneration.typeId == 2">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0 ">
            <h4>Unit Generation Formula</h4>
@@ -214,18 +216,24 @@
    <h4>Sample Units</h4>
 	<table class="sampleUnits">
 		<thead>
+            <tr>
+            <th colspan="5"></th>
+            <th colspan="2" style="text-align:center">Bathrooms</th>
+            <th colspan="5"></th>
+            </tr>
 			<tr>
 				<th>Flat No.</th>
 				<th>Name</th>
 				<th>Type</th>
 				<th>Bedroom</th>
 				<th>Balconies</th>
-				<th>Bathrooms</th>
+                <th>Common</th>
+				<th>Attached</th>
 				<th>Super Built-up Area</th>
 				<th>% Age</th>
 				<th>Carpet Area</th>
 				<th>Premium</th>
-				<th>Position</th>
+				<th>Facing</th>
 			</tr>
 		</thead>
 		<tbody id="unitRows"></tbody>
@@ -430,21 +438,27 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits > 0 && untGeneration.block != undefined">   
    <table class="sampleUnits">
       <thead>
-         <tr>
-            <th>Flat No.</th>
-            <th>Floor</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Bedroom</th>
-            <th>Balconies</th>
-            <th>Bathrooms</th>
-            <th>Super Built-up Area</th>
-            <th>% Age</th>
-            <th>Carpet Area</th>
-            <th>Premium</th>
-            <th>Position</th>
-         </tr>
-      </thead>
+            <tr>
+            <th colspan="5"></th>
+            <th colspan="2" style="text-align:center">Bathrooms</th>
+            <th colspan="5"></th>
+            </tr>
+			<tr>
+				<th>Flat No.</th>
+                <th>Floor</th>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Bedroom</th>
+				<th>Balconies</th>
+                <th>Common</th>
+				<th>Attached</th>
+				<th>Super Built-up Area</th>
+				<th>% Age</th>
+				<th>Carpet Area</th>
+				<th>Premium</th>
+				<th>Facing</th>
+			</tr>
+		</thead>
       <tbody id="unitRows">
          <form name="addBlockUnitForm" class="form" method="POST" novalidate="novalidate">
             <tr ng-repeat="x in units track by $index" id="{{$index}}">
@@ -473,9 +487,6 @@
                      <option value="3">3</option>
                      <option value="4">4</option>
                      <option value="5">5</option>
-                     <option value="6">6</option>
-                     <option value="7">7</option>
-                     <option value="8">8</option>
                   </select>
                </td>
                <td>
@@ -486,11 +497,21 @@
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
+                  </select>
+               </td>
+               <td>
+                  <select class="form-control" name="UnitDtls_BRoomC" ng-model="UnitsArr[$index].UnitDtls_BRoomC">
+                     <option value="">Select</option>
+                     <option value="0">0</option>
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
                      <option value="5">5</option>
                   </select>
                </td>
                <td>
-                  <select class="form-control" name="UnitDtls_BRoom" ng-model="UnitsArr[$index].UnitDtls_BRoom">
+                  <select class="form-control" name="UnitDtls_BRoomA" ng-model="UnitsArr[$index].UnitDtls_BRoomA">
                      <option value="">Select</option>
                      <option value="0">0</option>
                      <option value="1">1</option>
