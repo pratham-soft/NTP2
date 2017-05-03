@@ -22,7 +22,7 @@
                <td>
                   <select class="form-control" ng-model="rules[0].rulecriteria_modfield_id" ng-change="getFieldValues(rules[0].rulecriteria_modfield_id,0)">
                      <option value="">Field</option>
-                     <option ng-repeat="x in subModules" value="{{x.modfieldid}}" se>{{x.modfield_name}}</option>
+                     <option ng-repeat="x in subModules" value="{{x.modfieldid}}" selected>{{x.modfield_name}}</option>
                   </select>
                </td>
                <td>

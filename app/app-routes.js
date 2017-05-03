@@ -218,7 +218,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('/EditRule', {
             url: '/EditRule/:ruleId',
-            templateUrl: 'partials/createNewRule.html',
+            templateUrl: 'partials/editRule.html',
             controller: 'editRuleCtrl'
         })
         .state('/SalesFunnel', {
@@ -255,6 +255,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/UpdateRule/:ruleId/:moduleId',
             templateUrl: 'partials/updateRule.html',
             controller: 'updateRuleCtrl'
+        })
+      .state('/UpdateRuleCriteria', {
+            url: '/UpdateRuleCriteria/:ruleId/:moduleId',
+            templateUrl: 'partials/UpdateRuleCriteria.html',
+            controller: 'updateRuleCriteriaCtrl'
         })
         .state('/Action', {
             url: '/Action/:ruleId',
