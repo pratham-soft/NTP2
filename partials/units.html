@@ -4,7 +4,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20 ng-scope">
    <ol class="breadcrumb">
       <li><a href="#">Home</a></li>
-      <li><a ui-sref="/Leads" href="#/Leads">Phases</a></li>
+      <li><a ui-sref="/Phases" href="#/Phases">Phases</a></li>
       <li class="active">{{title}}</li>
    </ol>
 </div>
@@ -66,19 +66,25 @@
    <table class="sampleUnits">
       <thead>
          <tr>
-            <th>Flat No.</th>
-            <th>Floor</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Bedroom</th>
-            <th>Balconies</th>
-            <th>Bathrooms</th>
-            <th>Super Built-up Area</th>
-            <th>% Age</th>
-            <th>Carpet Area</th>
-            <th>Premium</th>
-            <th>Position</th>
-         </tr>
+            <th colspan="6"></th>
+            <th colspan="2" style="text-align:center">Bathrooms</th>
+            <th colspan="5"></th>
+            </tr>
+			<tr>
+				<th>Flat No.</th>
+                <th>Floor</th>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Bedroom</th>
+				<th>Balconies</th>
+                <th>Common</th>
+				<th>Attached</th>
+				<th>Super Built-up Area</th>
+				<th>% Age</th>
+				<th>Carpet Area</th>
+				<th>Premium</th>
+				<th>Facing</th>
+			</tr>
       </thead>
       <tbody id="unitRows">
          <form name="addBlockUnitForm" class="form" method="POST" novalidate="novalidate">

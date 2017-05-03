@@ -200,7 +200,7 @@
       </div><br><br>
       <div class="field">
          <label ng-show="customer.childrenNo" class="show-hide">No. of Children</label>
-         <select class="form-control" name="childrenNo" ng-model="customer.childrenNo" title="No. of Children" ng-change="appendFields()">
+         <select class="form-control" name="childrenNo" ng-model="customer.childrenNo" title="No. of Children" ng-change="appendFields(customer.childrenNo)">
             <option value="">
                No. of Children
             </option>
@@ -309,14 +309,16 @@
             <input type="text" placeholder="AADHAR" title="AADHAR" class="form-control"  name="gpaAadhar" ng-model="customer.gpaAadhar"/>
          </div>
       </div>
+<!--
       <div class="text-center marginTop20" ng-show="action == 'addCustomer'">
          <button type="button" class="btn btn-success width100" ng-click="addCustomer(customer,'addCustomerForm')">+ Add Customer</button>
       </div>
       <div class="text-center marginTop20" ng-show="action == 'editCustomer'">
          <button type="button" class="btn btn-success width100" ng-click="updateCustomer(customer,'addCustomerForm')">+ Update Customer</button>
       </div>
+-->
        <div class="text-center marginTop20">
-         <button type="button" class="btn btn-success width100"  ng-click="movetoStep3()">Next -Move to Step 3</button>
+         <button type="button" class="btn btn-success width100"  ng-click="movetoStep3(customer,'addCustomerForm')">Next -Move to Step 3</button>
       </div>
    </div>
 </form>

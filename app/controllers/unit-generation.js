@@ -386,4 +386,34 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             });
         }).error(function() {});
     }
+    
+    $scope.addBlockPlots = function(formObj, formName, parentObj) {
+        for (i = 0; i < formObj.length; i++) {
+            formObj[i].UnitDtls_comp_guid = $cookieStore.get('comp_guid');
+            /*formObj[i].UnitDtls_Unit_type_id = 3;*/
+            formObj[i].UnitDtls_Block_Id = parentObj.block;
+            formObj[i].UnitDtls_user_id = $cookieStore.get('user_id');
+        }
+
+        console.log(formObj);
+
+        var unitsData = JSON.stringify(formObj);
+
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Update",
+            ContentType: 'application/json',
+            data: unitsData
+        }).success(function(data) {
+            console.log(data);
+            $state.go("/ApplyCostSheet", {
+                "projectId": $stateParams.projId,
+                "phaseId": $stateParams.phaseId,
+                "blockId": parentObj.block
+            });
+        }).error(function() {});
+    }
+    
+    
+    
 });

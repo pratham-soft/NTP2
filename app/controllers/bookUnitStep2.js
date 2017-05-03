@@ -1,10 +1,183 @@
-app.controller("bookUnitStep2Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $filter, httpSvc,$state){
+app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $stateParams, $compile, $cookieStore, $filter, httpSvc,$state){
+    $scope.leadId = $stateParams.leadID;
 	$scope.pageTitle = "Book Unit - Add Customer";
     var unitObj = $cookieStore.get("unitObj");
 	var prospectId = $cookieStore.get('prospectId');
-    $scope.movetoStep3 = function()
+    
+    
+     $scope.appendFields = function() {
+        angular.element("#children").html('');
+        for (i = 1; i <= $scope.customer.childrenNo; i++) {
+            var childDiv =  '<div class="field"><label ng-show="customer.child' + i + 'Name" class="show-hide">Child ' + i + ' Name*</label><input type="text" placeholder="Child ' + i + ' Name" title="Child ' + i + ' Name" class="form-control" name="child' + i + 'Name" ng-model="customer.child' + i + 'Name" /></div><div class="field has-feedback"><label ng-show="customer.child' + i + 'Dob" class="show-hide">Child ' + i + ' D.O.B. (DD/MM/YYYY)</label><datepicker date-format="dd/MM/yyyy"><input type="text" placeholder="Child ' + i + ' D.O.B. (DD/MM/YYYY)" title="Child ' + i + ' D.O.B." class="form-control" name="child' + i + 'Dob" ng-model="customer.child' + i + 'Dob"/><i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker></div><br>';
+            var childDivComplied = $compile(childDiv)($scope);
+            angular.element("#children").append(childDivComplied);
+
+        }
+    };
+    
+    
+    
+    
+    function editAppendFields() {
+        angular.element("#children").html('');
+        for (i = 1; i <= $scope.customer.childrenNo; i++) {
+            var childDiv = '<div class="field"><label ng-show="customer.child' + i + 'Name" class="show-hide">Child ' + i + ' Name</label><input type="text" placeholder="Child ' + i + ' Name" title="Child ' + i + ' Name" class="form-control" name="child' + i + 'Name" ng-model="customer.child' + i + 'Name" /></div><div class="field"><label ng-show="customer.child' + i + 'Dob" class="show-hide">Child ' + i + ' D.O.B.</label><datepicker date-format="dd/MM/yyyy"><input type="text" placeholder="Child ' + i + ' D.O.B. (DD/MM/YYYY)" title="Child ' + i + ' D.O.B." class="form-control" name="child' + i + 'Dob" ng-model="customer.child' + i + 'Dob"/><i class="form-control-feedback glyphicon glyphicon-calendar"></i></datepicker></div><br>';
+            var childDivComplied = $compile(childDiv)($scope);
+            angular.element("#children").append(childDivComplied);
+
+        }
+    };
+    
+    
+    $scope.movetoStep3 = function(formObj, formName)
     {
-       $state.go('/BookUnit-Step3') ;
+//        $scope.submit = true;
+//        
+//        if(formObj.spouseDob!=undefined)
+//            {
+//            var dob = formObj.dob;
+//            var newdob = dob.split("/").reverse().join("-");
+//            }
+//        
+//        if(formObj.spouseDob!=undefined)
+//            {
+//            var dobspouse = formObj.spouseDob;
+//            var newdobspouse = dobspouse.split("/").reverse().join("-");
+//            }
+//       
+//        if(formObj.gpaDob!=undefined)
+//            {   
+//             var dobgpa = formObj.gpaDob;
+//             var newdobgpa = dobgpa.split("/").reverse().join("-");
+//            }
+//         if(formObj.weddingAnniversary!=undefined)
+//             {
+//            var wedAnniversary = formObj.weddingAnniversary;
+//            var newwedAnniversary = wedAnniversary.split("/").reverse().join("-");       
+//             }
+//           if(formObj.child1Dob!=undefined)
+//             {
+//              var dobchild1 = formObj.child1Dob;
+//              var newdobchild1 = dobchild1.split("/").reverse().join("-");   
+//             }
+//            if(formObj.child2Dob!=undefined)
+//             {
+//              var dobchild2 = formObj.child2Dob;
+//              var newdobchild2 = dobchild2.split("/").reverse().join("-"); 
+//             }
+//         if(formObj.child3Dob!=undefined)
+//             {
+//               var dobchild3 = formObj.child3Dob;
+//               var newdobchild3 = dobchild3.split("/").reverse().join("-"); 
+//             }
+//         if(formObj.child4Dob!=undefined)
+//             {
+//             var dobchild4 = formObj.child4Dob;
+//             var newdobchild4 = dobchild4.split("/").reverse().join("-");
+//             }
+//             
+//
+//        if ($scope[formName].$valid) {
+//            angular.element(".loader").show();
+//
+//            var relationType = 0;
+//            var statusType = 0;
+//            var noOfChildren = 0;
+//            var gpaRelation = 0;
+//
+//            if (formObj.relationType != undefined && formObj.relationType != '') {
+//                relationType = formObj.relationType;
+//            }
+//
+//            if (formObj.gpaRelation != undefined && formObj.gpaRelation != '') {
+//                gpaRelation = formObj.gpaRelation;
+//            }
+//
+//            if (formObj.residentType != undefined && formObj.residentType != '') {
+//                statusType = formObj.residentType;
+//            }
+//
+//            if (formObj.childrenNo != undefined && formObj.childrenNo != '') {
+//                noOfChildren = formObj.childrenNo;
+//            }
+//
+//            $http({
+//                method: "POST",
+//                url: "http://120.138.8.150/pratham/Cust/SaveCust",
+//                ContentType: 'application/json',
+//                data: {
+//                    "user_id": $scope.leadId,
+//                    "user_comp_guid": $cookieStore.get('comp_guid'),
+//                    "Cust_User_Id_Assgnto": 1,
+//                    "user_first_name": formObj.firstName,
+//                    "user_middle_name": formObj.middleName,
+//                    "user_last_name": formObj.lastName,
+//                    "user_mobile_no": formObj.mobileNumber,
+//                    "user_office_no": formObj.officeNumber,
+//                    "user_email_address": formObj.emailId,
+//                    "user_dob": newdob,
+//                    "user_gender": formObj.gender,
+//                    "user_country": formObj.country,
+//                    "state": formObj.state,
+//                    "city": formObj.city,
+//                    "user_address": formObj.address,
+//                    "user_zipcode": formObj.zip,
+//                    "Cust_relationtype": relationType,
+//                    "Cust_relationname": formObj.relationName,
+//                    "Cust_status_type": statusType,
+//                    "Cust_perm_add": formObj.address2,
+//                    "Cust_status_other": "Cust_status_other",
+//                    "Cust_pan": formObj.pan,
+//                    "Cust_aadhar": formObj.aadhar,
+//                    "Cust_alt_contactno": formObj.alternateContact,
+//                    "Cust_qualification": formObj.qualification,
+//                    "Cust_Profession": formObj.profession,
+//                    "Cust_company": formObj.company,
+//                    "Cust_desig": formObj.designation,
+//                    "Cust_off_add": formObj.officeAddress,
+//                    "Cust_off_email": formObj.officeEmailId,
+//                    "Cust_spouse_nm": formObj.spouseName,
+//                    "Cust_spouse_dob": newdobspouse,
+//                    "Cust_spouse_pan": formObj.spousePan,
+//                    "Cust_spouse_aadhar": formObj.spouseAadhar,
+//                    "Cust_noof_childrn": noOfChildren,
+//                    "Cust_child1_nm": formObj.child1Name,
+//                    "Cust_child1_dob":newdobchild1 ,
+//                    "Cust_child2_nm": formObj.child2Name,
+//                    "Cust_child2_dob": newdobchild2,
+//                    "Cust_child3_nm": formObj.child3Name,
+//                    "Cust_child3_dob": newdobchild3,
+//                    "Cust_child4_nm": formObj.child4Name,
+//                    "Cust_child4_dob": newdobchild4,
+//                    "Cust_wedanv": newwedAnniversary,
+//                    "Cust_bankloan": formObj.bankloan,
+//                    "Cust_banknm": formObj.bankName,
+//                    "Cust_bankaccno": formObj.accountNumber,
+//                    "Cust_bankadd": formObj.bankAdress,
+//                    "Cust_bankifsccode": formObj.ifscCode,
+//                    "Cust_bankemailid": formObj.bankEmailId,
+//                    "Cust_gpaholdr": formObj.gpaHolder,
+//                    "Cust_gpa_nm": formObj.gpaName,
+//                    "Cust_gpa_relationtype": gpaRelation,
+//                    "Cust_gpa_dob": newdobgpa,
+//                    "Cust_gpa_add": formObj.gpaAddress,
+//                    "Cust_gpa_permadd": formObj.permanentAddress,
+//                    "Cust_gpa_reltnwithcusty": formObj.relationWithcustomer,
+//                    "Cust_gpa_pan": formObj.gpaPan,
+//                    "Cust_gpa_aadhar": formObj.gpaAadhar
+//                }
+//            }).success(function(data) {
+//                console.log(data);
+//                 alert("update customer");
+//                 $state.go('/BookUnit-Step3') ;
+//                angular.element(".loader").hide();
+//            }).error(function() {
+//                alert("Error in save customer");
+//                angular.element(".loader").hide();
+//            });
+//        }
+//  
+         alert("update customer");
     }
     
 	$scope.getUserDetails = (function() {

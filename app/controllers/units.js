@@ -3,11 +3,10 @@ app.controller("unitsCtrl", function($scope, $http, $state, $cookieStore, $state
 
     $scope.projectListFun = function() {
         angular.element(".loader").show();
-        $scope.projectList = myService.getProjectList($cookieStore.get('comp_guid'));
-        /*.then(function(response) {
+        $scope.projectList = myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
             $scope.projectList = response.data;
             angular.element(".loader").hide();
-        });*/
+        });
     };
 
     $scope.phaseListFun = function(projectName) {

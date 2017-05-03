@@ -27,7 +27,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form">
                     <div class="field">
                         <label ng-show="addEmployee.employeeFirstName" class="show-hide">Employee First Name*</label>
-                        <input type="text" placeholder="Employee First Name*" class="form-control" name="employeeFirstName" ng-model="addEmployee.employeeFirstName" ng-required="true" ng-class="{blankInput: addEmployeeForm.employeeFirstName.$error.required &amp;&amp; submit}" />
+                        <input type="text" placeholder="Employee First Name*" class="form-control" name="employeeFirstName" ng-model="addEmployee.employeeFirstName" ng-required="true" ng-class="{blankInput: addEmployeeForm.employeeFirstName.$error.required &amp;&amp; submit}" ng-minlength="2" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1" />
+                        <p style="color:#ff0000;" ng-show="number_error_show>0 && (addEmployeeForm.employeeFirstName.$error.minlength)"> Name should contain atleast 2 characters</p>
                     </div>
                     <div class="field">
                         <label ng-show="addEmployee.employeeMiddleName" class="show-hide">Employee Middle Name</label>
@@ -35,7 +36,8 @@
                     </div>
                     <div class="field">
                         <label ng-show="addEmployee.employeeLastName" class="show-hide">Employee Last Name*</label>
-                        <input type="text" placeholder="Employee Last Name*" class="form-control" name="employeeLastName" ng-model="addEmployee.employeeLastName" ng-required="true" ng-class="{blankInput: addEmployeeForm.employeeLastName.$error.required &amp;&amp; submit}" />
+                        <input type="text" placeholder="Employee Last Name*" class="form-control" name="employeeLastName" ng-model="addEmployee.employeeLastName" ng-required="true" ng-class="{blankInput: addEmployeeForm.employeeLastName.$error.required &amp;&amp; submit}" ng-minlength="2" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1" />
+                        <p style="color:#ff0000;" ng-show="number_error_show>0 && (addEmployeeForm.employeeLastName.$error.minlength)"> Name should contain atleast 2 characters</p>
                     </div>
                     <div class="field">
                         <label ng-show="addEmployee.employeeCode" class="show-hide">Employee Code *</label>
@@ -51,7 +53,8 @@
                     </div>
                     <div class="field">
                         <label ng-show="addEmployee.employeeMobileNumber" class="show-hide">Mobile Number </label>
-                        <input type="number" placeholder="Mobile Number" class="form-control" name="employeeMobileNumber" ng-model="addEmployee.employeeMobileNumber"  />
+                        <input type="number" placeholder="Mobile Number" class="form-control" name="employeeMobileNumber" ng-model="addEmployee.employeeMobileNumber" ng-maxlength="10" ng-minlength="10" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1" />
+                        <p style="color:#ff0000;" ng-show="number_error_show>0 && (addEmployeeForm.employeeMobileNumber.$error.minlength || addEmployeeForm.employeeMobileNumber.$error.maxlength)"> Mobile number should be of 10 digits</p>
                     </div>
                     <div class="field">
                         <label ng-show="addEmployee.employeeAlternateNumber1" class="show-hide">Alternate Number 1</label>
@@ -87,7 +90,8 @@
                     </div>
                     <div class="field">
                         <label ng-show="addEmployee.employeeSpouseName" class="show-hide">Spouse Name </label>
-                        <input type="text" placeholder="Spouse Name " class="form-control" name="employeeSpouseName" ng-model="addEmployee.employeeSpouseName"  />
+                        <input type="text" placeholder="Spouse Name " class="form-control" name="employeeSpouseName" ng-model="addEmployee.employeeSpouseName"  ng-minlength="2" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1" />
+                        <p style="color:#ff0000;" ng-show="number_error_show>0 && (addEmployeeForm.employeeSpouseName.$error.minlength)"> Name should contain atleast 2 characters</p>
                     </div>
                     <div class="field has-feedback">
                         <label ng-show="addEmployee.employeeSpouseDob" class="show-hide">Spouse D.O.B. (DD/MM/YYYY)</label>
@@ -175,7 +179,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form">
                 <div class="field">
                         <label ng-show="addEmployee.employeeReference1Name" class="show-hide">Reference 1 Name </label>
-                        <input type="text" placeholder="Reference 1 Name " class="form-control" name="employeeReference1Name" ng-model="addEmployee.employeeReference1Name"  />
+                        <input type="text" placeholder="Reference 1 Name " class="form-control" name="employeeReference1Name" ng-model="addEmployee.employeeReference1Name" ng-minlength="2" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1" />
+                        <p style="color:#ff0000;" ng-show="number_error_show>0 && (addEmployeeForm.employeeReference1Name.$error.minlength)"> Name should contain atleast 2 characters</p>
                     </div>
                     <div class="field">
                         <label ng-show="addEmployee.employeeReference1ContactNumber" class="show-hide">Reference 1 Contact Number </label>
@@ -193,7 +198,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form">
                     <div class="field">
                     <label ng-show="addEmployee.employeeReference2Name" class="show-hide">Reference 2 Name </label>
-                    <input type="text" placeholder="Reference 2 Name " class="form-control" name="employeeReference2Name" ng-model="addEmployee.employeeReference2Name"  />
+                    <input type="text" placeholder="Reference 2 Name " class="form-control" name="employeeReference2Name" ng-model="addEmployee.employeeReference2Name" ng-minlength="2" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1" />
+                        <p style="color:#ff0000;" ng-show="number_error_show>0 && (addEmployeeForm.employeeReference2Name.$error.minlength)"> Name should contain atleast 2 characters</p>
                 </div>
                 <div class="field">
                     <label ng-show="addEmployee.employeeReference2ContactNumber" class="show-hide">Reference 2 Contact Number </label>
