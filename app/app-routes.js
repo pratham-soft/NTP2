@@ -258,7 +258,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
       .state('/UpdateRuleCriteria', {
             url: '/UpdateRuleCriteria/:ruleId/:moduleId',
-            templateUrl: 'partials/UpdateRuleCriteria.html',
+            templateUrl: 'partials/updateRuleCriteria.html',
             controller: 'updateRuleCriteriaCtrl'
         })
         .state('/Action', {
