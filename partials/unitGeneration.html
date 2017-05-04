@@ -216,14 +216,15 @@
    <h4>Sample Units</h4>
 	<table class="sampleUnits">
 		<thead>
+
             <tr>
-            <th colspan="5"></th>
-            <th colspan="2" style="text-align:center">Bathrooms</th>
-            <th colspan="5"></th>
+            <th colspan="4"></th>
+            <th colspan="2" style="text-align:center">Bathroom</th>
+            <th colspan="6"></th>
             </tr>
+
 			<tr>
 				<th>Flat No.</th>
-				<th>Name</th>
 				<th>Type</th>
 				<th>Bedroom</th>
 				<th>Balconies</th>
@@ -232,6 +233,7 @@
 				<th>Super Built-up Area</th>
 				<th>% Age</th>
 				<th>Carpet Area</th>
+                <th>Servant Room</th>
 				<th>Premium</th>
 				<th>Facing</th>
 			</tr>
@@ -308,7 +310,7 @@
 </div>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" ng-show="blockFloorUnits == 0">
-   <button type="button" class="btn btn-primary" ng-click="addBlockPlots(UnitsArr,'addBlockUnitForm',untGeneration)">Save</button>
+   <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',untDetails,untGeneration)">Save</button>
 </div>
 
 </div>
@@ -439,14 +441,13 @@
    <table class="sampleUnits">
       <thead>
             <tr>
-            <th colspan="6"></th>
-            <th colspan="2" style="text-align:center">Bathrooms</th>
             <th colspan="5"></th>
+            <th colspan="2" style="text-align:center">Bathroom</th>
+            <th colspan="6"></th>
             </tr>
 			<tr>
 				<th>Flat No.</th>
                 <th>Floor</th>
-				<th>Name</th>
 				<th>Type</th>
 				<th>Bedroom</th>
 				<th>Balconies</th>
@@ -455,7 +456,8 @@
 				<th>Super Built-up Area</th>
 				<th>% Age</th>
 				<th>Carpet Area</th>
-				<th>Premium</th>
+				<th>Servant Room</th>
+                <th>Premium</th>
 				<th>Facing</th>
 			</tr>
 		</thead>
@@ -476,7 +478,6 @@
                    <input type="hidden" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" />
                    <input type="hidden" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" />
                 </td>
-               <td><input type="text" class="form-control" name="UnitDtls_Name" ng-model="UnitsArr[$index].UnitDtls_Name" /></td>
                <td><input type="text" class="form-control" name="UnitDtls_Type" ng-model="UnitsArr[$index].UnitDtls_Type" /></td>
                <td>
                   <select class="form-control" name="UnitDtls_Rooms" ng-model="UnitsArr[$index].UnitDtls_Rooms">
@@ -500,30 +501,35 @@
                   </select>
                </td>
                <td>
-                  <select class="form-control" name="UnitDtls_BRoomC" ng-model="UnitsArr[$index].UnitDtls_BRoomC">
+                  <select class="form-control" name="UnitDtls_ComBRoom" ng-model="UnitsArr[$index].UnitDtls_ComBRoom">
                      <option value="">Select</option>
                      <option value="0">0</option>
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
-                     <option value="5">5</option>
                   </select>
                </td>
                <td>
-                  <select class="form-control" name="UnitDtls_BRoomA" ng-model="UnitsArr[$index].UnitDtls_BRoomA">
+                  <select class="form-control" name="UnitDtls_BRoom" ng-model="UnitsArr[$index].UnitDtls_BRoom">
                      <option value="">Select</option>
                      <option value="0">0</option>
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
-                     <option value="5">5</option>
                   </select>
                </td>
                <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" /></td>
                <td><input type="text" class="form-control" name="unitPercentage" ng-model="UnitsArr[$index].unitPercentage" /></td>
                <td><input type="text" class="form-control" name="UnitDtls_Msrmnt" ng-model="UnitsArr[$index].UnitDtls_Msrmnt" /></td>
+                <td>
+                  <select class="form-control" name="UnitDtls_SrvntRoom" ng-model="UnitsArr[$index].UnitDtls_SrvntRoom">
+                     <option value="0">0</option>
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                  </select>
+               </td>
                <td>
                   <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium">
                      <option value="">Select</option>

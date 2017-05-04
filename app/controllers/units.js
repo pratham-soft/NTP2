@@ -56,6 +56,7 @@ app.controller("unitsCtrl", function($scope, $http, $state, $cookieStore, $state
                 unitObj.UnitDtls_Unit_type_id = $scope.units[i].UnitDtls_Unit_type_id;
                 unitObj.UnitDtls_Rooms = $scope.units[i].UnitDtls_Rooms + "";
                 unitObj.UnitDtls_BRoom = $scope.units[i].UnitDtls_BRoom + "";
+                unitObj.UnitDtls_ComBRoom = $scope.units[i].UnitDtls_ComBRoom + "";
                 unitObj.UnitDtls_Balcn = $scope.units[i].UnitDtls_Balcn + "";
                 unitObj.UnitDtls_BuliltupArea = $scope.units[i].UnitDtls_BuliltupArea;
                 unitObj.UnitDtls_Msrmnt = $scope.units[i].UnitDtls_Msrmnt;
@@ -69,6 +70,8 @@ app.controller("unitsCtrl", function($scope, $http, $state, $cookieStore, $state
                 unitObj.UnitDtls_NrtMsrmnt = 0;
                 unitObj.UnitDtls_SthMsrmnt = 0;
                 unitObj.UnitDtls_Status = $scope.units[i].UnitDtls_Status;
+                unitObj.UnitDtls_percentage=$scope.units[i].UnitDtls_percentage;
+                unitObj.UnitDtls_SrvntRoom = $scope.units[i].UnitDtls_SrvntRoom + "";
                 $scope.UnitsArr.push(unitObj);
             }
             angular.element(".loader").hide();
