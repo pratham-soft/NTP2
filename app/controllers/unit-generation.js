@@ -303,7 +303,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         console.log(unitsJson);
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Updt",
+            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
             data: unitsJson
         }).success(function(data) {
