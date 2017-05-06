@@ -31,7 +31,16 @@ app.controller("generateCostSheetCtrl", function($scope, $http, $cookieStore, $s
                 "Blocks_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
+            console.log(data);
             $scope.showGrid = true;
+            for(var i =0;i<data.length;i++){
+                if(data[i].UnitDtls_Premium==0){
+                    data[i].UnitDtls_Premium="No";
+                }
+                else{
+                    data[i].UnitDtls_Premium="Yes";
+                }
+            }
             $scope.unitsWCost = data;
             angular.element(".loader").hide();
         }).error(function() {
