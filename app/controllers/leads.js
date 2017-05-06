@@ -369,7 +369,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
                     firstName: data.user_first_name,
                     middleName: data.user_middle_name,
                     lastName: data.user_last_name,
-                    mobileNumber: data.user_mobile_no,
+                    mobileNumber: parseInt(data.user_mobile_no) ,
                     emailId: data.user_email_address,
                     dob: dob,
                     gender: data.user_gender,
