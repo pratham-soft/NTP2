@@ -468,6 +468,24 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
     ($scope.getLeadDetail = function() {
         angular.element(".loader").show();
         $scope.leadId = $stateParams.leadID;
+        
+         ($scope.getLeadSource = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/LeadSourceGet",
+            ContentType: 'application/json',
+            data: {
+                "lead_source_compguid": "d0cb84c5-6b52-4dff-beb5-50b2f4af5398"
+            }
+        }).success(function(data) {
+            angular.element(".loader").hide();
+            $scope.lead_source_list = data;
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+        
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/User/UserDtls",
@@ -495,7 +513,7 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     firstName: data.user_first_name,
                     middleName: data.user_middle_name,
                     lastName: data.user_last_name,
-                    mobileNumber: data.user_mobile_no,
+                    mobileNumber:parseInt(data.user_mobile_no),
                     emailId: data.user_email_address,
                     dob: dob,
                     gender: data.user_gender,
@@ -506,7 +524,8 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     zip: data.user_zipcode,
                     leadCode: data.user_code,
                     officeNumber: data.user_office_no,
-                    leadStage: data.user_lead_status_id.toString()
+                    leadStage: data.user_lead_status_id.toString(),
+                    leadSource: data.user_lead_source_id + ''
                 }
                 angular.element(".loader").hide();
             } else {
@@ -541,7 +560,8 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     "user_dob": newdate,
                     "user_gender": parseInt(formObj.gender),
                     "user_code": formObj.leadCode,
-                    "user_lead_status_id": parseInt(formObj.leadStage)
+                    "user_lead_status_id": parseInt(formObj.leadStage),
+                    "user_lead_source_id": parseInt(formObj.leadSource)
                 }
             }).success(function(data) {
                 if (data.user_ErrorDesc == "0") {
