@@ -131,11 +131,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/costSheetTemplate.html',
             controller: 'costSheetTemplateCtrl'
         })
-        .state('/CostSheetTemplates', {
-            url: '/CostSheetTemplates',
-            templateUrl: 'partials/costSheetTemplates.html',
-            controller: 'costSheetTemplatesCtrl'
-        })
+//        .state('/CostSheetTemplates', {
+//            url: '/CostSheetTemplates',
+//            templateUrl: 'partials/costSheetTemplates.html',
+//            controller: 'costSheetTemplatesCtrl'
+//        })
         .state('/BlockStage', {
             url: '/BlockStage',
             templateUrl: 'partials/blockStage.html',

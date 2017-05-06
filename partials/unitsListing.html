@@ -116,20 +116,22 @@
 <script type="text/ng-template" id="unitCostSheet.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details - {{unitId}}</h3>
+        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details</h3>
     </div>
     <div class="modal-body" id="modal-body">
         <table class="table borderDef">
             <tr>
-                <td>Flat No.</td>
+                <td>Unit No.</td>
                 <td>{{unitCostSheetDetail.UnitDtls_No}}</td>
                 <td></td>
             </tr>
+<!--
             <tr>
                 <td>Type</td>
                 <td>{{unitCostSheetDetail.UnitDtls_Name}}</td>
                 <td></td>
             </tr>
+-->
             <tr>
                 <td>SBA</td>
                 <td>{{unitCostSheetDetail.sba}}</td>
@@ -141,9 +143,11 @@
                 <td></td>
             </tr>
             <tr>
+<!--
                 <td>Floor Raise Charges</td>
                 <td>{{unitCostSheetDetail.flraisecost}}</td>
                 <td></td>
+-->
             </tr>
             <tr>
                 <td>Basic Cost</td>
