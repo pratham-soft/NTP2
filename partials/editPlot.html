@@ -1,0 +1,261 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle ng-scope">
+   <h1>Unit Genaration</h1>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20 ng-scope">
+   <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a ui-sref="/Phases" href="#/Phases">Phases</a></li>
+      <li class="active">Unit Generation</li>
+   </ol>
+</div>
+<form name="untGenerationForm" class="form" method="POST" novalidate="novalidate" ng-model="untGeneration.formintia" >
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+            <label>Project:</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <select class="form-control" name="projectName" ng-model="untGeneration.projectName" disabled="true">
+               <option ng-repeat="x in projectList" value="{{x.ProjId}}">
+                  {{x.Proj_Name}}
+               </option>
+               <!-- ngRepeat: x in projectList -->
+            </select>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+            <label>Phase:</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+             <select class="form-control" name="phase" ng-model="untGeneration.phase" disabled="true">
+               <option ng-repeat="x in phaseList" value="{{x.Phase_Id}}">
+                  {{x.Phase_Name}}
+               </option>
+               <!-- ngRepeat: x in projectList -->
+            </select>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+            <label>Type:</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">             
+             <select class="form-control" name="typeId" ng-model="untGeneration.typeId" disabled="true">
+               <option ng-repeat="x in phaseList" value="{{x.Phase_UnitType.UnitType_Id}}">
+                  {{x.Phase_UnitType.UnitType_Name}}
+               </option>
+               <!-- ngRepeat: x in projectList -->
+            </select>
+<!--           {{typeObj.UnitType_Name}} | {{typeObj.UnitType_Id}}-->
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+            <label>Block:</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <select class="form-control" name="block" ng-model="untGeneration.block" ng-required="true" ng-class="{blankInput: untGenerationForm.block.$error.required &amp;&amp; submit}" ng-change="checkBlockUnits(untGeneration.block)">
+               <option value="">
+                  Block
+               </option>
+                <option ng-repeat="x in blockList" value="{{x.Blocks_Id}}">
+					{{x.Blocks_Name}}
+				</option>
+               <!-- ngRepeat: x in projectList -->
+            </select>
+         </div>
+      </div>
+       
+       
+       
+       <div >
+        <div >
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3  labelDiv">
+            <label>No. of Releases:</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <select class="form-control" name="plotReleaseNo" ng-model="plotvillaReleaseNo" ng-required="true"  >
+                     <option value="1">1 </option>
+                     <option value="2">2 </option>
+                     <option value="3">3 </option>
+                     <option value="4">4 </option>
+                     <option value="5">5 </option>
+                     <option value="6">6 </option>
+                     <option value="7">7 </option>
+                     <option value="8">8 </option>
+                     <option value="9">9 </option>
+                     <option value="10">10 </option>
+                     <option value="11">11 </option>
+                     <option value="12">12 </option>
+                 </select>
+         </div>
+            </div></div>
+       
+</div>
+    
+    
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" >
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" >
+           <h4>Unit Generation Formula</h4>
+           <label for="unitNo">Starting from: </label>
+           <input type="text" id="unitNo" name="unitNo" ng-model="untGeneration.unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}"> | 
+           <label for="skipBy">Skip By:</label>
+           <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> |
+            <label for="unitsPerFloor">No. of Plots:</label>
+            <input type="text" id="unitsPerFloor" name="unitsPerFloor" ng-model="untGeneration.unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}">
+  
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" >
+           <button type="button" class="btn btn-success" ng-click="addSamplePlots(untGeneration,'untGenerationForm')">
+               Add Plots
+           </button>
+        </div>
+       </div>
+       
+</form>
+
+
+<!-- will show this part if plots are selected -->
+<div >
+<!--
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+	<table class="sampleUnits">
+		<thead>
+            <tr>
+            <th colspan="6"></th>
+            <th colspan="2" style="text-align:center">Dimensions in</th>
+            <th colspan="4"></th>
+            </tr>
+			<tr>
+				<th> No.</th>
+				<th>Facing</th>
+				<th>East</th>
+                <th>West</th>
+                <th>North</th>
+                <th>South</th>
+                <th>East+west</th>
+                <th>North+South</th>
+				<th>Area</th>
+				<th>Release No</th>
+                <th>Corner PLot</th>
+                <th>Premium PLot</th>
+			</tr>
+		</thead>
+				
+	</table>
+</div>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" >
+   
+</div>
+    
+-->
+
+</div>
+<!-- will show this part if plots are selected Ends here -->
+
+
+
+
+<div >
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits > 0 && untGeneration.block != undefined">   
+   <table class="sampleUnits">
+      <thead>
+            <tr>
+            <th colspan="6"></th>
+            <th colspan="2" style="text-align:center">Dimensions in</th>
+            <th colspan="4"></th>
+            </tr>
+			<tr>
+				<th> No.</th>
+				<th>Facing</th>
+				<th>East</th>
+                <th>West</th>
+                <th>North</th>
+                <th>South</th>
+                <th>East+west</th>
+                <th>North+South</th>
+				<th>Area</th>
+				<th>Release No</th>
+                <th>Premium PLot</th>
+                <th>Corner PLot</th>
+			</tr>
+		</thead>
+      <tbody >
+         <form name="addBlockUnitForm" class="form" method="POST" novalidate="novalidate">
+            <tr ng-repeat="x in units track by $index" id="{{$index}}">
+               <td><input type="text" class="form-control" name="UnitDtls_No" ng-model="UnitsArr[$index].UnitDtls_No" /></td>
+                <td>
+                  <select  class="form-control" name="UnitDtls_Directn" ng-model="UnitsArr[$index].UnitDtls_Directn">
+                     <option value="">Select</option>
+                     <option value="E">E</option>
+                     <option value="W">W</option>
+                     <option value="N">N</option>
+                     <option value="S">S</option>
+                     <option value="NW">NW</option>
+                     <option value="NE">NE</option>
+                     <option value="SW">SW</option>
+                     <option value="SE">SE</option>
+                  </select>
+               </td>
+                <td>
+                     <input type="text" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" />
+                </td>
+                <td>
+                     <input type="text" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" />
+
+                </td>
+                <td>
+                     <input type="text" class="form-control" name="UnitDtls_EstWstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstWstMsrmnt"/>
+
+                </td>
+                <td>
+                     <input type="text" class="form-control" name="UnitDtls_NrtSthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtSthMsrmnt" />
+
+                </td>
+
+               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" /></td>
+
+                <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" /></td>
+               
+              <td>
+                  <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium">
+                     <option value="">Select</option>
+                     <option value="1">Y</option>
+                     <option value="0">N</option>
+                  </select>
+               </td>
+                <td>
+                  <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot">
+                     <option value="">Select</option>
+                     <option value="1">Y</option>
+                     <option value="0">N</option>
+                  </select>
+               </td>
+            </tr>
+         </form>
+      </tbody>
+       <tbody id="plotRows"></tbody>
+   </table>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center padding0 marginTop10">
+        <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',untDetails,untGeneration)">Add</button>
+    </div>
+<!--
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" >
+   <button type="button" class="btn btn-primary" ng-click="addMorePlots()">Add More Plots</button>
+</div>
+-->
+</div></div>
+
+

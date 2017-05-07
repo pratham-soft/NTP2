@@ -211,6 +211,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/alertRules.html',
             controller: 'alertRulesCtrl'
         })
+    
+    
+        .state('/EditPlot', {
+            url: '/EditPlot/:projId/:phaseId/:blockId',
+            templateUrl: 'partials/editPlot.html',
+            controller: 'plotGenerationCtrl'
+        })
+        .state('/EditVillas', {
+            url: '/EditVillas/:projId/:phaseId/:blockId',
+            templateUrl: 'partials/editVillas.html',
+            controller: 'villaGenerationCtrl'
+        })
         .state('/CreateNewRule', {
             url: '/CreateNewRule',
             templateUrl: 'partials/createNewRule.html',

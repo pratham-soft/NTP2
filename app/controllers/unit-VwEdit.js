@@ -96,42 +96,6 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
                     blockId:blockId,
                });
         }
-//       var compId = $cookieStore.get('comp_guid');
-//        angular.element(".loader").show();
-//        myService.getUnitsByBlock(compId, blockId).then(function(response) {
-//            $scope.units = response.data[0];
-//            $scope.blockFloorUnits = response.data[1].Blocks_UnitPerfloor;
-//            $scope.UnitsArr = [];
-//            if($scope.units.length>1){
-//            for (i = 0; i < $scope.units.length; i++) {
-//                var unitObj = {};
-//                unitObj.UnitDtls_No = $scope.units[i].UnitDtls_No;
-//                unitObj.UnitDtls_Name = $scope.units[i].UnitDtls_Name;
-//                unitObj.UnitDtls_Type = $scope.units[i].UnitDtls_Type;
-//                unitObj.UnitDtls_Rooms = $scope.units[i].UnitDtls_Rooms + "";
-//                unitObj.UnitDtls_BRoom = $scope.units[i].UnitDtls_BRoom + "";
-//                unitObj.UnitDtls_Balcn = $scope.units[i].UnitDtls_Balcn + "";
-//                unitObj.UnitDtls_BuliltupArea = $scope.units[i].UnitDtls_BuliltupArea;
-//                unitObj.UnitDtls_Msrmnt = $scope.units[i].UnitDtls_Msrmnt;
-//                unitObj.UnitDtls_Premium = $scope.units[i].UnitDtls_Premium + "";
-//                unitObj.UnitDtls_Directn = $scope.units[i].UnitDtls_Directn;
-//                unitObj.UnitDtls_Floor = $scope.units[i].UnitDtls_Floor;
-//                unitObj.UnitDtls_Id = $scope.units[i].UnitDtls_Id;
-//                unitObj.UnitDtls_Cornerplot = 0;
-//                unitObj.UnitDtls_EstMsrmnt = 0;
-//                unitObj.UnitDtls_WstMsrmnt = 0;
-//                unitObj.UnitDtls_NrtMsrmnt = 0;
-//                unitObj.UnitDtls_SthMsrmnt = 0;
-//                unitObj.UnitDtls_Status = $scope.units[i].UnitDtls_Status;
-//                $scope.UnitsArr.push(unitObj);
-//            }}
-//            else{
-//                alert("No Data found, Please add the units in the Block!");
-//                $state.reload();
-//            }
-//            console.log($scope.UnitsArr);
-//            angular.element(".loader").hide();
-//        });
     };
       /*  $http({
             method: "POST",
