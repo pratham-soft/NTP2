@@ -593,6 +593,14 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
             angular.element(".loader").hide();
         });
     })();
+    
+    $scope.bookUnit = function(unitObj,prospectId){
+//		$uibModalInstance.close();
+		$cookieStore.put("unitObj",unitObj);
+		$cookieStore.put("prospectId",prospectId);
+		$state.go('/BookUnit-Step1');
+	};
+    
 
     $scope.getPhaseList = function(projectName) {
         $scope.flatType = "";

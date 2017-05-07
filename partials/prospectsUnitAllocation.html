@@ -81,9 +81,16 @@
                 <td class="text-center">
                     <div class="unitStatus" ng-class="unitStatus[x.unitObj.ProjDtl_Status-1]" title="{{unitStatusText[x.unitObj.ProjDtl_Status-1]}}"></div>
                 </td>
+<!--
                 <td>
                     <button type="button" class="btn btn-primary" ng-click="updateUnitAllocationStatus(x)">Update Status</button>
                 </td>
+-->
+                <td>
+                    <button type="button" class="btn btn-success" ng-click="bookUnit(x.unitObj,lead.user_id)">
+								Book Unit
+				    </button>
+				</td>
             </tr>
         </tbody>
     </table>

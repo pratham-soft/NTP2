@@ -196,7 +196,11 @@
             <label for="type">Conversion Order Date</label>
          </div>
          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
-            <input type="text" class="form-control" name="conversionOrderDocDt" placeholder="Conversion Order Date" ng-model="addUnit.conversionOrderDocDt" ng-required="addUnit.landConverted == 'true'" ng-class="{blankInput: addUnitForm.conversionOrderDocDt.$error.required &amp;&amp; submit}"/>
+             <datepicker date-format="dd/MM/yyyy">
+                <input type="text" class="form-control" name="conversionOrderDocDt" placeholder="Conversion Order Date" ng-model="addUnit.conversionOrderDocDt" ng-required="addUnit.landConverted == 'true'" ng-class="{blankInput: addUnitForm.conversionOrderDocDt.$error.required &amp;&amp; submit}"/>
+                    <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
+            </datepicker>
+            
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
