@@ -142,6 +142,13 @@
                 <td>INR {{unitCostSheetDetail.basecost}}</td>
                 <td></td>
             </tr>
+            
+              <tr>
+                <td>Customer Actual Price / Sq. Ft.(After Discount)</td>
+                <td>INR {{unitCostSheetDetail.unitcostcal_custbasecost}}</td>
+                <td></td>
+            </tr>
+            
             <tr>
 <!--
                 <td>Floor Raise Charges</td>
@@ -154,6 +161,12 @@
                 <td>INR {{unitCostSheetDetail.unitcostcal_basecostval}}</td>
                 <td></td>
             </tr>
+            <tr>
+                <td>Customer Basic Cost(After Discount)</td>
+                <td>INR {{unitCostSheetDetail.unitcostcal_custbasecostval}}</td>
+                <td></td>
+            </tr>
+            
             <tr ng-show="unitCostSheetDetail.cstcmpnme1!=''">
                 <td>{{unitCostSheetDetail.cstcmpnme1}}</td>
                 <td>INR {{unitCostSheetDetail.cstcmpcalcval1}}</td>
@@ -249,14 +262,19 @@
                 <td>INR {{unitCostSheetDetail.cstcmpcalcval19}}</td>
                 <td>{{unitCostSheetDetail.cstcmpcalccmnt19}}</td>
             </tr>
-            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''">
-                <td>{{unitCostSheetDetail.cstcmpnme20}}</td>
-                <td>INR {{unitCostSheetDetail.cstcmpcalcval20}}</td>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==0 " >
+                <td>Formula - {{unitCostSheetDetail.cstcmpnme20}} </td>
+                <td>INR {{unitCostSheetDetail.cstcmpcalcval20}} on Customer Actual Price/Sq.Ft</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==1 " >
+                <td>Flat - {{unitCostSheetDetail.cstcmpnme20}} </td>
+                <td>INR {{unitCostSheetDetail.cstcmpcalcval20}} </td>
                 <td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
             </tr>
             <tr>
                 <td><strong>Total</strong></td>
-                <td><strong>INR {{unitCostSheetDetail.unitcostcal_totcost}}</strong></td>
+                <td><strong>INR {{unitCostSheetDetail.unitcostcal_custtotcost}}</strong></td>
                 <td><strong>Total Cost (Excluding cost of registration)</strong></td>
             </tr>
         </table>
