@@ -150,68 +150,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
         }
     };
 
-    $scope.generateForAllFloors = function(formName, formObj, parentObj) {
-        var initiator = 1;
-        if (parentObj.agf == true) {
-            initiator = 0;
-        }
-        var unitsJson = [];
-       
-            for (j = 1; j < formObj.length; j++) {
-                var unitObj = {};
-                var unitNo = unitNosArr[j - 1];
-                unitNo = i + '' + parentObj.seperator + unitNo;
-                unitObj.UnitDtls_comp_guid = $cookieStore.get('comp_guid');
-                unitObj.UnitDtls_Unit_type_id = parentObj.typeId;
-                unitObj.UnitDtls_Block_Id = parentObj.block;
-                unitObj.UnitDtls_user_id = $cookieStore.get('user_id');
-                unitObj.UnitDtls_No = unitNo;
-                unitObj.UnitDtls_Name = "";
-                unitObj.UnitDtls_Type = formObj[j].unitType;
-                unitObj.UnitDtls_Balcn = formObj[j].unitBalconies;
-                unitObj.UnitDtls_ComBRoom = formObj[j].unitBathroomsCommon;
-                unitObj.UnitDtls_BRoom = formObj[j].unitBathroomsAttached;
-                unitObj.UnitDtls_Rooms = formObj[j].unitBedroom;
-                unitObj.UnitDtls_Msrmnt = formObj[j].unitCarpetArea;
-                unitObj.UnitDtls_Directn = formObj[j].unitPosition;
-                unitObj.UnitDtls_Floor = formObj[j].releaseNo;
-                unitObj.UnitDtls_SrvntRoom = formObj[j].unitServentRoom;
-                unitObj.UnitDtls_Premium = formObj[j].unitPremium;
-                unitObj.UnitDtls_Cornerplot = 0;
-                unitObj.UnitDtls_EstMsrmnt = 0;
-                unitObj.UnitDtls_WstMsrmnt = 0;
-                unitObj.UnitDtls_NrtMsrmnt = 0;
-                unitObj.UnitDtls_SthMsrmnt = 0;
-                unitObj.UnitDtls_BuliltupArea = formObj[j].unitSuperArea;
-                unitObj.UnitDtls_Status = 1;
-                unitObj.UnitDtls_percentage = formObj[j].unitPercentage;
-                
-                unitsJson.push(unitObj);
-            }
 
-        
-        unitsJson = JSON.stringify(unitsJson);
-        console.log(unitsJson);
-        $http({
-            method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
-            ContentType: 'application/json',
-            data: unitsJson
-        }).success(function(data) {
-            console.log(data);
-            var res = data.Comm_ErrorDesc;
-            var resSplit = res.split('|');
-            console.log(resSplit[0]);
-            if (resSplit[0] == 0) {
-                $state.go("/Units", {
-                    projId: $scope.projectId,
-                    phaseId: $scope.phaseId,
-                    blockId: parentObj.block
-                });
-            }
-        }).error(function() {});
-    };
-    
    
     ($scope.checkBlockUnits = function(blockId) {
         if (blockId == undefined) {
@@ -287,85 +226,14 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
             });
         }).error(function() {});
     }
-    
- 
-//    $scope.saveAllPlots = function(formName, formObj, parentObj) {
-//        var initiator = 1;
-//        if (parentObj.agf == true) {
-//            initiator = 0;
-//        }
-//        var unitsJson = [];
-//        for (i = initiator; i <= parentObj.noOfFloors; i++) {
-//            for (j = 1; j < formObj.length; j++) {
-//                var unitObj = {};
-//                var unitNo = plotsNosArr[j - 1];
-// 
-//                unitNo = unitNo;
-//                
-//                unitObj.UnitDtls_comp_guid = $cookieStore.get('comp_guid');
-//                unitObj.UnitDtls_Unit_type_id = "2";
-//                unitObj.UnitDtls_Block_Id = parentObj.block.toString();
-//                unitObj.UnitDtls_user_id = $cookieStore.get('user_id');
-//                unitObj.UnitDtls_No = unitNo.toString();
-//                unitObj.UnitDtls_Name = "";
-//                unitObj.UnitDtls_Type = "";
-//                unitObj.UnitDtls_Balcn = "0";
-//                unitObj.UnitDtls_ComBRoom = "0";
-//                unitObj.UnitDtls_BRoom = "0";
-//                unitObj.UnitDtls_Rooms = "0";
-//                unitObj.UnitDtls_Msrmnt =0;
-//                unitObj.UnitDtls_Directn = formObj[j].plotFacing;
-//                unitObj.UnitDtls_Floor = parseInt(formObj[j].releaseNo);
-//                unitObj.UnitDtls_SrvntRoom = "0";
-//                unitObj.UnitDtls_EstMsrmnt = parseInt(formObj[j].plotEast);
-//                unitObj.UnitDtls_WstMsrmnt = parseInt(formObj[j].plotWest);
-//                unitObj.UnitDtls_NrtMsrmnt = parseInt(formObj[j].plotNorth);
-//                unitObj.UnitDtls_SthMsrmnt = parseInt(formObj[j].plotSouth);
-//                unitObj.UnitDtls_BuliltupArea = formObj[j].plotSuperArea;
-//                unitObj.UnitDtls_Cornerplot =parseInt(formObj[j].plotCorner);
-//                unitObj.UnitDtls_Premium = parseInt(formObj[j].premiumPlot);
-//                unitObj.UnitDtls_Status = 1;
-//                unitObj.UnitDtls_percentage = 0;
-//                unitsJson.push(unitObj);
-//                
-//                        }
-//
-//        }
-//        unitsJson = JSON.stringify(unitsJson);
-//        console.log(unitsJson);
-//        $http({
-//            method: "POST",
-//            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
-//            ContentType: 'application/json',
-//            data: unitsJson
-//        }).success(function(data) {
-//            console.log(data);
-//            var res = data.Comm_ErrorDesc;
-//            var resSplit = res.split('|');
-//            console.log(resSplit[0]);
-//            if (resSplit[0] == 0) {
-////                $state.go("/Units", {
-////                    projId: $scope.projectId,
-////                    phaseId: $scope.phaseId,
-////                    blockId: parentObj.block
-////                });
-//                
-//                $state.go("/ApplyCostSheet", {
-//                    projId: $scope.projectId,
-//                    phaseId: $scope.phaseId,
-//                    blockId: parentObj.block
-//                });
-//            }
-//        }).error(function() {});
-//    };
-    
+
     $scope.saveAllVillas = function(formName, formObj, parentObj) {
         var initiator = 1;
         if (parentObj.agf == true) {
             initiator = 0;
         }
         var unitsJson = [];
-        for (i = initiator; i <= parentObj.noOfFloors; i++) {
+        
             for (j = 1; j < formObj.length; j++) {
                 var unitObj = {};
                 var unitNo = unitNosArr[j - 1];
@@ -400,7 +268,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
                 
                         }
 
-        }
+        
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);
         $http({
@@ -430,20 +298,5 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
     };
     
 
-    
-//        $scope.addMorePlots = function(formObj, formName) {
-//             var projectId = formObj.projectName;
-//            var phaseId = formObj.phase;    
-//            var blockId = formObj.block;
-//            
-//        
-//             $state.go("/EditPlot", {
-//                    projId: projectId,
-//                    phaseId: phaseId,
-//                    blockId:blockId,
-//               });
-//
-//    };
-
-    
+ 
 });

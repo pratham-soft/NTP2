@@ -121,40 +121,7 @@
 
 <!-- will show this part if plots are selected -->
 <div >
-<!--
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-	<table class="sampleUnits">
-		<thead>
-            <tr>
-            <th colspan="6"></th>
-            <th colspan="2" style="text-align:center">Dimensions in</th>
-            <th colspan="4"></th>
-            </tr>
-			<tr>
-				<th> No.</th>
-				<th>Facing</th>
-				<th>East</th>
-                <th>West</th>
-                <th>North</th>
-                <th>South</th>
-                <th>East+west</th>
-                <th>North+South</th>
-				<th>Area</th>
-				<th>Release No</th>
-                <th>Corner PLot</th>
-                <th>Premium PLot</th>
-			</tr>
-		</thead>
-				
-	</table>
-</div>
 
-
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" >
-   
-</div>
-    
--->
 
 </div>
 <!-- will show this part if plots are selected Ends here -->
@@ -189,10 +156,10 @@
       <tbody >
          <form name="addBlockUnitForm" class="form" method="POST" novalidate="novalidate">
             <tr ng-repeat="x in units track by $index" id="{{$index}}">
-               <td><input type="text" class="form-control" name="UnitDtls_No" ng-model="UnitsArr[$index].UnitDtls_No" disabled="true"/></td>
+               <td><input style="width:70px;" type="text" class="form-control" name="UnitDtls_No" ng-model="UnitsArr[$index].UnitDtls_No" /></td>
                 <td>
-                  <select  class="form-control" name="UnitDtls_Directn" ng-model="UnitsArr[$index].UnitDtls_Directn" disabled="true">
-                     <option value="">Select</option>
+                  <select  class="form-control" name="UnitDtls_Directn" ng-model="UnitsArr[$index].UnitDtls_Directn">
+                    
                      <option value="E">E</option>
                      <option value="W">W</option>
                      <option value="N">N</option>
@@ -204,41 +171,40 @@
                   </select>
                </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" disabled="true"/>
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" />
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" disabled="true"/>
+                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" />
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" disabled="true"/>
+                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" />
                 </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" disabled="true"/>
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" />
 
                 </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_EstWstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstWstMsrmnt" disabled="true"/>
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstWstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstWstMsrmnt"/>
 
                 </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_NrtSthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtSthMsrmnt" disabled="true"/>
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtSthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtSthMsrmnt" />
 
                 </td>
 
-               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" disabled="true"/></td>
+               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" /></td>
 
-                <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" disabled="true"/></td>
-               
-              <td>
-                  <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium" disabled="true">
-                     <option value="">Select</option>
+                <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" /></td>
+               <td>
+                  <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot">
+                    
                      <option value="1">Y</option>
                      <option value="0">N</option>
                   </select>
                </td>
-                <td>
-                  <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot" disabled="true">
-                     <option value="">Select</option>
+              <td>
+                  <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium">
+                   
                      <option value="1">Y</option>
                      <option value="0">N</option>
                   </select>
@@ -251,11 +217,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center padding0 marginTop10">
         <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',untDetails,untGeneration)">Add</button>
     </div>
-<!--
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" >
-   <button type="button" class="btn btn-primary" ng-click="addMorePlots()">Add More Plots</button>
-</div>
--->
+
 </div></div>
 
 
