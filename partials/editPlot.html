@@ -189,9 +189,9 @@
       <tbody >
          <form name="addBlockUnitForm" class="form" method="POST" novalidate="novalidate">
             <tr ng-repeat="x in units track by $index" id="{{$index}}">
-               <td><input type="text" class="form-control" name="UnitDtls_No" ng-model="UnitsArr[$index].UnitDtls_No" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_No" ng-model="UnitsArr[$index].UnitDtls_No" disabled="true"/></td>
                 <td>
-                  <select  class="form-control" name="UnitDtls_Directn" ng-model="UnitsArr[$index].UnitDtls_Directn">
+                  <select  class="form-control" name="UnitDtls_Directn" ng-model="UnitsArr[$index].UnitDtls_Directn" disabled="true">
                      <option value="">Select</option>
                      <option value="E">E</option>
                      <option value="W">W</option>
@@ -204,40 +204,40 @@
                   </select>
                </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" />
+                     <input type="text" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" disabled="true"/>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" />
+                    <input type="text" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" disabled="true"/>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" />
+                    <input type="text" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" disabled="true"/>
                 </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" />
+                     <input type="text" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" disabled="true"/>
 
                 </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_EstWstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstWstMsrmnt"/>
+                     <input type="text" class="form-control" name="UnitDtls_EstWstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstWstMsrmnt" disabled="true"/>
 
                 </td>
                 <td>
-                     <input type="text" class="form-control" name="UnitDtls_NrtSthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtSthMsrmnt" />
+                     <input type="text" class="form-control" name="UnitDtls_NrtSthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtSthMsrmnt" disabled="true"/>
 
                 </td>
 
-               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" disabled="true"/></td>
 
-                <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" /></td>
+                <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" disabled="true"/></td>
                
               <td>
-                  <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium">
+                  <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium" disabled="true">
                      <option value="">Select</option>
                      <option value="1">Y</option>
                      <option value="0">N</option>
                   </select>
                </td>
                 <td>
-                  <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot">
+                  <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot" disabled="true">
                      <option value="">Select</option>
                      <option value="1">Y</option>
                      <option value="0">N</option>

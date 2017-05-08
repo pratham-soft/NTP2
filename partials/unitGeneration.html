@@ -158,25 +158,7 @@
        </div>
        
        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="untGeneration.typeId == 3">
-<!--
-      <div ng-show="blockFloorUnits == 0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
-            <label>No. of Releases:</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-             <select class="form-control" name="unitsPerFloor" ng-model="untGeneration.unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}" >
-                     <option value="1">1 </option>
-                     <option value="2">2 </option>
-                     <option value="3">3 </option>
-                     <option value="4">4 </option>
-                     <option value="5">5 </option>
-                     <option value="6">6 </option>
-                     <option value="7">7 </option>
-                     <option value="8">8 </option>
-                 </select>
-         </div>
-      </div>
--->
+
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0 ">
            <h4>Unit Generation Formula</h4>
            <label for="unitNo">Starting Villa No.: </label>
@@ -185,16 +167,7 @@
            <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> |
             <label for="unitsPerFloor">No. of villas:</label>
             <input type="text" id="unitsPerFloor" name="unitsPerFloor" ng-model="untGeneration.unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}">
-        <!--
-           <label for="afn">Add Floor No.:</label>
-           <input type="checkbox" id="afn" ng-model="untGeneration.afn"> |
-        -->
-<!--
-           <label for="seperator">Seperator:</label>
-           <input type="text" id="seperator" ng-model="untGeneration.seperator"> |  
-           <label for="agf">Add Ground Floor:</label>
-           <input type="checkbox" id="agf" ng-model="untGeneration.agf">
--->
+
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
            <button type="button" class="btn btn-success" ng-click="addSampleVillas(untGeneration,'untGenerationForm')">
@@ -270,38 +243,7 @@
 			</tr>
 		</thead>
 		<tbody id="plotRows"></tbody>
-<!--
-            <form name="" class="form" method="POST" novalidate="novalidate">
-            <tr>
-               <td><input type="text" class="form-control" name="UnitDtls_No" /></td>
-                <td>
-                  <select class="form-control" name="UnitDtls_Directn" >
-                     <option value="">Select</option>
-                     <option value="E">E </option>
-                     <option value="W">W </option>
-                     <option value="N">N </option>
-                     <option value="S">S </option>
-                     <option value="NW">NW </option>
-                     <option value="NE">NE </option>
-                     <option value="SW">SW </option>
-                     <option value="SE">SE </option>
-                  </select>
-               </td>
-                <td><input type="text" class="form-control" name="UnitDtls_No"  /></td>
-               <td><input type="text" class="form-control" name="UnitDtls_Name" /></td>
-               <td><input type="text" class="form-control" name="UnitDtls_Type"  /></td>
-               <td><input type="text" class="form-control" name="UnitDtls_No" /></td>
-               <td><input type="text" class="form-control" name="UnitDtls_Name"  /></td>
-               <td><input type="text" class="form-control" name="UnitDtls_Type"  /></td>
-               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea"  /></td>
-               <td><input type="text" class="form-control" name="unitPercentage" /></td>
-                 <td>
-                  <input type="checkbox" class="form-control">
-               </td>
-            </tr>
-         </form>
--->
-		
+	
 	</table>
 </div>
 
@@ -562,7 +504,7 @@
 
 <div ng-show="untGeneration.typeId == 2">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right marginBottom20  ng-scope" >
-   <button type="button" class="btn btn-primary" ng-click="addMorePlots(untGeneration,'untGenerationForm')"> + Add More Plots</button>
+   <button type="button" class="btn btn-primary" ng-click="addMorePlots(untGeneration,'untGenerationForm')" ng-show="blockFloorUnits > 0"> + Add More Plots</button>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits > 0 && untGeneration.block != undefined">   
    <table class="sampleUnits">
@@ -729,7 +671,7 @@
 
 <div ng-show="untGeneration.typeId == 3">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right marginBottom20  ng-scope" >
-   <button type="button" class="btn btn-primary" ng-click="addMoreVillas(untGeneration,'untGenerationForm')"> + Add More Villas</button>
+   <button type="button" class="btn btn-primary" ng-click="addMoreVillas(untGeneration,'untGenerationForm')" ng-show="blockFloorUnits > 0"> + Add More Villas</button>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="blockFloorUnits > 0 && untGeneration.block != undefined">   
    <table class="sampleUnits">

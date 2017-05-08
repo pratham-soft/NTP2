@@ -124,7 +124,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     
     $scope.addSamplePlots = function(formObj, formName) {
         $scope.submit = true;
-        formObj.noOfFloors="1";
+        formObj.noOfFloors=$scope.plotvillaReleaseNo;
         $scope.untDetails=[];
        
             /*Update Block*/
@@ -164,7 +164,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     }
                     //str1='<option value="1">1 </option> <option value="2">2 </option> <option value="3">3 </option> //<option value="4">4 </option> <option value="5">5 </option> <option value="6">6 </option> ';
                     var i = 1;
-                    while (i <= unitsPerFloor) {
+                    while (i <=unitsPerFloor) {
                         plotsNosArr.push(unitNo);
                         var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo +formObj.seperator + unitNo + '"name="unitNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="untDetails[' + i + '].plotFacing"> <option selected="selected" value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td> <td><input type="text" class="form-control" name="plotEast" ng-model="untDetails[' + i + '].plotEast"/> </td> <td><input type="text" class="form-control" name="plotWest" ng-model="untDetails[' + i + '].plotWest"/> </td> <td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].plotNorth"/> </td> <td><input type="text" class="form-control" name="plotSouth" ng-model="untDetails[' + i + '].plotSouth"/> </td><td><input type="text" class="form-control" name="plotEastWest" ng-model="untDetails[' + i + '].plotEastWest"/> </td> <td><input type="text" class="form-control" name="plotNorthSouth" ng-model="untDetails[' + i + '].plotNorthSouth"/> </td> <td><input type="text" class="form-control" name="plotSuperArea" id="untDetails' + i + 'plotSuperArea" ng-model="untDetails[' + i + '].plotSuperArea"/> </td> <td> <select class="form-control" name="reolaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td><select class="form-control" name="premiumPlot" id="untDetails' + i + 'premiumPlot" ng-model="untDetails[' + i + '].premiumPlot"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> <td><select class="form-control" name="plotCorner" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].plotCorner"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> </tr>';
                         var tableRowComplied = $compile(tableRow)($scope);
@@ -189,7 +189,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     
     $scope.addSampleVillas = function(formObj, formName) {
         $scope.submit = true;
-        formObj.noOfFloors="1";
+        formObj.noOfFloors=$scope.plotvillaReleaseNo;
        
             /*Update Block*/
             $http({
@@ -227,7 +227,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                         str1= str1 + "<option value="+ j +">"+j+"</option>";
                     }
                     var i = 1;
-                    while (i <= unitsPerFloor) {
+                    while (i <=unitsPerFloor) {
                         unitNosArr.push(unitNo);
                         var tableRow = '<tr><td><input type="text" class="form-control" value="' + floorNo + formObj.seperator +  unitNo + '" name="villaNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="villaFacing" ng-model="untDetails[' + i + '].villaFacing"><option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option><option value="SW">SW</option> <option value="SE">SE</option></select></td><td><input type="text" class="form-control" name="villaEast" ng-model="untDetails[' + i + '].villaEast"/></td> <td><input type="text" class="form-control" name="villaWest" ng-model="untDetails[' + i + '].villaWest"/> </td><td><input type="text" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].villaNorth"/> </td> <td><input type="text" class="form-control" name="villaSouth" ng-model="untDetails[' + i + '].villaSouth"/> </td><td><input type="text" class="form-control" name="villaEastWest" ng-model="untDetails[' + i + '].villaEastWest"/></td> <td><input type="text" class="form-control" name="villaNorthSouth" ng-model="untDetails[' + i + '].villaNorthSouth"/></td><td> <select class="form-control" name="villaBedroom" ng-model="untDetails[' + i + '].villaBedroom">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option>  <option value="6">6</option> <option value="7">7</option>  <option value="8">8</option>  </select> </td> <td> <select class="form-control" name="villaBalconies" ng-model="untDetails[' + i + '].villaBalconies">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option></select> </td> <td> <select class="form-control" name="villaBathrooms" ng-model="untDetails[' + i + '].villaBathrooms">   <option value="1">1</option> <option value="2">2</option><option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </td> <td><input type="text" class="form-control" name="villaSuperArea" id="untDetails' + i + 'villaSuperArea" ng-model="untDetails[' + i + '].villaSuperArea"/></td> <td><input style="width:70px;" ng-keyup="calculatePercentageforVilla(' + i + ')" type="number"  id="untDetails' + i + 'villaPercentage"  class="form-control" name="villaPercentage" ng-model="untDetails[' + i + '].villaPercentage"/></td> <td><input type="text" class="form-control" ng-disabled="true" name="villaCarpetArea" id="untDetails' + i + 'villaCarpetArea" ng-model="untDetails[' + i + '].villaCarpetArea"  ng-value="" ng-model-options="{ updateOn: change}"/></td><td> <select style="width:70px;" class="form-control" name="villaPremium" ng-model="untDetails[' + i + '].villaPremium">  <option value="1">Y</option> <option value="0">N</option> </select> </td><td>  <select style="width:70px;" class="form-control" name="relaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td> <select style="width:70px;" class="form-control" name="villaCorner" ng-model="untDetails[' + i + '].villaCorner">  <option value="1">Y</option> <option value="0">N</option> </select> </td></tr>';
                         var tableRowComplied = $compile(tableRow)($scope);
@@ -281,8 +281,8 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             initiator = 0;
         }
         var unitsJson = [];
-        for (i = initiator; i <= parentObj.noOfFloors; i++) {
-            for (j = 1; j < formObj.length; j++) {
+        for (var i = initiator; i <= parentObj.noOfFloors; i++) {
+            for (var j = 1; j < formObj.length; j++) {
                 var unitObj = {};
                 var unitNo = unitNosArr[j - 1];
                 unitNo = i + '' + parentObj.seperator + unitNo;
@@ -422,8 +422,8 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             initiator = 0;
         }
         var unitsJson = [];
-        for (i = initiator; i <= parentObj.noOfFloors; i++) {
-            for (j = 1; j < formObj.length; j++) {
+        
+            for (var j = 1; j < formObj.length; j++) {
                 var unitObj = {};
                 var unitNo = plotsNosArr[j - 1];
  
@@ -457,7 +457,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 
                         }
 
-        }
+        
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);
         $http({
@@ -492,8 +492,8 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             initiator = 0;
         }
         var unitsJson = [];
-        for (i = initiator; i <= parentObj.noOfFloors; i++) {
-            for (j = 1; j < formObj.length; j++) {
+       
+            for (var j = 1; j < formObj.length; j++) {
                 var unitObj = {};
                 var unitNo = unitNosArr[j - 1];
  
@@ -527,7 +527,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 
                         }
 
-        }
+        
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);
         $http({
