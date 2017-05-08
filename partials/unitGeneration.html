@@ -179,7 +179,7 @@
 -->
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0 ">
            <h4>Unit Generation Formula</h4>
-           <label for="unitNo">Starting plot No.: </label>
+           <label for="unitNo">Starting Villa No.: </label>
            <input type="text" id="unitNo" name="unitNo" ng-model="untGeneration.unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}"> | 
            <label for="skipBy">Skip By:</label>
            <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> |
@@ -215,6 +215,7 @@
             <tr>
             <th colspan="4"></th>
             <th colspan="2" style="text-align:center">Bathroom</th>
+<!--                 <th colspan="1"></th>-->
             <th colspan="6"></th>
             </tr>
 
@@ -466,10 +467,8 @@
                <td>
                    {{UnitsArr[$index].UnitDtls_Floor}} 
                    <input type="hidden" class="form-control" name="UnitDtls_Id" ng-model="UnitsArr[$index].UnitDtls_Id" />
-                   <input type="hidden" class="form-control" name="UnitDtls_Id" ng-model="UnitsArr[$index].UnitDtls_Id" />
-                   
-                   <input type="hidden" class="form-control" name="UnitDtls_Status" ng-model="UnitsArr[$index].UnitDtls_Status" />
-                   
+                   <input type="hidden" class="form-control" name="UnitDtls_Id" ng-model="UnitsArr[$index].UnitDtls_Id" />      
+                   <input type="hidden" class="form-control" name="UnitDtls_Status" ng-model="UnitsArr[$index].UnitDtls_Status" />  
                    <input type="hidden" class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot" />
                    <input type="hidden" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" />
                    <input type="hidden" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" />
