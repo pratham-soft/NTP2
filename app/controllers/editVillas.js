@@ -156,7 +156,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
             initiator = 0;
         }
         var unitsJson = [];
-        for (i = initiator; i <= parentObj.noOfFloors; i++) {
+       
             for (j = 1; j < formObj.length; j++) {
                 var unitObj = {};
                 var unitNo = unitNosArr[j - 1];
@@ -174,7 +174,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
                 unitObj.UnitDtls_Rooms = formObj[j].unitBedroom;
                 unitObj.UnitDtls_Msrmnt = formObj[j].unitCarpetArea;
                 unitObj.UnitDtls_Directn = formObj[j].unitPosition;
-                unitObj.UnitDtls_Floor = i;
+                unitObj.UnitDtls_Floor = formObj[j].releaseNo;
                 unitObj.UnitDtls_SrvntRoom = formObj[j].unitServentRoom;
                 unitObj.UnitDtls_Premium = formObj[j].unitPremium;
                 unitObj.UnitDtls_Cornerplot = 0;
@@ -189,7 +189,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
                 unitsJson.push(unitObj);
             }
 
-        }
+        
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);
         $http({

@@ -363,7 +363,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 unitObj.UnitDtls_Msrmnt = $scope.units[i].UnitDtls_Msrmnt;
                 unitObj.UnitDtls_Premium = $scope.units[i].UnitDtls_Premium + "";
                 unitObj.UnitDtls_Directn = $scope.units[i].UnitDtls_Directn;
-                unitObj.UnitDtls_Floor = $scope.units[i].UnitDtls_Floor;
+                unitObj.UnitDtls_Floor = $scope.units[i].releaseNo;
                 unitObj.UnitDtls_Id = $scope.units[i].UnitDtls_Id;
                 unitObj.UnitDtls_SrvntRoom = $scope.units[i].UnitDtls_SrvntRoom + "";
                 unitObj.UnitDtls_Cornerplot =$scope.units[i].UnitDtls_Cornerplot;
