@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle ng-scope">
-   <h1>Unit Genaration</h1>
+   <h1>Unit Generation</h1>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20 ng-scope">
    <ol class="breadcrumb">
@@ -41,10 +41,16 @@
             <label>Type:</label>
          </div>
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">             
-             <select class="form-control" name="typeId" ng-model="untGeneration.typeId" disabled="true">
-               <option ng-repeat="x in phaseList" value="{{x.Phase_UnitType.UnitType_Id}}">
-                  {{x.Phase_UnitType.UnitType_Name}}
-               </option>
+             <select class="form-control" name="typeId" ng-model="untGeneration.typeId" >
+               <option value="1">
+						Flat
+					</option>
+					<option value="2">
+						Plot
+					</option>
+					<option value="3">
+						Villa
+					</option>
                <!-- ngRepeat: x in projectList -->
             </select>
 <!--           {{typeObj.UnitType_Name}} | {{typeObj.UnitType_Id}}-->

@@ -41,10 +41,20 @@
             <label>Type:</label>
          </div>
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">             
-             <select class="form-control" name="typeId" ng-model="untGeneration.typeId" disabled="true">
-               <option ng-repeat="x in phaseList" value="{{x.Phase_UnitType.UnitType_Id}}">
-                  {{x.Phase_UnitType.UnitType_Name}}
-               </option>
+            <select class="form-control" name="typeId" ng-model="untGeneration.typeId" disabled="true">
+<!--
+               <option value="1">
+						Flat
+					</option>
+-->
+					<option value="2" ng-selected="untGeneration.typeId==2">
+						Plot
+					</option>
+<!--
+					<option value="3">
+						Villa
+					</option>
+-->
                <!-- ngRepeat: x in projectList -->
             </select>
 <!--           {{typeObj.UnitType_Name}} | {{typeObj.UnitType_Id}}-->
@@ -77,19 +87,19 @@
             <label>No. of Releases:</label>
          </div>
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <select class="form-control" name="plotReleaseNo" ng-model="plotvillaReleaseNo" ng-required="true"  >
-                     <option value="1">1 </option>
-                     <option value="2">2 </option>
-                     <option value="3">3 </option>
-                     <option value="4">4 </option>
-                     <option value="5">5 </option>
-                     <option value="6">6 </option>
-                     <option value="7">7 </option>
-                     <option value="8">8 </option>
-                     <option value="9">9 </option>
-                     <option value="10">10 </option>
-                     <option value="11">11 </option>
-                     <option value="12">12 </option>
+            <select class="form-control" name="plotReleaseNo" ng-model="plotvillaReleaseNo" ng-required="true" ng-change="releaseChange()"  >
+                     <option value="1" ng-selected="plotvillaReleaseNo==1">1 </option>
+                     <option value="2" ng-selected="plotvillaReleaseNo==2">2 </option>
+                     <option value="3" ng-selected="plotvillaReleaseNo==3">3 </option>
+                     <option value="4" ng-selected="plotvillaReleaseNo==4">4 </option>
+                     <option value="5" ng-selected="plotvillaReleaseNo==5">5 </option>
+                     <option value="6" ng-selected="plotvillaReleaseNo==6">6 </option>
+                     <option value="7" ng-selected="plotvillaReleaseNo==7">7 </option>
+                     <option value="8" ng-selected="plotvillaReleaseNo==8">8 </option>
+                     <option value="9" ng-selected="plotvillaReleaseNo==9">9 </option>
+                     <option value="10" ng-selected="plotvillaReleaseNo==10">10 </option>
+                     <option value="11" ng-selected="plotvillaReleaseNo==11">11 </option>
+                     <option value="12" ng-selected="plotvillaReleaseNo==12">12 </option>
                  </select>
          </div>
             </div></div>
@@ -154,11 +164,11 @@
 			</tr>
 		</thead>
       <tbody >
-         <form name="addBlockUnitForm" class="form" method="POST" novalidate="novalidate">
+         <form name="addBlockUnitForm" class="form" method="POST" novalidate="novalidate" >
             <tr ng-repeat="x in units track by $index" id="{{$index}}">
-               <td><input style="width:70px;" type="text" class="form-control" name="UnitDtls_No" ng-model="UnitsArr[$index].UnitDtls_No" /></td>
+               <td><input style="width:70px;" type="text" class="form-control" name="UnitDtls_No" ng-model="UnitsArr[$index].UnitDtls_No" disabled="true"/></td>
                 <td>
-                  <select  class="form-control" name="UnitDtls_Directn" ng-model="UnitsArr[$index].UnitDtls_Directn">
+                  <select  class="form-control" name="UnitDtls_Directn" ng-model="UnitsArr[$index].UnitDtls_Directn" disabled="true">
                     
                      <option value="E">E</option>
                      <option value="W">W</option>
@@ -171,39 +181,39 @@
                   </select>
                </td>
                 <td>
-                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" />
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" disabled="true"/>
                 </td>
                 <td>
-                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" />
+                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" disabled="true"/>
                 </td>
                 <td>
-                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" />
+                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" disabled="true"/>
                 </td>
                 <td>
-                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" />
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" disabled="true"/>
 
                 </td>
                 <td>
-                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstWstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstWstMsrmnt"/>
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstWstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstWstMsrmnt" disabled="true"/>
 
                 </td>
                 <td>
-                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtSthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtSthMsrmnt" />
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtSthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtSthMsrmnt" disabled="true"/>
 
                 </td>
 
-               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" /></td>
+               <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" disabled="true"/></td>
 
-                <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" /></td>
+                <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" disabled="true"/></td>
                <td>
-                  <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot">
+                  <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot" disabled="true">
                     
                      <option value="1">Y</option>
                      <option value="0">N</option>
                   </select>
                </td>
               <td>
-                  <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium">
+                  <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium" disabled="true">
                    
                      <option value="1">Y</option>
                      <option value="0">N</option>
