@@ -5,6 +5,7 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.blockId = $stateParams.blockId;
     $scope.plotvillaReleaseNo=0;
     $scope.oldReleaseNo=0;
+    $scope.optionButton=true;
 
     
     var unitNosArr = [];
@@ -111,7 +112,7 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
                     var i = 1;
                     while (i <=unitsPerFloor) {
                         plotsNosArr.push(unitNo);
-                        var tableRow = '<tr><td><input type="text" style="width:70px;" class="form-control" value="' + floorNo +formObj.seperator + unitNo + '"name="unitNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="untDetails[' + i + '].plotFacing"> <option selected="selected"  value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td> <td><input type="text" style="width:70px;" class="form-control" name="plotEast" ng-model="untDetails[' + i + '].plotEast"/> </td> <td><input type="text" style="width:70px;" class="form-control" name="plotWest" ng-model="untDetails[' + i + '].plotWest"/> </td> <td><input type="text" style="width:70px;" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].plotNorth"/> </td> <td><input type="text" style="width:70px;" class="form-control" name="plotSouth" ng-model="untDetails[' + i + '].plotSouth"/> </td><td><input type="text" style="width:70px;" class="form-control" name="plotEastWest" ng-model="untDetails[' + i + '].plotEastWest"/> </td> <td><input type="text" style="width:70px;" class="form-control" name="plotNorthSouth" ng-model="untDetails[' + i + '].plotNorthSouth"/> </td> <td><input type="text" class="form-control" name="plotSuperArea" id="untDetails' + i + 'plotSuperArea" ng-model="untDetails[' + i + '].plotSuperArea"/> </td> <td> <select class="form-control" name="reolaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td><select class="form-control" name="premiumPlot" id="untDetails' + i + 'premiumPlot" ng-model="untDetails[' + i + '].premiumPlot"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> <td><select class="form-control" name="plotCorner" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].plotCorner"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> </tr>';
+                        var tableRow = '<tr><td><input type="text" style="width:70px;" class="form-control" value="' + floorNo +formObj.seperator + unitNo + '"name="unitNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="untDetails[' + i + '].plotFacing"> <option selected="selected"  value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'EastP" name="plotEast" ng-model="untDetails[' + i + '].plotEast" ng-keyup="calculateEastWestP(' + i + ')"/> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'WestP" name="plotWest" ng-model="untDetails[' + i + '].plotWest" ng-keyup="calculateEastWestP(' + i + ')"/> </td> <td><input type="text" style="width:70px;" id="untDetails' + i + 'NorthP" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].plotNorth" ng-keyup="calculateNorthSouthP(' + i + ')"/> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'SouthP" name="plotSouth" ng-model="untDetails[' + i + '].plotSouth" ng-keyup="calculateNorthSouthP(' + i + ')"/> </td><td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'plotEastWest" name="plotEastWest" ng-model="untDetails[' + i + '].plotEastWest" ng-model-options="{ updateOn: change}" ng-disabled="true"/> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'plotNorthSouth" name="plotNorthSouth" ng-model="untDetails[' + i + '].plotNorthSouth" ng-model-options="{ updateOn: change}" ng-disabled="true"/> </td> <td><input type="text" class="form-control" id="untDetails' + i + 'plotSuperArea" name="plotSuperArea" id="untDetails' + i + 'plotSuperArea" ng-model="untDetails[' + i + '].plotSuperArea" ng-model-options="{ updateOn: change}" ng-disabled="true"/> </td> <td> <select class="form-control" name="reolaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td><select class="form-control" name="premiumPlot" id="untDetails' + i + 'premiumPlot" ng-model="untDetails[' + i + '].premiumPlot"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> <td><select class="form-control" name="plotCorner" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].plotCorner"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> </tr>';
                         var tableRowComplied = $compile(tableRow)($scope);
                         angular.element("#plotRows").append(tableRowComplied);
                         unitNo = unitNo + skipBy;
@@ -128,6 +129,46 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
         
     };
     
+    
+    $scope.calculateEastWestP = function(id) {
+        var eastNo =parseInt($('#untDetails' + id + 'EastP').val());
+        var westNo =parseInt($('#untDetails' + id + 'WestP').val());
+        if (eastNo > 0 && westNo > 0) {
+        var eastWest = ((eastNo+westNo)/2);
+        $('#untDetails' + id + 'plotEastWest').val(Math.round(parseFloat(eastWest))).trigger("change");; 
+        } else {
+            return false;
+        } 
+        var eastWest = parseInt($('#untDetails' + id + 'plotEastWest').val());
+        var northSouth = parseInt($('#untDetails' + id + 'plotNorthSouth').val());
+
+        if (eastWest > 0 && northSouth > 0) {
+            var superBuiltArea = eastWest * northSouth;
+            $('#untDetails' + id + 'plotSuperArea').val(Math.round(parseFloat(superBuiltArea))).trigger("change");;
+        } else {
+            return false;
+        }
+    };
+    
+    $scope.calculateNorthSouthP = function(id) {
+        var northNo =parseInt($('#untDetails' + id + 'NorthP').val());
+        var southNo =parseInt($('#untDetails' + id + 'SouthP').val());
+        if (northNo > 0 && southNo > 0) {
+        var eastWest = (((northNo)+(southNo))/2);
+        $('#untDetails' + id + 'plotNorthSouth').val(Math.round(parseFloat(eastWest))).trigger("change");; 
+        } else {
+            return false;
+        }
+        
+        var eastWest = parseInt($('#untDetails' + id + 'plotEastWest').val());
+        var northSouth = parseInt($('#untDetails' + id + 'plotNorthSouth').val());
+        if (eastWest > 0 && northSouth > 0) {
+            var superBuiltArea = eastWest * northSouth;
+            $('#untDetails' + id + 'plotSuperArea').val(Math.round(parseFloat(superBuiltArea))).trigger("change");;
+        } else {
+            return false;
+        } 
+    };
 
     
     $scope.apiAlert=function(){
@@ -146,7 +187,8 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
             return false;
         }
     };
-
+    
+    
     
     $scope.releaseChange=function(){
         if($scope.oldReleaseNo>$scope.plotvillaReleaseNo){
@@ -167,9 +209,9 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
             $scope.units = response.data[0];
             $scope.blockFloorUnits = response.data[1].Blocks_UnitPerfloor;
             $scope.UnitsArr = [];
+            var maxRelease=0;
             for (i = 0; i < $scope.units.length; i++) {
                 var unitObj = {};
-                var maxRelease=0;
                 unitObj.UnitDtls_No = $scope.units[i].UnitDtls_No;
                 unitObj.UnitDtls_Name = "";
                 unitObj.UnitDtls_Type = $scope.units[i].UnitDtls_Type;
@@ -275,17 +317,22 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
 //                    phaseId: $scope.phaseId,
 //                    blockId: parentObj.block
 //                });
-                
-                $state.go("/GenerateCostSheet", {
+            }
+            $scope.optionButton=false;
+            console.log($scope.optionButton);
+        }).error(function() {});
+    };
+    
+    $scope.goto=function(formName, formObj,parentObj){
+        $state.go("/GeneratedCostSheetDetails", {
 //                    projId: $scope.projectId,
 //                    phaseId: $scope.phaseId,
                     blockId: parentObj.block
                 });
-            }
-        }).error(function() {});
     };
-    
-
+    $scope.gohome=function(){
+        $state.go("/UnitVwEdit");
+    };
    
     
 });

@@ -225,7 +225,13 @@
        <tbody id="plotRows"></tbody>
    </table>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center padding0 marginTop10">
-        <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',untDetails,untGeneration)">Add</button>
+        <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',untDetails,untGeneration)" ng-show="optionButton">Add</button>
+        
+        <p ng-hide="optionButton">Saving the Cost Sheet generates the updated Cost Sheet for all Units that are not Sold. </p>
+        <P ng-hide="optionButton">Do you Want to Continue</P>
+        <button type="button" class="btn btn-success" ng-click="goto('units',untDetails,untGeneration)" ng-hide="optionButton">Yes</button>
+        <button type="button" class="btn btn-primary" ng-click="gohome()" ng-hide="optionButton">No </button>
+        
     </div>
 
 </div></div>

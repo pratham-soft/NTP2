@@ -196,6 +196,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/generateCostSheet.html',
             controller: 'generateCostSheetCtrl'
         })
+        .state('/GeneratedCostSheetDetails', {
+            url: '/GeneratedCostSheetDetails/:blockId',
+            templateUrl: 'partials/generateCostSheet.html',
+            controller: 'generatedCostSheetDetailsCtrl'
+        })
         .state('/Attendance', {
             url: '/Attendance',
             templateUrl: 'partials/attendance.html',

@@ -108,7 +108,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
                     var i = 1;
                     while (i <= unitsPerFloor) {
                         unitNosArr.push(unitNo);
-                        var tableRow = '<tr><td><input type="text" style="width:70px;" class="form-control" value="' + floorNo + formObj.seperator +  unitNo + '" name="villaNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="villaFacing" ng-model="untDetails[' + i + '].villaFacing"><option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option><option value="SW">SW</option> <option value="SE">SE</option></select></td><td><input type="text" style="width:70px;" class="form-control" name="villaEast" ng-model="untDetails[' + i + '].villaEast"/></td> <td><input type="text" style="width:70px;" class="form-control" name="villaWest" ng-model="untDetails[' + i + '].villaWest"/> </td><td><input type="text" style="width:70px;" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].villaNorth"/> </td> <td><input type="text" style="width:70px;" class="form-control" name="villaSouth" ng-model="untDetails[' + i + '].villaSouth"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaEastWest" ng-model="untDetails[' + i + '].villaEastWest"/></td> <td><input type="text" style="width:70px;" class="form-control" name="villaNorthSouth" ng-model="untDetails[' + i + '].villaNorthSouth"/></td><td> <select class="form-control" style="width:60px;" name="villaBedroom" ng-model="untDetails[' + i + '].villaBedroom">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option>  <option value="6">6</option> <option value="7">7</option>  <option value="8">8</option>  </select> </td> <td> <select class="form-control" style="width:60px;" name="villaBalconies" ng-model="untDetails[' + i + '].villaBalconies">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option></select> </td> <td> <select class="form-control" style="width:60px;" name="villaBathrooms" ng-model="untDetails[' + i + '].villaBathrooms">   <option value="1">1</option> <option value="2">2</option><option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </td> <td><input type="text" style="width:70px;" class="form-control" name="villaSuperArea" id="untDetails' + i + 'villaSuperArea" ng-model="untDetails[' + i + '].villaSuperArea"/></td> <td><input style="width:70px;" ng-keyup="calculatePercentageforVilla(' + i + ')" type="number"  id="untDetails' + i + 'villaPercentage"  class="form-control" name="villaPercentage" ng-model="untDetails[' + i + '].villaPercentage"/></td> <td><input type="text" style="width:70px;" class="form-control" ng-disabled="true" name="villaCarpetArea" id="untDetails' + i + 'villaCarpetArea" ng-model="untDetails[' + i + '].villaCarpetArea"  ng-value="" ng-model-options="{ updateOn: change}"/></td><td> <select style="width:60px;" class="form-control" name="villaPremium" ng-model="untDetails[' + i + '].villaPremium">  <option value="1">Y</option> <option value="0">N</option> </select> </td><td>  <select style="width:65px;" class="form-control" name="relaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td> <select style="width:60px;" class="form-control" name="villaCorner" ng-model="untDetails[' + i + '].villaCorner">  <option value="1">Y</option> <option value="0">N</option> </select> </td></tr>';
+                        var tableRow = '<tr><td><input type="text" style="width:70px;" class="form-control" value="' + floorNo + formObj.seperator +  unitNo + '" name="villaNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="villaFacing" ng-model="untDetails[' + i + '].villaFacing"><option value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option><option value="SW">SW</option> <option value="SE">SE</option></select></td><td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'East" name="villaEast" ng-keyup="calculateEastWest(' + i + ')" ng-model="untDetails[' + i + '].villaEast"/></td> <td><input type="text" style="width:70px;" id="untDetails' + i + 'West" ng-keyup="calculateEastWest(' + i + ')" class="form-control" name="villaWest" ng-model="untDetails[' + i + '].villaWest"/> </td><td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'North" ng-keyup="calculateNorthSouth(' + i + ')" name="plotNorth" ng-model="untDetails[' + i + '].villaNorth"/> </td> <td><input type="text" style="width:70px;" class="form-control" ng-keyup="calculateNorthSouth(' + i + ')" name="villaSouth" id="untDetails' + i + 'South" ng-model="untDetails[' + i + '].villaSouth"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaEastWest" id="untDetails' + i + 'villaEastWest" ng-model="untDetails[' + i + '].villaEastWest" ng-model-options="{ updateOn: change}" ng-disabled="true"/></td> <td><input type="text" style="width:70px;" class="form-control" name="villaNorthSouth"  id="untDetails' + i + 'villaNorthSouth" ng-model="untDetails[' + i + '].villaNorthSouth" ng-model-options="{ updateOn: change}" ng-disabled="true"/></td><td> <select class="form-control" style="width:60px;" name="villaBedroom" ng-model="untDetails[' + i + '].villaBedroom">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option>  <option value="6">6</option> <option value="7">7</option>  <option value="8">8</option>  </select> </td> <td> <select class="form-control" style="width:60px;" name="villaBalconies" ng-model="untDetails[' + i + '].villaBalconies">  <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option></select> </td> <td> <select class="form-control" style="width:60px;" name="villaBathrooms" ng-model="untDetails[' + i + '].villaBathrooms">   <option value="1">1</option> <option value="2">2</option><option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </td> <td><input type="text" style="width:70px;" class="form-control" name="villaSuperArea" id="untDetails' + i + 'villaSuperArea" ng-model="untDetails[' + i + '].villaSuperArea" ng-model-options="{ updateOn: change}" ng-disabled="true"/></td> <td><input style="width:70px;" ng-keyup="calculatePercentageforVilla(' + i + ')" type="number"  id="untDetails' + i + 'villaPercentage"  class="form-control" name="villaPercentage" ng-model="untDetails[' + i + '].villaPercentage"/></td> <td><input type="text" style="width:70px;" class="form-control" ng-disabled="true" name="villaCarpetArea" id="untDetails' + i + 'villaCarpetArea" ng-model="untDetails[' + i + '].villaCarpetArea"  ng-value="" ng-model-options="{ updateOn: change}"/></td><td> <select style="width:60px;" class="form-control" name="villaPremium" ng-model="untDetails[' + i + '].villaPremium">  <option value="1">Y</option> <option value="0">N</option> </select> </td><td>  <select style="width:65px;" class="form-control" name="relaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td> <select style="width:60px;" class="form-control" name="villaCorner" ng-model="untDetails[' + i + '].villaCorner">  <option value="1">Y</option> <option value="0">N</option> </select> </td></tr>';
                         var tableRowComplied = $compile(tableRow)($scope);
                         angular.element("#villaRows").append(tableRowComplied);
                         unitNo = unitNo + skipBy;
@@ -138,6 +138,48 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
         }
     };
     
+    
+    
+    $scope.calculateEastWest = function(id) {
+        var eastNo =parseInt($('#untDetails' + id + 'East').val());
+        var westNo =parseInt($('#untDetails' + id + 'West').val());
+        if (eastNo > 0 && westNo > 0) {
+        var eastWest = ((eastNo+westNo)/2);
+        $('#untDetails' + id + 'villaEastWest').val(Math.round(parseFloat(eastWest))).trigger("change");; 
+        } else {
+            return false;
+        } 
+        var eastWest = parseInt($('#untDetails' + id + 'villaEastWest').val());
+        var northSouth = parseInt($('#untDetails' + id + 'villaNorthSouth').val());
+
+        if (eastWest > 0 && northSouth > 0) {
+            var superBuiltArea = eastWest * northSouth;
+            $('#untDetails' + id + 'villaSuperArea').val(Math.round(parseFloat(superBuiltArea))).trigger("change");;
+        } else {
+            return false;
+        }
+    };
+    
+    $scope.calculateNorthSouth = function(id) {
+        var northNo =parseInt($('#untDetails' + id + 'North').val());
+        var southNo =parseInt($('#untDetails' + id + 'South').val());
+        if (northNo > 0 && southNo > 0) {
+        var eastWest = (((northNo)+(southNo))/2);
+        $('#untDetails' + id + 'villaNorthSouth').val(Math.round(parseFloat(eastWest))).trigger("change");; 
+        } else {
+            return false;
+        }
+        
+        var eastWest = parseInt($('#untDetails' + id + 'villaEastWest').val());
+        var northSouth = parseInt($('#untDetails' + id + 'villaNorthSouth').val());
+        if (eastWest > 0 && northSouth > 0) {
+            var superBuiltArea = eastWest * northSouth;
+            $('#untDetails' + id + 'villaSuperArea').val(Math.round(parseFloat(superBuiltArea))).trigger("change");;
+        } else {
+            return false;
+        } 
+    };
+    
     $scope.releaseChange=function(){
         if($scope.oldReleaseNo>$scope.plotvillaReleaseNo){
             $scope.plotvillaReleaseNo=$scope.oldReleaseNo;
@@ -158,9 +200,10 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
             $scope.units = response.data[0];
             $scope.blockFloorUnits = response.data[1].Blocks_UnitPerfloor;
             $scope.UnitsArr = [];
+            var maxRelease=0;
             for (i = 0; i < $scope.units.length; i++) {
                 var unitObj = {};
-                var maxRelease=0;
+                
                 unitObj.UnitDtls_No = $scope.units[i].UnitDtls_No;
                 unitObj.UnitDtls_Name = "";
                 unitObj.UnitDtls_Type = $scope.units[i].UnitDtls_Type;
@@ -292,7 +335,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
 //                    phaseId: $scope.phaseId,
 //                    blockId: parentObj.block
 //                });
-                 $state.go("/GenerateCostSheet", {
+                 $state.go("/GeneratedCostSheetDetails", {
 //                    projId: $scope.projectId,
 //                    phaseId: $scope.phaseId,
                     blockId: parentObj.block
