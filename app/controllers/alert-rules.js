@@ -11,7 +11,9 @@ app.controller("alertRulesCtrl", function($scope, $http, $cookieStore, $state, $
                 "rule_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            $scope.alertRules = data;
+			if(data[0].ErrorDesc!="-1 | No Records"){
+				$scope.alertRules = data;	
+			}
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
@@ -119,7 +121,6 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
     };
 
     ($scope.geteditRule = function() {
-
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Comp/RulesVwGet",
@@ -134,6 +135,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
             if (data[0].ErrorDesc == '0') {
                 $scope.createNewRule.rule_description = data[0].rule_description;
                 $scope.createNewRule.rule_name = data[0].rule_name;
+				$scope.createNewRule.rule_actiontypeid = data[0].rule_actiontypeid;
                 $scope.modules[0].module_id = data[0].rule_moduleid;
                 $scope.modules[0].module_name = data[0].rule_modname;
                 $scope.actionTypes[0].action_name = data[0].rule_actname;
@@ -296,12 +298,15 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
                 "module_id": moduleId
             }
         }).success(function(data) {
+			console.log(data);
             $scope.subModulesaddRow = data;
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
         });
     }
+	$scope.getSubModules(moduleId);
+	
     $scope.getRuleCriteria = function(ruleId) {
         angular.element(".loader").show();
         $http({
@@ -313,8 +318,14 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
                 "rulecriteria_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
+			console.log(data);
             for (var i = 0; i < data.length; i++) {
-                $scope.subModulesobj.modfieldid = data[i].modfieldid;
+				
+				var htmlRow = '<tr> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_condition" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option> <option value="<>">&#60;&#62;</option> <option value=">">&#62;</option> <option value="<">&#60;</option> <option value=">=">&#62;=</option> <option value="<=">&#60;</option> </select> </td> <td class="inputType"> <input type="text" class="form-control" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td><select class="form-control" ng-model="rules[' + i + '].rule_criteria_operator"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rule_criteria_operator)">Add</button></td> </tr>';
+				htmlRow = $compile(htmlRow)($scope);
+				angular.element(".alertRuleTable").append(htmlRow);
+				
+                /*$scope.subModulesobj.modfieldid = data[i].modfieldid;
                 $scope.subModulesobj.modfield_name = data[i].modfield_name;
                 $scope.rulesobj.rule_criteria_operator = data[i].rulecriteria_operator;
                 $scope.rulesobj.rulecriteria_criteria = data[i].rulecriteria_criteria;
@@ -322,17 +333,22 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
                 $scope.subModules.push($scope.subModulesobj);
                 $scope.rules.push($scope.rulesobj);
                 $scope.subModulesobj = {};
-                $scope.rulesobj = {};
+                $scope.rulesobj = {};*/
             }
-
+			
+			for (var i = 0; i < data.length; i++) {
+				$scope.rules[i] = 
+					{
+					rulecriteria_modfield_id: (data[i].modfieldid).toString()
+				}
+			}
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
         });
     }
-    $scope.getSubModules(moduleId);
     $scope.getRuleCriteria(ruleId);
-    $scope.showInput0 = true;
+    /*$scope.showInput0 = true;*/
     $scope.getFieldValues = function(fieldId, index) {
         var fieldValues = 'fieldValues' + index;
         var showDrodown = 'showDrodown' + index;
