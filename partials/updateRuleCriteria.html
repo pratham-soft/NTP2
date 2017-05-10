@@ -18,11 +18,11 @@
       </div>
       <div ng-show="recordType=='0'" >
          <table class="table alertRuleTable">
-            <tr>
+            <!--<tr>
                <td>
                   <select class="form-control" ng-model="rules[0].rulecriteria_modfield_id" ng-change="getFieldValues(rules[0].rulecriteria_modfield_id,0)">
                      <option value="">Field</option>
-                     <option ng-repeat="x in subModules" value="{{x.modfieldid}}" selected>{{x.modfield_name}}</option>
+                     <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option>
                   </select>
                </td>
                <td>
@@ -53,7 +53,7 @@
                 <td>
                     <button type="button" class="btn btn-default" ng-click="addRow(rules[0].rulecriteria_condition)">Add</button>
                 </td>
-            </tr>
+            </tr>-->
          </table>
       </div>
 	  <div>
