@@ -7,7 +7,7 @@ app.controller("bookUnitStep4Ctrl", function($scope, $rootScope, $stateParams, $
 	
 	var obj = {
 		UnitDtls_Id: unitObj.UnitDtls_Id,
-		UnitDtls_user_id: prospectId,
+		UnitDtls_Cust_UserId: prospectId,
 		UnitDtls_comp_guid: comp_guid
 	};
 	
