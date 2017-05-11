@@ -293,6 +293,74 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     
     
     
+    $scope.calculateEastWestValue= function(id,UnitsArr)
+    {
+        var eastNo =parseInt(UnitsArr[id].UnitDtls_EstMsrmnt);
+        var westNo =parseInt(UnitsArr[id].UnitDtls_WstMsrmnt);
+        if (eastNo > 0 && westNo > 0) {
+        var newvalue= (eastNo + westNo)/2;
+            UnitsArr[id].UnitDtls_EstWstMsrmnt=newvalue;
+        }else{
+            return false;
+        }
+        var eastWest = (UnitsArr[id].UnitDtls_EstWstMsrmnt);
+        var northSouth = (UnitsArr[id].UnitDtls_NrtSthMsrmnt);
+        if (eastWest > 0 && northSouth > 0) {
+            UnitsArr[id].UnitDtls_BuliltupArea= eastWest * northSouth; 
+        }else{
+            return false;
+        }
+        if(UnitsArr[id].UnitDtls_Unit_type_id==3){
+            $scope.calculateCarpet(id,UnitsArr);
+        }
+    }
+    
+    $scope.calculateNorthSouthValue= function(id,UnitsArr)
+    {
+        var northNo =parseInt(UnitsArr[id].UnitDtls_NrtMsrmnt);
+        var southNo =parseInt(UnitsArr[id].UnitDtls_SthMsrmnt);
+        if (northNo > 0 && southNo > 0) {
+        var newvalue= (northNo + southNo)/2;
+            UnitsArr[id].UnitDtls_NrtSthMsrmnt=newvalue;
+        }else{
+            return false;
+        }
+        var eastWest = (UnitsArr[id].UnitDtls_EstWstMsrmnt);
+        var northSouth = (UnitsArr[id].UnitDtls_NrtSthMsrmnt);
+        if (eastWest > 0 && northSouth > 0) {
+            UnitsArr[id].UnitDtls_BuliltupArea= (eastWest * northSouth);
+        }else{
+            return false;
+        }
+        if(UnitsArr[id].UnitDtls_Unit_type_id==3){
+            $scope.calculateCarpet(id,UnitsArr);
+        }
+
+    }
+    
+    $scope.calculateCarpet= function(id,UnitsArr){
+        var area=parseInt(UnitsArr[id].UnitDtls_BuliltupArea);
+        var percentage=parseInt(UnitsArr[id].UnitDtls_percentage);
+        
+        if (percentage >= 1 && percentage <= 100) {
+            var superBuiltArea = UnitsArr[id].UnitDtls_BuliltupArea;
+            var carpetArea = superBuiltArea - (superBuiltArea * (percentage / 100));
+            UnitsArr[id].UnitDtls_Msrmnt=parseInt(carpetArea);
+        } else {
+            alert("Percentage value should be between 0-100.");
+            return false;
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+
     $scope.calculateEastWest = function(id) {
         var eastNo =parseInt($('#untDetails' + id + 'East').val());
         var westNo =parseInt($('#untDetails' + id + 'West').val());
@@ -458,14 +526,24 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 unitObj.UnitDtls_WstMsrmnt = $scope.units[i].UnitDtls_WstMsrmnt;
                 unitObj.UnitDtls_NrtMsrmnt = $scope.units[i].UnitDtls_NrtMsrmnt;
                 unitObj.UnitDtls_SthMsrmnt = $scope.units[i].UnitDtls_SthMsrmnt;
-                unitObj.UnitDtls_EstWstMsrmnt = 0;
-                unitObj.UnitDtls_NrtSthMsrmnt = 0;
+                unitObj.UnitDtls_EstWstMsrmnt = ((unitObj.UnitDtls_EstMsrmnt + unitObj.UnitDtls_WstMsrmnt)/2);
+                unitObj.UnitDtls_NrtSthMsrmnt = ((unitObj.UnitDtls_NrtMsrmnt + unitObj.UnitDtls_SthMsrmnt)/2);
                 unitObj.UnitDtls_Unit_type_id=$scope.units[i].UnitDtls_Unit_type_id;
                 unitObj.UnitDtls_Status = $scope.units[i].UnitDtls_Status;
                 unitObj.UnitDtls_percentage=$scope.units[i].UnitDtls_percentage;
                 $scope.UnitsArr.push(unitObj);
             }
-            if(unitObj.UnitDtls_Unit_type_id != $scope.untGeneration.typeId && unitObj.UnitDtls_Unit_type_id != "0"){
+            
+                   $scope.checkUnitType(unitObj);// We change later.    
+            console.log($scope.UnitsArr);
+            angular.element(".loader").hide();
+            
+        })};
+    })();
+
+    $scope.checkUnitType=function(unitObj){
+        var typeidvalue =parseInt($scope.typeObj.UnitType_Id);
+        if( (typeidvalue != unitObj.UnitDtls_Unit_type_id) && (unitObj.UnitDtls_Unit_type_id != 0)){
                 var typename="";
                 if(unitObj.UnitDtls_Unit_type_id == 1){
                     typename="Flats";
@@ -478,12 +556,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 }
                 alert("Type Mismatch! Please select: "+typename);
             }
-            console.log($scope.UnitsArr);
-            angular.element(".loader").hide();
-            
-        })};
-    })();
-
+    }
  
     
     $scope.addBlockUnit = function(formObj, formName, parentObj) {
@@ -548,6 +621,8 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 unitObj.UnitDtls_WstMsrmnt = parseInt(formObj[j].plotWest);
                 unitObj.UnitDtls_NrtMsrmnt = parseInt(formObj[j].plotNorth);
                 unitObj.UnitDtls_SthMsrmnt = parseInt(formObj[j].plotSouth);
+                unitObj.UnitDtls_EstWstMsrmnt = ((unitObj.UnitDtls_EstMsrmnt + unitObj.UnitDtls_WstMsrmnt)/2);
+                unitObj.UnitDtls_NrtSthMsrmnt = ((unitObj.UnitDtls_NrtMsrmnt + unitObj.UnitDtls_SthMsrmnt)/2);
                 unitObj.UnitDtls_BuliltupArea = formObj[j].plotSuperArea;
                 unitObj.UnitDtls_Cornerplot =parseInt(formObj[j].plotCorner);
                 unitObj.UnitDtls_Premium = parseInt(formObj[j].premiumPlot);

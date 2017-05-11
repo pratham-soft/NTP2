@@ -42,15 +42,9 @@
          </div>
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">             
              <select class="form-control" name="typeId" ng-model="untGeneration.typeId" >
-               <option value="1">
-						Flat
-					</option>
-					<option value="2">
-						Plot
-					</option>
-					<option value="3">
-						Villa
-					</option>
+                <option value="1">Flat</option>
+				<option value="2">Plot</option>
+				<option value="3">Villa</option>
                <!-- ngRepeat: x in projectList -->
             </select>
 <!--           {{typeObj.UnitType_Name}} | {{typeObj.UnitType_Id}}-->
@@ -553,16 +547,16 @@
                   </select>
                </td>
                 <td>
-                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" />
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt" ng-keyup="calculateEastWestValue($index,UnitsArr)"/>
                 </td>
                 <td>
-                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" />
+                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" ng-keyup="calculateEastWestValue($index,UnitsArr)"/>
                 </td>
                 <td>
-                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" />
+                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" ng-keyup="calculateNorthSouthValue($index,UnitsArr)"/>
                 </td>
                 <td>
-                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" />
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" ng-keyup="calculateNorthSouthValue($index,UnitsArr)"/>
 
                 </td>
                 <td>
@@ -656,16 +650,16 @@
                   </select>
                </td>
                 <td>
-                     <input type="text" style="width:70px;"   class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt"  />
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt"   ng-keyup="calculateEastWestValue($index,UnitsArr)"/>
                 </td>
                 <td>
-                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" />
+                    <input type="text" style="width:70px;" class="form-control" name="UnitDtls_WstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_WstMsrmnt" ng-keyup="calculateEastWestValue($index,UnitsArr)"/>
                 </td>
                 <td>
-                    <input type="text" style="width:70px;"  class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" />
+                    <input type="text" style="width:70px;"  class="form-control" name="UnitDtls_NrtMsrmnt" ng-model="UnitsArr[$index].UnitDtls_NrtMsrmnt" ng-keyup="calculateNorthSouthValue($index,UnitsArr)"/>
                 </td>
                 <td>
-                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" />
+                     <input type="text" style="width:70px;" class="form-control" name="UnitDtls_SthMsrmnt" ng-model="UnitsArr[$index].UnitDtls_SthMsrmnt" ng-keyup="calculateNorthSouthValue($index,UnitsArr)"/>
 
                 </td>
                 <td>
@@ -728,10 +722,10 @@
                   </select>
                </td>
                <td><input type="text" style="width:75px;" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" disabled="true"/></td>
-               <td><input type="text" style="width:50px;" class="form-control" name="UnitDtls_percentage" ng-model="UnitsArr[$index].UnitDtls_percentage" /></td>
+               <td><input type="text" style="width:50px;" class="form-control" name="UnitDtls_percentage" ng-model="UnitsArr[$index].UnitDtls_percentage" ng-keyup="calculateCarpet($index,UnitsArr)"/></td>
                <td><input type="text" style="width:70px;" class="form-control" name="UnitDtls_Msrmnt" ng-model="UnitsArr[$index].UnitDtls_Msrmnt" disabled="true"/></td>
 <!--
-                <td>
+                <td> 
                   <select class="form-control" name="UnitDtls_SrvntRoom" ng-model="UnitsArr[$index].UnitDtls_SrvntRoom">
                      <option value="0">0</option>
                      <option value="1">1</option>

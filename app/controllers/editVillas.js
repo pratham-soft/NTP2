@@ -5,6 +5,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
     $scope.blockId = $stateParams.blockId;
     $scope.plotvillaReleaseNo=0;
     $scope.oldReleaseNo=0;
+    $scope.optionButton=true;
     
     var unitNosArr = [];
     var plotsNosArr = [];
@@ -335,16 +336,26 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
 //                    phaseId: $scope.phaseId,
 //                    blockId: parentObj.block
 //                });
-                 $state.go("/GeneratedCostSheetDetails", {
+//                 $state.go("/GeneratedCostSheetDetails", {
+//                    projId: $scope.projectId,
+//                    phaseId: $scope.phaseId,
+//                    blockId: parentObj.block
+//                });
+                
+            }
+             $scope.optionButton=false;
+        }).error(function() {});
+    };
+    
+    $scope.goto=function(formName, formObj,parentObj){
+        $state.go("/GeneratedCostSheetDetails", {
 //                    projId: $scope.projectId,
 //                    phaseId: $scope.phaseId,
                     blockId: parentObj.block
                 });
-                
-            }
-        }).error(function() {});
     };
-    
-
+    $scope.gohome=function(){
+        $state.go("/UnitVwEdit");
+    };
  
 });
