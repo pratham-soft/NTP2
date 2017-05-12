@@ -438,7 +438,6 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
      }*/
     $scope.saveRuleEml = function(formObj, formName) {
         $scope.submit = true;
-
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
             console.log(formObj);
@@ -491,18 +490,21 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
                 "tempemail_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            $scope.emltmlptList = data[0];
-            $scope.action.cctxtar = $scope.emltmlptList.tempemail_recpcc;
-            $scope.action.bcctxtar = $scope.emltmlptList.tempemail_recpbcc;
-            $scope.action.subject = $scope.emltmlptList.tempemail_subject;
-            $scope.action.templateid = $scope.emltmlptList.tempemail_ruleid;
+            console.log(JSON.stringify(data));
+            if(data.length!=0){
+                alert("This has some data!");
+                $scope.action.cctxtar = data[0].tempemail_recpcc;
+                $scope.action.bcctxtar = data[0].tempemail_recpbcc;
+                $scope.action.subject = data[0].tempemail_subject;
+                $scope.action.templateid = data[0].tempemailid.toString();
+            }
             angular.element(".loader").hide();
 
         }).error(function() {
             angular.element(".loader").hide();
         });
     }
-    // $scope.getEmailTmplt (ruleId);
+    $scope.getEmailTmplt(ruleId);
 });
 
 // $scope.getEmailTemplsFun();
