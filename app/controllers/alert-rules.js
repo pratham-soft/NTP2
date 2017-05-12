@@ -131,7 +131,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
                 "ruleid": ruleid
             }
         }).success(function(data) {
-
+            console.log(data);
             if (data[0].ErrorDesc == '0') {
                 $scope.createNewRule.rule_description = data[0].rule_description;
                 $scope.createNewRule.rule_name = data[0].rule_name;
@@ -516,6 +516,31 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
     /*$scope.previewTemplate = function(tempId){
         alert(tempId);
     }*/
+    
+    ($scope.geteditRule = function() {
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/RulesVwGet",
+            ContentType: 'application/json',
+            data: {
+                "rule_user_id": $cookieStore.get('user_id'),
+                "rule_comp_guid": $cookieStore.get('comp_guid'),
+                "ruleid": $scope.ruleId
+            }
+        }).success(function(data) {
+            console.log(data);
+            if (data[0].ErrorDesc == '0') {
+                $scope.scheduleAlert = {
+                    execStartDate:data[0].rule_trigstartdate,
+                    execEndDate:data[0].rule_trigenddate
+                }
+            }
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+
+    })();
 
     $scope.saveSchedule = function(formObj, formName) {
         $scope.submit = true;
