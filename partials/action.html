@@ -27,14 +27,15 @@
             <label for="template" ng-hide="action.actionType == 'desktop'">Template</label>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
-            <select ng-model="action.templateid" name="templateid" id="templateid" class="form-control" ng-show="action.actionType == 'email'" ng-change="getEmailTemplsFun()" ng-required="true" ng-class="{blankInput: actionForm.template.$error.required &amp;&amp; submit}">
+            <select ng-model="action.templateid" name="templateid" id="templateid" class="form-control" ng-show="action.actionType == 'email' && showTempDropDown" ng-change="getEmailTemplsFun()" ng-required="true" ng-class="{blankInput: actionForm.template.$error.required &amp;&amp; submit}">
                <option value="">
                   Email Template
                </option>
                <option ng-repeat="x in emltmlptList" value="{{x.tempemailid}}">
                   {{x.tempemail_name}}
                </option>
-            </select>
+			 </select>
+			 <input type="text" class="form-control" ng-model="action.tempName" ng-show="!showTempDropDown" readonly="true"/>
 			 <textarea class="form-control smstextarea" placeholder="SMS Text (Max chars 160)" maxlength="160" ng-show="action.actionType == 'sms'" name="smsTxt" ng-model="action.smsTxt"></textarea>
 			 <div class="radioLabel" ng-show="action.actionType == 'desktop'">
 			 	<input type="radio"  name="desktopNotifications" id="desktopNotificationsYes" ng-model="action.desktopNotifications" value="yes"/>
@@ -43,8 +44,8 @@
 				<label for="desktopNotificationsNo">No</label>
 			 </div>
          </div>
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-show="action.template">
-            <button type="button" class="btn btn-default" ng-click="previewTemplate(action.template)">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-show="!showTempDropDown">
+            <button type="button" class="btn btn-default" ng-click="previewTemplate(action.tempBody)">
             <span class="glyphicon glyphicon-film"></span>
             </button>
          </div>
@@ -80,3 +81,16 @@
       </div>
    </form>
 </div>
+
+<script type="text/ng-template" id="previewTemp.html">
+        <div class="modal-header">
+			<button type="button" class="close" ng-click="ok()">&times;</button>
+            <h3 class="modal-title" id="modal-title">Preview Template</h3>
+        </div>
+		<div class="modal-body" id="modal-body">
+			{{tempContent}}
+		</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
+        </div>
+</script>

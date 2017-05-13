@@ -399,7 +399,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
         $scope[showInput] = true;
     }
 
-    $scope.updateRule = function(obj) {
+    $scope.updateRule = function(obj) {		
         angular.element(".loader").show();
         for (i = 0; i < obj.length; i++) {
             obj[i].rulecriteria_rule_id = ruleId;
@@ -423,9 +423,10 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     }
 });
 
-app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, myService) {
+app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.pageTitle = "Choose Action";
-
+	$scope.showTempDropDown = true;
+	
     var ruleId = $stateParams.ruleId;
     $scope.action = {
         actionType: "email",
@@ -492,10 +493,12 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         }).success(function(data) {
             console.log(JSON.stringify(data));
             if(data.length!=0){
-                alert("This has some data!");
+				$scope.showTempDropDown = false;
+				$scope.action.tempName = data[0].tempemail_name;
                 $scope.action.cctxtar = data[0].tempemail_recpcc;
                 $scope.action.bcctxtar = data[0].tempemail_recpbcc;
                 $scope.action.subject = data[0].tempemail_subject;
+				$scope.action.tempBody = data[0].tempemail_body;
                 $scope.action.templateid = data[0].tempemailid.toString();
             }
             angular.element(".loader").hide();
@@ -505,17 +508,36 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         });
     }
     $scope.getEmailTmplt(ruleId);
+	
+	$scope.previewTemplate = function(tempContent){
+		var modalInstance = $uibModal.open({
+            templateUrl: 'previewTemp.html',
+            controller: 'previewTempCtrl',
+            scope: $scope,
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return tempContent;
+                }
+            }
+        });
+    }
 });
 
 // $scope.getEmailTemplsFun();
+
+app.controller("previewTempCtrl", function($scope, $uibModalInstance, $compile, item) {
+	$scope.tempContent = item;
+	$scope.ok = function(){
+		$uibModalInstance.close();
+	}
+});
 
 app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {
     $scope.monthDates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
     $scope.pageTitle = "Schedule Alert";
     $scope.ruleId = $stateParams.ruleId;
-    /*$scope.previewTemplate = function(tempId){
-        alert(tempId);
-    }*/
     
     ($scope.geteditRule = function() {
         $http({
