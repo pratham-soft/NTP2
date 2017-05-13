@@ -83,7 +83,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
                 $scope.incentive = data;
                 for (var i=0 ;i<$scope.incentive.length;i++){
                      for (var j=0 ;j<$scope.paymentScheduleList.length;j++){
-                            if ($scope.paymentScheduleList[j].PaymentScheduleId==$scope.incentive[i].incentive_paymnt_stageid)
+                            if ($scope.paymentScheduleList[j].PaymentScheduleId==$scope.incentive[i].incentive_paymentschedule_id)
                              {
                               $scope.paymentScheduleList[j].incentivevalue= $scope.incentive[i].incentive_value;
                               $scope.paymentScheduleList[j].incentivetype= $scope.incentive[i].incentive_type;
@@ -111,7 +111,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
                     "incentive_name": "My client Incentive",
                     "incentive_compguid":$cookieStore.get('comp_guid'),
                     "incentive_blockid":paymentSchedule.blockstageBlockId,
-                    "incentive_paymnt_stageid": paymentSchedule.PaymentScheduleId,
+                    "incentive_paymentschedule_id": paymentSchedule.PaymentScheduleId,
                     "incentive_type":paymentSchedule.incentivetype,
                      "incentive_value":paymentSchedule.incentivevalue
                     }
