@@ -79,6 +79,7 @@
 						 <th>Unit</th>
                          <th>Status</th>
                          <th></th>
+                         <th></th>
 					  </tr>
 				   </thead>
 				   <tbody id="projectList">
@@ -88,7 +89,8 @@
                          <td>{{getTypeNameById(unit.Phase_UnitType_Id)}}</td>
                          <td>{{unit.Blocks_Name}}</td>
                          <td>{{unit.UnitDtls_Name}} / {{unit.phaseType}} No. {{unit.UnitDtls_No}} / {{unit.UnitDtls_BuliltupArea}} sq ft / Floor {{unit.UnitDtls_Floor}}</td>
-                          <td>{{unit.unitViewStatus}}</td>
+                         <td>{{unit.unitViewStatus}}</td>
+                         <td><button class="btn btn-primary" type="button" ng-click="exchangeLeadProjects(lead.user_id,unit.ProjId,unit.Phase_Id,unit.Blocks_Id,unit.UnitDtls_Id)">Exchange</button></td>
                           <td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(unit.ProjDtl_Id,unit.UnitDtls_Id)"></span></td>
 					  </tr>
 				   </tbody>

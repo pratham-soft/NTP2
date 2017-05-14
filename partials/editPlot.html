@@ -117,7 +117,16 @@
            <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> |
             <label for="unitsPerFloor">No. of Plots:</label>
             <input type="text" id="unitsPerFloor" name="unitsPerFloor" ng-model="untGeneration.unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}">
-  
+            <label for="formulaEast">East:</label>
+            <input type="text" id="formulaEast" name="formulaEast" ng-model="untGeneration.formulaEast" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaEast.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp;
+            <label for="formulaWest">West:</label>
+            <input type="text" id="formulaWest" name="formulaWest" ng-model="untGeneration.formulaWest" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaWest.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp; 
+            <label for="formulaNorth">North:</label>
+            <input type="text" id="formulaNorth" name="formulaNorth" ng-model="untGeneration.formulaNorth" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaNorth.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp;
+            <label for="formulaSouth">South:</label>
+            <input type="text" id="formulaSouth" name="formulaSouth" ng-model="untGeneration.formulaSouth" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaSouth.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp; 
+            <label for="unitsPerFloor">ReleaseNo:</label>
+<!--            <select  id="formulaRelease" name="formulaRelease" ng-model="untGeneration[' + x + '].formulaRelease" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaRelease.$error.required &amp;&amp; submit}">'+str1+'</select> -->
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" >
            <button type="button" class="btn btn-success" ng-click="addSamplePlots(untGeneration,'untGenerationForm')">

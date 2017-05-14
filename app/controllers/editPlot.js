@@ -171,9 +171,6 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
     };
 
     
-    $scope.apiAlert=function(){
-        alert("Can't be saved API Not Avialable");
-    }
 
     $scope.calculatePercentage = function(id) {
         var percentage = $('#untDetails' + id + 'unitPercentage').val();
@@ -231,8 +228,8 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
                 unitObj.UnitDtls_WstMsrmnt = $scope.units[i].UnitDtls_WstMsrmnt;
                 unitObj.UnitDtls_NrtMsrmnt = $scope.units[i].UnitDtls_NrtMsrmnt;
                 unitObj.UnitDtls_SthMsrmnt = $scope.units[i].UnitDtls_SthMsrmnt;
-                unitObj.UnitDtls_EstWstMsrmnt = 0;
-                unitObj.UnitDtls_NrtSthMsrmnt = 0;
+                unitObj.UnitDtls_EstWstMsrmnt = ((unitObj.UnitDtls_EstMsrmnt+unitObj.UnitDtls_WstMsrmnt)/2);
+                unitObj.UnitDtls_NrtSthMsrmnt = ((unitObj.UnitDtls_NrtMsrmnt+unitObj.UnitDtls_SthMsrmnt)/2);
                 unitObj.UnitDtls_Unit_type_id=$scope.units[i].UnitDtls_Unit_type_id;
                 unitObj.UnitDtls_Status = $scope.units[i].UnitDtls_Status;
                 unitObj.UnitDtls_percentage=$scope.units[i].UnitDtls_percentage;

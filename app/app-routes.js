@@ -31,6 +31,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/projectDetails.html',
             controller: 'projectDetailsCtrl'
         })
+        .state('/ExchangeUnit', {
+            url: '/ExchangeUnit/:leadID/:projId/:phaseId/:blockId/:unitId',
+            templateUrl: 'partials/exchangeUnit.html',
+            controller: 'exchangeUnitCtrl'
+        })
         .state('/ConvertCustomer', {
             url: '/ConvertCustomer/:action/:leadID',
             templateUrl: 'partials/convertCustomer.html',

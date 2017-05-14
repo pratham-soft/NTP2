@@ -4,6 +4,9 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
     $scope.plotvillaReleaseNo=0;
+    $scope.formulaCounter=1;
+    $scope.unitsPerFloorP=0;
+    var counter=1;
     
     var unitNosArr = [];
     var plotsNosArr = [];
@@ -122,12 +125,43 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     
     
     
-    $scope.addSamplePlots = function(formObj, formName) {
+    $scope.UnitGenerationFormula=[];
+    
+    $scope.formulaSave=function(formObj, formName){
+      //  $scope.UnitGenerationFormula.push(formObj);
+         var x=1
+       var formula_count_rows= Object.keys(formObj).length;
+        for (var i=1 ;i<formula_count_rows;i++)
+            {
+               $scope.addSamplePlots(formObj,formName,x) ;
+                
+            }
+        
+       
+        
+        while(x <$scope.formulaCounter){ 
+            
+       // $scope.addSamplePlots($scope.UnitGenerationFormula[x])
+            x++;
+        } 
+         $scope.UnitGenerationFormula.push(formObj);
+        console.log($scope.UnitGenerationFormula);
+      
+    };
+    
+    $scope.addSamplePlots = function(formObj, formName,x) { 
+          
+        var unitsPerFloor = x.unitsPerFloor;
+        var unitNo = parseInt(x.unitNo);
+        var skipBy = parseInt(x.skipBy); 
+        $scope.unitsPerFloorP=$scope.unitsPerFloorP+ parseInt(unitsPerFloor);
+        var i = counter;
+        
         $scope.submit = true;
         formObj.noOfFloors=$scope.plotvillaReleaseNo;
         $scope.untDetails=[];
-       
             /*Update Block*/
+            
             $http({
                 method: "POST",
                 url: "http://120.138.8.150/pratham/Proj/Block/Updt",
@@ -136,7 +170,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     "Blocks_comp_guid": $cookieStore.get('comp_guid'),
                     "Blocks_Id": formObj.block,
                     "Blocks_Floors": formObj.noOfFloors,
-                    "Blocks_UnitPerfloor": formObj.unitsPerFloor,
+                    "Blocks_UnitPerfloor": unitsPerFloor,
                     "Blocks_Devation": "true"
                 }
             }).success(function(data) {
@@ -155,23 +189,23 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 
                     angular.element("#plotRows").html('');
                     plotsNosArr = [];
-                    var unitsPerFloor = formObj.unitsPerFloor;
-                    var unitNo = parseInt(formObj.unitNo);
-                    var skipBy = parseInt(formObj.skipBy);
+                    
                     str1='';
                     for (var j =1;j<=$scope.plotvillaReleaseNo;j++){
                         str1= str1 + "<option value="+ j +">"+j+"</option>";
                     }
                     //str1='<option value="1">1 </option> <option value="2">2 </option> <option value="3">3 </option> //<option value="4">4 </option> <option value="5">5 </option> <option value="6">6 </option> ';
-                     var i = 1;
-                    while (i <=unitsPerFloor) {
+                     
+                    while (i <=$scope.unitsPerFloorP) {
                         plotsNosArr.push(unitNo);
                         var tableRow = '<tr><td><input type="text" style="width:70px;" class="form-control" value="' + floorNo +formObj.seperator + unitNo + '"name="unitNos" ng-required="true"/> </td> <td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="untDetails[' + i + '].plotFacing"> <option selected="selected"  value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'EastP" name="plotEast" ng-model="untDetails[' + i + '].plotEast" ng-keyup="calculateEastWestP(' + i + ')"/> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'WestP" name="plotWest" ng-model="untDetails[' + i + '].plotWest" ng-keyup="calculateEastWestP(' + i + ')"/> </td> <td><input type="text" style="width:70px;" id="untDetails' + i + 'NorthP" class="form-control" name="plotNorth" ng-model="untDetails[' + i + '].plotNorth" ng-keyup="calculateNorthSouthP(' + i + ')"/> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'SouthP" name="plotSouth" ng-model="untDetails[' + i + '].plotSouth" ng-keyup="calculateNorthSouthP(' + i + ')"/> </td><td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'plotEastWest" name="plotEastWest" ng-model="untDetails[' + i + '].plotEastWest" ng-model-options="{ updateOn: change}" ng-disabled="true"/> </td> <td><input type="text" style="width:70px;" class="form-control" id="untDetails' + i + 'plotNorthSouth" name="plotNorthSouth" ng-model="untDetails[' + i + '].plotNorthSouth" ng-model-options="{ updateOn: change}" ng-disabled="true"/> </td> <td><input type="text" class="form-control" id="untDetails' + i + 'plotSuperArea" name="plotSuperArea" id="untDetails' + i + 'plotSuperArea" ng-model="untDetails[' + i + '].plotSuperArea" ng-model-options="{ updateOn: change}" ng-disabled="true"/> </td> <td> <select class="form-control" name="reolaseNo" id="untDetails' + i + 'releaseNo" ng-model="untDetails[' + i + '].releaseNo"> '+str1+' </select> </td> <td><select class="form-control" name="premiumPlot" id="untDetails' + i + 'premiumPlot" ng-model="untDetails[' + i + '].premiumPlot"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> <td><select class="form-control" name="plotCorner" id="untDetails' + i + 'plotCorner" ng-model="untDetails[' + i + '].plotCorner"><option value="1">Y </option> <option selected="selected" value="0">N </option></select> </td> </tr>';
                         var tableRowComplied = $compile(tableRow)($scope);
                         angular.element("#plotRows").append(tableRowComplied);
                         unitNo = unitNo + skipBy;
                         i++;
+                        counter++;
                     }
+               
                     
                     console.log(plotsNosArr);
                 }
@@ -179,9 +213,29 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             }).error(function() {
                 angular.element(".loader").hide();
             });
+       
             /*End Update Block*/
         
     };
+    
+   
+    $scope.addFormula=function(){
+        var x=$scope.formulaCounter;
+        str1='';
+       
+        //Release dropdown population
+        for (var j =1;j<=$scope.plotvillaReleaseNo;j++){
+            str1= str1 + "<option  value="+ j +">"+j+"</option>";
+            }
+        
+        var formulaRow='<label for="unitNo">Starting from:  </label><input type="text" id="unitNo" name="unitNo" ng-model="untGeneration[' + x + '].unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}">&nbsp; |&nbsp;<label for="skipBy">Skip By:</label><input type="text" id="skipBy" name="skipBy" ng-model="untGeneration[' + x + '].skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}">&nbsp; |&nbsp;<label for="unitsPerFloor">No. of Plots:</label><input type="text" id="unitsPerFloor" name="unitsPerFloor" ng-model="untGeneration[' + x + '].unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}">&nbsp; |&nbsp;<label for="formulaEast">East:</label><input type="text" id="formulaEast" name="formulaEast" ng-model="untGeneration[' + x + '].formulaEast" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaEast.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp;  <label for="formulaWest">West:</label><input type="text" id="formulaWest" name="formulaWest" ng-model="untGeneration[' + x + '].formulaWest" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaWest.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp; <label for="formulaNorth">North:</label><input type="text" id="formulaNorth" name="formulaNorth" ng-model="untGeneration[' + x + '].formulaNorth" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaNorth.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp; <label for="formulaSouth">South:</label><input type="text" id="formulaSouth" name="formulaSouth" ng-model="untGeneration[' + x + '].formulaSouth" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaSouth.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp; <label for="unitsPerFloor">ReleaseNo:</label><select  id="formulaRelease" name="formulaRelease" ng-model="untGeneration[' + x + '].formulaRelease" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaRelease.$error.required &amp;&amp; submit}">'+str1+'</select> <br><br>';
+        
+        var formulaRowComplied = $compile(formulaRow)($scope);
+        angular.element("#uGFormula").append(formulaRowComplied);
+        $scope.formulaCounter=$scope.formulaCounter+1;
+       
+    };
+    
     
     
     $scope.calculateEastWestP = function(id) {
