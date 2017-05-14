@@ -21,7 +21,7 @@
 				</option>
 			</select>
 -->
-        <select class="form-control" ng-change="phaseListFun(projectDetails.projectName)"  ng-model="projectDetails.projectName" ng-options="project.ProjId as project.Proj_Name for project in projectList " ></select>
+        <select class="form-control" ng-change="phaseListFun(projectDetails.projectName)"  ng-model="projectDetails.projectName" ng-options="project.ProjId as project.Proj_Name for project in projectList " disabled="true"></select>
 		</div>
 		<div>
 <!--
@@ -34,10 +34,10 @@
 				</option>
 			</select>
 -->
-             <select class="form-control" ng-change="blockListFun(projectDetails.phase)"  ng-model="projectDetails.phase" ng-options="phase.Phase_Id as phase.Phase_Name for phase in phaseList" >
+             <select class="form-control" ng-change="blockListFun(projectDetails.phase)"  ng-model="projectDetails.phase" ng-options="phase.Phase_Id as phase.Phase_Name for phase in phaseList" disabled="true">
              </select>
 		</div>
-		<div class="divLabel">
+		<div class="divLabel" >
 			Type: <strong ng-model="projectDetails.flatType">{{flatType}}</strong>
 		</div>
 		<div>
@@ -51,7 +51,7 @@
 				</option>
 			</select>
 -->
-             <select class="form-control" ng-change="getUnits(projectDetails.blocks)"  ng-model="projectDetails.blocks" ng-options="block.Blocks_Id as block.Blocks_Name for block in blockList" >
+             <select class="form-control" ng-change="getUnits(projectDetails.blocks)"  ng-model="projectDetails.blocks" ng-options="block.Blocks_Id as block.Blocks_Name for block in blockList" disabled="true">
              </select>
 		</div>
 		<div>

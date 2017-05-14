@@ -25,7 +25,13 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         }).success(function(data) {
             if (data.user_id != 0) {
                 if (data.userprojlist != null) {
-                    $scope.leadProjects = data.userprojlist;
+                    for(var i=0; i<data.userprojlist.length;i++){
+                        if(data.userprojlist[i].UnitDtls_Id==parseInt($scope.unitDtlsId)){
+                            $scope.leadProjects=[];
+                            $scope.leadProjects.push(data.userprojlist[i]);
+                        }
+                    }
+   
                 }
                 angular.element(".loader").hide();
             } else {
@@ -221,38 +227,39 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         }
     };
     $scope.saveLead = function(projectObj) {
-        var projJson = [];
-        $(".dispNone").each(function(index) {
-            //console.log(index + ": " + $(this).text());
-            var projObj = $(this).text();
-            projObj = angular.fromJson(projObj);
-            projObj.comp_guid = $cookieStore.get('comp_guid');
-            projObj.Projusrid = $scope.leadId;
-            projObj.ProjDtl_Status = 2;
-            projJson.push(projObj);
-        });
-        //console.log(projJson);
-        angular.element(".loader").show();
-        $http({
-            method: "POST",
-            url: "http://120.138.8.150/pratham/User/ProjUnitSave",
-            ContentType: 'application/json',
-            data: projJson
-        }).success(function(data) {
-            angular.element(".loader").hide();
-            if (data.Comm_ErrorDesc == '0|0') {
-                $cookieStore.remove('lead_id');
-                $state.go('/BookUnit-Step1',{
-                    
-                });
-                angular.element(".loader").hide();
-            } else {
-                alert('Something went wrong.');
-            }
-            //console.log(JSON.stringify(data));
-        }).error(function() {
-            angular.element(".loader").hide();
-        });
+//        var projJson = [];
+//        $(".dispNone").each(function(index) {
+//            //console.log(index + ": " + $(this).text());
+//            var projObj = $(this).text();
+//            projObj = angular.fromJson(projObj);
+//            projObj.comp_guid = $cookieStore.get('comp_guid');
+//            projObj.Projusrid = $scope.leadId;
+//            projObj.ProjDtl_Status = 2;
+//            projJson.push(projObj);
+//        });
+//        //console.log(projJson);
+//        angular.element(".loader").show();
+//        $http({
+//            method: "POST",
+//            url: "http://120.138.8.150/pratham/User/ProjUnitSave",
+//            ContentType: 'application/json',
+//            data: projJson
+//        }).success(function(data) {
+//            angular.element(".loader").hide();
+//            if (data.Comm_ErrorDesc == '0|0') {
+//                $cookieStore.remove('lead_id');
+//                $state.go('/BookUnit-Step1',{
+//                    
+//                });
+//                angular.element(".loader").hide();
+//            } else {
+//                alert('Something went wrong.');
+//            }
+//            //console.log(JSON.stringify(data));
+//        }).error(function() {
+//            angular.element(".loader").hide();
+//        });
+        alert("Need API for exchange..!!")
     };
 
     $scope.getTypeNameById = function(typeId) {
