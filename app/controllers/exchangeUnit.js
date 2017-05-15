@@ -1,10 +1,11 @@
 
 app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
+ //   var test = $window.sessionStorage.getItem('projId');
     $scope.leadId = $stateParams.leadID;
-    $scope.projId = $stateParams.projId;
-    $scope.phaseId = $stateParams.phaseId;
-    $scope.blockId = $stateParams.blockId;
-    $scope.unitDtlsId = $stateParams.unitId;
+    $scope.projId = $window.sessionStorage.getItem('projId');
+    $scope.phaseId = $window.sessionStorage.getItem('phaseId');
+    $scope.blockId = $window.sessionStorage.getItem('blockId');
+    $scope.unitDtlsId = $window.sessionStorage.getItem('unitId');
     $scope.projectDetails={};
     $scope.projectDetails.projectName= parseInt($scope.projId);
    
@@ -192,14 +193,21 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
                         var projectRow = '<tr id="' + $scope.units[i].UnitDtls_Id + '"><td>' + $scope.projId + '</td><td>' + $scope.phaseId + '</td><td>' + 'Flat Type' + '</td><td><div class="dispNone">' + projObj + '</div>' + $scope.units[i].UnitDtls_BRoom + 'BHK - ' + $scope.units[i].UnitDtls_No + ' - ' + $scope.units[i].UnitDtls_Floor + ' Floor</td><td>' + $scope.units[i].UnitDtls_BuliltupArea + ' sq ft</td><td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(' + $scope.projId + ',' + $scope.units[i].UnitDtls_Id + ')"></span></td></tr>';
                         var projectRowComplied = $compile(projectRow)($scope);
                         angular.element(document.getElementById('projectList')).append(projectRowComplied);
+                       
                     }
                     $("#unit" + $scope.units[i].UnitDtls_Id).addClass('selected');
+                    $cookieStore.put("newUnitDtls_Id",$scope.units[i].UnitDtls_Id);
+                        $cookieStore.put("newUnitDtls_No",$scope.units[i].UnitDtls_No);
+                        console.log($cookieStore.get("unitObj.UnitDtls_Id"));
+                     
                 } else {
                     alert($scope.flatStatusText[$scope.units[i].UnitDtls_Status - 1]);
                 }
                 clickCounter++;
             }
+            
         }
+       
     };
     $scope.deleteRow = function(projId, rowId) {
         clickCounter=0;
@@ -227,39 +235,42 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         }
     };
     $scope.saveLead = function(projectObj) {
-//        var projJson = [];
-//        $(".dispNone").each(function(index) {
-//            //console.log(index + ": " + $(this).text());
-//            var projObj = $(this).text();
-//            projObj = angular.fromJson(projObj);
-//            projObj.comp_guid = $cookieStore.get('comp_guid');
-//            projObj.Projusrid = $scope.leadId;
-//            projObj.ProjDtl_Status = 2;
-//            projJson.push(projObj);
-//        });
-//        //console.log(projJson);
-//        angular.element(".loader").show();
-//        $http({
-//            method: "POST",
-//            url: "http://120.138.8.150/pratham/User/ProjUnitSave",
-//            ContentType: 'application/json',
-//            data: projJson
-//        }).success(function(data) {
-//            angular.element(".loader").hide();
-//            if (data.Comm_ErrorDesc == '0|0') {
-//                $cookieStore.remove('lead_id');
-//                $state.go('/BookUnit-Step1',{
-//                    
-//                });
-//                angular.element(".loader").hide();
-//            } else {
-//                alert('Something went wrong.');
-//            }
-//            //console.log(JSON.stringify(data));
-//        }).error(function() {
-//            angular.element(".loader").hide();
-//        });
-        alert("Need API for exchange..!!")
+        var projJson = [];
+        $(".dispNone").each(function(index) {
+            //console.log(index + ": " + $(this).text());
+            var projObj = $(this).text();
+            projObj = angular.fromJson(projObj);
+            projObj.comp_guid = $cookieStore.get('comp_guid');
+            projObj.Projusrid = $scope.leadId;
+            projObj.ProjDtl_Status = 2;
+            projJson.push(projObj);
+        });
+        //console.log(projJson);
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/User/ProjUnitSave",
+            ContentType: 'application/json',
+            data: projJson
+        }).success(function(data) {
+            angular.element(".loader").hide();
+            if (data.Comm_ErrorDesc == '0|0') {
+                $cookieStore.remove('lead_id');
+                $cookieStore.put("skip3rdStep",true);
+                $cookieStore.put("prospectId",$scope.leadId);
+                
+                $state.go('/BookUnit-Step1',{
+                   
+                });
+                angular.element(".loader").hide();
+            } else {
+                alert('Something went wrong.');
+            }
+            //console.log(JSON.stringify(data));
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+//        alert("Need API for exchange..!!")
     };
 
     $scope.getTypeNameById = function(typeId) {

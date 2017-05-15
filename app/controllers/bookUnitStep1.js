@@ -1,8 +1,9 @@
 app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc){
 	$scope.pageTitle = "Book Unit - Cost Details";
 	$scope.unitObj = $cookieStore.get("unitObj");
+    $scope.unitObj.UnitDtls_No=$cookieStore.get("newUnitDtls_No");
 	$scope.prospectId = $cookieStore.get("prospectId");
-	var unitId = $scope.unitObj.UnitDtls_Id;
+	var unitId = $cookieStore.get("newUnitDtls_Id");
     $scope.updatedCostSheetObj = {};
     var count = 0;
     

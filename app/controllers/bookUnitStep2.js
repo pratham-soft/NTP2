@@ -4,6 +4,12 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
     var unitObj = $cookieStore.get("unitObj");
 	var prospectId = $cookieStore.get('prospectId');
     
+    if($cookieStore.get('skip3rdStep') != undefined){
+    var skip3rdStep=$cookieStore.get('skip3rdStep');
+    }
+    else{
+        var skip3rdStep=false;
+    }
     
      $scope.appendFields = function() {
         angular.element("#children").html('');
@@ -148,7 +154,8 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
                     "Cust_gpa_aadhar": formObj.gpaAadhar
                 }
             }).success(function(data) {
-                if(data.user_ErrorDesc =="0")
+                if(skip3rdStep==false){
+                    if(data.user_ErrorDesc =="0")
                     {
                          alert("Customer data Saved");
                          $state.go('/BookUnit-Step3') ;
@@ -158,7 +165,22 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
                    alert("Error in save customer");
                   angular.element(".loader").hide();
                 }
-             
+                    
+                }
+                else{
+                    if(data.user_ErrorDesc =="0")
+                    {
+                         alert("Customer data Saved");
+                         $state.go('/BookUnit-Step4') ;
+                        angular.element(".loader").hide();  
+                    }
+                else{
+                   alert("Error in save customer");
+                  angular.element(".loader").hide();
+                }
+                    
+                }
+                
             }).error(function() {
                 
             });

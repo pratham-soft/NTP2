@@ -58,7 +58,7 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
     };
 });
 
-app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item) {
+app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -108,14 +108,15 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
         });
     };
 
-    $scope.exchangeLeadProjects = function(leadId,projId,phaseId,blockId,unitDtlsId) {
+    $scope.exchangeLeadProjects = function(unitObj,leadId) {
+        $window.sessionStorage.setItem('projId', unitObj.ProjId);
+        $window.sessionStorage.setItem('phaseId', unitObj.Phase_Id);
+        $window.sessionStorage.setItem('blockId', unitObj.Blocks_Id);
+        $window.sessionStorage.setItem('unitId', unitObj.UnitDtls_Id);
+        $cookieStore.put("unitObj",unitObj);
         $uibModalInstance.close();
         $state.go("/ExchangeUnit", {
-            "leadID": $scope.leadId,
-            "projId": projId,
-            "phaseId": phaseId,
-            "blockId": blockId,
-            "unitId": unitDtlsId
+            "leadID": $scope.leadId
         });
     };
 

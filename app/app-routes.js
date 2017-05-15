@@ -32,7 +32,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'projectDetailsCtrl'
         })
         .state('/ExchangeUnit', {
-            url: '/ExchangeUnit/:leadID/:projId/:phaseId/:blockId/:unitId',
+            url: '/ExchangeUnit/:leadID',
             templateUrl: 'partials/exchangeUnit.html',
             controller: 'exchangeUnitCtrl'
         })
