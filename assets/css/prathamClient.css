@@ -870,6 +870,7 @@ td.inputType{
 }
 .dshbrdCmpnt{
 /*    border: 1px solid #CCC;*/
+	margin: 0 0 20px 0;
 }
 .dshbrdCmpnt > h3{
     margin: 0;
