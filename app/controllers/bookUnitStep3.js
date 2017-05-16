@@ -1,16 +1,27 @@
 app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc){
 	$scope.pageTitle = "Book Unit - Payment Details";
-    
+    var receivePaymentUnitObj=$cookieStore.get("receivePaymentUnitObj");
     var unitObj = $cookieStore.get("unitObj");
 	var prospectId = $cookieStore.get('prospectId');
     var comp_guid = $cookieStore.get('comp_guid');
-	
-    var updateUnitObj =  {
-      "UnitDtls_comp_guid": comp_guid,
-      "UnitDtls_Id": unitObj.UnitDtls_Id,
-      "UnitDtls_Status": 5,
-      "UnitDtls_user_id": prospectId
-    };
+    if(receivePaymentUnitObj != undefined)
+        {
+            $scope.receivePaymentBtn=true;
+        }
+    else{
+        $scope.receivePaymentBtn=false;
+    }
+    //Normal Flow of Book Unit and First Payment Received 
+      if(unitObj != undefined)
+        {
+            var updateUnitObj =  {
+                  "UnitDtls_comp_guid": comp_guid,
+                  "UnitDtls_Id": unitObj.UnitDtls_Id,
+                  "UnitDtls_Status": 5,
+                  "UnitDtls_user_id": prospectId
+                }; 
+        }
+
     
     $scope.paymentDetails = {
         usruntpymtrec_pymttype: "1"
@@ -36,6 +47,28 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
                             $state.go('/BookUnit-Step4');
                         }
                     });
+				}
+			})
+        }
+    }
+    
+    $scope.receivePayment = function(formName, formObj){
+        $scope.submit = true;
+        if ($scope[formName].$valid) {            
+            formObj.usruntpymtrec_user_id = prospectId;
+            formObj.usruntpymtrec_unitdtls_id = receivePaymentUnitObj.UnitDtls_Id;
+            formObj.usruntpymtrec_comp_guid = comp_guid;
+			formObj.usruntpymtrec_bookng = "false";
+			
+			httpSvc.updatePaymentDetails(formObj).then(function(response){
+				var res = response.data.Comm_ErrorDesc;
+				resArr = res.split('|');
+				if(resArr[0] == 0){
+                        $cookieStore.remove("prospectId");             
+                        $cookieStore.remove("receivePaymentUnitObj");
+					    alert("Payment Received Successfully!" +"Now Your Pending Amount is INR " + resArr[3]);
+                        $state.go('ReceivePayment');
+                   
 				}
 			})
         }

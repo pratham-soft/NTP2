@@ -107,8 +107,11 @@
             <input type="text" placeholder="Amount Paid" class="form-control" name="usruntpymtrec_amtpaid" id="usruntpymtrec_amtpaid" ng-model="paymentDetails.usruntpymtrec_amtpaid" ng-required="true" ng-class="{blankInput: paymentDetailsForm.usruntpymtrec_amtpaid.$error.required &amp;&amp; submit}"/>
          </div>
       </div>
-      <div class="text-center">
+      <div class="text-center" ng-hide="receivePaymentBtn">
          <button type="button" class="btn btn-success" ng-click="savePaymentDetails('paymentDetailsForm', paymentDetails)">Save Payment Details</button>
+      </div>
+       <div class="text-center" ng-show="receivePaymentBtn">
+         <button type="button" class="btn btn-success" ng-click="receivePayment('paymentDetailsForm', paymentDetails)">Save Payment Received</button>
       </div>
    </form>
 </div>

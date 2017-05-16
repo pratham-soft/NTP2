@@ -1,4 +1,4 @@
-app.controller("mainCtrl", function($scope, $rootScope, $http, $cookieStore, $state, $window) {    
+app.controller("mainCtrl", function($scope, $rootScope, $http, $cookieStore, $state, $window,$cookies) {    
     $rootScope.appMsg = "";
     $rootScope.showAppMsg = false;
     $scope.title = "Pratham :: Home";
@@ -16,6 +16,10 @@ app.controller("mainCtrl", function($scope, $rootScope, $http, $cookieStore, $st
         $cookieStore.remove('user_id');
         $cookieStore.remove('comp_guid');
         $cookieStore.remove('pageUrl');
+        $cookieStore.remove("prospectId");
+        $cookieStore.remove("unitObj");
+        $cookieStore.remove("receivePaymentUnitObj");
+   
         $window.location.href = 'index.html';
     };
 });

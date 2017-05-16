@@ -3,10 +3,11 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
 	$scope.pageTitle = "Book Unit - Add Customer";
     var unitObj = $cookieStore.get("unitObj");
 	var prospectId = $cookieStore.get('prospectId');
+    $scope.exchangeUnit=$cookieStore.get('skip3rdStep');
     
     if($cookieStore.get('skip3rdStep') != undefined){
     var skip3rdStep=$cookieStore.get('skip3rdStep');
-    $scope.exchangeUnit=$cookieStore.get('skip3rdStep');
+ 
     }
     else{
         var skip3rdStep=false;

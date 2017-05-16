@@ -338,4 +338,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/incentive.html',
             controller: 'incentiveCtrl'
         })
+       .state('ReceivePayment', {
+            url: '/ReceivePayment',
+            templateUrl: 'partials/receivePayment.html',
+            controller: 'receivePaymentCtrl'
+        })
 });
