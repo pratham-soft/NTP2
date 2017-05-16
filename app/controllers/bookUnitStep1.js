@@ -3,7 +3,15 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 	$scope.unitObj = $cookieStore.get("unitObj");
     $scope.unitObj.UnitDtls_No=$cookieStore.get("newUnitDtls_No");
 	$scope.prospectId = $cookieStore.get("prospectId");
-	var unitId = $cookieStore.get("newUnitDtls_Id");
+    if( $cookieStore.get("skip3rdStep") == true)
+        {
+     var unitId = $cookieStore.get("newUnitDtls_Id");   
+        }
+    else{
+        var unitId = $scope.unitObj.UnitDtls_Id;
+    }
+    
+	
     $scope.updatedCostSheetObj = {};
     var count = 0;
     

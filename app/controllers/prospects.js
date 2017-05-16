@@ -595,8 +595,6 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
     })();
     
     $scope.bookUnit = function(unitObj,prospectId){
-//		$uibModalInstance.close();
-        alert($scope.projectList.Proj_Name);
         unitObj.Proj_Name=$scope.projectDetails.projectName;
         unitObj.Blocks_Name =$scope.projectDetails.phase;
         unitObj.Phase_Name =$scope.projectDetails.blocks;

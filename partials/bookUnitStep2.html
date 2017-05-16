@@ -317,8 +317,11 @@
          <button type="button" class="btn btn-success width100" ng-click="updateCustomer(customer,'addCustomerForm')">+ Update Customer</button>
       </div>
 -->
-       <div class="text-center marginTop20">
+       <div class="text-center marginTop20" ng-hide="exchangeUnit">
          <button type="button" class="btn btn-success width100"  ng-click="movetoStep3(customer,'addCustomerForm')">Move to next Step</button>
+      </div>
+        <div class="text-center marginTop20" ng-show="exchangeUnit">
+         <button type="button" class="btn btn-success width100"  ng-click="updateCustomer(customer,'addCustomerForm')"> Next Step for Exchange</button>
       </div>
    </div>
 </form>

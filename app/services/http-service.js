@@ -82,6 +82,23 @@ app.service('httpSvc', function($http) {
         }).error(function() {});
         return promise;
     }
+    
+      this.ExChangeunit = function(obj){
+       
+        var promise = $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Cust/Changeunit",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {        
+            apiRsponse = data;
+             alert("Exchange Unit - Done ");
+            return apiRsponse;
+        }).error(function() {});
+        return promise;
+    }
+    
+    
 });
 	
 app.service('myService', function($http) {
