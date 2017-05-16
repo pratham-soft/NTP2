@@ -45,8 +45,8 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
 
     $scope.customerDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
-            templateUrl: 'customerDetail.html',
-            controller: 'customerDetailCtrl',
+            templateUrl: 'customerReceivePaymentDetail.html',
+            controller: 'customerReceivePaymentDetailCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -58,7 +58,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
     };
 });
 
-app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window) {
+app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";

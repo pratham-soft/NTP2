@@ -70,6 +70,9 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
                         $state.go('ReceivePayment');
                    
 				}
+                else{
+                   alert("Some Error Occured While Receiving Payment For This UNIT"); 
+                }
 			})
         }
     }
