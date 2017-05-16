@@ -868,3 +868,27 @@ td.inputType{
 	resize: none;
 	height: 120px;
 }
+.dshbrdCmpnt{
+/*    border: 1px solid #CCC;*/
+}
+.dshbrdCmpnt > h3{
+    margin: 0;
+    font-size: 20px;
+}
+.dshbrdCmpnt > table{
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #CCC;
+}
+.dshbrdCmpnt > table > thead{
+    background-color: #CCC;
+}
+.dshbrdCmpnt > table > thead > tr > th{
+    text-align: center;
+    padding: 8px;
+}
+.dshbrdCmpnt > table > tbody > tr > td{
+    text-align: center;
+    padding: 8px;
+    border-top: 1px solid #CCC;
+}
