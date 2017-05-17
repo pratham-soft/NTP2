@@ -38,28 +38,36 @@
 <script type="text/ng-template" id="customerReceivePaymentDetail.html">
         <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">{{customer.user_first_name}} {{customer.user_middle_name}} {{customer.user_last_name}}</h3>
+            <h4 class="modal-title" id="modal-title">{{customer.user_first_name}} {{customer.user_middle_name}} {{customer.user_last_name}}&nbsp;&nbsp;&nbsp;{{customer.user_mobile_no}}&nbsp;&nbsp;&nbsp;{{customer.user_email_address}}</h4>
+<!--
+            <h4 class="modal-title" id="modal-title">{{customer.user_mobile_no}}</h4>
+            <h4 class="modal-title" id="modal-title">{{customer.user_email_address}}</h4>
+-->
         </div>
         <div class="modal-body" id="modal-body">
-			<div class="subHeading">Contact Details</div>
+<!--
+              <h3 class="modal-title" id="modal-title">Customer Payment Details</h3>
+			
 			<table class="leadDetail">
 				<tr>
-					<td>Email ID:</td>
-					<td>{{customer.user_email_address}}</td>
+					<td>Total Cost of Flat/Villa/Plot</td>
+					<td>INR 2500000</td>
 				</tr>
 				<tr>
-					<td>Mobile Number:</td>
-					<td>{{customer.user_mobile_no}}</td>
+					<td>Booking Amount Paid</td>
+					<td>INR 500000</td>
 				</tr>
-				<tr ng-if="lead.user_dob !='0001-01-01T00:00:00'">
-					<td>D.O.B:</td>
-					<td>{{customer.user_dob | date}}</td>
-				</tr>
+				
 				<tr>
-					<td>City:</td>
-					<td>{{cities[customer.user_city-1]}}</td>
+					<td>Balance Pending Amount</td>
+					<td>INR 1800000</td>
+				</tr>
+                <tr>
+					<td>Previous Payment Received </td>
+					<td>INR 200000 on Date 12 May 2017</td>
 				</tr>
             </table>
+-->
           
             <div ng-show="{{customer.userprojlist==null}}">This lead does not have any projects.</div>
 			<div ng-show="{{customer.userprojlist!=null}}">
@@ -85,23 +93,70 @@
                          <td>{{unit.UnitDtls_Name}} / {{unit.phaseType}} No. {{unit.UnitDtls_No}} / {{unit.UnitDtls_BuliltupArea}} sq ft / Floor {{unit.UnitDtls_Floor}}</td>
                          <td>{{unit.unitViewStatus}}</td>
                          <td><button class="btn btn-primary" type="button" ng-click="receivePayment(unit)" ng-show="unit.UnitDtls_saledeed==1">Receive Payment </button></td>
+                           <td><button class="btn btn-primary" type="button" ng-click="getCustPaymentHistory(unit)" ng-show="unit.UnitDtls_saledeed==1">View Payment History</button></td>
 
 					  </tr>
 				   </tbody>
 				</table>
 			</div>
+        <div >
+                <table class="leadDetail" >
+                     <thead>
+					  <tr>
+                         <th>Total Cost of Flat/Villa/Plot</th>
+						 <th>Total Amount Paid Till Date</th>
+						 <th>Balance Pending Amount </th>
+						
+					  </tr>
+                          <tr ng-repeat = "payinfo in custPayinfo track by $index" >
+						 <td>{{payinfo.UnitTotCost}}</td>
+                         <td>{{payinfo.Total_amt_paid}}</td>                      
+                         <td>{{payinfo.UnitTotCost - payinfo.Total_amt_paid}}</td>                     
+					  </tr>
+				   </thead>
+				
+            </table>
+       </div>
+            	
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
+            <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
         </div>
     </script>
 <script type="text/ng-template" id="custPayment.html">
-        <div class="modal-header">
+    <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">Customer Payment Details</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <h3 class="modal-title" id="modal-title">Receive Payment From Customer</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div>
+				<table class="table borderDef">
+				   <thead>
+					  <tr>
+                         <th>Project</th>
+						 <th>Phase</th>
+						 <th>Type</th>
+						 <th>Block</th>
+						 <th>Unit</th>
+                         <th>Status</th>
+                         <th></th>
+                       
+					  </tr>
+				   </thead>
+				   <tbody id="projectList">
+					  <tr ng-repeat = "unit in unitinfo track by $index" >
+						 <td>{{unit.Proj_Name}}</td>
+                         <td>{{unit.Phase_Name}}</td>
+                         <td>{{getTypeNameById(unit.Phase_UnitType_Id)}}</td>
+                         <td>{{unit.Blocks_Name}}</td>
+                         <td>{{unit.UnitDtls_Name}} / {{unit.phaseType}} No. {{unit.UnitDtls_No}} / {{unit.UnitDtls_BuliltupArea}} sq ft / Floor {{unit.UnitDtls_Floor}}</td>
+                         <td>{{unit.unitViewStatus}}</td>
+                         
+					  </tr>
+				   </tbody>
+				</table>
+			</div>
+			<div>
    <form name="paymentDetailsForm" class="form" method="POST" novalidate="novalidate">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
@@ -202,7 +257,8 @@
       </div>
    </form>
 </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
-        </div>
+    </div>
+    <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
+    </div>
     </script>

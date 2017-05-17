@@ -97,6 +97,20 @@ app.service('httpSvc', function($http) {
         }).error(function() {});
         return promise;
     }
+      
+       this.CustPaymentInfo = function(obj){
+       
+        var promise = $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Cust/UnitCost/Pymtstg",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {        
+            apiRsponse = data;
+            return apiRsponse;
+        }).error(function() {});
+        return promise;
+    }
     
     
 });

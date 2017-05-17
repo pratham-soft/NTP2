@@ -61,7 +61,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
     
 });
 
-app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal) {
+app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -69,9 +69,7 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
     $scope.unitStatus[5] = "Blocked by not paying advance";
     $scope.unitStatus[6] = "Sold";
     $scope.unitStatus[7] = "Cancelled";
-
-    $scope.leadId = $scope.customer.user_id;
-
+   
     if ($scope.customer.userprojlist != null) {
         $scope.leadProjects = [];
         for (i = 0; i < $scope.customer.userprojlist.length; i++) {
@@ -81,6 +79,33 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
                 $scope.leadUnitObj.unitViewStatus = $scope.unitStatus[$scope.customer.userprojlist[i].ProjDtl_Status];
             $scope.leadProjects.push($scope.leadUnitObj);
         }
+    }  
+
+    $scope.leadId = $scope.customer.user_id;
+    
+     $scope.getCustPaymentHistory = function(custinfo){  
+            var apiPostObj ={};     
+            apiPostObj["UnitDtls_Id"] = custinfo.UnitDtls_Id;
+            apiPostObj["UnitDtls_Cust_UserId"] = $scope.customer.user_id;
+            apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
+         
+			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
+				var res = response.data[0].ErrorDesc;
+                if(res=="0")
+                    {
+                        $scope.custPayinfo=response.data;
+                      
+                    }
+                 else
+                    {
+                     alert(res.toString());
+                    }
+				
+					
+                   
+				
+			})
+        
     }
 
    $scope.custPayment = function(selectedItem) {
@@ -139,6 +164,8 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
 
 app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance){
     var unitObj=item;
+    $scope.unitinfo=[];
+    $scope.unitinfo.push(unitObj);
     var comp_guid = $cookieStore.get('comp_guid');
   
     $scope.paymentDetails = {
