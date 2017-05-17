@@ -95,3 +95,114 @@
             <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
         </div>
     </script>
+<script type="text/ng-template" id="custPayment.html">
+        <div class="modal-header">
+			<button type="button" class="close" ng-click="ok()">&times;</button>
+            <h3 class="modal-title" id="modal-title">Customer Payment Details</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+   <form name="paymentDetailsForm" class="form" method="POST" novalidate="novalidate">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_pymttype">Payment Type</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 radioLabel">
+            <select class="form-control" name="usruntpymtrec_pymttype" id="usruntpymtrec_pymttype" ng-model="paymentDetails.usruntpymtrec_pymttype">
+               <option value="">Please Select</option>
+               <option value="1">Cash</option>
+               <option value="2">Cheque</option>
+               <option value="3">Demand Draft</option>
+               <option value="4">NEFT</option>
+               <option value="5">IMPS</option>
+               <option value="6">RTGS</option>
+            </select>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_bank">Payment Bank</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" placeholder="Payment Bank" class="form-control" name="usruntpymtrec_bank" id="usruntpymtrec_bank" ng-model="paymentDetails.usruntpymtrec_bank" ng-disabled="paymentDetails.usruntpymtrec_pymttype=='1'"/>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_bankadd">Bank Address</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" placeholder="Bank Address" class="form-control" name="usruntpymtrec_bankadd" id="usruntpymtrec_onlinetrnsrecptno" ng-model="paymentDetails.usruntpymtrec_bankadd" ng-disabled="paymentDetails.usruntpymtrec_pymttype=='1'"/>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_onlinetrnsrecptno">Transaction Receipt No.</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" placeholder="Transaction Receipt No." class="form-control" name="usruntpymtrec_onlinetrnsrecptno" id="usruntpymtrec_onlinetrnsrecptno" ng-model="paymentDetails.usruntpymtrec_onlinetrnsrecptno" ng-disabled="paymentDetails.usruntpymtrec_pymttype=='2' || paymentDetails.usruntpymtrec_pymttype=='3'"/>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_chq_dd_no">Check / DD No.</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" placeholder="Check DD No." class="form-control" name="usruntpymtrec_chq_dd_no" id="usruntpymtrec_chq_dd_no" ng-model="paymentDetails.usruntpymtrec_chq_dd_no" ng-disabled="paymentDetails.usruntpymtrec_pymttype=='1' || paymentDetails.usruntpymtrec_pymttype=='4' || paymentDetails.usruntpymtrec_pymttype=='5' || paymentDetails.usruntpymtrec_pymttype=='6'"/>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_chq_dd_dt">Check / DD Date</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+          
+             <datepicker date-format="yyyy-MM-dd" selector="form-control">
+                <div class="input-group">
+              <input class="form-control" placeholder="Check / DD Date" name="usruntpymtrec_chq_dd_dt" id="usruntpymtrec_chq_dd_dt" ng-model="paymentDetails.usruntpymtrec_chq_dd_dt" ng-disabled="paymentDetails.usruntpymtrec_pymttype=='1' || paymentDetails.usruntpymtrec_pymttype=='4' || paymentDetails.usruntpymtrec_pymttype=='5' || paymentDetails.usruntpymtrec_pymttype=='6'"/> 
+              <span class="input-group-addon">
+                  <a href="javascript:void(0);" ><i class="fa fa-lg fa-calendar"></i></a>
+              </span>
+            </div>
+          </datepicker>
+         </div>
+      </div>
+      
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_pymt_dt">Payment Date</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <!--<input type="text" placeholder="Payment Date" class="form-control" name="usruntpymtrec_pymt_dt" id="usruntpymtrec_pymt_dt" ng-model="paymentDetails.usruntpymtrec_pymt_dt"/>-->
+             <datepicker date-format="yyyy-MM-dd" selector="form-control">
+                <div class="input-group">
+              <input class="form-control" placeholder="Payment Date" name="usruntpymtrec_pymt_dt" id="usruntpymtrec_pymt_dt" ng-model="paymentDetails.usruntpymtrec_pymt_dt" ng-required="true" ng-class="{blankInput: paymentDetailsForm.usruntpymtrec_pymt_dt.$error.required &amp;&amp; submit}"/> 
+              <span class="input-group-addon">
+                  <a href="javascript:void(0);" ><i class="fa fa-lg fa-calendar"></i></a>
+              </span>
+            </div>
+          </datepicker>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_amtpaid">Amount Paid</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" placeholder="Amount Paid" class="form-control" name="usruntpymtrec_amtpaid" id="usruntpymtrec_amtpaid" ng-model="paymentDetails.usruntpymtrec_amtpaid" ng-required="true" ng-class="{blankInput: paymentDetailsForm.usruntpymtrec_amtpaid.$error.required &amp;&amp; submit}"/>
+         </div>
+      </div>
+<!--
+      <div class="text-center" ng-hide="receivePaymentBtn">
+         <button type="button" class="btn btn-success" ng-click="savePaymentDetails('paymentDetailsForm', paymentDetails)">Save Payment Details</button>
+      </div>
+-->
+       <div class="text-center" >
+         <button type="button" class="btn btn-success" ng-click="receivePayment('paymentDetailsForm', paymentDetails)">Save Payment Received</button>
+      </div>
+   </form>
+</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
+        </div>
+    </script>

@@ -36,7 +36,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
                     data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
                 }
             $scope.customers = data;
-            console.log($scope.customers);
+            //console.log($scope.customers);
         }).error(function() {
             angular.element(".loader").hide();
         });
@@ -56,9 +56,12 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
             }
         });
     };
+    
+    
+    
 });
 
-app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window) {
+app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -80,17 +83,31 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
         }
     }
 
-  
+   $scope.custPayment = function(selectedItem) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'custPayment.html',
+            controller: 'custPaymentCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return selectedItem;
+                }
+            }
+        });
+    };
    
     $scope.receivePayment = function(unitObj) {
 //        $window.sessionStorage.setItem('projId', unitObj.ProjId);
 //        $window.sessionStorage.setItem('phaseId', unitObj.Phase_Id);
 //        $window.sessionStorage.setItem('blockId', unitObj.Blocks_Id);
 //        $window.sessionStorage.setItem('unitId', unitObj.UnitDtls_Id);
-        $cookieStore.put("prospectId",$scope.leadId);
-        $cookieStore.put("receivePaymentUnitObj",unitObj);
+        unitObj['CustId']= $scope.leadId
+  //      $cookieStore.put("prospectId",$scope.leadId);
+  //      $cookieStore.put("receivePaymentUnitObj",unitObj);
         $uibModalInstance.close();
-        $state.go("/BookUnit-Step3");
+       // $state.go("/BookUnit-Step3");
+        $scope.custPayment(unitObj);
     };
 
     
@@ -118,4 +135,41 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
         }
         return typeName;
     }
+});
+
+app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance){
+    var unitObj=item;
+    var comp_guid = $cookieStore.get('comp_guid');
+  
+    $scope.paymentDetails = {
+        usruntpymtrec_pymttype: "1"
+    };
+   
+    $scope.receivePayment = function(formName, formObj){
+        $scope.submit = true;
+        if ($scope[formName].$valid) {            
+            formObj.usruntpymtrec_user_id = unitObj.CustId;
+            formObj.usruntpymtrec_unitdtls_id = unitObj.UnitDtls_Id;
+            formObj.usruntpymtrec_comp_guid = comp_guid;
+			formObj.usruntpymtrec_bookng = "false";
+			
+			httpSvc.updatePaymentDetails(formObj).then(function(response){
+				var res = response.data.Comm_ErrorDesc;
+				resArr = res.split('|');
+				if(resArr[0] == 0){                      
+					    alert("Payment of INR " + formObj.usruntpymtrec_amtpaid +  " Received Successfully. Now Your Balance Pending Amount is INR " + resArr[3]);
+                        $state.go('ReceivePayment');
+                        $scope.ok();
+                   
+				}
+                else{
+                   alert("Some Error Occured While Receiving Payment For This UNIT"); 
+                }
+			})
+        }
+    }
+    
+      $scope.ok = function() {
+        $uibModalInstance.close();
+    };
 });
