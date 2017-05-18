@@ -62,6 +62,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
 });
 
 app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
+     $scope.showPaymentHistoryView=false;
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -83,27 +84,41 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
 
     $scope.leadId = $scope.customer.user_id;
     
-     $scope.getCustPaymentHistory = function(custinfo){  
+     $scope.getCustPaymentHistory = function(custinfo){ 
+         $scope.showPaymentHistoryView=true;
             var apiPostObj ={};     
             apiPostObj["UnitDtls_Id"] = custinfo.UnitDtls_Id;
             apiPostObj["UnitDtls_Cust_UserId"] = $scope.customer.user_id;
             apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
+         
+            var postObj ={};     
+            postObj["usruntpymtrec_unitdtls_id"] = custinfo.UnitDtls_Id;
+            postObj["usruntpymtrec_user_id"] = $scope.customer.user_id;
+            postObj["usruntpymtrec_comp_guid"] = $cookieStore.get('comp_guid');
          
 			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
 				var res = response.data[0].ErrorDesc;
                 if(res=="0")
                     {
                         $scope.custPayinfo=response.data;
+                        httpSvc.CustPaymentHistory(postObj).then(function(response){
+                                    var res = response.data[0].ErrorDesc;
+                                    if(res=="0")
+                                        {
+                                            $scope.custPayHistoryinfo=response.data;
+                                        }
+                                     else
+                                        {
+                                         alert(response.data[0].ErrorDesc.toString());
+                                        }
+
+                                })
                       
                     }
                  else
                     {
                      alert(res.toString());
-                    }
-				
-					
-                   
-				
+                    }							               			
 			})
         
     }

@@ -111,6 +111,20 @@ app.service('httpSvc', function($http) {
         }).error(function() {});
         return promise;
     }
+       
+         this.CustPaymentHistory = function(obj){
+       
+        var promise = $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Cust/Unit/PaymentHistory",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {        
+            apiRsponse = data;
+            return apiRsponse;
+        }).error(function() {});
+        return promise;
+    }
     
     
 });
