@@ -108,6 +108,7 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
         
     }
 
+     
    $scope.custPayment = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'custPayment.html',
@@ -123,15 +124,9 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
     };
    
     $scope.receivePayment = function(unitObj) {
-//        $window.sessionStorage.setItem('projId', unitObj.ProjId);
-//        $window.sessionStorage.setItem('phaseId', unitObj.Phase_Id);
-//        $window.sessionStorage.setItem('blockId', unitObj.Blocks_Id);
-//        $window.sessionStorage.setItem('unitId', unitObj.UnitDtls_Id);
+        unitObj["customer"]= $scope.customer;
         unitObj['CustId']= $scope.leadId
-  //      $cookieStore.put("prospectId",$scope.leadId);
-  //      $cookieStore.put("receivePaymentUnitObj",unitObj);
         $uibModalInstance.close();
-       // $state.go("/BookUnit-Step3");
         $scope.custPayment(unitObj);
     };
 
@@ -162,8 +157,24 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
     }
 });
 
-app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance){
+app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal){
+    
+     $scope.customerDetail = function(selectedItem) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'customerReceivePaymentDetail.html',
+            controller: 'customerReceivePaymentDetailCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return selectedItem;
+                }
+            }
+        });
+    };
+    
     var unitObj=item;
+    $scope.customerData=item.customer;
     $scope.unitinfo=[];
     $scope.unitinfo.push(unitObj);
     var comp_guid = $cookieStore.get('comp_guid');
@@ -185,7 +196,7 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
 				resArr = res.split('|');
 				if(resArr[0] == 0){                      
 					    alert("Payment of INR " + formObj.usruntpymtrec_amtpaid +  " Received Successfully. Now Your Balance Pending Amount is INR " + resArr[3]);
-                        $state.go('ReceivePayment');
+                       // $state.go('ReceivePayment');
                         $scope.ok();
                    
 				}
@@ -198,5 +209,6 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
     
       $scope.ok = function() {
         $uibModalInstance.close();
+        $scope.customerDetail($scope.customerData);
     };
 });
