@@ -299,7 +299,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
     }
 });
 
-app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item) {
+app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item,myService) {
     $scope.unitId = item;
     ($scope.getUnitCostSheetDetails = function() {
         angular.element(".loader").show();
@@ -312,9 +312,11 @@ app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state
                 "UnitDtls_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            console.log(JSON.stringify(data));
-            $scope.unitCostSheetDetail = data;
+           // console.log(JSON.stringify(data));
+            $scope.unitCostSheetDetail = data;            
+           $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
             angular.element(".loader").hide();
+           
         }).error(function() {
             angular.element(".loader").hide();
         });

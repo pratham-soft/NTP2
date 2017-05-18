@@ -172,7 +172,12 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
     }
 });
 
-app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal){
+app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
+   // myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
+    $scope.convertNumToWords = function (numvalue)
+    {
+       $scope.amountInWords= myService.convertNumberToWords(numvalue);
+    }
     
      $scope.customerDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
