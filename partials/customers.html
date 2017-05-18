@@ -160,74 +160,16 @@
 						
 					  </tr>
                           <tr ng-repeat = "payinfo in custPayinfo track by $index" >
-						 <td>{{payinfo.UnitTotCost}}</td>
-                         <td>{{payinfo.Total_amt_paid}}</td>                      
-                         <td>{{payinfo.UnitTotCost - payinfo.Total_amt_paid}}</td>                     
+						 <td>{{payinfo.UnitTotCost | currency:"&#8377;"}}</td>
+                         <td>{{payinfo.Total_amt_paid | currency:"&#8377;"}}</td>                      
+                         <td>{{payinfo.UnitTotCost - payinfo.Total_amt_paid | currency:"&#8377;"}}</td>                     
 					  </tr>
 				   </thead>
 				
             </table>
     </div></div>
             
-        <form name="cancelUnitForm" class="form" method="POST" novalidate="novalidate" ng-show="cancelUnitClick">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="cancelUnitAmount"> Total Amount</label>
-         </div>
-         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <input ng-repeat = "payinfo in custPayinfo track by $index"  type="text" class="form-control" name="cancelUnitAmount" id="cancelUnitAmount" ng-model="payinfo.UnitTotCost" ng-disabled="true"/>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="cancelUnitAmount"> Amount Paid</label>
-         </div>
-         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <input ng-repeat = "payinfo in custPayinfo track by $index"  type="text" class="form-control" name="cancelUnitAmount" id="cancelUnitAmount" ng-model="payinfo.Total_amt_paid" ng-disabled="true"/>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="cancelUnitAmount"> Amount Pending</label>
-         </div>
-         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <input ng-repeat = "payinfo in custPayinfo track by $index"  type="text" class="form-control" name="cancelUnitAmount" id="cancelUnitAmount" ng-model="payinfo.UnitTotCost - payinfo.Total_amt_paid" ng-disabled="true"/>
-         </div>
-      </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="cancelUnitAmount"> Penalty</label>
-         </div>
-         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <input type="text" class="form-control" name="cancelUnitAmount" id="cancelUnitAmount" ng-model="payinfo.penalty" />
-         </div>
-            <div><button class="btn btn-primary" type="button">Calculate</button></div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="cancelUnitAmount"> Refund Amount</label>
-         </div>
-         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <input type="text" class="form-control" name="cancelUnitAmount" id="cancelUnitAmount" ng-model="payinfo.refundAmt" ng-disabled="true"/>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="cancelUnitAmount"> Remark</label>
-         </div>
-         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <textarea name="remarks" class="form-control" > </textarea>
-         </div>
-      </div>
-
-         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="text-align: center">
-         
-            <button class="btn btn-primary" type="button">Cancel Unit</button>
-        
-      </div>   
-            
-            
-    </form>
+ 
 
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
@@ -252,7 +194,7 @@
 						 <th>Block</th>
 						 <th>Unit</th>
                          <th>Status</th>
-                         <th></th>
+                     
                        
 					  </tr>
 				   </thead>
@@ -371,6 +313,112 @@
    </form>
 </div>
     </div>
+    <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
+    </div>
+    </script>
+
+
+
+
+
+
+
+
+<script type="text/ng-template" id="cancelUnit.html">
+    <div class="modal-header">
+			<button type="button" class="close" ng-click="ok()">&times;</button>
+            <h3 class="modal-title" id="modal-title">Cancellation Form</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div>
+				<table class="table borderDef">
+				   <thead>
+					  <tr>
+                         <th>Project</th>
+                          <th>Phase</th>
+						 <th>Block</th>
+						 <th>Unit</th>
+                         <th>Status</th>
+                      
+                       
+					  </tr>
+				   </thead>
+				   <tbody id="projectList">
+					  <tr ng-repeat = "unit in unitinfo track by $index" >
+						 <td>{{unit.Proj_Name}}</td>
+                         <td>{{unit.Phase_Name}}</td>
+                         <td>{{unit.Blocks_Name}}</td>
+                         <td>{{unit.UnitDtls_Name}} / {{unit.phaseType}} No. {{unit.UnitDtls_No}} / {{unit.UnitDtls_BuliltupArea}} sq ft / Floor {{unit.UnitDtls_Floor}}</td>
+                         <td>{{unit.unitViewStatus}}</td>
+                         
+					  </tr>
+				   </tbody>
+				</table>
+			</div>
+    
+			<div>
+             
+    <form name="cancelUnitForm" class="form">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="cancelTableShow">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="cancelUnitAmount" > Total Amount (&#8377;)</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <input type="text" class="form-control" ng-model="totalAmount" ng-disabled="true"/>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="cancelTableShow">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label > Amount Paid (&#8377;)</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <input type="text" class="form-control" ng-model="amountPaid" ng-disabled="true"/>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="cancelTableShow">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label > Amount Pending (&#8377;)</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <input type="text" class="form-control" ng-model="pendingAmount" ng-disabled="true"/>
+         </div>
+      </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="cancelTableShow">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label > Penalty (&#8377;)</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <input type="text" class="form-control" ng-model="paneltyAmount" />
+         </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <button class="btn btn-primary" type="button" ng-click="calculateRefund()">Calculate</button></div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="cancelTableShow">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label > Refund Amount (&#8377;)</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <input type="text" class="form-control" ng-model="refundAmount" ng-disabled="true"/>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="cancelTableShow">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label > Remarks/Feed back</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <textarea name="remarks" class="form-control" ng-model="remarks"> </textarea>
+         </div>
+      </div>
+
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" style="text-align: center" ng-show="cancelTableShow">
+            <button class="btn btn-primary" type="button"  ng-click="saveCancelUnit()">Cancel Unit</button>
+      </div>         
+    </form>
+                
+</div>
+        </div>
+   
     <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
     </div>

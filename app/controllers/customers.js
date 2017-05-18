@@ -172,7 +172,6 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
     $scope.unitStatus[6] = "Sold";
     $scope.unitStatus[7] = "Cancelled";
     $scope.payHistoryClick=false;
-    $scope.cancelUnitClick=false;
    
     if ($scope.customer.userprojlist != null) {
         $scope.leadProjects = [];
@@ -224,28 +223,54 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
         
     }
      
-    $scope.cancelUnit = function(unitObj) {
-        $scope.cancelUnitClick=true;
-        var apiPostObj ={};  
-        apiPostObj["UnitDtls_Id"] = unitObj.UnitDtls_Id;
-            apiPostObj["UnitDtls_Cust_UserId"] = $scope.customer.user_id;
-            apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
-         
-			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
-				var res = response.data[0].ErrorDesc;
-                if(res=="0")
-                    {
-                        $scope.custPayinfo=response.data;
-                      
-                    }
-                 else
-                    {
-                     alert(res.toString());
-                    $scope.cancelUnitClick=false;    
-                    }
-			})
-        
+//    $scope.cancelUnit = function(unitObj) {
+//        $scope.cancelUnitClick=true;
+//        var apiPostObj ={};  
+//        apiPostObj["UnitDtls_Id"] = unitObj.UnitDtls_Id;
+//            apiPostObj["UnitDtls_Cust_UserId"] = $scope.customer.user_id;
+//            apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
+//         
+//			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
+//				var res = response.data[0].ErrorDesc;
+//                if(res=="0")
+//                    {
+//                        $scope.custPayinfo=response.data;
+//                      
+//                    }
+//                 else
+//                    {
+//                     alert(res.toString());
+//                    $scope.cancelUnitClick=false;    
+//                    }
+//			})
+//        
+//    };
+     
+     
+     
+      $scope.cancelUnit = function(unitObj) {
+        unitObj['CustId']= $scope.leadId
+        $uibModalInstance.close();
+        $scope.custCancelUnit(unitObj);
     };
+    
+    
+    $scope.custCancelUnit = function(selectedItem) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'cancelUnit.html',
+            controller: 'cancelUnitCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return selectedItem;
+                }
+            }
+        });
+    };
+     
+     
+     
 
    $scope.custPayment = function(selectedItem) {
         var modalInstance = $uibModal.open({
@@ -341,6 +366,99 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
       $scope.ok = function() {
         $uibModalInstance.close();
     };
+});
+
+
+
+app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $http, httpSvc, item, $uibModalInstance){
+    var unitObj=item;
+    $scope.unitinfo=[];
+    $scope.unitinfo.push(unitObj);
+    $scope.amountPaid=0;
+    $scope.totalAmount=0;
+    $scope.pendingAmount=0;
+    $scope.paneltyAmount=0;
+    $scope.refundAmount=0;
+    $scope.remarks="";
+    $scope.cancelTableShow=true;
+    
+    $scope.ok = function() {
+        $uibModalInstance.close();
+    };
+    
+  
+//    $scope.paymentDetails = {
+//        usruntpymtrec_pymttype: "1"
+//    };
+   
+    $scope.getCustPaymentHistory = function(unitObj){ 
+            $scope.payHistoryClick=true;
+            var apiPostObj ={};     
+            apiPostObj["UnitDtls_Id"] = unitObj.UnitDtls_Id;
+            apiPostObj["UnitDtls_Cust_UserId"] = unitObj.CustId;
+            apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
+         
+			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
+				var res = response.data[0].ErrorDesc;
+                if(res=="0")
+                    {
+                        $scope.custPayinfo=response.data;
+                        for(var i=0;i<$scope.custPayinfo.length;i++){
+                            $scope.totalAmount=$scope.custPayinfo[i].UnitTotCost;
+                            $scope.amountPaid=$scope.custPayinfo[i].Total_amt_paid;
+                            $scope.pendingAmount=$scope.totalAmount-$scope.amountPaid;
+                            $scope.refundAmount=$scope.amountPaid;
+                        }
+                      
+                    }
+                 else
+                    {
+                     alert(res.toString());
+                    $scope.cancelTableShow=false;
+                    $scope.ok();
+                    }
+			})
+        
+    };
+     $scope.getCustPaymentHistory(unitObj); 
+    
+    $scope.calculateRefund = function(){ 
+        $scope.refundAmount=$scope.amountPaid-$scope.paneltyAmount;
+    };
+    
+    
+    $scope.saveCancelUnit = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Cust/Cancelunit",
+            ContentType: 'application/json',
+            data: {
+                "UnitCancel_Cust_User_Id"  : unitObj.CustId,
+                "UnitCancel_UnitDtls_Id"  : unitObj.UnitDtls_Id,
+                "UnitCancel_PenaltyVal"  : 1,
+                "UnitCancel_Paymentmade" :$scope.amountPaid,
+                "UnitCancel_RefundAmt":$scope.remarks,
+                "UnitCancel_UnitTotcost":$scope.totalAmount,
+                "UnitCancel_Penalty": $scope.paneltyAmount,
+                "UnitCancel_Feedback":  $scope.remarks,
+                "UnitCancel_Flag"  : 2 ,
+                "UnitCancel_Confirmed"  : 2  ,
+                "UnitCancel_blockid" :unitObj.Blocks_Id,
+                "comp_gui_id":$cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            $scope.cancelData=data;
+            angular.element(".loader").hide();
+            console.log($scope.cancelData);
+            $scope.ok();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    };
+    
+    
+      
 });
 
 
