@@ -1,0 +1,162 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
+   <h1>Campaign Listing</h1>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right ctaContainer">
+   <a ng-click="addNewCampaign()" class="btn btn-primary">+ Add New Campaign</a>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <input type="text" class="form-control marginBottom5 search" placeholder="Search Campaign" ng-model="searchCampaign"/>
+   <table class="table dataTable">
+      <thead>
+         <tr>
+            <th>#</th>
+            <th>Campaign Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Budget Cost</th>
+            <th>Actual Cost</th>
+            <th>Expected Response</th>
+            <th>Track Leads</th>
+            <th>Actions</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr ng-repeat="x in allCampaignDetails | filter:searchCampaign track by $index">
+            <td>{{$index + 1}}</td>
+            <td>{{x.campaign_name}}</td>
+            <td>{{x.campaign_startdate | date:'dd-MM-yyyy'}}</td>
+            <td>{{x.campaign_enddate | date:'dd-MM-yyyy'}}</td>
+            <td>{{x.campaign_budgetedcost | currency:"&#8377;"}}</td>
+            <td>{{x.campaign_actualcost | currency:"&#8377;"}}</td>
+            <td>{{x.campaign_expectedresponse}}</td> 
+            <td>{{x.campaign_trackleads}}</td>
+            <td><a ><span ng-click="editCampaign($index)" class="link">Edit</span></a></td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<script type="text/ng-template" id="addNewCampaign.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ok()">&times;</button>
+        <h1>{{pageTitle}}</h1>
+    </div>
+    <div class="modal-body" id="modal-body">
+       <form name="addNewCampaignBlockForm" class="form" method="POST" novalidate="novalidate">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="addNewCampaignBtn">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr" >
+                <label for="type" >Project Name:</label>
+            </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <select ng-model="projectDetails.projectName" name="projectName" class="form-control" ng-change="getPhaseList(projectDetails.projectName)" ng-required="true" ng-class="{blankInput: addNewCampaignBlockForm.projectName.$error.required &amp;&amp; submit}" autofocus="true">
+            <option value="" disabled selected>
+               --Project--
+            </option>
+            <option ng-repeat="x in projectList" value="{{x.ProjId}}">{{x.Proj_Name}}</option>
+         </select>
+             </div>
+        </div>
+        
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="addNewCampaignBtn">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+                <label for="type">Select Phase:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="getBlockList(projectDetails.phase,projectDetails.projectName)" ng-required="true" ng-class="{blankInput: addNewCampaignBlockForm.phase.$error.required &amp;&amp; submit}" >
+            <option value="" disabled selected>
+               --Phase--
+            </option>
+            <option ng-repeat="x in phaseList" value="{{x.Phase_Id}}">{{x.Phase_Name}}</option>
+         </select>
+        </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="addNewCampaignBtn">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">Select Block:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <select ng-model="addNewCampaignForm.block" name="block" class="form-control" ng-class="{blankInput: addNewCampaignBlockForm.block.$error.required &amp;&amp; submit}" ng-required="true" ng-change="checkBlockUnits(addNewCampaignBlockForm)">
+             <option value="" disabled selected>
+               --Block--
+            </option>    
+            <option ng-repeat="x in blockList" value="{{x.Blocks_Id}}">{{x.Blocks_Name}}</option>
+         </select>
+            </div>
+            </div>
+    </form>
+     <form name="addNewCampaignForm" class="form" method="POST" novalidate="novalidate">      
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">Campaign Name:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <input type="text" class="form-control" ng-model="addNewCampaign.campaign_name" name="campaignName" ng-class="{blankInput: addNewCampaignForm.campaignName.$error.required &amp;&amp; submit}" ng-required="true"/>
+            </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">Start Date:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <datepicker date-format="dd/MM/yyyy">
+            <input type="text" placeholder="Start Date (DD/MM/YYYY)" class="form-control" name="startDate" ng-model="addNewCampaign.campaign_startdate" ng-class="{blankInput: addNewCampaignForm.startDate.$error.required &amp;&amp; submit}" ng-required="true" />
+            <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
+            </datepicker>
+            </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">End Date:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <datepicker date-format="dd/MM/yyyy">
+            <input type="text" placeholder="End Date (DD/MM/YYYY)" class="form-control" name="endDate" ng-model="addNewCampaign.campaign_enddate" ng-class="{blankInput: addNewCampaignForm.endDate.$error.required &amp;&amp; submit}" ng-required="true"/>
+            <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
+            </datepicker>
+            </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">Budget Cost (&#8377;):</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <input type="text" class="form-control"  ng-model="addNewCampaign.campaign_budgetedcost"/>
+            </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">Actual Cost (&#8377;):</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <input type="text" class="form-control" ng-model="addNewCampaign.campaign_actualcost"/>
+            </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">Expected Response:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <input type="text" class="form-control" ng-model="addNewCampaign.campaign_expectedresponse"/>
+            </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="type">Track Leads:</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-9 padding0">
+            <input type="text" class="form-control" ng-model="addNewCampaign.campaign_trackleads"/>
+            </div>
+            </div>
+           
+    </form>
+
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" ng-show="addNewCampaignBtn" class="btn btn-success" ng-click="saveNewCampaign(addNewCampaign,'addNewCampaignForm')">Save</button>
+    <button type="button" ng-show="editCampaignBtn" class="btn btn-success" ng-click="editCampaignComponent(addNewCampaign,'addNewCampaignForm')">Update & Save</button>
+   </div>
+</script>

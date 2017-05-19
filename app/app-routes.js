@@ -21,6 +21,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/customers.html',
             controller: 'customerCtrl'
         })
+        .state('/Campaigns', {
+            url: '/Campaigns',
+            templateUrl: 'partials/campaignDetails.html',
+            controller: 'campaignDetailCtrl'
+        })
         .state('/EditLead', {
             url: '/EditLead/:leadID',
             templateUrl: 'partials/addLead.html',
