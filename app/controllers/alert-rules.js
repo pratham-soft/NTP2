@@ -433,8 +433,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 
 app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.pageTitle = "Choose Action";
-	$scope.showTempDropDown = true;
-	
+    $scope.showTempDropDown = true;
     var ruleId = $stateParams.ruleId;
     $scope.action = {
         actionType: "email",
@@ -484,6 +483,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         angular.element(".loader").show();
         myService.getEmailTempls($cookieStore.get('comp_guid')).then(function(response) {
             $scope.emltmlptList = response.data;
+            console.log($scope.emltmlptList);
             angular.element(".loader").hide();
         });
     })();
@@ -500,7 +500,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
             }
         }).success(function(data) {
             console.log(JSON.stringify(data));
-            if(data.length!=0){
+            if(data[0].ErrorDesc!="-1|No Template Exists for this Record"){
 				$scope.showTempDropDown = false;
 				$scope.action.tempName = data[0].tempemail_name;
                 $scope.action.cctxtar = data[0].tempemail_recpcc;
@@ -560,10 +560,20 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
         }).success(function(data) {
             console.log(data);
             if (data[0].ErrorDesc == '0') {
+                var startDate = data[0].rule_trigstartdate;
+                startDate = startDate.split("T");
+                startDate = startDate[0];
+                startDate = startDate.split("-").reverse().join("/");
+                
+                var endDate = data[0].rule_trigenddate;
+                endDate = endDate.split("T");
+                endDate = endDate[0];
+                endDate = endDate.split("-").reverse().join("/");
                 $scope.scheduleAlert = {
-                    execStartDate:data[0].rule_trigstartdate,
-                    execEndDate:data[0].rule_trigenddate
-                }
+                    execStartDate:startDate,
+                    execEndDate:endDate/*,
+                    frequency: */
+                };
             }
             angular.element(".loader").hide();
         }).error(function() {
@@ -575,8 +585,8 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
     $scope.saveSchedule = function(formObj, formName) {
         $scope.submit = true;
         var ruleId = $stateParams.ruleId;
+        var exstrtdt = formObj.execStartDate.split("/").reverse().join("-");
         var exendt = formObj.execEndDate.split("/").reverse().join("-");
-        var exstrtdt = formObj.execEndDate.split("/").reverse().join("-");
         var schdwkday = '';
         if (formObj.frequency == 3) {
             schdwkday = formObj.weekDay;
@@ -594,7 +604,7 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
                     "rule_comp_guid": $cookieStore.get('comp_guid'),
                     "ruleid": ruleId,
                     "rule_trigstartdate": exstrtdt,
-                    "rule_trigenddate": exstrtdt,
+                    "rule_trigenddate": exendt,
                     "rule_freq": formObj.frequency,
                     "rule_schdwkday": schdwkday,
                     "rule_alterttyp": 1
