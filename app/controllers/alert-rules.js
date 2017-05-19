@@ -168,7 +168,8 @@ app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $
             url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
-                "module_id": moduleId
+                "module_id": moduleId,
+                "ruleid":ruleId
             }
         }).success(function(data) {
             $scope.subModules = data;
@@ -242,7 +243,7 @@ app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $
 
         var i = $(".alertRuleTable tr").length;
         var showInput = 'showInput' + i;
-        var htmlRow = '<tr> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModules" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option> <option value="<>">&#60;&#62;</option> <option value=">">&#62;</option> <option value="<">&#60;</option> <option value=">=">&#62;=</option> <option value="<=">&#60;</option> </select> </td> <td class="inputType"> <input type="text" class="form-control" ng-show="showInput' + i + '" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
+        var htmlRow = '<tr> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModules" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option><option value=">">&#62;</option> <option value="<">&#60;</option> <option value="Starts with">Starts with</option> <option value="Ends With">Ends With</option><option value="Contains">Contains</option> </select> </td> <td class="inputType"> <input type="text" class="form-control" ng-show="showInput' + i + '" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
 
         htmlRow = $compile(htmlRow)($scope);
         angular.element(".alertRuleTable").append(htmlRow);
@@ -297,7 +298,8 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
             url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
-                "module_id": moduleId
+                "module_id": moduleId,
+                "ruleid" : ruleId
             }
         }).success(function(data) {
 			console.log(data);
@@ -324,7 +326,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 			console.log(data);
             for (var i = 0; i < data.length; i++) {
 				
-				var htmlRow = '<tr> <td> <input type="hidden" ng-model="rules[' + i + '].rulecriteriaid"/> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option> <option value="<>">&#60;&#62;</option> <option value=">">&#62;</option> <option value="<">&#60;</option> <option value=">=">&#62;=</option> <option value="<=">&#60;</option> </select> </td> <td class="inputType"> <input type="text" class="form-control" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
+				var htmlRow = '<tr> <td> <input type="hidden" ng-model="rules[' + i + '].rulecriteriaid"/> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option><option value=">">&#62;</option> <option value="<">&#60;</option> <option value="Starts with">Starts with</option> <option value="Ends With">Ends With</option><option value="Contains">Contains</option></select> </td> <td class="inputType"> <input type="text" class="form-control" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
 				htmlRow = $compile(htmlRow)($scope);
 				angular.element(".alertRuleTable").append(htmlRow);
 				
@@ -396,7 +398,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 
         var i = $(".alertRuleTable tr").length;
         var showInput = 'showInput' + i;
-        var htmlRow = '<tr> <td> <input type="hidden" ng-model="rules[' + i + '].rulecriteriaid" /> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option> <option value="<>">&#60;&#62;</option> <option value=">">&#62;</option> <option value="<">&#60;</option> <option value=">=">&#62;=</option> <option value="<=">&#60;</option> </select> </td> <td class="inputType"> <input type="text" class="form-control" ng-show="showInput' + i + '" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
+        var htmlRow = '<tr> <td> <input type="hidden" ng-model="rules[' + i + '].rulecriteriaid" /> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option><option value=">">&#62;</option> <option value="<">&#60;</option> <option value="Starts with">Starts with</option> <option value="Ends With">Ends With</option><option value="Contains">Contains</option> </select> </td> <td class="inputType"> <input type="text" class="form-control" ng-show="showInput' + i + '" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
 
         htmlRow = $compile(htmlRow)($scope);
         angular.element(".alertRuleTable").append(htmlRow);
@@ -444,6 +446,8 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
                  ruleId: ruleId
          });
      }*/
+    $scope.newSave="true";  // If it is a new new save of rule , False if it is a update
+    
     $scope.saveRuleEml = function(formObj, formName) {
         $scope.submit = true;
         if ($scope[formName].$valid) {
@@ -460,7 +464,8 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
                     "tempemail_recpcc": formObj.cctxtar,
                     "tempemail_recpbcc": formObj.bcctxtar,
                     "tempemailid": formObj.templateid,
-                    "tempemail_rule": "true"
+                    "tempemail_rule": $scope.newSave,
+                    "tempemail_subject":formObj.subject
                 }
             }).success(function(data) {
                 if (data.user_id != 0) {
@@ -501,6 +506,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         }).success(function(data) {
             console.log(JSON.stringify(data));
             if(data[0].ErrorDesc!="-1|No Template Exists for this Record"){
+                $scope.newSave="false";
 				$scope.showTempDropDown = false;
 				$scope.action.tempName = data[0].tempemail_name;
                 $scope.action.cctxtar = data[0].tempemail_recpcc;
@@ -509,6 +515,10 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
 				$scope.action.tempBody = data[0].tempemail_body;
                 $scope.action.templateid = data[0].tempemailid.toString();
             }
+            else
+                {
+                   $scope.newSave="true";  
+                }
             angular.element(".loader").hide();
 
         }).error(function() {

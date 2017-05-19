@@ -182,7 +182,8 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
             url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
-                "module_id": moduleId
+                "module_id": moduleId,
+                "ruleid" : ruleId
             }
         }).success(function(data) {
             if(data[0].modfield_ErrorDesc == "-1 | Module fields do not exist for this Module"){
