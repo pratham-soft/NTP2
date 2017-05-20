@@ -160,6 +160,8 @@ app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $
     $scope.recordType = 0;
 
     $scope.rules = [{}];
+	
+	$scope.disableUpdateQuery = true;
 
     $scope.getSubModules = function(moduleId) {
         angular.element(".loader").show();
@@ -249,6 +251,10 @@ app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $
         angular.element(".alertRuleTable").append(htmlRow);
         $scope[showInput] = true;
     }
+	
+	$scope.checkQuery = function(obj){
+		$scope.disableUpdateQuery = false;
+	}
 
     $scope.updateRule = function(obj) {
         angular.element(".loader").show();
@@ -312,7 +318,6 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 	$scope.getSubModules(moduleId);
 	
     $scope.getRuleCriteria = function(ruleId) {
-        alert("getRuleCriteria");
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -323,22 +328,14 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
                 "rulecriteria_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-			console.log(data);
+			if(data.length == 0){
+				$scope.defaultRow = true;
+			}
+			else{
             for (var i = 0; i < data.length; i++) {
-				
 				var htmlRow = '<tr> <td> <input type="hidden" ng-model="rules[' + i + '].rulecriteriaid"/> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option><option value=">">&#62;</option> <option value="<">&#60;</option> <option value="Starts with">Starts with</option> <option value="Ends With">Ends With</option><option value="Contains">Contains</option></select> </td> <td class="inputType"> <input type="text" class="form-control" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
 				htmlRow = $compile(htmlRow)($scope);
 				angular.element(".alertRuleTable").append(htmlRow);
-				
-                /*$scope.subModulesobj.modfieldid = data[i].modfieldid;
-                $scope.subModulesobj.modfield_name = data[i].modfield_name;
-                $scope.rulesobj.rule_criteria_operator = data[i].rulecriteria_operator;
-                $scope.rulesobj.rulecriteria_criteria = data[i].rulecriteria_criteria;
-                $scope.rulesobj.rulecriteria_condition = data[i].rulecriteria_condition;
-                $scope.subModules.push($scope.subModulesobj);
-                $scope.rules.push($scope.rulesobj);
-                $scope.subModulesobj = {};
-                $scope.rulesobj = {};*/
             }
 			
 			for (var i = 0; i < data.length; i++) {
@@ -351,13 +348,14 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
                     rulecriteria_condition: (data[i].rulecriteria_condition).toString()
 				}
 			}
+			}
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
         });
     }
     $scope.getRuleCriteria(ruleId);
-    /*$scope.showInput0 = true;*/
+    $scope.showInput0 = true;
     $scope.getFieldValues = function(fieldId, index) {
         var fieldValues = 'fieldValues' + index;
         var showDrodown = 'showDrodown' + index;
@@ -514,6 +512,8 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
                 $scope.action.subject = data[0].tempemail_subject;
 				$scope.action.tempBody = data[0].tempemail_body;
                 $scope.action.templateid = data[0].tempemailid.toString();
+				
+				$("#contentEditor").summernote("code", $scope.action.tempBody);
             }
             else
                 {
@@ -546,7 +546,11 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
 // $scope.getEmailTemplsFun();
 
 app.controller("previewTempCtrl", function($scope, $uibModalInstance, $compile, item) {
-	$scope.tempContent = item;
+	$(function(){
+		var mailBody = item;
+		$("#contentEditor").summernote("code", mailBody);
+	});
+
 	$scope.ok = function(){
 		$uibModalInstance.close();
 	}
@@ -581,10 +585,17 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
                 endDate = endDate.split("-").reverse().join("/");
                 $scope.scheduleAlert = {
                     execStartDate:startDate,
-                    execEndDate:endDate/*,
-                    frequency: */
+                    execEndDate:endDate,
+                    frequency: data[0].rule_freq.toString()
                 };
-            }
+				
+				if (data[0].rule_freq == 3) {
+					$scope.scheduleAlert.weekDay = data[0].rule_schdwkday.toString();
+				} else if(data[0].rule_freq == 4){
+					$scope.scheduleAlert.monthDate = data[0].rule_schdwkday.toString();
+				}
+				
+			}
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
@@ -600,9 +611,9 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
         var schdwkday = '';
         if (formObj.frequency == 3) {
             schdwkday = formObj.weekDay;
-        } else if (formObj.frequency == 4) {
-            schdwkday = formObj.monthDate
-        }
+        } else if(formObj.frequency == 4){
+			schdwkday = formObj.monthDate;
+		}
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
             console.log(formObj);
@@ -617,6 +628,7 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
                     "rule_trigenddate": exendt,
                     "rule_freq": formObj.frequency,
                     "rule_schdwkday": schdwkday,
+					"rule_ecectime": formObj.execTime,
                     "rule_alterttyp": 1
                 }
             }).success(function(data) {

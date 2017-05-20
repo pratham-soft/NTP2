@@ -18,7 +18,7 @@
       </div>
       <div ng-show="recordType=='0'" >
          <table class="table alertRuleTable">
-            <!--<tr>
+            <tr ng-if="defaultRow">
                <td>
                   <select class="form-control" ng-model="rules[0].rulecriteria_modfield_id" ng-change="getFieldValues(rules[0].rulecriteria_modfield_id,0)">
                      <option value="">Field</option>
@@ -53,10 +53,11 @@
                 <td>
                     <button type="button" class="btn btn-default" ng-click="addRow(rules[0].rulecriteria_condition)">Add</button>
                 </td>
-            </tr>-->
+            </tr>
          </table>
       </div>
-	  <div>
-		<button type="button" class="btn btn-success" ng-click="updateRule(rules)">Update</button>
+	  <div class="text-center">
+		  <button type="button" class="btn btn-primary" ng-click="checkQuery(rules)">Check Query</button> | 
+		  <button type="button" class="btn btn-success" ng-click="updateRule(rules)" ng-disabled="disableUpdateQuery">Update Criteria</button>
 	  </div>
 </div>
