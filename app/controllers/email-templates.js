@@ -176,6 +176,7 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
     };
     
     $scope.getFields = function(moduleId){
+        var ruleid =0;
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -183,7 +184,7 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
             ContentType: 'application/json',
             data: {
                 "module_id": moduleId,
-                "ruleid" : ruleId
+                "ruleid" : ruleid
             }
         }).success(function(data) {
             if(data[0].modfield_ErrorDesc == "-1 | Module fields do not exist for this Module"){
