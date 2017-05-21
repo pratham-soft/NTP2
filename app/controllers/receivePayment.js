@@ -61,7 +61,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
     
 });
 
-app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
+app.controller("customerReceivePaymentDetailCtrl2", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
      $scope.showPaymentHistoryView=false;
     $scope.customer = item;
     $scope.unitStatus = [];
@@ -172,7 +172,7 @@ app.controller("customerReceivePaymentDetailCtrl", function($scope, $http, $cook
     }
 });
 
-app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
+app.controller("custPaymentCtrl2", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
    // myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
     $scope.convertNumToWords = function (numvalue)
     {

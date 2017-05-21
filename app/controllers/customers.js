@@ -200,55 +200,50 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
     };
     
     
+
+     
      $scope.getCustPaymentHistory = function(custinfo){ 
-            $scope.payHistoryClick=true;
+         $scope.payHistoryClick=true;
             var apiPostObj ={};     
             apiPostObj["UnitDtls_Id"] = custinfo.UnitDtls_Id;
             apiPostObj["UnitDtls_Cust_UserId"] = $scope.customer.user_id;
             apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
+         
+            var postObj ={};     
+            postObj["usruntpymtrec_unitdtls_id"] = custinfo.UnitDtls_Id;
+            postObj["usruntpymtrec_user_id"] = $scope.customer.user_id;
+            postObj["usruntpymtrec_comp_guid"] = $cookieStore.get('comp_guid');
          
 			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
 				var res = response.data[0].ErrorDesc;
                 if(res=="0")
                     {
                         $scope.custPayinfo=response.data;
+                        httpSvc.CustPaymentHistory(postObj).then(function(response){
+                                    var res = response.data[0].ErrorDesc;
+                                    if(res=="0")
+                                        {
+                                            $scope.custPayHistoryinfo=response.data;
+                                        }
+                                     else
+                                        {
+                                         alert(response.data[0].ErrorDesc.toString());
+                                        }
+
+                                })
                       
                     }
                  else
                     {
                      alert(res.toString());
-                    $scope.payHistoryClick=false;
-                    }
+                    }							               			
 			})
         
     }
      
-//    $scope.cancelUnit = function(unitObj) {
-//        $scope.cancelUnitClick=true;
-//        var apiPostObj ={};  
-//        apiPostObj["UnitDtls_Id"] = unitObj.UnitDtls_Id;
-//            apiPostObj["UnitDtls_Cust_UserId"] = $scope.customer.user_id;
-//            apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
-//         
-//			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
-//				var res = response.data[0].ErrorDesc;
-//                if(res=="0")
-//                    {
-//                        $scope.custPayinfo=response.data;
-//                      
-//                    }
-//                 else
-//                    {
-//                     alert(res.toString());
-//                    $scope.cancelUnitClick=false;    
-//                    }
-//			})
-//        
-//    };
-     
-     
      
       $scope.cancelUnit = function(unitObj) {
+        unitObj["customer"]= $scope.customer;
         unitObj['CustId']= $scope.leadId
         $uibModalInstance.close();
         $scope.custCancelUnit(unitObj);
@@ -286,17 +281,12 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
         });
     };
     
-   
-    $scope.receivePayment = function(unitObj) {
-//        $window.sessionStorage.setItem('projId', unitObj.ProjId);
-//        $window.sessionStorage.setItem('phaseId', unitObj.Phase_Id);
-//        $window.sessionStorage.setItem('blockId', unitObj.Blocks_Id);
-//        $window.sessionStorage.setItem('unitId', unitObj.UnitDtls_Id);
+
+
+     $scope.receivePayment = function(unitObj) {
+        unitObj["customer"]= $scope.customer;
         unitObj['CustId']= $scope.leadId
-  //      $cookieStore.put("prospectId",$scope.leadId);
-  //      $cookieStore.put("receivePaymentUnitObj",unitObj);
         $uibModalInstance.close();
-       // $state.go("/BookUnit-Step3");
         $scope.custPayment(unitObj);
     };
 
@@ -329,8 +319,31 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
     }
 });
 
-app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance){
+
+
+app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
+   // myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
+    $scope.convertNumToWords = function (numvalue)
+    {
+       $scope.amountInWords= myService.convertNumberToWords(numvalue);
+    }
+    
+     $scope.customerDetail = function(selectedItem) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'customerReceivePaymentDetail.html',
+            controller: 'unitOperationCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return selectedItem;
+                }
+            }
+        });
+    };
+    
     var unitObj=item;
+    $scope.customerData=item.customer;
     $scope.unitinfo=[];
     $scope.unitinfo.push(unitObj);
     var comp_guid = $cookieStore.get('comp_guid');
@@ -352,7 +365,7 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
 				resArr = res.split('|');
 				if(resArr[0] == 0){                      
 					    alert("Payment of INR " + formObj.usruntpymtrec_amtpaid +  " Received Successfully. Now Your Balance Pending Amount is INR " + resArr[3]);
-                        $state.go('ReceivePayment');
+                       // $state.go('ReceivePayment');
                         $scope.ok();
                    
 				}
@@ -365,13 +378,14 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
     
       $scope.ok = function() {
         $uibModalInstance.close();
+        $scope.customerDetail($scope.customerData);
     };
 });
 
 
-
-app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $http, httpSvc, item, $uibModalInstance){
+app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $uibModal, $cookieStore, $state, $http, httpSvc, item, $uibModalInstance){
     var unitObj=item;
+     $scope.customerData=item.customer;
     $scope.unitinfo=[];
     $scope.unitinfo.push(unitObj);
     $scope.amountPaid=0;
@@ -382,14 +396,27 @@ app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $coo
     $scope.remarks="";
     $scope.cancelTableShow=true;
     
-    $scope.ok = function() {
-        $uibModalInstance.close();
-    };
+
     
+    
+    $scope.customerDetail = function(selectedItem) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'customerReceivePaymentDetail.html',
+            controller: 'unitOperationCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return selectedItem;
+                }
+            }
+        });
+    };
   
-//    $scope.paymentDetails = {
-//        usruntpymtrec_pymttype: "1"
-//    };
+        $scope.ok = function() {
+        $uibModalInstance.close();
+        $scope.customerDetail($scope.customerData);
+    };
    
     $scope.getCustPaymentHistory = function(unitObj){ 
             $scope.payHistoryClick=true;
@@ -451,6 +478,7 @@ app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $coo
             $scope.cancelData=data;
             angular.element(".loader").hide();
             console.log($scope.cancelData);
+            $state.go('ReceivePayment');
             $scope.ok();
         }).error(function() {
             angular.element(".loader").hide();

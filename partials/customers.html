@@ -150,6 +150,7 @@
 				   </tbody>
 				</table>
 			</div>
+<!--
         <div >
                 <table class="leadDetail" ng-show="payHistoryClick">
                      <thead>
@@ -167,7 +168,47 @@
 				   </thead>
 				
             </table>
-    </div></div>
+    </div>
+-->
+        
+              <div ng-show="payHistoryClick">
+                <table class="leadDetail" >
+                     <thead>
+					  <tr>
+                         <th>Total Cost of Flat/Villa/Plot</th>
+						 <th>Total Amount Paid Till Date</th>
+						 <th>Balance Pending Amount </th>
+						
+					  </tr>
+                          <tr ng-repeat = "payinfo in custPayinfo track by $index" >
+						 <td> {{payinfo.UnitTotCost | currency:"&#8377;"}}</td>
+                         <td>{{payinfo.Total_amt_paid | currency:"&#8377;"}}</td>                      
+                         <td>{{payinfo.UnitTotCost - payinfo.Total_amt_paid | currency:"&#8377;"}}</td>                     
+					  </tr>
+				   </thead>
+				
+            </table>
+               <table class="leadDetail" >
+                     <thead>
+					  <tr>
+                        <th>Serial no.</th>
+                         <th>Amount Paid </th>
+						 <th>Payment Date</th>
+<!--						 <th>Balance Pending Amount </th>-->
+						
+					  </tr>
+                          <tr ng-repeat = "custpayhstryinfo in custPayHistoryinfo track by $index" >
+                         <td>{{$index + 1}}</td>
+						 <td> {{custpayhstryinfo.usruntpymtrec_amtpaid | currency:"&#8377;"}}</td>
+                         <td>{{custpayhstryinfo.usruntpymtrec_pymt_dt | date}}</td>                      
+<!--                         <td>{{payinfo.UnitTotCost - payinfo.Total_amt_paid}}</td>                     -->
+					  </tr>
+				   </thead>
+				
+            </table>
+       </div>      
+            
+    </div>
             
  
 
