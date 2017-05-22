@@ -103,7 +103,7 @@ app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieS
                         child4Name: data.Cust_child4_nm,
                         child4Dob: dateArray[7],
                         bankloan: data.Cust_bankloan,
-                        bankName: data.Cust_bankloan,
+                        bankName: data.Cust_banknm,
                         accountNumber: data.Cust_bankaccno,
                         ifscCode: data.Cust_bankifsccode,
                         bankAdress: data.Cust_bankadd,

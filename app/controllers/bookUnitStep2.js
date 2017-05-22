@@ -400,7 +400,7 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
                         child4Name: data.Cust_child4_nm,
                         child4Dob: dateArray[7],
                         bankloan: data.Cust_bankloan,
-                        bankName: data.Cust_bankloan,
+                        bankName: data.Cust_banknm,
                         accountNumber: data.Cust_bankaccno,
                         ifscCode: data.Cust_bankifsccode,
                         bankAdress: data.Cust_bankadd,
