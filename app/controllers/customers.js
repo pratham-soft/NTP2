@@ -188,10 +188,10 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
     
     
     $scope.exchangeLeadUnits = function(unitObj) {
-        $window.sessionStorage.setItem('projId', unitObj.ProjId);
-        $window.sessionStorage.setItem('phaseId', unitObj.Phase_Id);
-        $window.sessionStorage.setItem('blockId', unitObj.Blocks_Id);
-        $window.sessionStorage.setItem('unitId', unitObj.UnitDtls_Id);
+//        $window.sessionStorage.setItem('projId', unitObj.ProjId);
+//        $window.sessionStorage.setItem('phaseId', unitObj.Phase_Id);
+//        $window.sessionStorage.setItem('blockId', unitObj.Blocks_Id);
+//        $window.sessionStorage.setItem('unitId', unitObj.UnitDtls_Id);
         $cookieStore.put("unitObj",unitObj);
         $uibModalInstance.close();
         $state.go("/ExchangeUnit", {

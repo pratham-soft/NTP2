@@ -45,6 +45,8 @@ app.controller("campaignDetailCtrl", function($scope, $http, $cookieStore, $stat
             }
         });
     };
+    
+    
 });
 
 app.controller("addNewCampaignCtrl", function($scope, $http, myService, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
@@ -145,7 +147,10 @@ app.controller("addNewCampaignCtrl", function($scope, $http, myService, $cookieS
             });
         }
     };
-
+ 
+       $scope.ok = function() {
+        $uibModalInstance.close();
+    }
     
 });
 
@@ -153,8 +158,7 @@ app.controller("editCampaignCtrl", function($scope, $http,  $cookieStore, $state
     $scope.pageTitle = "Edit Campaign";
     $scope.editCampaignBtn = true;
     $scope.addNewCampaignBtn = false;
-    
-
+   
     ($scope.getSalaryComponentDetails = function() {
         console.log(item);
 //        var dateOut = new Date(item.campaign_startdate);
@@ -216,5 +220,12 @@ app.controller("editCampaignCtrl", function($scope, $http,  $cookieStore, $state
             });
         }
     };
+    
+     
+       $scope.ok = function() {
+        $uibModalInstance.close();
+    }
+    
+
 
 });
