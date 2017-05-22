@@ -46,7 +46,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
     $scope.customerDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'customerReceivePaymentDetail.html',
-            controller: 'customerReceivePaymentDetailCtrl',
+            controller: 'customerReceivePaymentDetailCtrl2',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -127,7 +127,7 @@ app.controller("customerReceivePaymentDetailCtrl2", function($scope, $http, $coo
    $scope.custPayment = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'custPayment.html',
-            controller: 'custPaymentCtrl',
+            controller: 'custPaymentCtrl2',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -182,7 +182,7 @@ app.controller("custPaymentCtrl2", function($scope, $rootScope, $stateParams, $c
      $scope.customerDetail = function(selectedItem) {
         var modalInstance = $uibModal.open({
             templateUrl: 'customerReceivePaymentDetail.html',
-            controller: 'customerReceivePaymentDetailCtrl',
+            controller: 'customerReceivePaymentDetailCtrl2',
             size: 'lg',
             backdrop: 'static',
             resolve: {

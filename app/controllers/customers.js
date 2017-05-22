@@ -325,7 +325,7 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
    // myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
     $scope.convertNumToWords = function (numvalue)
     {
-       $scope.amountInWords= myService.convertNumberToWords(numvalue);
+       $scope.amountInWords= myService.convertNumberToWords(numvalue)+"Rupees Only";
     }
     
      $scope.customerDetail = function(selectedItem) {

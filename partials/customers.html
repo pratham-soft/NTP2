@@ -337,11 +337,21 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="usruntpymtrec_amtpaid">Amount Paid</label>
+            <label for="usruntpymtrec_amtpaid">Amount Paid (&#8377;)</label>
          </div>
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="text" placeholder="Amount Paid" class="form-control" name="usruntpymtrec_amtpaid" id="usruntpymtrec_amtpaid" ng-model="paymentDetails.usruntpymtrec_amtpaid" ng-required="true" ng-class="{blankInput: paymentDetailsForm.usruntpymtrec_amtpaid.$error.required &amp;&amp; submit}"/>
+            <input type="text" placeholder="Amount Paid" ng-keyup="convertNumToWords(paymentDetails.usruntpymtrec_amtpaid)" class="form-control" name="usruntpymtrec_amtpaid" id="usruntpymtrec_amtpaid" ng-model="paymentDetails.usruntpymtrec_amtpaid" ng-required="true" ng-class="{blankInput: paymentDetailsForm.usruntpymtrec_amtpaid.$error.required &amp;&amp; submit}"/>
          </div>
+      </div>
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="usruntpymtrec_amtpaid">Amount Paid in Words</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+<!--             <label for="usruntpymtrec_amtpaid">Amount Paid in Words</label>-->
+             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 labelCntr">{{amountInWords}}</div>
+         </div>
+          
       </div>
 <!--
       <div class="text-center" ng-hide="receivePaymentBtn">
