@@ -438,8 +438,13 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
               $scope.query= JSON.parse(response.data);
              if($scope.query[0].nVarErrorMsg =="-9999  Object reference not set to an instance of an object.")
                   {
-                       alert("Sorry No Data Returned . Error Message" + $scope.query[0].nVarErrorMsg.toString())
+                       alert("Sorry No Data Returned . Error Message" + $scope.query[0].nVarErrorMsg.toString());
                   }
+                   
+                 if($scope.query[0].nVarErrorMsg == "-9999  There is no row at position 0.")
+                     {
+                         alert("Sorry No Data Returned . Error Message" + $scope.query[0].nVarErrorMsg.toString());
+                     }
              if($scope.query.length>0 && $scope.query.nVarErrorMsg !="-9999 Object reference not set to an instance of an object.")
                 {
                      $scope.testQueryResult($scope.query);
