@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-	<h1>Phases / Prospective</h1>
+	<h1>Phases</h1>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
 	<ol class="breadcrumb">
@@ -33,10 +33,10 @@
 			<tr>
 				<th>#</th>
 				<th>Phase</th>
-				<th>Location</th>
+<!--				<th>Location</th>-->
 				<th>Type</th>
 <!--				<th>Release</th>-->
-				<th>No. Of Blocks</th>
+				<th>No. of Blocks</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -44,7 +44,7 @@
 			<tr ng-repeat="x in phaseList track by $index">
 				<td>{{$index + 1}}</td>
 				<td>{{x.Phase_Name}}</td>
-				<td>{{x.Phase_Location}}</td>
+<!--				<td>{{x.Phase_Location}}</td>-->
 				<td>{{typeNames[x.Phase_UnitType.UnitType_Id - 1]}}</td>
 <!--				<td></td>-->
 				<td>{{x.Phase_NoofBlocks}}</td>

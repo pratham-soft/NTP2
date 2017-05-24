@@ -282,10 +282,11 @@ app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $
     }
 });
 
-app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {
+app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile,myService,$uibModal) {
     $scope.pageTitle = "Update Criteria Rule";
     var ruleId = $stateParams.ruleId;
     var moduleId = $stateParams.moduleId;
+    var comp_guid= $cookieStore.get('comp_guid');
     $scope.subModules = [];
     $scope.subModulesobj = [{
         modfieldid: '',
@@ -429,6 +430,51 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
             angular.element(".loader").hide();
         });
     }
+    
+    $scope.checkQuery = function(obj){
+		$scope.disableUpdateQuery = false;
+       
+        myService.tempGetEmbeddedMysqlQuery(comp_guid,ruleId).then(function(response){
+              $scope.query= JSON.parse(response.data);
+             if($scope.query[0].nVarErrorMsg =="-9999  Object reference not set to an instance of an object.")
+                  {
+                       alert("Sorry No Data Returned . Error Message" + $scope.query[0].nVarErrorMsg.toString())
+                  }
+             if($scope.query.length>0 && $scope.query.nVarErrorMsg !="-9999 Object reference not set to an instance of an object.")
+                {
+                     $scope.testQueryResult($scope.query);
+                }
+             
+			})
+       
+        
+	}
+    
+    $scope.testQueryResult = function(selectedItem) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'testQueryResult.html',
+            controller: 'testQueryResultCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return selectedItem;
+                }
+            }
+        });
+    };
+    
+});
+
+app.controller("testQueryResultCtrl", function($scope, $uibModalInstance,item) {
+	$(function(){
+		 $scope.query = item;
+		
+	});
+
+	$scope.ok = function(){
+		$uibModalInstance.close();
+	}
 });
 
 app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {

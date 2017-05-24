@@ -314,5 +314,23 @@ app.service('myService', function($http) {
     }
     return words_string;
 }
+   
+   /* Atul 24/05/2017 This is just a Temporary service to Check the Query. Later it will be reomved */
+   this.tempGetEmbeddedMysqlQuery = function(comp_guid,rule_id){
+        
+		var promise =$http({
+			method:"POST",
+			url:"http://120.138.8.150/pratham/Comp/Rulescrit/Gtebmsq",
+			ContentType: 'application/json',
+            data: {
+			     "rulecriteria_comp_guid": comp_guid,
+                 "rulecriteria_rule_id" :rule_id
+			}
+	 }).success(function(data) {
+            query = data;
+            return query;
+        }).error(function() {});
+        return promise;
+	};
     
 });

@@ -61,3 +61,38 @@
 		  <button type="button" class="btn btn-success" ng-click="updateRule(rules)" ng-disabled="disableUpdateQuery">Update Criteria</button>
 	  </div>
 </div>
+
+<script type="text/ng-template" id="testQueryResult.html">
+    <div class="modal-header">
+			<button type="button" class="close" ng-click="ok()">&times;</button>
+            <h3 class="modal-title" id="modal-title">Query Result Data</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div>
+				<table class="table borderDef">
+				   <thead>
+					  <tr>
+                         <th>First Name</th>
+						 <th>Middle Name</th>
+						 <th>Last Name</th>
+						 <th>ZipCode</th>
+						 <th>Date Of Birth</th>                  
+					  </tr>
+				   </thead>
+				   <tbody id="projectList">
+					  <tr ng-repeat = "data in query track by $index" >
+						 <td>{{data.user_first_name}}</td>
+                         <td>{{data.user_middle_name}}</td>
+                         <td>{{data.user_last_name}}</td>
+                         <td>{{data.user_zipcode}}</td>
+                         <td>{{data.user_dob | date}} </td>                                          
+					  </tr>
+				   </tbody>
+				</table>
+			</div>
+
+    </div>
+    <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
+    </div>
+    </script>
