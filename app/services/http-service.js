@@ -333,4 +333,23 @@ app.service('myService', function($http) {
         return promise;
 	};
     
+     this.removeCriteriaRow = function(comp_guid,rulecriteriaid){
+        
+		var promise =$http({
+			method:"POST",
+			url:"http://120.138.8.150/pratham/Comp/RulesCrit/Del",
+			ContentType: 'application/json',
+            data: {
+                    "rulecriteria_comp_guid" :comp_guid,
+                    "rulecriteriaid" : rulecriteriaid
+                }
+	 }).success(function(data) {
+            query = data;
+            return query;
+        }).error(function() {});
+        return promise;
+	};
+    
+    
 });
+
