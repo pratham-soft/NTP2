@@ -88,10 +88,17 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
                 var res = data.ErrorDesc;
                 var resSplit = res.split('|');
                 if (resSplit[0] == 0) {
-                    $state.go('/UpdateRule', {
+                    if((formObj.rule_actiontypeid==26) || (formObj.rule_actiontypeid==27) ){
+                        $state.go('/Action', {
+                        ruleId: data.ruleid
+                    });
+                    }
+                    else{
+                        $state.go('/UpdateRule', {
                         ruleId: data.ruleid,
                         moduleId: data.rule_moduleid
                     });
+                    }
                 }
                 angular.element(".loader").hide();
             }).error(function() {
@@ -113,10 +120,17 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
     $scope.CreateRuleBtn = false;
     // $scope.selected= '';
     $scope.MoveToUpdateRulePage = function() {
-        $state.go('/UpdateRuleCriteria', {
-            ruleId: $scope.ruleid,
-            moduleId: $scope.modules[0].module_id
-        });
+        if(($scope.actionTypes[0].actiontypeid==26) || ($scope.actionTypes[0].actiontypeid==27) ){
+                        $state.go('/Action', {
+                        ruleId: $scope.ruleid
+                    });
+                    }
+                    else{
+                        $state.go('/UpdateRule', {
+                        ruleId: $scope.ruleid,
+                        moduleId: $scope.modules[0].module_id
+                    });
+                    }
 
     };
 
