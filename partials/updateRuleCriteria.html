@@ -77,7 +77,15 @@
 						 <th>Middle Name</th>
 						 <th>Last Name</th>
 						 <th>ZipCode</th>
-						 <th>Date Of Birth</th>                  
+						 <th>Date Of Birth</th>
+                          <th>Project  Name</th>
+                           <th>Phase Name</th>
+                          <th>Block Nam</th>
+                           <th>Booking Date</th>
+                          <th>Unit Floor No</th>
+                           <th>Unit No</th>
+<!--                          <th>Unit Name</th>-->
+                           <th>Unit Type</th>
 					  </tr>
 				   </thead>
 				   <tbody id="projectList">
@@ -86,7 +94,16 @@
                          <td>{{data.user_middle_name}}</td>
                          <td>{{data.user_last_name}}</td>
                          <td>{{data.user_zipcode}}</td>
-                         <td>{{data.user_dob | date}} </td>                                          
+                         <td>{{data.user_dob | date}} </td>  
+                         <td>{{data.Proj_Name}} </td>  
+                         <td>{{data.Phase_Name }} </td>  
+                         <td>{{data.Blocks_Name }} </td>
+                         <td>{{data.Custbooking_bookingdt | date}} </td> 
+                          <td>{{data.UnitDtls_Floor}} </td>  
+                          <td>{{data.UnitDtls_No}} </td>                         
+<!--                        <td>{{data.UnitDtls_Name }} </td>  -->
+                        <td>{{data.UnitDtls_Type }} </td>  
+                          
 					  </tr>
 				   </tbody>
 				</table>
