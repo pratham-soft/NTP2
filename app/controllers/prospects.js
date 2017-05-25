@@ -97,6 +97,7 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
                 "user_type": 7
             }
         }).success(function(data) {
+            
              $scope.getEmployeesDetails();
              $scope.getSalesFunnelDetails();
             angular.element(".loader").hide();
@@ -137,8 +138,25 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
                     }
                   data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;  
                 }
+               //Start
+            //Written to filter the Data on basis of to whom it is assinged to (Which Prospect is assinged to Which User-(Employee or Agnet))        
+                     for(var k=0;k<data.length;k++)
+                        {
+                            if((data[k].user_type !=1)) // Not Equal to 1 Means User is not Admin - Then only it will filter Data 
+                                {
+                                     if( data[k].user_assingedto == parseInt($cookieStore.get('user_id')))  
+                                        {
+                                           $scope.leads[k]= data[k];
+                                        }
+                                }
+                            else{
+                                $scope.leads = data
+                            }  
+
+                        }            
+            //End
             
-            $scope.leads = data;
+           // $scope.leads = data; Need to uncomment this after test
         }).error(function() {
             angular.element(".loader").hide();
         });
