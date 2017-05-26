@@ -296,7 +296,7 @@ app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $
     }
 });
 
-app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile,myService,$uibModal) {
+app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile,myService,$uibModal) {	
     $scope.pageTitle = "Update Criteria Rule";
     var ruleId = $stateParams.ruleId;
     var moduleId = $stateParams.moduleId;
@@ -333,6 +333,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 	$scope.getSubModules(moduleId);
 	
     $scope.getRuleCriteria = function(ruleId) {
+		alert("getRuleCriteria");
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -640,7 +641,8 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
     }
     $scope.getEmailTmplt(ruleId);
 	
-	$scope.previewTemplate = function(tempContent){
+	
+	$scope.previewTemplate = function(tempObj){
 		var modalInstance = $uibModal.open({
             templateUrl: 'previewTemp.html',
             controller: 'previewTempCtrl',
@@ -649,7 +651,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
             backdrop: 'static',
             resolve: {
                 item: function() {
-                    return tempContent;
+                    return tempObj;
                 }
             }
         });
@@ -658,12 +660,44 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
 
 // $scope.getEmailTemplsFun();
 
-app.controller("previewTempCtrl", function($scope, $uibModalInstance, $compile, item) {
+app.controller("previewTempCtrl", function($scope, $uibModalInstance, $compile, $http, $cookieStore, $stateParams, item) {
+	var tempId = item.tempId;
+	var ruleId = $stateParams.ruleId;
 	$(function(){
-		var mailBody = item;
+		var mailBody = item.tempBody;
 		$("#contentEditor").summernote("code", mailBody);
 	});
-
+	$scope.saveTemplate = function(){
+		var templateBody = $("#contentEditor").summernote("code");
+		$http({
+                method: "POST",
+                url: "http://120.138.8.150/pratham/Comp/Emltmplt/Ins",
+                ContentType: 'application/json',
+                data: {
+                    "tempemail_comp_guid": $cookieStore.get('comp_guid'),
+                    "tempemail_createdby": $cookieStore.get('user_id'),
+                    "tempemail_ruleid":ruleId,
+                    /*"tempemail_attachment":2,
+                    "tempemail_recpto":"diwakar.rao@gmail.com;divu26@yahoo.com;diw26@yahoo.com",
+                    "tempemail_recpcc":"diwakar.rao@gmail.com;divu26@yahoo.com;diw26@yahoo.com",
+                    "tempemail_recpbcc":"diwakar.rao@gmail.com;divu26@yahoo.com;diw26@yahoo.com",
+                    "tempemail_name" :tmpname,
+                    "tempemail_subject": tmpsubj,*/
+                    "tempemail_body":templateBody, 
+                    "tempemailid": tempId
+                }
+            }).success(function(data) {
+				console.log(data);
+                /*if (data.user_id != 0) {
+                    $state.go("/EmailTemplates");
+                } else {
+                    alert("Error! " + data.user_ErrorDesc);
+                }*/
+                angular.element(".loader").hide();
+            }).error(function() {
+                angular.element(".loader").hide();
+            });
+	}
 	$scope.ok = function(){
 		$uibModalInstance.close();
 	}

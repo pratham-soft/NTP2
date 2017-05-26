@@ -45,7 +45,7 @@
 			 </div>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-show="!showTempDropDown">
-            <button type="button" class="btn btn-default" ng-click="previewTemplate(action.tempBody)">
+            <button type="button" class="btn btn-default" ng-click="previewTemplate({tempBody:action.tempBody,tempId:action.templateid})">
             <span class="glyphicon glyphicon-film"></span>
             </button>
          </div>
@@ -91,6 +91,7 @@
 			<div id="contentEditor"></div>
 		</div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
+			<button type="button" class="btn btn-success" ng-click="saveTemplate()">Save Template</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">Done</button>
         </div>
 </script>
