@@ -143,12 +143,14 @@
                 <td></td>
             </tr>
             
+<!--
               <tr>
                 <td>Customer Actual Price / Sq. Ft.(After Discount)</td>
                 <td> {{unitCostSheetDetail.unitcostcal_custbasecost | currency:"&#8377;"}}</td>
                 <td></td>
             </tr>
             
+-->
             <tr>
 <!--
                 <td>Floor Raise Charges</td>
@@ -162,8 +164,9 @@
                 <td></td>
             </tr>
             <tr>
-                <td>Customer Basic Cost(After Discount)</td>
-                <td> {{unitCostSheetDetail.unitcostcal_custbasecostval | currency:"&#8377;"}}</td>
+<!--                <td>Customer Basic Cost(After Discount)</td>-->
+                 <td>Floor Raise Charges</td>
+                <td> {{unitCostSheetDetail.unitcostcal_custbasecostval - unitCostSheetDetail.unitcostcal_basecostval | currency:"&#8377;"}}</td>
                 <td></td>
             </tr>
             
