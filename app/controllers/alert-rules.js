@@ -126,7 +126,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
                     });
                     }
                     else{
-                        $state.go('/UpdateRule', {
+                        $state.go('/UpdateRuleCriteria', {
                         ruleId: $scope.ruleid,
                         moduleId: $scope.modules[0].module_id
                     });
@@ -217,7 +217,7 @@ app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $
         });
     }
     $scope.getSubModules(moduleId);
-    //  $scope.getRuleCriteria(ruleId);
+  // $scope.getRuleCriteria(ruleId);
     $scope.showInput0 = true;
     $scope.getFieldValues = function(fieldId, index) {
         var fieldValues = 'fieldValues' + index;
@@ -333,7 +333,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 	$scope.getSubModules(moduleId);
 	
     $scope.getRuleCriteria = function(ruleId) {
-		alert("getRuleCriteria");
+		//alert("getRuleCriteria");
         angular.element(".loader").show();
         $http({
             method: "POST",
