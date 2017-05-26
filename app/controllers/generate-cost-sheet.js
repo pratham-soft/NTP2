@@ -177,3 +177,31 @@ app.controller("generatedCostSheetDetailsCtrl", function($scope, $http, $cookieS
         });
     })();
 });
+
+
+app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item ,myService) {
+    
+    $scope.unitId = item;
+    ($scope.getUnitCostSheetDetails = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstSheet/Gt",
+            ContentType: 'application/json',
+            data: {
+                "UnitDtls_Id": parseInt($scope.unitId),
+                "UnitDtls_comp_guid": $cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            console.log("Atul Test " + JSON.stringify(data));
+            $scope.unitCostSheetDetail = data;
+        $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+    $scope.ok = function() {
+        $uibModalInstance.close();
+    };
+});
