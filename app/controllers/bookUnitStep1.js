@@ -1,4 +1,4 @@
-app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc){
+app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService){
 	$scope.pageTitle = "Book Unit - Cost Details";
 	$scope.unitObj = $cookieStore.get("unitObj");
   
@@ -20,6 +20,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
         angular.element(".loader").show();
         httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
             $scope.unitCostSheetDetail = response.data;
+        $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
             
         $scope.updatedCostSheetObj = {
               "Untctcm_comp_guid": $cookieStore.get('comp_guid'),
