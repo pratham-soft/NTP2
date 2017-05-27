@@ -27,6 +27,7 @@
                <span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
             </div>
          </div>
+        <br><br><br><br>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tempFormCntr2">
             <div class="col-lg-4 col-md-4 col-sm-4 padding12">
                <label>Merge Field Types</label>
@@ -42,11 +43,13 @@
                   <option ng-repeat="x in fields" value="{{x.modfield_actualfieldname}}">{{x.modfield_name}}</option>
                </select>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 padding12">
+            <div class="col-lg-3 col-md-3 col-sm-3 padding12">
                <label>Copy Merged Fields</label>
-               <input type="text" class="form-control" name="copyMergedFields" ng-model="template.copyMergedFields" ng-readonly="true"/>
+               <input type="text" class="form-control" name="copyMergedFields" ng-model="template.copyMergedFields" ng-readonly="true">
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 padding12"> 
+                <label> Add </label>
+                <button type="button" class="btn btn-default" ng-click="addEditor()" ng-disabled="addEditorBtn"><span class="glyphicon glyphicon-plus-sign"></span> Add</button> </div>
             <div class="col-lg-4 col-md-4 col-sm-4"></div>
          </div>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 marginTop10">

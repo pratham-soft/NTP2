@@ -62,6 +62,90 @@
 		  <button type="button" class="btn btn-success" ng-click="updateRule(rules)" ng-disabled="disableUpdateQuery">Update Criteria</button>
 	  </div>
 </div>
+
+<script type="text/ng-template" id="testQueryResult.html">
+    <div class="modal-header">
+			<button type="button" class="close" ng-click="ok()">&times;</button>
+            <h3 class="modal-title" id="modal-title">Query Result Data</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div>
+				<table class="table borderDef">
+				   <thead>
+					  <tr>
+                         <th>First Name</th>
+						 <th>Middle Name</th>
+						 <th>Last Name</th>
+						 <th>ZipCode</th>
+						 <th>DOB</th>
+                          <th>Project  Name</th>
+                           <th>Phase Name</th>
+                          <th>Block Nam</th>
+                           <th>Booking Date</th>
+                          <th>Unit Floor No</th>
+                           <th>Unit No</th>
+<!--                          <th>Unit Name</th>-->
+                           <th>Unit Type</th>
+                   
+					  </tr>
+				   </thead>
+				   <tbody id="projectList">
+					  <tr ng-repeat = "data in query track by $index" >
+						 <td>{{data.user_first_name}}</td>
+                         <td>{{data.user_middle_name}}</td>
+                         <td>{{data.user_last_name}}</td>
+                         <td>{{data.user_zipcode}}</td>
+                         <td>{{data.user_dob | date}} </td>  
+                         <td>{{data.Proj_Name}} </td>  
+                         <td>{{data.Phase_Name }} </td>  
+                         <td>{{data.Blocks_Name }} </td>
+                         <td>{{data.Custbooking_bookingdt | date}} </td> 
+                          <td>{{data.UnitDtls_Floor}} </td>  
+                          <td>{{data.UnitDtls_No}} </td>                         
+<!--                        <td>{{data.UnitDtls_Name }} </td>  -->
+                        <td>{{data.UnitDtls_Type }} </td>  
+                          
+                         
+					  </tr>
+				   </tbody>
+				</table>
+            
+            <table class="table borderDef">
+				   <thead>
+					  <tr>
+                   
+                           <th>PaymtDt</th>
+                          <th>AmtPaid</th>
+                          <th>AmtPending</th>
+                          <th>Bank</th>
+                          <th>BankAdd</th>
+                          <th>Chqddno</th>
+                           <th>OnlineRecno.</th>
+					  </tr>
+				   </thead>
+				   <tbody id="projectList">
+					  <tr ng-repeat = "data in query track by $index" >
+				 
+                          
+                            <td>{{data.usruntpymtrec_pymt_dt | date }} </td> 
+                            <td>{{data.usruntpymtrec_amtpaid }} </td> 
+                            <td>{{data.usruntpymtrec_amtpnd }} </td> 
+                            <td>{{data.usruntpymtrec_bank }} </td> 
+                            <td>{{data.usruntpymtrec_bankadd }} </td> 
+                            <td>{{data.usruntpymtrec_chq_dd_no }} </td> 
+                          <td>{{data.usruntpymtrec_onlinetrnsrecptno }} </td> 
+
+					  </tr>
+				   </tbody>
+				</table>
+			</div>
+
+    </div>
+    <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Close</button>
+    </div>
+    </script>
+
 <!--
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle ng-scope">
    <h1>{{pageTitle}}</h1>

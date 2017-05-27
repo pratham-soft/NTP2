@@ -109,10 +109,13 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
         mergeFieldType:"",
         fields:""        
     };
+    $scope.addEditorBtn=true;
    
     ($scope.loadEditor = function(){
             $('#contentEditor').summernote();
     })();
+   
+    
     
     $scope.getMergedFieldTypes = (function(){
         angular.element(".loader").show();
@@ -206,6 +209,12 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
     }
     
     $scope.copyMergedFields = function(field){
-        $scope.template.copyMergedFields = field;
+        $scope.template.copyMergedFields = '$'+field+'$ ';
+        $scope.addEditorBtn=false;
     }
+    
+  $scope.addEditor = function(){
+            $('#contentEditor').summernote('editor.insertText', $scope.template.copyMergedFields);
+    };
+    
 });
