@@ -12,14 +12,45 @@ app.controller("alertRulesCtrl", function($scope, $http, $cookieStore, $state, $
             }
         }).success(function(data) {
 			if(data[0].ErrorDesc!="-1 | No Records"){
-				$scope.alertRules = data;	
+				$scope.alertRules = data;
+                for(var i=0; i<$scope.alertRules.length;i++){
+                    if($scope.alertRules[i].rule_swtchflg==0 || $scope.alertRules[i].rule_swtchflg==undefined){
+                        $scope.alertRules[i].rule_swtchflg_activate=false;
+                    }
+                    else{
+                        $scope.alertRules[i].rule_swtchflg_activate=true;
+                    }
+                }
 			}
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
         })
     })();
+    
+    $scope.actDeact=function(ruleId,flagVal){
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/Rules/UpdtSwtchflg",
+            ContentType: 'application/json',
+            data: {
+                "ruleid":ruleId,
+                "rule_swtchflg":flagVal,
+                "rule_comp_guid": $cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            console.log(data);
+			window.location.reload();
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        })
+    }
+    
 });
+
+
 app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, myService) {
     $scope.pageTitle = "Create New Alert Rule";
     $scope.EditRuleBtn = false;
@@ -429,7 +460,7 @@ $scope.pageTitle = "Set Rule";
             $scope.updateRemoveRow($scope.rules);
        }
         else{
-            window.location.reload() ; 
+            window.location.reload(); 
         }   
     
 //     window.location.reload() ; 
