@@ -450,6 +450,13 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
             }
         }).success(function(data) {
             if (data.user_id != 0) {
+                $scope.leadInfo = {
+                    firstName: data.user_first_name,
+                    middleName: data.user_middle_name,
+                    lastName: data.user_last_name,
+                    mobileNumber: parseInt(data.user_mobile_no) ,
+                    emailId: data.user_email_address
+                }
                 if (data.userprojlist != null) {
                     $scope.leadProjects = data.userprojlist;
                 }

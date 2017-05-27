@@ -8,7 +8,29 @@
 	  <li class="active">Add Prospects Project Details</li>
 	</ol>	
 </div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
+<!--
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+   <div class="subHeading">Prospect Details</div>
+			<table >
+                <tr>
+					<td>Name</td>
+					<td>{{leadInfo.firstName }}</td>
+				</tr>
+				<tr>
+					<td>Email ID:</td>
+					<td>{{leadInfo.emailId}}</td>
+				</tr>
+				<tr>
+					<td>Mobile Number:</td>
+					<td>{{leadInfo.mobileNumber}}</td>
+				</tr>
+				
+            </table> 
+</div>
+-->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">  
+     <h4 class="modal-title" id="modal-title">{{leadInfo.firstName }} {{leadInfo.middleName}} {{leadInfo.lastName}}&nbsp;&nbsp;&nbsp;{{leadInfo.mobileNumber}}&nbsp;&nbsp;&nbsp;{{leadInfo.emailId}}</h4>
+    <br>
 	<form class="form">
 	<div>
 			<select ng-model="projectDetails.projectName" name="projectName" class="form-control" ng-change="phaseListFun(projectDetails.projectName)" autofocus="true">
