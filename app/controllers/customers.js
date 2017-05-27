@@ -72,7 +72,7 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
     };
 });
 
-app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window) {
+app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -159,6 +159,21 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
         }
         return typeName;
     }
+    
+     $scope.viewUnitCostSheet = function(item) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'unitCostSheet.html',
+            controller: 'unitCostSheetCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return item;
+                }
+            }
+        });
+    }
+    
 });
 
 

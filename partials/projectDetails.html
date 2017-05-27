@@ -8,7 +8,29 @@
 	  <li class="active">Add Prospects Project Details</li>
 	</ol>	
 </div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
+<!--
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+   <div class="subHeading">Prospect Details</div>
+			<table >
+                <tr>
+					<td>Name</td>
+					<td>{{leadInfo.firstName }}</td>
+				</tr>
+				<tr>
+					<td>Email ID:</td>
+					<td>{{leadInfo.emailId}}</td>
+				</tr>
+				<tr>
+					<td>Mobile Number:</td>
+					<td>{{leadInfo.mobileNumber}}</td>
+				</tr>
+				
+            </table> 
+</div>
+-->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">  
+     <h4 class="modal-title" id="modal-title">{{leadInfo.firstName }} {{leadInfo.middleName}} {{leadInfo.lastName}}&nbsp;&nbsp;&nbsp;{{leadInfo.mobileNumber}}&nbsp;&nbsp;&nbsp;{{leadInfo.emailId}}</h4>
+    <br>
 	<form class="form">
 	<div>
 			<select ng-model="projectDetails.projectName" name="projectName" class="form-control" ng-change="phaseListFun(projectDetails.projectName)" autofocus="true">
@@ -49,20 +71,26 @@
 					<tr>
 						<th>Project</th>
                         <th>Phase</th>
+                        <th>Block</th>
                         <th>Type</th>
-                        <th>Unit</th>
-						<th>Size Of Flat</th>
-						<th></th>
+                        <th>Unit Dtls</th>
+						<th>Size</th>
+						<th>Cost Sheet</th>
+                        <th></th>
 					</tr>
 				</thead>
 				<tbody id="projectList">
 					<tr ng-repeat="x in leadProjects track by $index" id="{{x.UnitDtls_Id}}" class="ng-scope">
                         <td>{{x.Proj_Name}}</td>
                         <td>{{x.Phase_Name}}</td>
+                         <td>{{x.Blocks_Name}}</td>
                         <td>{{getTypeNameById(x.Phase_UnitType_Id)}}</td>
                         <td><div class="dispNone">
-						{"ProjId":{{x.ProjId}},"Phase_Id":{{x.Phase_Id}},"Blocks_Id":{{x.Blocks_Id}},"UnitDtls_Id":{{x.UnitDtls_Id}}}</div>{{x.UnitDtls_Name}} - {{x.UnitDtls_No}} - {{x.UnitDtls_Floor}} Floor</td>
+						{"ProjId":{{x.ProjId}},"Phase_Id":{{x.Phase_Id}},"Blocks_Id":{{x.Blocks_Id}},"UnitDtls_Id":{{x.UnitDtls_Id}}}</div>{{x.UnitDtls_Name}} -  {{x.UnitDtls_No}} - {{x.UnitDtls_Floor}} Floor</td>
                         <td>{{x.UnitDtls_BuliltupArea}} sq ft</td>
+                        <td class="text-center">
+                        <a class="link" ng-click="viewUnitCostSheet(x.UnitDtls_Id)">View</a>
+                        </td>
                         <td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(x.ProjDtl_Id,x.UnitDtls_Id)"></span></td></tr>
 				</tbody>
 			</table>
@@ -79,3 +107,181 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20">
 	<button type="button" class="btn btn-primary" ng-click="saveLead(projectDetails)">Save Changes</button>
 </div>
+<script type="text/ng-template" id="unitCostSheet.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ok()">&times;</button>
+        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <table class="table borderDef">
+            <tr>
+                <td>Unit No.</td>
+                <td>{{unitCostSheetDetail.UnitDtls_No}}</td>
+                <td></td>
+            </tr>
+<!--
+            <tr>
+                <td>Type</td>
+                <td>{{unitCostSheetDetail.UnitDtls_Name}}</td>
+                <td></td>
+            </tr>
+-->
+            <tr>
+                <td>Super Builtup Area</td>
+                <td>{{unitCostSheetDetail.sba}} Sq. Ft.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Actual Price / Sq. Ft.</td>
+                <td> {{unitCostSheetDetail.basecost | currency:"&#8377;"}}</td>
+                <td></td>
+            </tr>
+            
+<!--
+              <tr>
+                <td>Customer Actual Price / Sq. Ft.(After Discount)</td>
+                <td> {{unitCostSheetDetail.unitcostcal_custbasecost | currency:"&#8377;"}}</td>
+                <td></td>
+            </tr>
+            
+-->
+            <tr>
+<!--
+                <td>Floor Raise Charges</td>
+                <td>{INR  {unitCostSheetDetail.flraisecost}}</td>
+                <td></td>
+-->
+            </tr>
+            <tr>
+                <td>Basic Cost</td>
+                <td> {{unitCostSheetDetail.unitcostcal_basecostval | currency:"&#8377;"}}</td>
+                <td></td>
+            </tr>
+            <tr>
+<!--                <td>Customer Basic Cost(After Discount)</td>-->
+                 <td>Floor Raise Charges</td>
+                <td> {{unitCostSheetDetail.unitcostcal_custbasecostval - unitCostSheetDetail.unitcostcal_basecostval | currency:"&#8377;"}}</td>
+                <td></td>
+            </tr>
+            
+            <tr ng-show="unitCostSheetDetail.cstcmpnme1!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme1}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval1 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt1}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme2!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme2}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval2 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt2}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme3!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme3}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval3 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt3}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme4!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme4}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval4 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt4}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme5!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme5}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval5 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt5}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme6!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme6}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval6 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt6}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme7!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme7}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval7 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt7}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme8!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme8}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval8 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt8}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme9!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme9}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval9 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt9}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme10!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme10}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval10 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt10}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme11!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme11}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalcval11 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt11}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme12!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme12}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval12 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt12}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme13!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme13}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval13 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt13}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme14!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme14}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval14 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt14}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme15!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme15}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval15 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt15}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme16!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme16}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval16 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt16}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme17!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme17}}</td>
+                <td>INR {{unitCostSheetDetail.cstcmpcalcval17}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt17}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme18!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme18}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval18  | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt18}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme19!=''">
+                <td>{{unitCostSheetDetail.cstcmpnme19}}</td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval19 | currency:"&#8377;"}}</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt19}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==0 " >
+                <td>Formula - {{unitCostSheetDetail.cstcmpnme20}} </td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval20 | currency:"&#8377;"}} on Customer Actual Price/Sq.Ft</td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
+            </tr>
+            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==1 " >
+                <td>Flat - {{unitCostSheetDetail.cstcmpnme20}} </td>
+                <td> {{unitCostSheetDetail.cstcmpcalcval20 | currency:"&#8377;"}} </td>
+                <td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Cost (Excluding cost of registration)</strong></td>
+                <td ><strong> {{unitCostSheetDetail.unitcostcal_custtotcost | currency:"&#8377;"}}</strong></td>
+                <td></td>
+            </tr>
+             <tr>
+                <td><strong>Total Cost in Words(Excluding cost of registration)</strong></td>
+                <td><strong>{{unitCostSheetDetail.unitTotalAmtinWords}}</strong></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
+    </div>
+</script>

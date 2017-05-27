@@ -433,7 +433,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
     };
 });
 
-app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
+app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService, $uibModal) {
     $scope.leadId = $stateParams.leadID;
     if ($scope.leadId == undefined) {
         $state.go('/AddLead');
@@ -450,6 +450,13 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
             }
         }).success(function(data) {
             if (data.user_id != 0) {
+                $scope.leadInfo = {
+                    firstName: data.user_first_name,
+                    middleName: data.user_middle_name,
+                    lastName: data.user_last_name,
+                    mobileNumber: parseInt(data.user_mobile_no) ,
+                    emailId: data.user_email_address
+                }
                 if (data.userprojlist != null) {
                     $scope.leadProjects = data.userprojlist;
                 }
@@ -582,7 +589,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
 
                         //                      console.log($scope.projectDetails);
 
-                        var projectRow = '<tr id="' + $scope.units[i].UnitDtls_Id + '"><td>' + $scope.projectDetails.projectName + '</td><td>' + $scope.projectDetails.phase + '</td><td>' + 'Flat Type' + '</td><td><div class="dispNone">' + projObj + '</div>' + $scope.units[i].UnitDtls_BRoom + 'BHK - ' + $scope.units[i].UnitDtls_No + ' - ' + $scope.units[i].UnitDtls_Floor + ' Floor</td><td>' + $scope.units[i].UnitDtls_BuliltupArea + ' sq ft</td><td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(' + projectDetails.projectName + ',' + $scope.units[i].UnitDtls_Id + ')"></span></td></tr>';
+                        var projectRow = '<tr id="' + $scope.units[i].UnitDtls_Id + '"><td>' + $scope.projectDetails.projectName + '</td><td>' + $scope.projectDetails.phase + '</td><td>' + $scope.projectDetails.blocks + '</td><td>' + 'Flat Type' + '</td><td><div class="dispNone">' + projObj + '</div>' + $scope.units[i].UnitDtls_BRoom + 'BHK - ' + $scope.units[i].UnitDtls_No + ' - ' + $scope.units[i].UnitDtls_Floor + ' Floor</td><td>' + $scope.units[i].UnitDtls_BuliltupArea + ' sq ft</td><td class="text-center"><a class="link" ng-click="viewUnitCostSheet('+ $scope.units[i].UnitDtls_Id +')">View</a></td><td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(' + projectDetails.projectName + ',' + $scope.units[i].UnitDtls_Id + ')"></span></td></tr>';
                         var projectRowComplied = $compile(projectRow)($scope);
                         angular.element(document.getElementById('projectList')).append(projectRowComplied);
                     }
@@ -690,5 +697,19 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
                 console.log('eror');
         }
         return typeName;
+    }
+    
+        $scope.viewUnitCostSheet = function(item) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'unitCostSheet.html',
+            controller: 'unitCostSheetCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return item;
+                }
+            }
+        });
     }
 });

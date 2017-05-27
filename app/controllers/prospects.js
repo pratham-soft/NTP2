@@ -229,6 +229,8 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
             }
         });
     };
+    
+   
 
     $scope.addSiteVisit = function(selectedItem) {
         var modalInstance = $uibModal.open({
@@ -251,7 +253,7 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
   
     
 });
-app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter) {
+app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter,$uibModal) {
     $scope.timeslots = ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '07:00 PM', '07:30 PM', '08:30 PM'];
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
@@ -417,6 +419,19 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
 		$cookieStore.put("prospectId",prospectId);
 		$state.go('/BookUnit-Step1');
 	}
+       $scope.viewUnitCostSheet = function(item) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'unitCostSheet.html',
+            controller: 'unitCostSheetCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return item;
+                }
+            }
+        });
+    }
 });
 
 app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) {
