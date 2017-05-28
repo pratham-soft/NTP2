@@ -2,7 +2,7 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
     var Phase_Proj_Id = $stateParams.projId;
     var Phase_Id = $stateParams.phaseId;
 
-    $scope.pageTitle = "Edit Phase";
+    $scope.pageTitle = "Add Phase";
     $scope.editPhaseBtn = true;
 
     ($scope.projectListFun = function() {

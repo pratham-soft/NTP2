@@ -2,7 +2,8 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
     $scope.title = "Apply Cost Sheet";
     $scope.projectId = $stateParams.projectId;
     $scope.phaseId = $stateParams.phaseId;
-    $scope.blockId = $stateParams.blockId;    
+    $scope.blockId = $stateParams.blockId;
+    $scope.showPremium=false;
     
     $scope.getCostSheetTemplates = function() {
         angular.element(".loader").show();
@@ -23,16 +24,24 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
                     i = i + 1;
                 }
                 increment = i;                
-                var costComponentRow = '<tr> <td> <label>Code' + increment + '</label> </td> <td> <input type="text" class="form-control" name="untctcm_code' + increment + '" ng-model="costSheetTemplate.untctcm_code' + increment + '"/> </td> <td> <label>Name</label> </td> <td> <input type="text" class="form-control" name="untctcm_name' + increment + '" ng-model="costSheetTemplate.untctcm_name' + increment + '"/> </td> <td> <label>Calc. Type</label> </td> <td> <select class="form-control" name="untctcm_calctyp' + increment + '" ng-model="costSheetTemplate.untctcm_calctyp' + increment + '" ng-change="toggleFields(' + increment + ')"> <option value=""> Select </option> <option value="1"> Flat </option> <option value="0"> Formula </option> </select> </td> <td> <input type="text" class="form-control" placeholder="Value" name="untctcm_val_formula' + increment + '" ng-model="costSheetTemplate.untctcm_val_formula' + increment + '" disabled="true"/> </td> <td> <button type="button" class="btn btn-warning" name="formulaBtn' + increment + '" ng-click="openFormulaModal({formulaVal:costSheetTemplate.untctcm_val_formula' + increment + ',index:' + increment + '})" disabled="true"> Formula </button> </td> <td> <input type="text" class="form-control comment" placeholder="Comment" name="untctcm_comments' + increment + '" ng-model="costSheetTemplate.untctcm_comments' + increment + '"/> </td><td><span class="glyphicon glyphicon-trash" ng-click="deleteCostComponent(' + increment + ')"></span></td></tr>';
+                var costComponentRow = '<tr> <td> <label>Name</label> </td> <td> <input type="text" class="form-control" name="untctcm_name' + increment + '" ng-model="costSheetTemplate.untctcm_name' + increment + '"/> </td> <td> <label>Calc. Type</label> </td> <td> <select class="form-control" name="untctcm_calctyp' + increment + '" ng-model="costSheetTemplate.untctcm_calctyp' + increment + '" ng-change="toggleFields(' + increment + ')"> <option value=""> Select </option> <option value="1"> Flat </option> <option value="0"> Formula </option> </select> </td> <td> <input type="text" class="form-control" placeholder="Value" name="untctcm_val_formula' + increment + '" ng-model="costSheetTemplate.untctcm_val_formula' + increment + '" disabled="true"/> </td> <td> <button type="button" class="btn btn-warning" name="formulaBtn' + increment + '" ng-click="openFormulaModal({formulaVal:costSheetTemplate.untctcm_val_formula' + increment + ',index:' + increment + '})" disabled="true"> Formula </button> </td> <td> <input type="text" class="form-control comment" placeholder="Comment" name="untctcm_comments' + increment + '" ng-model="costSheetTemplate.untctcm_comments' + increment + '"/> </td><td><span class="glyphicon glyphicon-trash" ng-click="deleteCostComponent(' + increment + ')"></span></td></tr>';
                 //                console.log(costComponentRow);
                 costComponentRow = $compile(costComponentRow)($scope);
                 angular.element(".formulaTable").append(costComponentRow);
             }
+             
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
         });
     }
+    
+   
+    $scope.showPremiumRow = function(){
+        $scope.showPremium=true;
+        $scope.costSheetTemplate.untctcm_name7='PREMIUM';
+    }
+    
     
     $scope.checkBlockCostSheetTemplates = (function(){
         angular.element(".loader").show();
