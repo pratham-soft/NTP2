@@ -32,8 +32,8 @@
 				<td>{{x.rule_description}}</td>
 				<td>{{x.rule_modname}}</td>
 				<td>{{x.rule_actname}}</td>
-                <td><button class="btn btn-default" ng-click="actDeact(x.ruleid,1)" ng-hide="x.rule_swtchflg_activate">Activate</button>
-                <button class="btn btn-default" ng-click="actDeact(x.ruleid,0)" ng-Show="x.rule_swtchflg_activate">Deactivate</button></td> 
+                <td><button class="btn btn-default" style="width:100px;" ng-click="actDeact(x.ruleid,1)" ng-hide="x.rule_swtchflg_activate">Activate  </button>
+                <button class="btn btn-default" style="width:100px;" ng-click="actDeact(x.ruleid,0)" ng-Show="x.rule_swtchflg_activate">Deactivate</button></td> 
                 <td><a ui-sref="/EditRule({ ruleId: {{x.ruleid}} })"><span class="link">Edit</span></a> </td>  
 			</tr>
 		</tbody>

@@ -227,7 +227,10 @@
             <label for="type">Plan Approval Date</label>
          </div>
          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
-            <input type="text" class="form-control" name="planApproveDt" placeholder="Plan Approval Date" ng-model="addUnit.planApproveDt" ng-required="addUnit.planApproved == 'true'" ng-class="{blankInput: addUnitForm.planApproveDt.$error.required &amp;&amp; submit}"/>
+             <datepicker date-format="dd/MM/yyyy">
+                <input type="text" class="form-control" name="planApproveDt" placeholder="Plan Approval Date" ng-model="addUnit.planApproveDt" ng-required="addUnit.planApproved == 'true'" ng-class="{blankInput: addUnitForm.planApproveDt.$error.required &amp;&amp; submit}"/>
+                    <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
+            </datepicker>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="addUnit.planApproved == 'true'">
@@ -254,7 +257,10 @@
             <label for="type">Noc Date</label>
          </div>
          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padding0">
-            <input type="text" class="form-control" name="nocDate" placeholder="Noc Date (DD/MM/YYYY)" ng-model="addUnit.nocDate" ng-required="addUnit.nocObtained == 'true'" ng-class="{blankInput: addUnitForm.nocDate.$error.required &amp;&amp; submit}"/>
+             <datepicker date-format="dd/MM/yyyy">
+                <input type="text" class="form-control" name="nocDate" placeholder="Noc Date (DD/MM/YYYY)" ng-model="addUnit.nocDate" ng-required="addUnit.nocObtained == 'true'" ng-class="{blankInput: addUnitForm.nocDate.$error.required &amp;&amp; submit}"/>
+                    <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
+            </datepicker>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="addUnit.nocObtained == 'true'">
