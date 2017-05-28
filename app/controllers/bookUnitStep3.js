@@ -4,6 +4,7 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
     var unitObj = $cookieStore.get("unitObj");
 	var prospectId = $cookieStore.get('prospectId');
     var comp_guid = $cookieStore.get('comp_guid');
+    $scope.leadFullName=$cookieStore.get("leadName");
     if(receivePaymentUnitObj != undefined)
         {
             $scope.receivePaymentBtn=true;

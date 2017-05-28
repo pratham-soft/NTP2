@@ -323,7 +323,7 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
                 typeName = 'Flat';
                 break;
             case 2:
-                typeName = 'Sites';
+                typeName = 'Plots';
                 break;
             case 3:
                 typeName = 'Villa';
@@ -412,9 +412,12 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
             });
         }
     };
+    
+     var leadFullName=$scope.lead.user_first_name+' '+$scope.lead.user_middle_name+' '+$scope.lead.user_last_name;
 	
 	$scope.bookUnit = function(unitObj,prospectId){
 		$uibModalInstance.close();
+        $cookieStore.put("leadName",leadFullName)
 		$cookieStore.put("unitObj",unitObj);
 		$cookieStore.put("prospectId",prospectId);
 		$state.go('/BookUnit-Step1');

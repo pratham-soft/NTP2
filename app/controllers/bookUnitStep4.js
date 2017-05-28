@@ -7,6 +7,7 @@ app.controller("bookUnitStep4Ctrl", function ($scope, $rootScope, $stateParams, 
     var newUnitDtls_Id = $cookieStore.get("newUnitDtls_Id");
 	$scope.newUnitDtls_No = $cookieStore.get("newUnitDtls_No");
     $scope.exchange = $cookieStore.get("skip3rdStep");
+    $scope.leadFullName=$cookieStore.get("leadName");
   
     // For Existing Boooking Flow --Atul Commented by Atul 16 May 
 	var obj = {

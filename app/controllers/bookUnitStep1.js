@@ -1,6 +1,7 @@
 app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService){
 	$scope.pageTitle = "Book Unit - Cost Details";
 	$scope.unitObj = $cookieStore.get("unitObj");
+    $scope.leadFullName=$cookieStore.get("leadName");
   
 	$scope.prospectId = $cookieStore.get("prospectId");
     if( $cookieStore.get("skip3rdStep") == true)
