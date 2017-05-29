@@ -30,13 +30,19 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
                 "user_type": 4
             }
         }).success(function(data) {
-            //console.log(data);
-            angular.element(".loader").hide();
-            for(var i=0;i<data.length;i++){
-                    data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
+            if (data[0].user_ErrorDesc !="-1 | User record does not exist")
+                {
+                angular.element(".loader").hide();
+                for(var i=0;i<data.length;i++){
+                        data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
+                    }
+                $scope.customers = data;
+
                 }
-            $scope.customers = data;
-            console.log($scope.customers);
+            else{
+                alert("No Customer Data Found !");
+                 angular.element(".loader").hide();
+            }
         }).error(function() {
             angular.element(".loader").hide();
         });
@@ -82,7 +88,7 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
     $scope.unitStatus[7] = "Cancelled";
 
     $scope.leadId = $scope.customer.user_id;
-
+     
     if ($scope.customer.userprojlist != null) {
         $scope.leadProjects = [];
         for (i = 0; i < $scope.customer.userprojlist.length; i++) {
@@ -134,6 +140,17 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
         });
     };
 
+     $scope.bookUnit = function(unitObj,prospectId){
+         // I don't see the need of below code . WHy are we doing this !
+//        unitObj.Proj_Name=$scope.projectDetails.projectName;
+//        unitObj.Blocks_Name =$scope.projectDetails.phase;
+//        unitObj.Phase_Name =$scope.projectDetails.blocks;
+
+		$cookieStore.put("unitObj",unitObj);
+		$cookieStore.put("prospectId",prospectId);
+		$state.go('/BookUnit-Step1');
+        $uibModalInstance.close();
+	};
     
     $scope.ok = function() {
         $uibModalInstance.close();
@@ -193,9 +210,12 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
         for (i = 0; i < $scope.customer.userprojlist.length; i++) {
             $scope.leadUnitObj = $scope.customer.userprojlist[i];
             $scope.leadUnitObj.unitViewStatus = "N/A";
-            if ($scope.customer.userprojlist[i].ProjDtl_Status != 0)
+            if ($scope.customer.userprojlist[i].ProjDtl_Status > 2 && $scope.customer.userprojlist[i].ProjDtl_Status <6)
+                {
                 $scope.leadUnitObj.unitViewStatus = $scope.unitStatus[$scope.customer.userprojlist[i].ProjDtl_Status];
-            $scope.leadProjects.push($scope.leadUnitObj);
+                $scope.leadProjects.push($scope.leadUnitObj);  
+                }
+            
         }
     }  
 
