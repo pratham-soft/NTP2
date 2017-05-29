@@ -7,10 +7,11 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
     
     if($cookieStore.get('skip3rdStep') != undefined){
     var skip3rdStep=$cookieStore.get('skip3rdStep');
- 
+     $scope.exchangeUnit=true;
     }
     else{
         var skip3rdStep=false;
+         $scope.exchangeUnit=false;
     }
     
      $scope.appendFields = function() {
@@ -329,6 +330,14 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
         angular.element(".loader").show();
         httpSvc.getUserDetails(prospectId, $cookieStore.get('comp_guid')).then(function(response) {
             var data = response.data;
+            if(data.Cust_User_Id != 0 || data.Cust_User_Id != undefined)
+                {
+                 $scope.CustIdPreset=true;
+                }
+            else{
+                $scope.CustIdPreset=false;
+            }
+          
             var dateArray = [];
             dateArray.push($filter('date')(data.user_dob, 'dd/MM/yyyy'));
             dateArray.push($filter('date')(data.Cust_spouse_dob, 'dd/MM/yyyy'));

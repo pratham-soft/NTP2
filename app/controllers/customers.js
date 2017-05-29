@@ -88,7 +88,7 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
     $scope.unitStatus[7] = "Cancelled";
 
     $scope.leadId = $scope.customer.user_id;
-
+     
     if ($scope.customer.userprojlist != null) {
         $scope.leadProjects = [];
         for (i = 0; i < $scope.customer.userprojlist.length; i++) {
