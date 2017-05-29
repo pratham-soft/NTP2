@@ -83,6 +83,7 @@
                          <th>Cost Sheet</th>
                          <th></th>
                          <th></th>
+                         <th></th>
 					  </tr>
 				   </thead>
 				   <tbody id="projectList">
@@ -96,7 +97,12 @@
                            <td class="text-center">
                         <a class="link" ng-click="viewUnitCostSheet(unit.UnitDtls_Id)">View</a>
                         </td>
-                         <td><button class="btn btn-primary" type="button" ng-click="exchangeLeadProjects(unit,lead.user_id)" ng-show="unit.UnitDtls_saledeed==1 ">Exchange</button></td>
+                          <td>
+							<button ng-show="unit.ProjDtl_Status==2" type="button" class="btn btn-success" ng-click="bookUnit(unit,customer.user_id)">
+								Book Unit
+							</button>
+						</td>
+                         <td><button ng-show="unit.ProjDtl_Status!=2" class="btn btn-primary" type="button" ng-click="exchangeLeadProjects(unit,lead.user_id)" ng-show="unit.UnitDtls_saledeed==1 ">Exchange</button></td>
 <!--                          <td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(unit.ProjDtl_Id,unit.UnitDtls_Id)"></span></td>-->
 					  </tr>
 				   </tbody>

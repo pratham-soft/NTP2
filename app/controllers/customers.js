@@ -134,6 +134,17 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
         });
     };
 
+     $scope.bookUnit = function(unitObj,prospectId){
+         // I don't see the need of below code . WHy are we doing this !
+//        unitObj.Proj_Name=$scope.projectDetails.projectName;
+//        unitObj.Blocks_Name =$scope.projectDetails.phase;
+//        unitObj.Phase_Name =$scope.projectDetails.blocks;
+
+		$cookieStore.put("unitObj",unitObj);
+		$cookieStore.put("prospectId",prospectId);
+		$state.go('/BookUnit-Step1');
+        $uibModalInstance.close();
+	};
     
     $scope.ok = function() {
         $uibModalInstance.close();
