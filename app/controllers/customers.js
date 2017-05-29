@@ -210,9 +210,12 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
         for (i = 0; i < $scope.customer.userprojlist.length; i++) {
             $scope.leadUnitObj = $scope.customer.userprojlist[i];
             $scope.leadUnitObj.unitViewStatus = "N/A";
-            if ($scope.customer.userprojlist[i].ProjDtl_Status != 0)
+            if ($scope.customer.userprojlist[i].ProjDtl_Status > 2 && $scope.customer.userprojlist[i].ProjDtl_Status <6)
+                {
                 $scope.leadUnitObj.unitViewStatus = $scope.unitStatus[$scope.customer.userprojlist[i].ProjDtl_Status];
-            $scope.leadProjects.push($scope.leadUnitObj);
+                $scope.leadProjects.push($scope.leadUnitObj);  
+                }
+            
         }
     }  
 

@@ -77,16 +77,18 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
                         
                     }  
             //console.log($scope.assignedtoValues);
+         
+          $scope.getSalesFunnelDetails();
+          $scope.getLeads();
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
         });
-    };
+    }();
     
     
     ($scope.getLeads = function() {
-        $scope.getEmployeesDetails();
-        $scope.getSalesFunnelDetails();
+       
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -99,8 +101,8 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
         }).success(function(data) {
             if (data[0].user_ErrorDesc !="-1 | User record does not exist")
                 {
-                     $scope.getEmployeesDetails();
-             $scope.getSalesFunnelDetails();
+//              $scope.getEmployeesDetails();
+//             $scope.getSalesFunnelDetails();
             angular.element(".loader").hide();
             for(var i=0;i<data.length;i++)
                 {                   
@@ -168,7 +170,7 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
         }).error(function() {
             angular.element(".loader").hide();
         });
-    })();
+    })
 
     
     $scope.prospectDetail = function(userids) {
