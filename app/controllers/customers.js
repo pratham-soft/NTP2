@@ -30,13 +30,19 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
                 "user_type": 4
             }
         }).success(function(data) {
-            //console.log(data);
-            angular.element(".loader").hide();
-            for(var i=0;i<data.length;i++){
-                    data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
+            if (data[0].user_ErrorDesc !="-1 | User record does not exist")
+                {
+                angular.element(".loader").hide();
+                for(var i=0;i<data.length;i++){
+                        data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
+                    }
+                $scope.customers = data;
+
                 }
-            $scope.customers = data;
-            console.log($scope.customers);
+            else{
+                alert("No Customer Data Found !");
+                 angular.element(".loader").hide();
+            }
         }).error(function() {
             angular.element(".loader").hide();
         });

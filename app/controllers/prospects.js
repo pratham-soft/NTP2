@@ -97,8 +97,9 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
                 "user_type": 7
             }
         }).success(function(data) {
-            
-             $scope.getEmployeesDetails();
+            if (data[0].user_ErrorDesc !="-1 | User record does not exist")
+                {
+                     $scope.getEmployeesDetails();
              $scope.getSalesFunnelDetails();
             angular.element(".loader").hide();
             for(var i=0;i<data.length;i++)
@@ -157,6 +158,13 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
             //End
             
             $scope.leads = data; //Need to uncomment the above  test
+                }
+            else{
+                
+                alert("No Prospect Record Found");
+                angular.element(".loader").hide();
+            }
+            
         }).error(function() {
             angular.element(".loader").hide();
         });
