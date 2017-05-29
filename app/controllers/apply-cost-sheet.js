@@ -58,6 +58,7 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
             if(data[0].untctcm_ErrorDesc == "0"){
                 $scope.showCostSheetTemplates = false;
                 $scope.showMessage = true;
+                
             }
             else{
                 $scope.getCostSheetTemplates();
@@ -171,4 +172,18 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
 
         }
     };
+    
+    $scope.editCstShtYes = function(){
+        $state.go("/EditBlockCostSheet", {
+                        "blockId": $scope.blockId
+                    });
+    };
+    
+    $scope.editCstShtNo = function(){
+            
+        $state.go("/Projects");
+                    
+    };
+    
+    
 });

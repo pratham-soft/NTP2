@@ -41,10 +41,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     })();
 
     ($scope.getBlockList = function() {
-        angular.element(".loader").show();
-         
-            
-            
+        angular.element(".loader").show(); 
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/BlockDtls/ByPhaseBlocksId",
@@ -126,7 +123,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         $scope.submit = true;
         formObj.noOfFloors=$scope.plotvillaReleaseNo;
         $scope.untDetails=[];
-       
+       angular.element(".loader").show();
             /*Update Block*/
             $http({
                 method: "POST",
@@ -236,7 +233,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.addSampleVillas = function(formObj, formName) {
         $scope.submit = true;
         formObj.noOfFloors=$scope.plotvillaReleaseNo;
-       
+       angular.element(".loader").show();
             /*Update Block*/
             $http({
                 method: "POST",
@@ -471,12 +468,14 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         }
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);
+        angular.element(".loader").show();
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
             data: unitsJson
         }).success(function(data) {
+            angular.element(".loader").hide();
             console.log(data);
             var res = data.Comm_ErrorDesc;
             var resSplit = res.split('|');
@@ -488,7 +487,9 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     blockId: parentObj.block
                 });
             }
-        }).error(function() {});
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
     };
     
    
@@ -570,20 +571,23 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         console.log(formObj);
 
         var unitsData = JSON.stringify(formObj);
-
+        angular.element(".loader").show();
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Update",
             ContentType: 'application/json',
             data: unitsData
         }).success(function(data) {
+            angular.element(".loader").hide();
             console.log(data);
             $state.go("/ApplyCostSheet", {
                 "projectId": $stateParams.projId,
                 "phaseId": $stateParams.phaseId,
                 "blockId": parentObj.block
             });
-        }).error(function() {});
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
     }
     
     
@@ -635,12 +639,14 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);
+        angular.element(".loader").show();
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
             data: unitsJson
         }).success(function(data) {
+            angular.element(".loader").hide();
             console.log(data);
             var res = data.Comm_ErrorDesc;
             var resSplit = res.split('|');
@@ -658,7 +664,9 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     blockId: parentObj.block
                 });
             }
-        }).error(function() {});
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
     };
     
     $scope.saveAllVillas = function(formName, formObj, parentObj) {
@@ -705,12 +713,14 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);
+        angular.element(".loader").show();
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
             data: unitsJson
         }).success(function(data) {
+            angular.element(".loader").hide();
             console.log(data);
             var res = data.Comm_ErrorDesc;
             var resSplit = res.split('|');
@@ -728,7 +738,9 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 });
                 
             }
-        }).error(function() {});
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
     };
     
 

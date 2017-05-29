@@ -170,11 +170,9 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
             }).success(function(data) {
                 console.log(data);
                 angular.element(".loader").hide();
-                /*var res = data.Comm_ErrorDesc;
-                var resSplit = res.split('|');
-                if (resSplit[0] == 0) {
-                    $state.go("/CostSheetTemplates");
-                }*/
+                 $state.go("/GenerateCostSheet", {
+                        "blockId": $stateParams.blockId
+                    });
             }).error(function() {
                 angular.element(".loader").hide();
             });

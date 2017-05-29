@@ -9,6 +9,13 @@
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="showMessage">
     <h3 class="text-center">Costsheet already applied for this block.</h3>
+    <div class="text-center">
+    <label>Do you want to edit the existing Cost Sheet</label>
+    <div>
+    <button class="btn btn-primary" type="button" ng-click="editCstShtYes()">Yes</button>
+    <button class="btn btn-default" type="button" ng-click="editCstShtNo()">No</button>
+    </div>  
+    </div>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="showCostSheetTemplates">
    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
