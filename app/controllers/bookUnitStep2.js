@@ -338,12 +338,12 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
         angular.element(".loader").show();
         httpSvc.getUserDetails(prospectId, $cookieStore.get('comp_guid')).then(function(response) {
             var data = response.data;
-            if(data.Cust_User_Id != 0 || data.Cust_User_Id != undefined)
+            if(data.Cust_User_Id == 0 || data.Cust_User_Id == undefined)
                 {
-                 $scope.CustIdPreset=true;
+                 $scope.CustIdPreset=false;
                 }
             else{
-                $scope.CustIdPreset=false;
+                $scope.CustIdPreset=true;
             }
           
             var dateArray = [];
