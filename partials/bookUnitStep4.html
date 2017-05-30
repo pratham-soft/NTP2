@@ -7,6 +7,11 @@
       <li class="active">{{pageTitle}}</li>
    </ol>
 </div>
+<!--
+    <div ng-show="payHistoryClick">
+               
+       </div>      
+-->
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 	<div class="unitDetails">
       <span>Customer Name: {{leadFullName}}</span>
@@ -16,6 +21,42 @@
       <span> Flat No.: {{unitObj.UnitDtls_No}}</span>
       <span ng-show="exchange">New Flat No.: {{newUnitDtls_No}}</span>
    </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+	<table class="table dataTable"  id="selectionForm">
+<!--		 <table class="leadDetail" >-->
+                     <thead>
+					  <tr>
+                         <th>Total Cost of Flat/Villa/Plot</th>
+						 <th>Total Amount Paid Till Date</th>
+						 <th>Balance Pending Amount </th>
+						
+					  </tr>
+                          <tr ng-repeat = "payinfo in custPayinfo track by $index" >
+						 <td> {{payinfo.UnitTotCost | currency:"&#8377;"}}</td>
+                         <td>{{payinfo.Total_amt_paid | currency:"&#8377;"}}</td>                      
+                         <td>{{payinfo.UnitTotCost - payinfo.Total_amt_paid | currency:"&#8377;"}}</td>                     
+					  </tr>
+				   </thead>				
+            </table>
+               <table class="table dataTable"  id="selectionForm" >
+                     <thead>
+					  <tr>
+                        <th>Serial no.</th>
+                         <th>Amount Paid </th>
+						 <th>Payment Date</th>
+
+						
+					  </tr>
+                          <tr ng-repeat = "custpayhstryinfo in custPayHistoryinfo track by $index" >
+                         <td>{{$index + 1}}</td>
+						 <td> {{custpayhstryinfo.usruntpymtrec_amtpaid | currency:"&#8377;"}}</td>
+                         <td>{{custpayhstryinfo.usruntpymtrec_pymt_dt | date}}</td>                      
+					  </tr>
+				   </thead>
+				
+<!--            </table>-->
+	</table>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
 	<table class="table dataTable"  id="selectionForm">

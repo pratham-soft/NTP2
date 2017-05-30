@@ -39,17 +39,56 @@ app.controller("bookUnitStep4Ctrl", function ($scope, $rootScope, $stateParams, 
         $cookieStore.remove("newUnitDtls_No");
         $cookieStore.remove("skip3rdStep");
 		$scope.paymentStagesData = response.data;
+        $scope.getCustPaymentHistory(obj);
 	     }); 
         }
     
    else{
        httpSvc.getPaymentStages(obj).then(function (response) {
 		$scope.paymentStagesData = response.data;
+           $scope.getCustPaymentHistory(obj);
 	});
    }
     
 	
-    
+     $scope.getCustPaymentHistory = function(obj){ 
+         $scope.payHistoryClick=true;
+            var apiPostObj ={};     
+            apiPostObj["UnitDtls_Id"] = obj.UnitDtls_Id;
+            apiPostObj["UnitDtls_Cust_UserId"] = obj.UnitDtls_Cust_UserId;
+            apiPostObj["UnitDtls_comp_guid"] = $cookieStore.get('comp_guid');
+         
+            var postObj ={};     
+            postObj["usruntpymtrec_unitdtls_id"] = obj.UnitDtls_Id;
+            postObj["usruntpymtrec_user_id"] = obj.UnitDtls_Cust_UserId;
+            postObj["usruntpymtrec_comp_guid"] = $cookieStore.get('comp_guid');
+         
+			httpSvc.CustPaymentInfo(apiPostObj).then(function(response){
+				var res = response.data[0].ErrorDesc;
+                if(res=="0")
+                    {
+                        $scope.custPayinfo=response.data;
+                        httpSvc.CustPaymentHistory(postObj).then(function(response){
+                                    var res = response.data[0].ErrorDesc;
+                                    if(res=="0")
+                                        {
+                                            $scope.custPayHistoryinfo=response.data;
+                                        }
+                                     else
+                                        {
+                                         alert(response.data[0].ErrorDesc.toString());
+                                        }
+
+                                })
+                      
+                    }
+                 else
+                    {
+                     alert(res.toString());
+                    }							               			
+			})
+        
+    }
     
     
 

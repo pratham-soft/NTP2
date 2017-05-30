@@ -1,10 +1,15 @@
-app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc){
+app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,myService){
 	$scope.pageTitle = "Book Unit - Payment Details";
     var receivePaymentUnitObj=$cookieStore.get("receivePaymentUnitObj");
     var unitObj = $cookieStore.get("unitObj");
 	var prospectId = $cookieStore.get('prospectId');
     var comp_guid = $cookieStore.get('comp_guid');
     $scope.leadFullName=$cookieStore.get("leadName");
+     $scope.convertNumToWords = function (numvalue)
+    {
+       $scope.amountInWords= myService.convertNumberToWords(numvalue)+"Rupees Only";
+    }
+     
     if(receivePaymentUnitObj != undefined)
         {
             $scope.receivePaymentBtn=true;
