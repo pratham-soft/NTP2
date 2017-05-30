@@ -640,11 +640,11 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
         });
     })();
     
-    $scope.bookUnit = function(unitObj,prospectId){
+    $scope.bookUnit = function(unitObj,prospectId,prospectName){
         unitObj.Proj_Name=$scope.projectDetails.projectName;
         unitObj.Blocks_Name =$scope.projectDetails.phase;
         unitObj.Phase_Name =$scope.projectDetails.blocks;
-
+         $cookieStore.put("leadName",prospectName);
 		$cookieStore.put("unitObj",unitObj);
 		$cookieStore.put("prospectId",prospectId);
 		$state.go('/BookUnit-Step1');

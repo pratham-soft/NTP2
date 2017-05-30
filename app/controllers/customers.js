@@ -140,12 +140,13 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
         });
     };
 
+     var leadFullName=$scope.customer.user_first_name+' '+$scope.customer.user_middle_name+' '+$scope.customer.user_last_name;
      $scope.bookUnit = function(unitObj,prospectId){
          // I don't see the need of below code . WHy are we doing this !
 //        unitObj.Proj_Name=$scope.projectDetails.projectName;
 //        unitObj.Blocks_Name =$scope.projectDetails.phase;
 //        unitObj.Phase_Name =$scope.projectDetails.blocks;
-
+        $cookieStore.put("leadName",leadFullName);
 		$cookieStore.put("unitObj",unitObj);
 		$cookieStore.put("prospectId",prospectId);
 		$state.go('/BookUnit-Step1');

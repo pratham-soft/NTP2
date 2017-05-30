@@ -6,12 +6,12 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
     $scope.exchangeUnit=$cookieStore.get('skip3rdStep');
     
     if($cookieStore.get('skip3rdStep') != undefined){
-    var skip3rdStep=$cookieStore.get('skip3rdStep');
+     var skip3rdStep=$cookieStore.get('skip3rdStep'); // It's true here ,  and Its mean exchange will happen. and Cust already exists
      $scope.exchangeUnit=true;
     }
     else{
-        var skip3rdStep=false;
-         $scope.exchangeUnit=false;
+          var skip3rdStep=false;             
+         $scope.exchangeUnit=false; // Here it means Its a new Bookiing and Cust data would be saved. It will go to next step 3
     }
     
      $scope.appendFields = function() {
@@ -314,9 +314,17 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
                     "Cust_gpa_aadhar": formObj.gpaAadhar
                 }
             }).success(function(data) {
+                
+                
                 console.log(data);
                  alert(" Customer Data Updated");
-               $state.go('/BookUnit-Step4');
+                if($scope.exchangeUnit==true)
+                    {
+                       $state.go('/BookUnit-Step4');   
+                    }
+              else{
+                   $state.go('/BookUnit-Step3') ;
+              }
                 angular.element(".loader").hide();
             }).error(function() {
                 alert("Error in save customer");

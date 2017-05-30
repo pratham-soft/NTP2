@@ -317,10 +317,10 @@
          <button type="button" class="btn btn-success width100" ng-click="updateCustomer(customer,'addCustomerForm')">+ Update Customer</button>
       </div>
 -->
-       <div class="text-center marginTop20" ng-show="exchangeUnit && CustIdPreset">
+       <div class="text-center marginTop20" ng-show="!exchangeUnit && !CustIdPreset">
          <button type="button" class="btn btn-success width100"  ng-click="movetoStep3(customer,'addCustomerForm')">Move to next Step</button>
       </div>
-        <div class="text-center marginTop20" ng-show="exchangeUnit && CustIdPreset">
+        <div class="text-center marginTop20" ng-show="exchangeUnit || CustIdPreset">
          <button type="button" class="btn btn-success width100"  ng-click="updateCustomer(customer,'addCustomerForm')"> Update Customer</button>
       </div>
    </div>
