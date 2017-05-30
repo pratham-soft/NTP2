@@ -45,8 +45,13 @@ app.controller("bookUnitStep4Ctrl", function ($scope, $rootScope, $stateParams, 
     
    else{
        httpSvc.getPaymentStages(obj).then(function (response) {
+        $cookieStore.remove("unitObj");
+        $cookieStore.remove("prospectId");
+        $cookieStore.remove("newUnitDtls_Id");
+        $cookieStore.remove("newUnitDtls_No");
+        $cookieStore.remove("skip3rdStep");
 		$scope.paymentStagesData = response.data;
-           $scope.getCustPaymentHistory(obj);
+        $scope.getCustPaymentHistory(obj);
 	});
    }
     

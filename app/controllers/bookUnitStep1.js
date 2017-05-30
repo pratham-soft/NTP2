@@ -101,8 +101,8 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 	$scope.calculateFinalPrice = function(obj){
         $scope.updatedCostSheetObj.Untctcm_code20 = "DISC";
         $scope.updatedCostSheetObj.Untctcm_name20 = "DISCOUNT";
-        $scope.updatedCostSheetObj.Untctcm_calctyp20 = 0;
-        $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseInt(obj.discountVal);
+        $scope.updatedCostSheetObj.Untctcm_calctyp20 = 0;  // Always be Falt Discount Value 
+        $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal);
         $scope.updatedCostSheetObj.Untctcm_comments20 = "";
         
         console.log(JSON.stringify($scope.updatedCostSheetObj));
