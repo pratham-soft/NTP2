@@ -39,7 +39,7 @@ app.controller("bookUnitStep4Ctrl", function ($scope, $rootScope, $stateParams, 
         $cookieStore.remove("newUnitDtls_No");
         $cookieStore.remove("skip3rdStep");
 		$scope.paymentStagesData = response.data;
-        $scope.getCustPaymentHistory(obj);
+        $scope.getCustPaymentHistory(exchangeObj);
 	     }); 
         }
     
