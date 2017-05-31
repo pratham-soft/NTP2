@@ -105,6 +105,24 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
         console.log("" + val);
     }
 
+      $scope.prospectDetail = function(userids) {
+        var str2=""+$scope.selected;
+        //console.log("the real slim:"+str2)
+        var modalInstance = $uibModal.open({
+            templateUrl: 'updateProPage.html',
+            controller: 'updateProPageCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    userids=str2;
+                    return userids;
+                }
+            }
+        });
+        
+    };
+    
     $scope.exist = function(item) {
         return $scope.selected.indexOf(item) > -1;
     }
