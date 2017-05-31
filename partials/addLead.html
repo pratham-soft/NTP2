@@ -178,7 +178,23 @@
                </option>
             </select>
          </div>
+         
       </div>
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="projectName">Campaign Source</label>
+         </div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+             <select class="form-control" name="campaign" ng-model="addLead.campaign">
+               <option value="" disabled selected>
+                  Select Campaign
+               </option>
+               <option ng-repeat= "camp in campaign_list" value="{{camp.campaign_id}}">
+                  {{camp.campaign_name}}
+               </option>
+            </select>
+         </div>
+       </div>
       <div class="text-center" ng-show="addLeadBtn">
          <button type="button" class="btn btn-success" ng-click="addLead(addLead,'addLeadForm')">+ Add Lead</button>
       </div>

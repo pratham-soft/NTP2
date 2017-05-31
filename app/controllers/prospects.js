@@ -466,6 +466,24 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) 
             angular.element(".loader").hide();
         });
     })();
+    
+    ($scope.getCampaignDetail = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            ContentType: 'application/json',
+            data: {
+                "campaign_compguid":$cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            angular.element(".loader").hide();
+            $scope.campaign_list = data;
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+    
     $scope.addLead = function(formObj, formName) {
         $scope.submit = true;
         var date = formObj.dob;
@@ -493,7 +511,8 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) 
                     "user_gender": parseInt(formObj.gender),
                     "user_code": formObj.leadCode,
                     "user_lead_status_id": parseInt(formObj.leadStage),
-                    "user_createdby": $cookieStore.get('user_id')
+                    "user_createdby": $cookieStore.get('user_id'),
+                    "user_campaign_id": parseInt(formObj.campaign)
                 }
             }).success(function(data) {
                 if (data.user_id != 0) {
@@ -527,6 +546,23 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         }).success(function(data) {
             angular.element(".loader").hide();
             $scope.lead_source_list = data;
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+        
+    ($scope.getCampaignDetail = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            ContentType: 'application/json',
+            data: {
+                "campaign_compguid":$cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            angular.element(".loader").hide();
+            $scope.campaign_list = data;
         }).error(function() {
             angular.element(".loader").hide();
         });
@@ -571,7 +607,8 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     leadCode: data.user_code,
                     officeNumber: data.user_office_no,
                     leadStage: data.user_lead_status_id.toString(),
-                    leadSource: data.user_lead_source_id + ''
+                    leadSource: data.user_lead_source_id + '',
+                    campaign: data.user_campaign_id + ''
                 }
                 angular.element(".loader").hide();
             } else {
@@ -607,7 +644,8 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     "user_gender": parseInt(formObj.gender),
                     "user_code": formObj.leadCode,
                     "user_lead_status_id": parseInt(formObj.leadStage),
-                    "user_lead_source_id": parseInt(formObj.leadSource)
+                    "user_lead_source_id": parseInt(formObj.leadSource),
+                    "user_campaign_id": parseInt(formObj.campaign)
                 }
             }).success(function(data) {
                 if (data.user_ErrorDesc == "0") {
