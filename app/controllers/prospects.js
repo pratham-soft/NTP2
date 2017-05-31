@@ -484,6 +484,24 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) 
         });
     })();
     
+    ($scope.getEmployeesDetails = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            ContentType: 'application/json',
+            data: {
+                "user_comp_guid": $cookieStore.get('comp_guid'),
+                "user_type": 2
+            }
+        }).success(function(data) {
+           $scope.employees_list = data;        
+           angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+    
     $scope.addLead = function(formObj, formName) {
         $scope.submit = true;
         var date = formObj.dob;
@@ -512,7 +530,8 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) 
                     "user_code": formObj.leadCode,
                     "user_lead_status_id": parseInt(formObj.leadStage),
                     "user_createdby": $cookieStore.get('user_id'),
-                    "user_campaign_id": parseInt(formObj.campaign)
+                    "user_campaign_id": parseInt(formObj.campaign),
+                    "user_assingedto": parseInt(formObj.assingedto)
                 }
             }).success(function(data) {
                 if (data.user_id != 0) {
@@ -568,6 +587,25 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         });
     })();
         
+        ($scope.getEmployeesDetails = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            ContentType: 'application/json',
+            data: {
+                "user_comp_guid": $cookieStore.get('comp_guid'),
+                "user_type": 2
+            }
+        }).success(function(data) {
+           $scope.employees_list = data;        
+           angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+        
+        
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/User/UserDtls",
@@ -608,7 +646,8 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     officeNumber: data.user_office_no,
                     leadStage: data.user_lead_status_id.toString(),
                     leadSource: data.user_lead_source_id + '',
-                    campaign: data.user_campaign_id + ''
+                    campaign: data.user_campaign_id + '',
+                    assingedto:data.user_assingedto + ''
                 }
                 angular.element(".loader").hide();
             } else {
@@ -645,7 +684,8 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     "user_code": formObj.leadCode,
                     "user_lead_status_id": parseInt(formObj.leadStage),
                     "user_lead_source_id": parseInt(formObj.leadSource),
-                    "user_campaign_id": parseInt(formObj.campaign)
+                    "user_campaign_id": parseInt(formObj.campaign),
+                    "user_assingedto": parseInt(formObj.assingedto)
                 }   
             }).success(function(data) {
                 if (data.user_ErrorDesc == "0") {
