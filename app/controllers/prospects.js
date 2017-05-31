@@ -646,7 +646,7 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
                     "user_lead_status_id": parseInt(formObj.leadStage),
                     "user_lead_source_id": parseInt(formObj.leadSource),
                     "user_campaign_id": parseInt(formObj.campaign)
-                }
+                }   
             }).success(function(data) {
                 if (data.user_ErrorDesc == "0") {
                     $state.go("/Prospects");
@@ -821,7 +821,7 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
 app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
       $scope.secondDropValues=[];
       $scope.myModel = "";
-      $scope.firstDropValues=[{name:"Lead Staus", value:1},{name:"Sales Funnel", value:2},{name:"Assigned to", value:3}];
+      $scope.firstDropValues=[{name:"Lead Staus", value:1},{name:"Sales Funnel", value:2},{name:"Assigned to", value:3},{name:"Campaign", value:4}];
 
     
    $scope.onChangeSelectOption=function(val){
@@ -883,6 +883,30 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         });
     };
 
+    $scope.getCampaignDetail = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            ContentType: 'application/json',
+            data: {
+                "campaign_compguid":$cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            angular.element(".loader").hide();
+            $scope.campaign_list = data;
+             for(var i=0; i<$scope.campaign_list.length;i++)
+                    {
+                        $scope.obj={};   
+                        $scope.obj.name = $scope.campaign_list[i].campaign_name;
+                        $scope.obj.value = $scope.campaign_list[i].campaign_id;
+                        $scope.secondDropValues.push($scope.obj)                      
+                        
+                    } 
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    };
     
    $scope.action=function(){
      //  console.log(item);
@@ -902,6 +926,12 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
        if($scope.myModel=="3"){
          $scope.secondDropValues.length=0;
          $scope.getEmployeesDetails();
+        // console.log("something happened in assigned to.");
+       }
+       
+         if($scope.myModel=="4"){
+         $scope.secondDropValues.length=0;
+        $scope.getCampaignDetail();
         // console.log("something happened in assigned to.");
        }
        
@@ -930,7 +960,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         }).error(function() {
             angular.element(".loader").hide();
         });
-    };
+     };
     
     
         $scope.updateUserFunnel = function() {
@@ -978,6 +1008,28 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         });
     };
     
+      $scope.updateCampaign = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/User/UserUpdt/Campaign",
+            ContentType: 'application/json',
+            data: {
+                "user_ids":item,
+                "user_compguid":$cookieStore.get('comp_guid'),
+                "user_updtfields":$scope.myModelSecond,
+            }
+        }).success(function(data) {
+            alert("Campaign Updated Sucessful!");
+            angular.element(".loader").hide();
+            $scope.ok();
+            $state.go('/UpdateProspects');
+           // $scope.lead_source_list= data;
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    };
+    
     $scope.actionSecond=function(){
        
         if($scope.myModel=="1"){
@@ -990,6 +1042,10 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         
         if($scope.myModel=="3"){
             $scope.updateAssignedTo();
+        } 
+        
+         if($scope.myModel=="4"){
+         $scope.updateCampaign();
         } 
     };
     
