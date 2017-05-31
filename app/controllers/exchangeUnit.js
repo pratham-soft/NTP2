@@ -280,7 +280,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
                 typeName = 'Flat';
                 break;
             case 2:
-                typeName = 'Sites';
+                typeName = 'Plots';
                 break;
             case 3:
                 typeName = 'Villa';
@@ -301,7 +301,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
                 typeName = 'Flat';
                 break;
             case 2:
-                typeName = 'Sites';
+                typeName = 'Plots';
                 break;
             case 3:
                 typeName = 'Villa';

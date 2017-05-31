@@ -1,8 +1,29 @@
-app.controller("editEmailTemplateCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, myService) {
+app.controller("editEmailTemplateCtrl", function($scope, $http, $rootScope, $cookieStore, $state, $compile, $stateParams, myService) {
     var Tempemail_Id = $stateParams.tempemailid;
     var tempbpdy = $('#contentEditor').summernote('code');
 
     $scope.pageTitle = "Edit Email Template";
+    
+     
+    $scope.getMergedFieldTypes = (function(){
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/ModulesGetAlrt",
+            ContentType: 'application/json',
+            data: {
+                "module_id": 0
+            }
+        }).success(function(data) {
+            $scope.mergeFieldTypes = data;
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+    
+    
+    
     
     ($scope.getEmlTmpl = function() {
         $http({
@@ -72,6 +93,47 @@ app.controller("editEmailTemplateCtrl", function($scope, $http, $cookieStore, $s
             });
         }
     };
+    
+    
+     $scope.getFields = function(moduleId){
+        var ruleid =0;
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
+            ContentType: 'application/json',
+            data: {
+                "module_id": moduleId,
+                "ruleid" : ruleid
+            }
+        }).success(function(data) {
+            if(data[0].modfield_ErrorDesc == "-1 | Module fields do not exist for this Module"){
+                $rootScope.appMsg = "Module fields do not exist for this Module";
+                $rootScope.showAppMsg = true;
+                $scope.fields = [];
+                $scope.template.fields = "";
+                $scope.template.copyMergedFields = "";
+            }
+            else{
+                $rootScope.appMsg = "";
+                $rootScope.showAppMsg = false;
+                $scope.fields = data;   
+            }
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    }
+    
+    $scope.copyMergedFields = function(field){
+        $scope.template.copyMergedFields = '$'+field+'$ ';
+        $scope.addEditorBtn=false;
+    }
+    
+  $scope.addEditor = function(){
+            $('#contentEditor').summernote('editor.insertText', $scope.template.copyMergedFields);
+    };
+    
   
 });
 app.controller("emailTemplatesCtrl", function($scope, $http, $cookieStore, $state, $stateParams,myService, $filter, $compile) {
