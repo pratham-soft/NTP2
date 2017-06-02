@@ -1,5 +1,5 @@
-
 app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
+	console.log($window.sessionStorage);
  //   var test = $window.sessionStorage.getItem('projId');
     $scope.leadId = $stateParams.leadID;
     $scope.projId = $window.sessionStorage.getItem('projId');
@@ -65,7 +65,12 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         myService.getPhaseList($cookieStore.get('comp_guid'), projectName).then(function(response) {
             $scope.phaseList = response.data;
             $scope.projectDetails.phase=parseInt($scope.phaseId);
-            $scope.blockListFun($scope.projectDetails.phase);
+			
+			alert($scope.phaseId);
+            $scope.blockListFun($scope.phaseId);
+			
+			
+			
             angular.element(".loader").hide();
         });
     };
