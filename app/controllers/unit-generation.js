@@ -419,18 +419,23 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 
     $scope.generateForAllFloors = function(formName, formObj, parentObj) {
         var initiator = 1;
+		var totalFloors = parentObj.noOfFloors;
         if (parentObj.agf == true) {
             initiator = 0;
+			totalFloors = totalFloors-1
         }
 		var towerName = parentObj.towerName;
 		var seperator = parentObj.seperator;
 		
         var unitsJson = [];
-        for (var i = initiator; i <= parentObj.noOfFloors; i++) {
+        for (var i = initiator; i <= totalFloors; i++) {
             for (var j = 1; j < formObj.length; j++) {
                 var unitObj = {};
                 var unitNo = unitNosArr[j - 1];
-                if(i<10){
+				if(i==0){
+					unitNo = towerName+seperator+'G'+unitNo;
+				}
+                else if(i>0 && i<10){
 					unitNo = towerName+seperator+'0'+i+unitNo;
 				}
 				else{
