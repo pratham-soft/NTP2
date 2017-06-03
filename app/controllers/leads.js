@@ -88,7 +88,9 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
-                "user_type": 3
+                "user_type": 3,
+                "user_loggedin_type":$cookieStore.get('user_loggedin_type'),
+                "user_id":$cookieStore.get('user_id')
             }
         }).success(function(data) {
             //console.log(data);

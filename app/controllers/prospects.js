@@ -96,7 +96,9 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
-                "user_type": 7
+                "user_type": 7,
+                "user_loggedin_type":$cookieStore.get('user_loggedin_type'),
+                "user_id":$cookieStore.get('user_id')
             }
         }).success(function(data) {
             if (data[0].user_ErrorDesc !="-1 | User record does not exist")
