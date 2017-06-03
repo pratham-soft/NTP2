@@ -54,6 +54,9 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
                         }
                     });
 				}
+                else{
+                    alert("Payment Schedule is not defined!");
+                }
 			})
         }
     }

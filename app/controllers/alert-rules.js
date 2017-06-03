@@ -614,7 +614,13 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 			}
 			else{
             for (var i = 0; i < data.length; i++) {
-				var htmlRow = '<tr> <td> <input type="hidden" ng-model="rules[' + i + '].rulecriteriaid"/> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option><option value=">">&#62;</option> <option value="<">&#60;</option> <option value="Starts with">Starts with</option> <option value="Ends With">Ends With</option><option value="Contains">Contains</option></select> </td> <td class="inputType"> <input type="text" class="form-control" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td> <td><button type="button" class="btn btn-default" ng-click="removeRow(rules[' + i + '].rulecriteriaid)">Remove</button></td></tr>';
+                if(i==0){
+                    var yes=true;
+                }
+                else{
+                    var yes=false;
+                }
+				var htmlRow = '<tr> <td> <input type="hidden" ng-model="rules[' + i + '].rulecriteriaid"/> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModulesaddRow" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option><option value=">">&#62;</option> <option value="<">&#60;</option> <option value="Starts with">Starts with</option> <option value="Ends With">Ends With</option><option value="Contains">Contains</option></select> </td> <td class="inputType"> <input type="text" class="form-control" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td> <td><button type="button" class="btn btn-default" ng-click="removeRow(rules[' + i + '].rulecriteriaid)" ng-disabled="'+yes+'">Remove</button></td></tr>';
 				htmlRow = $compile(htmlRow)($scope);
 				angular.element(".alertRuleTable").append(htmlRow);
             }
@@ -810,9 +816,10 @@ app.controller("testQueryResultCtrl", function($scope, $uibModalInstance,item) {
 	}
 });
 
-app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $rootScope, $filter, $compile, $uibModal, myService) {
     $scope.pageTitle = "Choose Action";
     $scope.showTempDropDown = true;
+    $scope.addEditorBtn=true;
     var ruleId = $stateParams.ruleId;
     $scope.action = {
         actionType: "email",
@@ -824,6 +831,66 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
          });
      }*/
     $scope.newSave="true";  // If it is a new new save of rule , False if it is a update
+    
+     
+    $scope.getMergedFieldTypes = (function(){
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/ModulesGetAlrt",
+            ContentType: 'application/json',
+            data: {
+                "module_id": 0
+            }
+        }).success(function(data) {
+            $scope.mergeFieldTypes = data;
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+    
+    
+     $scope.getFields = function(moduleId){
+        var ruleid =0;
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
+            ContentType: 'application/json',
+            data: {
+                "module_id": moduleId,
+                "ruleid" : ruleid
+            }
+        }).success(function(data) {
+            if(data[0].modfield_ErrorDesc == "-1 | Module fields do not exist for this Module"){
+                $rootScope.appMsg = "Module fields do not exist for this Module";
+                $rootScope.showAppMsg = true;
+                $scope.fields = [];
+                $scope.template.fields = "";
+                $scope.template.copyMergedFields = "";
+            }
+            else{
+                $rootScope.appMsg = "";
+                $rootScope.showAppMsg = false;
+                $scope.fields = data;   
+            }
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    }
+    
+    $scope.copyMergedFields = function(field){
+        $scope.template.copyMergedFields = '$'+field+'$ ';
+        $scope.addEditorBtn=false;
+    }
+    $scope.action.smsTxt="";
+    $scope.addEditor = function(){
+           $scope.action.smsTxt= $scope.action.smsTxt+ " " + $scope.template.copyMergedFields;
+           $scope.addEditorBtn=false;
+    };
+    
     
     $scope.saveRuleEml = function(formObj, formName) {
         $scope.submit = true;
@@ -925,13 +992,16 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
 
 // $scope.getEmailTemplsFun();
 
-app.controller("previewTempCtrl", function($scope, $uibModalInstance, $compile, $http, $cookieStore, $stateParams, item) {
+app.controller("previewTempCtrl", function($scope, $uibModalInstance, $window, $compile, $http, $cookieStore, $stateParams, item) {
 	var tempId = item.tempId;
 	var ruleId = $stateParams.ruleId;
 	$(function(){
 		var mailBody = item.tempBody;
 		$("#contentEditor").summernote("code", mailBody);
 	});
+    $scope.ok = function(){
+		$uibModalInstance.close();
+	}
 	$scope.saveTemplate = function(){
 		var templateBody = $("#contentEditor").summernote("code");
 		$http({
@@ -959,13 +1029,14 @@ app.controller("previewTempCtrl", function($scope, $uibModalInstance, $compile, 
                     alert("Error! " + data.user_ErrorDesc);
                 }*/
                 angular.element(".loader").hide();
+                alert("template Save!")
+                $scope.ok();
+                $window.location.reload();
             }).error(function() {
                 angular.element(".loader").hide();
             });
 	}
-	$scope.ok = function(){
-		$uibModalInstance.close();
-	}
+	
 });
 
 app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {

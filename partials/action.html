@@ -22,7 +22,7 @@
             <label for="actionTypeDesktop">Desktop Notification</label>
          </div>
       </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="action.actionType == 'email'">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="template" ng-hide="action.actionType == 'desktop'">Template</label>
          </div>
@@ -35,14 +35,7 @@
                   {{x.tempemail_name}}
                </option>
 			 </select>
-			 <input type="text" class="form-control" ng-model="action.tempName" ng-show="!showTempDropDown" readonly="true"/>
-			 <textarea class="form-control smstextarea" placeholder="SMS Text (Max chars 160)" maxlength="160" ng-show="action.actionType == 'sms'" name="smsTxt" ng-model="action.smsTxt"></textarea>
-			 <div class="radioLabel" ng-show="action.actionType == 'desktop'">
-			 	<input type="radio"  name="desktopNotifications" id="desktopNotificationsYes" ng-model="action.desktopNotifications" value="yes"/>
-				<label for="desktopNotificationsYes">Yes</label>
-				<input type="radio"  name="desktopNotifications" id="desktopNotificationsNo" ng-model="action.desktopNotifications" value="no"/>
-				<label for="desktopNotificationsNo">No</label>
-			 </div>
+			 <input type="text" class="form-control" ng-model="action.tempName" ng-show="!showTempDropDown" readonly="true"/> 
          </div>
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-show="!showTempDropDown">
             <button type="button" class="btn btn-default" ng-click="previewTemplate({tempBody:action.tempBody,tempId:action.templateid})">
@@ -50,12 +43,70 @@
             </button>
          </div>
       </div>
+        <br>
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="action.actionType == 'desktop'">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label>Do you want Dektop Nortifications?</label>
+         </div>
+       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 radioLabel" >
+			 	<input type="radio"  name="desktopNotifications" id="desktopNotificationsYes" ng-model="action.desktopNotifications" value="yes"/>
+				<label for="desktopNotificationsYes">Yes</label>
+				<input type="radio"  name="desktopNotifications" id="desktopNotificationsNo" ng-model="action.desktopNotifications" value="no"/>
+				<label for="desktopNotificationsNo">No</label>
+			 </div>
+       </div>
+       
+       
+       
+       
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="action.actionType == 'sms'">
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+               <label>Merge Field Types</label>
+           </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
+               <select class="form-control" name="mergeFieldType" ng-model="template.mergeFieldType" ng-change="getFields(template.mergeFieldType)">
+                  <option value="">Merge Field Types</option>
+                  <option ng-repeat="x in mergeFieldTypes" value="{{x.module_id}}">{{x.module_name}}</option>
+               </select>
+            </div>
+           </div>   
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+               <label>Select Fields</label>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
+               <select class="form-control" name="fields" ng-model="template.fields" ng-change="copyMergedFields(template.fields)">
+                  <option value="">Select Fields</option>
+                  <option ng-repeat="x in fields" value="{{x.modfield_actualfieldname}}">{{x.modfield_name}}</option>
+               </select>
+            </div>
+           </div>
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+               <label>Copy Merged Fields</label>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
+               <input type="text" class="form-control" name="copyMergedFields" ng-model="template.copyMergedFields" ng-readonly="true">
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 padding12"> 
+                <button type="button" class="btn btn-primary" maxlength="160" ng-click="addEditor()" ng-disabled="addEditorBtn"><span class="glyphicon glyphicon-plus-sign"></span> Add</button> </div>
+           </div>
+           
+       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+           <label>SMS</label>
+       </div>
+       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
+			 <textarea rows="5" class="form-control" placeholder="SMS Text (Max chars 160)" maxlength="160"  name="smsTxt" ng-model="action.smsTxt"></textarea>
+       </div> 
+         </div>
+       
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="action.actionType == 'email'">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="template">Subject</label>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
-            <textarea ng-model="action.subject" name="mailCCRecipient" class="form-control" placeholder="Enter Email IDs seperated by comma"></textarea>
+            <textarea ng-model="action.subject" name="mailsubject" class="form-control" placeholder="Enter Email IDs seperated by comma" ng-required="true" ng-class="{blankInput: actionForm.mailsubject.$error.required &amp;&amp; submit}"></textarea>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="action.actionType == 'email'">
