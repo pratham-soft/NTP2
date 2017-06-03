@@ -80,7 +80,6 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             }).success(function(data) {
                 var res = data.Comm_ErrorDesc;
                 var resSplit = res.split('|');
-                console.log(resSplit[0]);
                 if (resSplit[0] == 0) {
                     if (formObj.seperator == undefined) {
                         formObj.seperator = "";
@@ -402,13 +401,11 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 
     $scope.calculatePercentage = function(id) {
         var percentage = $('#untDetails' + id + 'unitPercentage').val();
-
         if (percentage > 0 && percentage <= 100) {
             var superBuiltArea = $('#untDetails' + id + 'unitSuperArea').val();
-            var carpetArea = superBuiltArea - (superBuiltArea * (percentage / 100));
+            var carpetArea = (superBuiltArea*percentage)/100;
             $('#untDetails' + id + 'UnitDtls_Msrmnt').val(Math.round(parseFloat(carpetArea))).trigger("change");;
         } else {
-            alert("Percentage value should be between 0-100.");
             return false;
         }
     };
