@@ -27,7 +27,10 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
-                "user_type": 4
+                "user_type": 4,
+                "user_loggedin_type":$cookieStore.get('user_loggedin_type'),
+                "user_id":$cookieStore.get('user_id')
+              
             }
         }).success(function(data) {
             //console.log(data);

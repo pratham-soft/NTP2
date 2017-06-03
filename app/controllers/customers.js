@@ -27,7 +27,9 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
-                "user_type": 4
+                "user_type": 4,
+                "user_loggedin_type":$cookieStore.get('user_loggedin_type'),
+                "user_id":$cookieStore.get('user_id')
             }
         }).success(function(data) {
             if (data[0].user_ErrorDesc !="-1 | User record does not exist")
@@ -78,7 +80,7 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
     };
 });
 
-app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal) {
+app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,encyrptSvc) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -124,7 +126,7 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
     $scope.addLeadProjects = function(leadId) {
         $uibModalInstance.close();
         $state.go("/ProjectDetails", {
-            "leadID": $scope.leadId
+            "leadID": encyrptSvc.encyrpt($scope.leadId)
         });
     };
 

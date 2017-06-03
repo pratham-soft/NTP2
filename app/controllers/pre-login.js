@@ -85,6 +85,7 @@ app.controller("loginCtrl", function($scope, $http, $cookieStore, $window) {
                 } else {
                     $cookieStore.put('comp_guid', data[0].user_comp_guid);
                     $cookieStore.put('user_id', data[0].user_id);
+                    $cookieStore.put('user_loggedin_type', data[0].user_type);
                     var pageUrl = $cookieStore.get('pageUrl');
                     if (pageUrl != undefined) {
                         $window.location.href = pageUrl;
