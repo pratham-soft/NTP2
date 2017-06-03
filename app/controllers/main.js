@@ -19,7 +19,8 @@ app.controller("mainCtrl", function($scope, $rootScope, $http, $cookieStore, $st
         $cookieStore.remove("prospectId");
         $cookieStore.remove("unitObj");
         $cookieStore.remove("receivePaymentUnitObj");
-   
+        $cookieStore.remove("leadName");  
+        $cookieStore.remove("user_loggedin_type");  
         $window.location.href = 'index.html';
     };
 });
