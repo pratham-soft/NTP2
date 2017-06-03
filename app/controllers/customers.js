@@ -78,7 +78,7 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
     };
 });
 
-app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal) {
+app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,encyrptSvc) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -124,7 +124,7 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
     $scope.addLeadProjects = function(leadId) {
         $uibModalInstance.close();
         $state.go("/ProjectDetails", {
-            "leadID": $scope.leadId
+            "leadID": encyrptSvc.encyrpt($scope.leadId)
         });
     };
 

@@ -1,4 +1,4 @@
-var app = angular.module("pratham", ['ui.router', 'ui.bootstrap', 'ngCookies','720kb.datepicker', 'angularUtils.directives.dirPagination']);
+var app = angular.module("pratham", ['ui.router', 'ui.bootstrap', 'ngCookies','720kb.datepicker', 'angularUtils.directives.dirPagination','base64']);
 app.config(function($httpProvider) {
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });

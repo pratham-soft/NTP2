@@ -237,7 +237,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
     }
 });
 
-app.controller("leadDetailCtrl", function($scope, $uibModalInstance, $state, item) {
+app.controller("leadDetailCtrl", function($scope, $uibModalInstance, $state, encyrptSvc, item) {
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
     $scope.cities = ["New Delhi"];
@@ -257,7 +257,7 @@ app.controller("leadDetailCtrl", function($scope, $uibModalInstance, $state, ite
     $scope.addLeadProjects = function(leadId) {
         $uibModalInstance.close();
         $state.go("/ProjectDetails", {
-            "leadID": leadId
+            "leadID":  encyrptSvc.encyrpt(leadId)
         });
     };
 
@@ -526,7 +526,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
     };
 });
 
-app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService, $uibModal) {
+app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService, $uibModal,encyrptSvc) {
     $scope.leadId = $stateParams.leadID;
     if ($scope.leadId == undefined) {
         $state.go('/AddLead');
@@ -538,7 +538,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
             url: "http://120.138.8.150/pratham/User/UserDtls",
             ContentType: 'application/json',
             data: {
-                "user_id": $scope.leadId,
+                "user_id": encyrptSvc.decyrpt($scope.leadId),
                 "user_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
