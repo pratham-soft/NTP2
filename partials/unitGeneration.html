@@ -165,7 +165,7 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
          <button type="button" class="btn btn-success" ng-click="addSamplePlots(untGeneration,'untGenerationForm')">
-         Sample Plots
+         Generate Plots
          </button>
       </div>
    </div>
@@ -228,7 +228,7 @@
          <thead>
             <tr>
                <th colspan="6"></th>
-               <th colspan="2" style="text-align:center">Dimensions in</th>
+               <th colspan="2" style="text-align:center">Dimensions In</th>
                <th colspan="4"></th>
             </tr>
             <tr>
@@ -238,19 +238,19 @@
                <th>West</th>
                <th>North</th>
                <th>South</th>
-               <th>East+west</th>
+               <th>East+West</th>
                <th>North+South</th>
                <th>Area</th>
                <th>Release No</th>
-               <th>Corner PLot</th>
-               <th>Premium PLot</th>
+               <th>Premium</th>
+				<th>Corner</th>
             </tr>
          </thead>
          <tbody id="plotRowsCntr"></tbody>
       </table>
    </div>
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" ng-show="blockFloorUnits == 0">
-      <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',untDetails,untGeneration)">Save</button>
+      <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units', plotDetails, untGeneration)">Save All Plots</button>
    </div>
 </div>
 <!-- will show this part if plots are selected Ends here -->
@@ -505,7 +505,7 @@
                <th>West</th>
                <th>North</th>
                <th>South</th>
-               <th>East+west</th>
+               <th>East+West</th>
                <th>North+South</th>
                <th>Area</th>
                <th>Release No</th>
@@ -590,7 +590,7 @@
                <th>West</th>
                <th>North</th>
                <th>South</th>
-               <th>East+west</th>
+               <th>East+West</th>
                <th>North+South</th>
                <th>Bedroom</th>
                <th>Balconies</th>

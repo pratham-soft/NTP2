@@ -148,7 +148,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 			angular.forEach(formObj.plotType, function(value, key) {
   				plotTypeData.push(value);
 			});
-			/*console.log(plotTypeData);*/
+			console.log(plotTypeData);
             angular.element(".loader").show();
             /*Update Block*/
             $http({
@@ -166,22 +166,51 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 var res = data.Comm_ErrorDesc;
                 var resSplit = res.split('|');
                 if (resSplit[0] == 0) {
+					var realeaseNoOptions = '<option value="">Select</option>';
+					for(i=1;i<=formObj.plotvillaReleaseNo;i++){
+						realeaseNoOptions = realeaseNoOptions+'<option value="'+i+'">'+i+'</option>';
+					}
 					angular.element("#plotRowsCntr").html('');
-					
-					var plotNo = 1;
 					var increamenter = 0;
+					
 					$scope.plotDetails = [];
+					
 					for(i=0;i<plotTypeData.length;i++){
 						for(j=0;j<plotTypeData[i].noOfPlots;j++){
-							var plotRowHtml = '<tr> <td><input type="text" style="width:70px;" class="form-control" value="' + plotNo + '"name="plotNo" ng-model="plotDetails[' + increamenter + '].plotNo" ng-required="true"/> </td><td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="plotDetails[' + increamenter + '].plotFacing"> <option selected="selected" value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td><td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'EastP" name="plotEast" ng-model="plotDetails[' + increamenter + '].plotEast"/> </td><td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'WestP" name="plotWest" ng-model="plotDetails[' + increamenter + '].plotWest"/> </td><td><input type="text" style="width:70px;" id="plotDetails' + i + 'NorthP" class="form-control" name="plotNorth" ng-model="plotDetails[' + increamenter + '].plotNorth"/> </td><td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'SouthP" name="plotSouth" ng-model="plotDetails[' + increamenter + '].plotSouth"/> </td><td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'plotEastWest" name="plotEastWest" ng-model="plotDetails[' + increamenter + '].plotEastWest" ng-disabled="true"/> </td><td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'plotNorthSouth" name="plotNorthSouth" ng-model="plotDetails[' + increamenter + '].plotNorthSouth" ng-disabled="true"/> </td><td><input type="text" class="form-control" id="plotDetails' + i + 'plotSuperArea" name="plotSuperArea" id="plotDetails' + i + 'plotSuperArea" ng-model="plotDetails[' + increamenter + '].plotSuperArea" ng-disabled="true"/> </td><td> Release No. </td><td> <input type="checkbox" name="premiumPlot" id="plotDetails' + i + 'premiumPlot" ng-model="plotDetails[' + increamenter + '].premiumPlot"/> </td><td> <input type="checkbox" name="plotCorner" id="plotDetails' + i + 'plotCorner" ng-model="plotDetails[' + increamenter + '].plotCorner"/> </td></tr>';
+							var plotRowHtml = '<tr> <td><input type="text" style="width:70px;" class="form-control" name="plotNo" ng-model="plotDetails[' + increamenter + '].plotNo" ng-required="true"/> </td><td> <select style="width:70px;" class="form-control" name="plotFacing" ng-model="plotDetails[' + increamenter + '].plotFacing"> <option selected="selected" value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td><td><input type="text" style="width:70px;" class="form-control" name="plotEast" ng-model="plotDetails[' + increamenter + '].plotEast"/> </td><td><input type="text" style="width:70px;" class="form-control" name="plotWest" ng-model="plotDetails[' + increamenter + '].plotWest"/> </td><td><input type="text" style="width:70px;" class="form-control" name="plotNorth" ng-model="plotDetails[' + increamenter + '].plotNorth"/> </td><td><input type="text" style="width:70px;" class="form-control" name="plotSouth" ng-model="plotDetails[' + increamenter + '].plotSouth"/> </td><td><input type="text" style="width:70px;" class="form-control" name="plotEastWest" ng-model="plotDetails[' + increamenter + '].plotEastWest" ng-disabled="true"/> </td><td><input type="text" style="width:70px;" class="form-control" name="plotNorthSouth" ng-model="plotDetails[' + increamenter + '].plotNorthSouth" ng-disabled="true"/> </td><td><input type="text" class="form-control" name="plotSuperArea" ng-model="plotDetails[' + increamenter + '].plotSuperArea" ng-disabled="true"/> </td><td> <select class="form-control" name="releaseNo" ng-model="plotDetails[' + increamenter + '].releaseNo">'+realeaseNoOptions+'</select> </td><td class="text-center"> <input type="checkbox" name="premiumPlot" ng-model="plotDetails[' + increamenter + '].premiumPlot" ng-true-value="1" ng-false-value="0"/> </td><td class="text-center"> <input type="checkbox" name="plotCorner" ng-model="plotDetails[' + increamenter + '].plotCorner" ng-true-value="1" ng-false-value="0"/> </td></tr>';
 							
 							var plotRowHtmlComplied = $compile(plotRowHtml)($scope);
  							angular.element("#plotRowsCntr").append(plotRowHtmlComplied);
 							
 							increamenter++;
-							plotNo++;
 						}
 					}
+					var plotNoCalc = 1;
+					for(i=0;i<plotTypeData.length;i++){
+						for(j=0;j<plotTypeData[i].noOfPlots;j++){
+							var plotEastWestCalc = (plotTypeData[i].eastDimension+plotTypeData[i].westDimension)/2;
+							var plotNorthSouthCalc = (plotTypeData[i].northDimension+plotTypeData[i].southDimension)/2;
+							var plotSuperAreaCalc = plotEastWestCalc*plotNorthSouthCalc;
+							var obj = {
+								plotNo:plotNoCalc,
+								plotFacing:plotTypeData[i].plotFacing,
+								plotEast:plotTypeData[i].eastDimension,
+								plotWest:plotTypeData[i].westDimension,
+								plotNorth:plotTypeData[i].northDimension,
+								plotSouth:plotTypeData[i].southDimension,
+								plotEastWest:plotEastWestCalc,
+								plotNorthSouth:plotNorthSouthCalc,
+								plotSuperArea:plotSuperAreaCalc,
+								premiumPlot:0,
+								plotCorner:0,
+								releaseNo:plotTypeData[i].releaseNo
+							};
+							$scope.plotDetails.push(obj);
+							plotNoCalc++;
+							obj={};
+						}
+					}
+					console.log(JSON.stringify($scope.plotDetails));
 				}
                 angular.element(".loader").hide();
             }).error(function() {
@@ -596,51 +625,46 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 
 
     $scope.saveAllPlots = function(formName, formObj, parentObj) {
-        var initiator = 1;
-        if (parentObj.agf == true) {
-            initiator = 0;
-        }
-        var unitsJson = [];
+        var plotsJson = [];
 
-        for (var j = 1; j < formObj.length; j++) {
-            var unitObj = {};
-            var unitNo = plotsNosArr[j - 1];
+        for (var j = 0; j < formObj.length; j++) {
+            var plotObj = {};
 
-            unitNo = unitNo;
-
-            unitObj.UnitDtls_comp_guid = $cookieStore.get('comp_guid');
-            unitObj.UnitDtls_Unit_type_id = "2";
-            unitObj.UnitDtls_Block_Id = parentObj.block.toString();
-            unitObj.UnitDtls_user_id = $cookieStore.get('user_id');
-            unitObj.UnitDtls_No = unitNo.toString();
-            unitObj.UnitDtls_Name = "";
-            unitObj.UnitDtls_Type = "";
-            unitObj.UnitDtls_Balcn = "0";
-            unitObj.UnitDtls_ComBRoom = "0";
-            unitObj.UnitDtls_BRoom = "0";
-            unitObj.UnitDtls_Rooms = "0";
-            unitObj.UnitDtls_Msrmnt = 0;
-            unitObj.UnitDtls_Directn = formObj[j].plotFacing;
-            unitObj.UnitDtls_Floor = parseInt(formObj[j].releaseNo);
-            unitObj.UnitDtls_SrvntRoom = "0";
-            unitObj.UnitDtls_EstMsrmnt = parseInt(formObj[j].plotEast);
-            unitObj.UnitDtls_WstMsrmnt = parseInt(formObj[j].plotWest);
-            unitObj.UnitDtls_NrtMsrmnt = parseInt(formObj[j].plotNorth);
-            unitObj.UnitDtls_SthMsrmnt = parseInt(formObj[j].plotSouth);
-            unitObj.UnitDtls_EstWstMsrmnt = ((unitObj.UnitDtls_EstMsrmnt + unitObj.UnitDtls_WstMsrmnt) / 2);
-            unitObj.UnitDtls_NrtSthMsrmnt = ((unitObj.UnitDtls_NrtMsrmnt + unitObj.UnitDtls_SthMsrmnt) / 2);
-            unitObj.UnitDtls_BuliltupArea = formObj[j].plotSuperArea;
-            unitObj.UnitDtls_Cornerplot = parseInt(formObj[j].plotCorner);
-            unitObj.UnitDtls_Premium = parseInt(formObj[j].premiumPlot);
-            unitObj.UnitDtls_Status = 1;
-            unitObj.UnitDtls_percentage = 0;
-            unitsJson.push(unitObj);
+            plotObj.UnitDtls_comp_guid = $cookieStore.get('comp_guid');
+            plotObj.UnitDtls_Unit_type_id = "2";
+            plotObj.UnitDtls_Block_Id = parentObj.block.toString();
+            plotObj.UnitDtls_user_id = $cookieStore.get('user_id');
+			
+            plotObj.UnitDtls_No = formObj[j].plotNo;
+            plotObj.UnitDtls_Name = "";
+            plotObj.UnitDtls_Type = "";
+            plotObj.UnitDtls_Balcn = "0";
+            plotObj.UnitDtls_ComBRoom = "0";
+            plotObj.UnitDtls_BRoom = "0";
+            plotObj.UnitDtls_Rooms = "0";
+            plotObj.UnitDtls_Msrmnt = "0";
+            plotObj.UnitDtls_Directn = formObj[j].plotFacing;
+            plotObj.UnitDtls_Floor = parseInt(formObj[j].releaseNo);
+            plotObj.UnitDtls_SrvntRoom = "0";
+            plotObj.UnitDtls_EstMsrmnt = parseFloat(formObj[j].plotEast);
+            plotObj.UnitDtls_WstMsrmnt = parseFloat(formObj[j].plotWest);
+            plotObj.UnitDtls_NrtMsrmnt = parseFloat(formObj[j].plotNorth);
+            plotObj.UnitDtls_SthMsrmnt = parseFloat(formObj[j].plotSouth);
+            plotObj.UnitDtls_EstWstMsrmnt = parseFloat(formObj[j].plotEastWest);
+            plotObj.UnitDtls_NrtSthMsrmnt = parseFloat(formObj[j].plotNorthSouth);
+            plotObj.UnitDtls_BuliltupArea = parseFloat(formObj[j].plotSuperArea);
+            plotObj.UnitDtls_Cornerplot = parseInt(formObj[j].plotCorner);
+            plotObj.UnitDtls_Premium = parseInt(formObj[j].premiumPlot);
+            plotObj.UnitDtls_Status = 1;
+            plotObj.UnitDtls_percentage = 0;
+			
+            plotsJson.push(plotObj);
 
         }
 
-
-        unitsJson = JSON.stringify(unitsJson);
-        console.log(unitsJson);
+        plotsJson = JSON.stringify(plotsJson);
+        console.log(plotsJson);
+		return;
         angular.element(".loader").show();
         $http({
             method: "POST",
