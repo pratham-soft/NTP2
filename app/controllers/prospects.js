@@ -447,7 +447,7 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
     }
 });
 
-app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) {
+app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, myService) {
     $scope.pageTitle = "Add Prospect";
     $scope.addLeadBtn = true;
     ($scope.getLeadSource = function() {
@@ -501,6 +501,36 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore) 
             angular.element(".loader").hide();
         });
     })();
+    
+     $scope.validAge= function(age){
+         var result="";
+         result= myService.checkAge(age) ;
+         if(result==false){
+        $scope.addLead.dob="";
+   }  
+    };
+    
+    
+//    var age=0;
+//    
+//    $scope. getAge=function(dateString) {
+//    var date = dateString;
+//    var datearray = date.split("/");
+//    var newdate = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+//    var today = new Date();
+//    var birthDate = new Date(newdate);
+//     var year=   birthDate.getFullYear();
+//    var age = today.getFullYear() - birthDate.getFullYear();
+//    var m = today.getMonth() - birthDate.getMonth();
+//    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+//        age--;
+//    }
+//    if(age<18 || age==NaN){
+//        alert("Age should be greater than 18 years...!!");
+//        $scope.addLead.dob="";
+//    }
+//};
+    
     
     $scope.addLead = function(formObj, formName) {
         $scope.submit = true;

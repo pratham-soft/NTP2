@@ -525,7 +525,7 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
     };
 });
 
-app.controller("editUnitCtrl", function($scope, $http, $state, $cookieStore, $stateParams) {
+app.controller("editUnitCtrl", function($scope, $http, $state, $cookieStore, $stateParams, myService) {
     var projectId = $stateParams.projId;
     var phaseId = $stateParams.phaseId;
 
@@ -663,6 +663,15 @@ app.controller("editUnitCtrl", function($scope, $http, $state, $cookieStore, $st
         });
     })();
 
+    
+    $scope.validAge= function(age){
+         var result="";
+         result= myService.checkAge(age) ;
+         if(result==false){
+               $scope.addUnit.guardianDob="";
+   }  
+    };
+    
     $scope.editPhaseData = function(formObj, formName) {
         $scope.submit = true;
         console.log(formObj);

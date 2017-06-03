@@ -179,7 +179,7 @@
       <div class="field">
          <label ng-show="customer.spouseDob" class="show-hide">Spouse Dob</label>
           <datepicker date-format="dd/MM/yyyy" >
-              <input type="text" placeholder="Spouse Dob" title="Spouse Dob" class="form-control"  name="spouseDob" ng-model="customer.spouseDob"/>
+              <input type="text" placeholder="Spouse Dob" title="Spouse Dob" class="form-control"  name="spouseDob" ng-model="customer.spouseDob" ng-change="validAge(customer.spouseDob)"/>
                 <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
          </datepicker>
       </div><br>

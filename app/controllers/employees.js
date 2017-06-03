@@ -1,4 +1,4 @@
-app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window) {
+app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, myService, $window) {
     $scope.pageTitle = "Add Employee";
     $scope.addEmployeeBtn = true;
     
@@ -53,6 +53,22 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
         });
     })();
 
+    
+    $scope.validAge= function(age){
+         var result="";
+         result= myService.checkAge(age) ;
+         if(result==false){
+        if($scope.addEmployee.employeeSpouseDob==age){
+            $scope.addEmployee.employeeSpouseDob="";
+        }
+        else if($scope.addEmployee.employeeDob==age){
+            $scope.addEmployee.employeeDob="";
+        }
+        
+    }
+};
+    
+    
     $scope.addEmployee = function(formObj, formName) {
         $scope.submit = true;
         var dobuser = formObj.employeeDob;
