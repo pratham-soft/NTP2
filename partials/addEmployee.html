@@ -69,7 +69,7 @@
                     <div class="field has-feedback" >
                         <label ng-show="addEmployee.employeeDob" class="show-hide">D.O.B. (DD/MM/YYYY)</label>
                     <datepicker date-format="dd/MM/yyyy">
-                        <input ng-model="addEmployee.employeeDob" placeholder="D.O.B. (DD/MM/YYYY) " class="form-control" name="employeeDob"  type="text" />
+                        <input ng-model="addEmployee.employeeDob" placeholder="D.O.B. (DD/MM/YYYY) " class="form-control" name="employeeDob"  type="text" ng-change="validAge(addEmployee.employeeDob)"/>
                         <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
                     </datepicker>
                     </div><br><br>
@@ -96,7 +96,7 @@
                     <div class="field has-feedback">
                         <label ng-show="addEmployee.employeeSpouseDob" class="show-hide">Spouse D.O.B. (DD/MM/YYYY)</label>
                         <datepicker date-format="dd/MM/yyyy">
-                        <input type="text" placeholder="Spouse D.O.B. (DD/MM/YYYY)" class="form-control" name="employeeSpouseDob" ng-model="addEmployee.employeeSpouseDob"/>
+                        <input type="text" placeholder="Spouse D.O.B. (DD/MM/YYYY)" class="form-control" name="employeeSpouseDob" ng-model="addEmployee.employeeSpouseDob" ng-change="validAge(addEmployee.employeeSpouseDob)"/>
                         <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
                     </datepicker>         
                     </div><br>

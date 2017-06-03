@@ -78,7 +78,7 @@
          </div>
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
              <datepicker date-format="dd/MM/yyyy">
-                <input type="text" placeholder="D.O.B. (DD/MM/YYYY)" class="form-control"  name="dob" ng-model="addLead.dob"/>
+                <input type="text" placeholder="D.O.B. (DD/MM/YYYY)" class="form-control"  name="dob" ng-model="addLead.dob" ng-change="validAge(addLead.dob)"/>
                     <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
             </datepicker>
          </div>

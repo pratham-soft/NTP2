@@ -1,4 +1,4 @@
-app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieStore, $stateParams, $filter, $state) {
+app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieStore,myService, $stateParams, $filter, $state) {
     ($scope.convertCustomer = function() {
         angular.element(".loader").show();
         $scope.leadId = $stateParams.leadID;
@@ -127,6 +127,17 @@ app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieS
         }).error(function() {});
     })();
 
+    
+    $scope.validAge= function(age){
+         var result="";
+         result= myService.checkAge(age) ;
+         if(result==false){
+        $scope.customer.spouseDob="";
+   }  
+    };
+    
+    
+    
     $scope.updateCustomer = function(formObj, formName) {
         $scope.submit = true;
         

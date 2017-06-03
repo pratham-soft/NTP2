@@ -350,6 +350,26 @@ app.service('myService', function($http) {
         return promise;
 	};
     
+ this.checkAge = function(dateString) {
+    var date = dateString;
+    var datearray = date.split("/");
+    var newdate = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+    var today = new Date();
+    var birthDate = new Date(newdate);
+     var year=   birthDate.getFullYear();
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    if(age<18 || age==NaN){
+        alert("Age should be greater than 18 years...!!");
+       return false;
+    }
+     else{
+         return true;
+     }
+};
     
 });
 
