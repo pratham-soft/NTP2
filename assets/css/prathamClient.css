@@ -896,3 +896,7 @@ td.inputType{
 .alertRuleTable tr > td:last-child{
 	text-align: right;
 }
+
+.plotTypeRow{
+	margin: 0 0 5px 0;
+}
