@@ -1,0 +1,30 @@
+var plotRow = '<tr>
+   <td><input type="text" style="width:70px;" class="form-control" value="' + plotNo + '"name="plotNo" ng-model="plotDetails[' + i + '].plotNo" ng-required="true"/> </td>
+   <td>
+      <select style="width:70px;" class="form-control" name="plotFacing" ng-model="plotDetails[' + i + '].plotFacing">
+         <option selected="selected"  value="E">E</option>
+         <option value="W">W</option>
+         <option value="N">N</option>
+         <option value="S">S</option>
+         <option value="NW">NW</option>
+         <option value="NE">NE</option>
+         <option value="SW">SW</option>
+         <option value="SE">SE</option>
+      </select>
+   </td>
+   <td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'EastP" name="plotEast" ng-model="plotDetails[' + i + '].plotEast"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'WestP" name="plotWest" ng-model="plotDetails[' + i + '].plotWest"/> </td>
+   <td><input type="text" style="width:70px;" id="plotDetails' + i + 'NorthP" class="form-control" name="plotNorth" ng-model="plotDetails[' + i + '].plotNorth"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'SouthP" name="plotSouth" ng-model="plotDetails[' + i + '].plotSouth"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'plotEastWest" name="plotEastWest" ng-model="plotDetails[' + i + '].plotEastWest" ng-disabled="true"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" id="plotDetails' + i + 'plotNorthSouth" name="plotNorthSouth" ng-model="plotDetails[' + i + '].plotNorthSouth" ng-disabled="true"/> </td>
+   
+   <td><input type="text" class="form-control" id="plotDetails' + i + 'plotSuperArea" name="plotSuperArea" id="plotDetails' + i + 'plotSuperArea" ng-model="plotDetails[' + i + '].plotSuperArea" ng-disabled="true"/> </td>
+   <td> Release No. </td>
+   <td>
+   <input type="checkbox" name="premiumPlot" id="plotDetails' + i + 'premiumPlot" ng-model="plotDetails[' + i + '].premiumPlot"/>
+   </td>
+   <td>
+   <input type="checkbox" name="plotCorner" id="plotDetails' + i + 'plotCorner" ng-model="plotDetails[' + i + '].plotCorner"/>
+   </td>
+</tr>';

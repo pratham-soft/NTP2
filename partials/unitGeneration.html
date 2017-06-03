@@ -68,7 +68,7 @@
             </select>
          </div>
       </div>
-      <div ng-show="untGeneration.typeId == 1">
+      <div ng-if="untGeneration.typeId == 1">
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="blockFloorUnits == 0">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
                <label>No. of Floors:</label>
@@ -91,8 +91,9 @@
                <label>No. of Releases:</label>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-               <select class="form-control" name="plotReleaseNo" ng-model="plotvillaReleaseNo" ng-required="true"  >
-                  <option value="1">1 </option>
+               <select class="form-control" name="plotReleaseNo" ng-model="untGeneration.plotvillaReleaseNo" ng-required="true"  >
+                  <option value="">Select</option>
+				   <option value="1">1 </option>
                   <option value="2">2 </option>
                   <option value="3">3 </option>
                   <option value="4">4 </option>
@@ -117,12 +118,6 @@
          	<input type="text" id="seperator" ng-model="untGeneration.seperator">
 			<label for="agf">Start from Ground Floor:</label>
          	<input type="checkbox" id="agf" ng-model="untGeneration.agf">
-         <!--<h4>Unit Generation Formula</h4>
-         <label for="unitNo">Starting Unit No. (For Each Floor): </label>
-         <input type="text" id="unitNo" name="unitNo" ng-model="untGeneration.unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}"> | 
-         <label for="skipBy">Skip By:</label>
-         <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> | -->
-         
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
          <button type="button" class="btn btn-success" ng-click="addSampleData(untGeneration,'untGenerationForm')">
@@ -130,22 +125,50 @@
          </button>
       </div>
    </div>
-   <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf"  ng-if="untGeneration.typeId == 2">
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf"  ng-if="untGeneration.typeId == 2">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-if="blockFloorUnits == 0 ">
-         <h4>Plots Generation Formula</h4>
-         <label for="unitNo">Starting from: </label>
-         <input type="text" id="unitNo" name="unitNo" ng-model="untGeneration.unitNo" ng-required="true" ng-class="{blankInput: untGenerationForm.unitNo.$error.required &amp;&amp; submit}"> | 
-         <label for="skipBy">Skip By:</label>
-         <input type="text" id="skipBy" name="skipBy" ng-model="untGeneration.skipBy" ng-required="true" ng-class="{blankInput: untGenerationForm.skipBy.$error.required &amp;&amp; submit}"> |
-         <label for="unitsPerFloor">No. of Plots:</label>
-         <input type="text" id="unitsPerFloor" name="unitsPerFloor" ng-model="untGeneration.unitsPerFloor" ng-required="true" ng-class="{blankInput: untGenerationForm.unitsPerFloor.$error.required &amp;&amp; submit}">
+         <h4>
+			 Plots Generation Formula
+		  	 <button type="button" class="btn btn-default" ng-click="addPlotTYpeRow()">Add More</button>
+		  </h4>
+         <div id="plotTypeGrid">
+		  	<div class="plotTypeRow">
+		 <label for="plotFacing">Facing: </label>
+		 <select name="plotFacing" id="plotFacing" ng-model="untGeneration.plotType[0].plotFacing" ng-required="true" class="form">
+		  <option value="">Select</option>
+		 <option value="E">E </option>
+		 <option value="W">W </option>
+		 <option value="N">N </option>
+		 <option value="S">S </option>
+		 <option value="NW">NW </option>
+		 <option value="NE">NE </option>
+		 <option value="SW">SW </option>
+		 <option value="SE">SE </option>
+		 </select> | 
+         <label for="eastDimension">East:</label>
+		 <input type="number" id="eastDimension" ng-model="untGeneration.plotType[0].eastDimension" ng-required="true">
+		  
+		 <label for="westDimension">West:</label>
+		  <input type="number" id="westDimension" ng-model="untGeneration.plotType[0].westDimension" ng-required="true">
+		  
+		 <label for="northDimension">North:</label>
+		  <input type="number" id="northDimension" ng-model="untGeneration.plotType[0].northDimension" ng-required="true">
+		  
+		 <label for="southDimension">South:</label>
+		  <input type="number" id="southDimension" ng-model="untGeneration.plotType[0].southDimension" ng-required="true"> | 
+		  
+		  <label for="noOfPlots">No. of Plots:</label>
+		  <input type="number" id="noOfPlots" ng-model="untGeneration.plotType[0].noOfPlots" ng-required="true">
+			 </div>
+		  </div>
+         
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
          <button type="button" class="btn btn-success" ng-click="addSamplePlots(untGeneration,'untGenerationForm')">
-         Add Plots
+         Sample Plots
          </button>
       </div>
-   </div>-->
+   </div>
    <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="untGeneration.typeId == 3">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-show="blockFloorUnits == 0 ">
          <h4>Unit Generation Formula</h4>
@@ -209,7 +232,7 @@
                <th colspan="4"></th>
             </tr>
             <tr>
-               <th> No.</th>
+               <th>Plot No.</th>
                <th>Facing</th>
                <th>East</th>
                <th>West</th>
@@ -223,7 +246,7 @@
                <th>Premium PLot</th>
             </tr>
          </thead>
-         <tbody id="plotRows"></tbody>
+         <tbody id="plotRowsCntr"></tbody>
       </table>
    </div>
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20 ng-scope" ng-show="blockFloorUnits == 0">
