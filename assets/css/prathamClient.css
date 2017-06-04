@@ -85,13 +85,13 @@ ul.leftMenu > li{
 	text-transform: uppercase;
 	font-weight: bold;
 	color: #535c69;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	cursor: pointer;
 }
 ul.leftMenu > li > ul{
 	padding: 0;
 	list-style: none;
-	margin-top: 15px;
+	/*margin-top: 15px;*/
 }
 ul.leftMenu > li > ul > li{
 	border-radius: 5px;
@@ -875,17 +875,20 @@ td.inputType{
      display:inline-block;
 }
 .unitDetails{
-	border: 1px solid #ddd;
+	/* border: 1px solid #ddd; */
 	margin: 0 0 10px 0;
+	text-align: center;
 }
 .unitDetails span {
-    display: block;
-    padding: 8px;
+    display: inline-block;
+    padding: 10px;
     font-weight: bold;
-    border-bottom: 1px solid #DDD;
+    border: 1px solid #DDD;
+    /* border-top: 0; */
+    /* border-bottom: 0; */
 }
 .unitDetails span:last-child{
-	border-bottom: 0;
+	/* border-bottom: 0; */
 }
 .borderBox{
     border: 1px solid #DDD;

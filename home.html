@@ -13,7 +13,6 @@
     <script type="text/javascript" src="app/libs/angular/angular-cookies.js"></script>
 	<script type="text/javascript" src="app/libs/angular/angular-base64.js"></script>
 	<script type="text/javascript" src="app/libs/others/bootstrap.js"></script>
-	<script type="text/javascript" src="app/js/custom-jquery.js"></script>
 	<script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/app-routes.js"></script>
     <script type="text/javascript" src="app/services/http-service.js"></script>
@@ -68,6 +67,7 @@
     <script type="text/javascript" src="app/libs/others/jquery.orgchart_sutlej.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-animate.js"></script>
     <script src="app/libs/angular/angular-datepicker.js"></script>
+	<script type="text/javascript" src="app/js/custom-jquery.js"></script>
 	<!-- Scripts -->
 	
 	<!-- Styles -->
@@ -106,7 +106,7 @@
 			<div class="col-lg-2 col-md-2 col-sm-2 hidden-xs leftPanel">
 				<ul class="leftMenu">
                    <li>
-						<span class="glyphicon glyphicon-user"></span> Leads
+						 Leads
 						<ul>
 							<li class="">
 								<a ui-sref="/Leads">Quick View</a>
@@ -114,23 +114,18 @@
 						</ul>
 					</li>
                     <li>
-						<span class="glyphicon glyphicon-user"></span> Prospects
+						 Prospects
 						<ul>
 							<li class="">
 								<a ui-sref="/Prospects">Quick View</a>
 							</li>
-<!--
-                            <li class="">
-								<a ui-sref="/UpdateProspects">Quick View</a>
-							</li>
--->
                             <li>
 								<a ui-sref="/ProspectsUnitAllocation">Allocated Units</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						<span class="glyphicon glyphicon-user"></span> Customers
+						 Customers
 						<ul>
 							<li>
 								<a ui-sref="/Customers">Quick View</a>
@@ -147,57 +142,57 @@
 -->
 						</ul>
 					</li>
-                    <li>
-						<span class="glyphicon glyphicon-user"></span> Employees
+                    <li ng-if="userType=='1'">
+						 Employees
 						<ul>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/EmployeeDetails">Quick View</a>
 							</li>
 						</ul>
 					</li>
                       <li>
-						<span class="glyphicon glyphicon-user"></span> Agents
+						 Agents
 						<ul>
 							<li>
 								<a ui-sref="/Agents">Quick View</a>
 							</li>
 						</ul>
 					</li>
-                    <li>
-						<span class="glyphicon glyphicon-flag"></span> Project
+                    <li ng-if="userType=='1'">
+						Project
 						<ul>
 							
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/Projects">Project</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/Phases">Phase</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/UnitVwEdit">View/Edit Units</a>
 							</li>
-                            <li>
+                            <li ng-if="userType=='1'">
 								<a ui-sref="/UnitsListing">Units Listing</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/BlockCostSheet">Cost Sheet</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/">Allocated Units</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/">Block Unit</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						<span class="glyphicon glyphicon-flag"></span> CRM
+						CRM
 						<ul>
 							
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/Campaigns">Campaigns</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/SalesFunnel">Sales Funnel</a>
 							</li>
 							<li>
@@ -209,43 +204,43 @@
                             <li>
 								<a ui-sref="/SiteVisitListing">Site Visit Listing</a>
 							</li>
-                            <li>
+                            <li ng-if="userType=='1'">
 								<a ui-sref="/Attendance">Attendance</a>
 							</li>
-                            <li>
+                            <li ng-if="userType=='1'">
 								<a ui-sref="Incentive">Incentive</a>
 							</li>
 						</ul>
 					</li>
-                    <li>
-						<span class="glyphicon glyphicon-flag"></span> Set Up
+                    <li ng-if="userType=='1'">
+						Set Up
 						<ul>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/AccessRights">Access Rights</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/AddDepartment">Department</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/Heirarchy">Department Heirarchy</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/CostSheetTemplates">Cost Sheet Template</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/SalaryComponentDetails">Salary Component</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/BlockStage">Block Stage</a>
 							</li>
-							<li>
+							<li ng-if="userType=='1'">
 								<a ui-sref="/PaymentSchedule">Payment Schedule</a>
 							</li>					
 						</ul>
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 pageContent" ui-view="" autoscroll="false"></div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 pageContent" ui-view="" autoscroll="false" style="max-height:567px; overflow-y:auto; margin:0; padding-bottom:50px;"></div>
 		</div>
 		<div class="row footer">
 			<div class="col-lg-4 col-md-4 col-sm-4">
