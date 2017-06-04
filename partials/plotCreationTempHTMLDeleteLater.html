@@ -1,0 +1,27 @@
+<tr>
+   <td><input type="text" style="width:70px;" class="form-control" name="plotNo" ng-model="plotDetails[' + increamenter + '].plotNo" ng-required="true"/> </td>
+   <td>
+      <select style="width:70px;" class="form-control" name="plotFacing" ng-model="plotDetails[' + increamenter + '].plotFacing">
+         <option selected="selected" value="E">E</option>
+         <option value="W">W</option>
+         <option value="N">N</option>
+         <option value="S">S</option>
+         <option value="NW">NW</option>
+         <option value="NE">NE</option>
+         <option value="SW">SW</option>
+         <option value="SE">SE</option>
+      </select>
+   </td>
+   <td><input type="text" style="width:70px;" class="form-control" name="plotEast" ng-model="plotDetails[' + increamenter + '].plotEast"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" name="plotWest" ng-model="plotDetails[' + increamenter + '].plotWest"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" name="plotNorth" ng-model="plotDetails[' + increamenter + '].plotNorth"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" name="plotSouth" ng-model="plotDetails[' + increamenter + '].plotSouth"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" name="plotEastWest" ng-model="plotDetails[' + increamenter + '].plotEastWest" ng-disabled="true"/> </td>
+   <td><input type="text" style="width:70px;" class="form-control" name="plotNorthSouth" ng-model="plotDetails[' + increamenter + '].plotNorthSouth" ng-disabled="true"/> </td>
+   <td><input type="text" class="form-control" name="plotSuperArea" ng-model="plotDetails[' + increamenter + '].plotSuperArea" ng-disabled="true"/> </td>
+	
+   <td> <select class="form-control" name="releaseNo" ng-model="plotDetails[' + increamenter + '].releaseNo">'+realeaseNoOptions+'</select> </td>
+	
+	<td class="text-center"> <input type="checkbox" name="premiumPlot" ng-model="plotDetails[' + increamenter + '].premiumPlot" ng-true-value="1" ng-false-value="0"/> </td>
+   <td class="text-center"> <input type="checkbox" name="plotCorner" ng-model="plotDetails[' + increamenter + '].plotCorner" ng-true-value="1" ng-false-value="0"/> </td>
+</tr>
