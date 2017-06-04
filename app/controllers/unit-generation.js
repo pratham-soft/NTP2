@@ -652,7 +652,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             plotObj.UnitDtls_SthMsrmnt = parseFloat(formObj[j].plotSouth);
             plotObj.UnitDtls_EstWstMsrmnt = parseFloat(formObj[j].plotEastWest);
             plotObj.UnitDtls_NrtSthMsrmnt = parseFloat(formObj[j].plotNorthSouth);
-            plotObj.UnitDtls_BuliltupArea = parseFloat(formObj[j].plotSuperArea);
+            plotObj.UnitDtls_Msrmnt = parseFloat(formObj[j].plotSuperArea);
             plotObj.UnitDtls_Cornerplot = parseInt(formObj[j].plotCorner);
             plotObj.UnitDtls_Premium = parseInt(formObj[j].premiumPlot);
             plotObj.UnitDtls_Status = 1;
@@ -664,13 +664,12 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 
         plotsJson = JSON.stringify(plotsJson);
         console.log(plotsJson);
-		return;
         angular.element(".loader").show();
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
-            data: unitsJson
+            data: plotsJson
         }).success(function(data) {
             angular.element(".loader").hide();
             console.log(data);
@@ -678,12 +677,6 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             var resSplit = res.split('|');
             console.log(resSplit[0]);
             if (resSplit[0] == 0) {
-                //                $state.go("/Units", {
-                //                    projId: $scope.projectId,
-                //                    phaseId: $scope.phaseId,
-                //                    blockId: parentObj.block
-                //                });
-
                 $state.go("/ApplyCostSheet", {
                     projId: $scope.projectId,
                     phaseId: $scope.phaseId,
