@@ -267,9 +267,7 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
                                         {
                                          alert(response.data[0].ErrorDesc.toString());
                                         }
-
                                 })
-                      
                     }
                  else
                     {
