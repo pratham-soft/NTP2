@@ -63,7 +63,20 @@
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-         <table class="formulaTable">            
+          <button class="btn btn-info" type="button" ng-click="showPremiumRow()">Add Premium Cost Component</button>
+         <table class="formulaTable1">
+             <tr ng-show="showPremium">
+             <td> <label>Name</label>
+             </td> <td> <input type="text" class="form-control" name="untctcm_name7" ng-model="costSheetTemplate.untctcm_name7" readonly="true"/> </td>
+            <td> <label>Calc. Type</label> </td>
+            <td> <select class="form-control" name="untctcm_calctyp7" ng-model="costSheetTemplate.untctcm_calctyp7" ng-change="toggleFields(7)">
+            <option value=""> Select </option>
+            <option value="1"> Flat </option> 
+            <option value="0"> Formula </option> </select> </td>
+            <td> <input type="text" class="form-control" placeholder="Value" name="untctcm_val_formula7" ng-model="costSheetTemplate.untctcm_val_formula7" disabled="true"/> </td>
+            <td> <button type="button" class="btn btn-warning" name="formulaBtn7" ng-click="openFormulaModal({formulaVal:costSheetTemplate.untctcm_val_formula7,index:7})" disabled="true"> Formula </button> </td>
+            <td> <input type="text" class="form-control comment" placeholder="Comment" name="untctcm_comments7" ng-model="costSheetTemplate.untctcm_comments7"/> </td>
+            <td><span class="glyphicon glyphicon-trash" ng-click="deleteCostComponent(7)"></span></td></tr>
          </table>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop10">

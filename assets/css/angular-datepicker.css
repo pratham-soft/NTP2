@@ -42,7 +42,8 @@ datepicker, .datepicker, [datepicker],
   top: 34px;
   min-width: 220px;
   margin: 0 auto;
-  width: 101%;
+/* change the size of calendar */
+  width: 250px;     
   -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
   -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;

@@ -239,7 +239,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
     }
 });
 
-app.controller("leadDetailCtrl", function($scope, $uibModalInstance, $state, encyrptSvc, item) {
+app.controller("leadDetailCtrl", function($scope, $uibModalInstance, encyrptSvc, $state, encyrptSvc, item) {
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
     $scope.cities = ["New Delhi"];
@@ -285,7 +285,7 @@ app.controller("leadDetailCtrl", function($scope, $uibModalInstance, $state, enc
     }
 });
 
-app.controller("addLeadCtrl", function($scope, $http, $state, $cookieStore,myService) {
+app.controller("addLeadCtrl", function($scope, $http, $state,encyrptSvc, $cookieStore,myService) {
     $scope.pageTitle = "Add Lead";
     $scope.addLeadBtn = true;
     ($scope.getLeadSource = function() {
@@ -385,7 +385,7 @@ app.controller("addLeadCtrl", function($scope, $http, $state, $cookieStore,mySer
             }).success(function(data) {
                 if (data.user_id != 0) {
                     $state.go("/ProjectDetails", {
-                        "leadID": data.user_id
+                        "leadID": encyrptSvc.encyrpt(data.user_id)
                     });
                 } else {
                     alert("Error! " + data.user_ErrorDesc);
@@ -529,7 +529,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
 });
 
 app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService, $uibModal,encyrptSvc) {
-    $scope.leadId = $stateParams.leadID;
+    $scope.leadId = encyrptSvc.decyrpt($stateParams.leadID);
     if ($scope.leadId == undefined) {
         $state.go('/AddLead');
     }
@@ -540,7 +540,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
             url: "http://120.138.8.150/pratham/User/UserDtls",
             ContentType: 'application/json',
             data: {
-                "user_id": encyrptSvc.decyrpt($scope.leadId),
+                "user_id": $scope.leadId,
                 "user_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {

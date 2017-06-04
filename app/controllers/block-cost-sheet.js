@@ -75,6 +75,7 @@ app.controller("blockCostSheetCtrl", function($scope, $http, $cookieStore, $stat
 
 app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Edit Block Cost Sheet";
+    $scope.showPremium=false;
 
     $scope.checkBlockUnits = function(blockId) {
         var compId = $cookieStore.get('comp_guid');
@@ -89,6 +90,8 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
         });
     }
     $scope.checkBlockUnits($stateParams.blockId);
+    
+    
     ($scope.getBlockCostSheet = function(blockId) {
         var blockId = $stateParams.blockId;
         angular.element(".loader").show();
@@ -114,16 +117,25 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
                 }
                 increment = i;
                 console.log(increment);
-                var costComponentRow = '<tr> <td> <label>Code' + increment + '</label> </td> <td> <input type="text" class="form-control" name="untctcm_code' + increment + '" ng-model="costSheetTemplate.untctcm_code' + increment + '"/> </td> <td> <label>Name</label> </td> <td> <input type="text" class="form-control" name="untctcm_name' + increment + '" ng-model="costSheetTemplate.untctcm_name' + increment + '"/> </td> <td> <label>Calc. Type</label> </td> <td> <select class="form-control" name="untctcm_calctyp' + increment + '" ng-model="costSheetTemplate.untctcm_calctyp' + increment + '" ng-change="toggleFields(' + increment + ')"> <option value=""> Select </option> <option value="1"> Flat </option> <option value="0"> Formula </option> </select> </td> <td> <input type="text" class="form-control" placeholder="Value" name="untctcm_val_formula' + increment + '" ng-model="costSheetTemplate.untctcm_val_formula' + increment + '" disabled="true"/> </td> <td> <button type="button" class="btn btn-warning" name="formulaBtn' + increment + '" ng-click="openFormulaModal({formulaVal:costSheetTemplate.untctcm_val_formula' + increment + ',index:' + increment + '})" disabled="true"> Formula </button> </td> <td> <input type="text" class="form-control comment" placeholder="Comment" name="untctcm_comments' + increment + '" ng-model="costSheetTemplate.untctcm_comments' + increment + '"/> </td><td><span class="glyphicon glyphicon-trash" ng-click="deleteCostComponent(' + increment + ')"></span></td></tr>';
+                var costComponentRow = '<tr> <td> <label>Name</label> </td> <td> <input type="text" class="form-control" name="untctcm_name' + increment + '" ng-model="costSheetTemplate.untctcm_name' + increment + '"/> </td> <td> <label>Calc. Type</label> </td> <td> <select class="form-control" name="untctcm_calctyp' + increment + '" ng-model="costSheetTemplate.untctcm_calctyp' + increment + '" ng-change="toggleFields(' + increment + ')"> <option value=""> Select </option> <option value="1"> Flat </option> <option value="0"> Formula </option> </select> </td> <td> <input type="text" class="form-control" placeholder="Value" name="untctcm_val_formula' + increment + '" ng-model="costSheetTemplate.untctcm_val_formula' + increment + '" disabled="true"/> </td> <td> <button type="button" class="btn btn-warning" name="formulaBtn' + increment + '" ng-click="openFormulaModal({formulaVal:costSheetTemplate.untctcm_val_formula' + increment + ',index:' + increment + '})" disabled="true"> Formula </button> </td> <td> <input type="text" class="form-control comment" placeholder="Comment" name="untctcm_comments' + increment + '" ng-model="costSheetTemplate.untctcm_comments' + increment + '"/> </td><td><span class="glyphicon glyphicon-trash" ng-click="deleteCostComponent(' + increment + ')"></span></td></tr>';
 
                 costComponentRow = $compile(costComponentRow)($scope);
-                angular.element(".formulaTable").append(costComponentRow);
+                angular.element(".formulaTable1").append(costComponentRow);
             }
+            if($scope.costSheetTemplate.untctcm_calctyp7>0){
+                $scope.showPremium=true;
+            }
+            
             angular.element(".loader").hide();
         }).error(function() {
             angular.element(".loader").hide();
         });
     })();
+    
+    $scope.showPremiumRow = function(){
+        $scope.showPremium=true;
+        $scope.costSheetTemplate.untctcm_name7='PREMIUM';
+    }
 
     $scope.toggleFields = function(increment) {
         var fieldName = "untctcm_calctyp" + increment;
@@ -149,7 +161,7 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
             }
         });
     };
-
+    
     $scope.updateBlockCostSheet = function(formName, formObj) {
 
         $scope.submit = true;
