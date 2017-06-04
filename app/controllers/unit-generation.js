@@ -64,7 +64,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 
     $scope.addSampleData = function(formObj, formName) {
         $scope.submit = true;
-        if ($scope[formName].$valid) {
+        /*if ($scope[formName].$valid) {*/
             /*Update Block*/
             angular.element(".loader").show();
             $http({
@@ -127,7 +127,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 angular.element(".loader").hide();
             });
             /*End Update Block*/
-        }
+        /*}*/
     };
 	$scope.plotvillaReleaseNo = "";
 	

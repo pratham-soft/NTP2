@@ -12,6 +12,8 @@ app.controller("mainCtrl", function($scope, $rootScope, $http, $cookieStore, $st
             $window.location.href = '/';
         }
     })();
+	
+	$scope.userType = $cookies.get("user_loggedin_type");
     $scope.logout = function() {
         $cookieStore.remove('user_id');
         $cookieStore.remove('comp_guid');

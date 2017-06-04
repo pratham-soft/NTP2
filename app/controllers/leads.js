@@ -603,18 +603,12 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
         });
     };
 
-    $scope.getUnits = function(blocks) {
+    $scope.getUnits = function(blocks) {		
         $scope.units = [];
         $scope.perFloorUnits = [];
         if (blocks == "") {
             return;
         }
-        /*for (i = 0; i < $scope.blockList.length; i++) {
-            if ($scope.blockList[i].Blocks_Id == blocks) {
-                $scope.blockFloors = $scope.blockList[i].Blocks_Floors;
-                $scope.blockFloorUnits = $scope.blockList[i].Blocks_UnitPerfloor;
-            }
-        }*/
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -625,14 +619,19 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
                 "UnitDtls_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            console.log(JSON.stringify(data));
-
             $scope.blockFloors = data[1].Blocks_Floors;
             $scope.blockFloorUnits = data[1].Blocks_UnitPerfloor;
 
             var dataOfUnits = data[0];
-
-            console.log($scope.blockFloors + " - " + $scope.blockFloorUnits);
+			
+			$scope.startZero = 0;
+			if(dataOfUnits[0].UnitDtls_Floor == 0){
+				$scope.startZero = 1;
+			}
+			
+			console.log(dataOfUnits);
+			
+			$scope.floorStartingNumber = dataOfUnits[0].UnitDtls_Floor;
 
             $scope.selectedUnits = [];
             $(".dispNone").each(function(index) {
@@ -658,6 +657,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
                 }
                 $scope.perFloorUnits.push(floorUnits);
             }
+			console.log($scope.perFloorUnits);
             $scope.units = dataOfUnits;
             angular.element(".loader").hide();
 
