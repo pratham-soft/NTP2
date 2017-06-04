@@ -1,7 +1,7 @@
 app.controller("unitsListingCtrl", function($scope, $http, $cookieStore, $state, $uibModal,$window) {
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
-    
+    $scope.unitTypeNo = 0;
      $scope.selected = []; //stores checked items only
     (
         
@@ -69,6 +69,7 @@ app.controller("unitsListingCtrl", function($scope, $http, $cookieStore, $state,
         for (i = 0; i < $scope.phaseList.length; i++) {
             if ($scope.phaseList[i].Phase_Id == phase) {
                 $scope.flatType = $scope.phaseList[i].Phase_UnitType.UnitType_Name;
+                 $scope.unitTypeNo  =  parseInt($scope.phaseList[i].Phase_UnitType.UnitType_Id);
             }
         }
         angular.element(".loader").show();

@@ -87,9 +87,9 @@
                 <th>#</th>
                 <th> <input type="checkbox" name="" ng-model="selectAll" ng-click="checkAll()"></th>
                 <th>Unit Number</th>
-                <th class="text-center">BHK</th>
+                <th class="text-center" ng-if="unitTypeNo==1">BHK</th>
                 <th>Super Built-up Area</th>
-                <th class="text-center">Floor</th>
+                <th class="text-center" ng-if="unitTypeNo==1">Floor</th>
                 <th class="text-center">Cost Sheet</th>
                 <th class="text-center">Status</th>
             </tr>
@@ -100,9 +100,10 @@
                 <td><input type="checkbox" ng-click="toggleSelection(x.UnitDtls_Id)" name="" ng-model="selected"
                            ng-checked="exist(x.UnitDtls_Id)" ></td>
                 <td>Flat No.{{x.UnitDtls_No}}</td>
-                <td class="text-center">{{x.UnitDtls_Rooms}}BHK</td>
-                <td>{{x.UnitDtls_BuliltupArea}} Sq.Ft.</td>
-                <td class="text-center">Floor {{x.UnitDtls_Floor}}</td>
+                <td class="text-center" ng-if="unitTypeNo==1">{{x.UnitDtls_Rooms}}BHK</td>
+                <td ng-if="unitTypeNo!=2">{{x.UnitDtls_BuliltupArea}} Sq.Ft.</td>
+                <td ng-if="unitTypeNo==2">{{x.UnitDtls_EstMsrmnt}} Sq.Ft.</td>
+                <td class="text-center" ng-if="unitTypeNo==1">Floor {{x.UnitDtls_Floor}}</td>
                 <td class="text-center">
                     <a class="link" ng-click="viewUnitCostSheet(x.UnitDtls_Id)">View</a>
                 </td>
