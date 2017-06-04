@@ -42,7 +42,7 @@ app.controller("bookUnitStep4Ctrl", function ($scope, $rootScope, $stateParams, 
 		},
 		{
 			stepName: "Payment Schedule",
-			status: "active"
+			status: "done"
 		}
 	];
 	
