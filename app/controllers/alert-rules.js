@@ -143,6 +143,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
     $scope.pageTitle = "Edit Alert Rule";
     var ruleid = $stateParams.ruleId;
     var moduleid = '';
+    var actionId=0;
     $scope.createNewRule = {};
     $scope.modules = [{}];
     $scope.actionTypes = [{}];
@@ -150,6 +151,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
     $scope.EditRuleBtn = true;
     $scope.CreateRuleBtn = false;
     // $scope.selected= '';
+   
     $scope.MoveToUpdateRulePage = function() {
         if(($scope.actionTypes[0].actiontypeid==26) || ($scope.actionTypes[0].actiontypeid==27) ){
                         $state.go('/Action', {
@@ -157,9 +159,11 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
                     });
                     }
                     else{
+                         var actionIdNo=$scope.actionTypes[0].actiontypeid;
                         $state.go('/UpdateRuleCriteria', {
                         ruleId: $scope.ruleid,
-                        moduleId: $scope.modules[0].module_id
+                        moduleId: $scope.modules[0].module_id,
+                        actionId: actionIdNo
                     });
                     }
 
@@ -566,6 +570,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     var ruleId = $stateParams.ruleId;
     var moduleId = $stateParams.moduleId;
     var comp_guid= $cookieStore.get('comp_guid');
+    var actionId= $stateParams.actionId;
     $scope.subModules = [];
     $scope.subModulesobj = [{
         modfieldid: '',
@@ -576,6 +581,12 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 
     $scope.rules = [];
     $scope.rulesobj = {};
+    
+    ($scope.selectAllRecords=function(){
+      if(actionId==24 || actionId==25 || actionId==26 || actionId==27 || actionId==28 || actionId==19){
+            $scope.recordType=1;
+        }  
+    })();
 
     $scope.getSubModules = function(moduleId) {
         angular.element(".loader").show();
@@ -599,6 +610,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
 	
     $scope.getRuleCriteria = function(ruleId) {
 		//alert("getRuleCriteria");
+        
         angular.element(".loader").show();
         $http({
             method: "POST",

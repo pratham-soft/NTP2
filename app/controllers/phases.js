@@ -1,4 +1,4 @@
-app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, myService) {
+app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, myService, encyrptSvc) {
     var Phase_Proj_Id = $stateParams.projId;
     var Phase_Id = $stateParams.phaseId;
 
@@ -171,7 +171,7 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
     };
 });
 
-app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams) {
+app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, encyrptSvc) {
     $scope.pageTitle = "Add Phase";
     $scope.addPhaseBtn = true;
 
@@ -191,7 +191,7 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
             $scope.projectDetails = {
                 phaseType: "1",
                 unitOfMeasurement: "1",
-                projectName: $stateParams.projId
+                projectName: encyrptSvc.decyrpt($stateParams.projId)
             };
             angular.element(".loader").hide();
         }).error(function() {
@@ -252,8 +252,8 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
                 angular.element(".loader").hide();
                 if (resDataArray[0] == 0) {
                     $state.go("/AddUnit", {
-                        projId: formObj.projectName,
-                        phaseId: resDataArray[1]
+                        projId: encyrptSvc.encyrpt(formObj.projectName),
+                        phaseId: encyrptSvc.encyrpt(resDataArray[1])
                     });
                 } else {
                     alert("Something went wrong.");
@@ -267,7 +267,7 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
     };
 });
 
-app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $compile) {
+app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $compile, encyrptSvc) {
     $scope.typeNames = ['Flat', 'Sites', 'Villa', 'Row Houses'];
 
     ($scope.getProjectList = function() {
@@ -315,7 +315,7 @@ app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $comp
         if ($scope[formName].$valid) {
             console.log(formObj);
             $state.go("/AddPhases", {
-                "projId": formObj.projectName
+                "projId": encyrptSvc.encyrpt(formObj.projectName)
             });
             /*$state.go("/AddPhases");
             $scope.projectDetails = {
@@ -324,9 +324,9 @@ app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $comp
         }
     };
 });
-app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $stateParams) {
-    var projectId = $stateParams.projId;
-    var phaseId = $stateParams.phaseId;
+app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $stateParams, encyrptSvc) {
+    var projectId = encyrptSvc.decyrpt($stateParams.projId);
+    var phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
 
     $scope.pageTitle = "Add Unit";
     $scope.addPhaseUnitBtn = "ture";
@@ -509,7 +509,7 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
                     "UnitTypeData_Id": 0
                 }
             }).success(function(data) {
-                console.log(data);
+//                console.log(data);
                 angular.element(".loader").hide();
                 $state.go("/UnitGeneration", {
                     projId: projectId,
