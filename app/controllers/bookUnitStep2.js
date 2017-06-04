@@ -14,6 +14,25 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
          $scope.exchangeUnit=false; // Here it means Its a new Bookiing and Cust data would be saved. It will go to next step 3
     }
     
+	$scope.stepsData = [
+		{
+			stepName: "Cost Details",
+			status: "done"
+		},
+		{
+			stepName: "Customer Details",
+			status: "active"
+		},
+		{
+			stepName: "Advance Payment",
+			status: "pending"
+		},
+		{
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
+	
      $scope.appendFields = function() {
         angular.element("#children").html('');
         for (i = 1; i <= $scope.customer.childrenNo; i++) {

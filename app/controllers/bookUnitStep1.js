@@ -13,6 +13,25 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
         var unitId = $scope.unitObj.UnitDtls_Id;
     }
     
+	$scope.stepsData = [
+		{
+			stepName: "Cost Details",
+			status: "active"
+		},
+		{
+			stepName: "Customer Details",
+			status: "pending"
+		},
+		{
+			stepName: "Advance Payment",
+			status: "pending"
+		},
+		{
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
+	
 	
     $scope.updatedCostSheetObj = {};
     var count = 0;

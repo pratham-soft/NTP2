@@ -29,6 +29,25 @@ app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $
         }
 
     
+	$scope.stepsData = [
+		{
+			stepName: "Cost Details",
+			status: "done"
+		},
+		{
+			stepName: "Customer Details",
+			status: "done"
+		},
+		{
+			stepName: "Advance Payment",
+			status: "active"
+		},
+		{
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
+	
     $scope.paymentDetails = {
         usruntpymtrec_pymttype: "1"
     };

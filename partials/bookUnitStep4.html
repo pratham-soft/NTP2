@@ -7,6 +7,14 @@
       <li class="active">{{pageTitle}}</li>
    </ol>
 </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginBottom30">
+   <div class="steps">
+      <div class="" ng-repeat="step in stepsData">
+         <div class="step {{step.status}}">{{step.stepName}}</div>
+         <div class="seperator"></div>
+      </div>
+   </div>
+</div>
 <!--
     <div ng-show="payHistoryClick">
                

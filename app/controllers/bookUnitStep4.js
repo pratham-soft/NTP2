@@ -27,6 +27,25 @@ app.controller("bookUnitStep4Ctrl", function ($scope, $rootScope, $stateParams, 
      
           }
    
+	$scope.stepsData = [
+		{
+			stepName: "Cost Details",
+			status: "done"
+		},
+		{
+			stepName: "Customer Details",
+			status: "done"
+		},
+		{
+			stepName: "Advance Payment",
+			status: "done"
+		},
+		{
+			stepName: "Payment Schedule",
+			status: "active"
+		}
+	];
+	
 	$scope.unitObj = unitObj;
 	$scope.stageStatus = ["Pending","Completed"];
     
