@@ -626,25 +626,34 @@ float: left;*/
 .steps > div{
 display: inline-block;
 }
-.steps > div.step{
+.steps > div:last-child > div:last-child{
+	display: none;
+}
+.steps > div >  div.step{
 padding: 10px 16px;
 border-radius: 25px;
 font-weight: bold;
 border: 1px solid;
+	display: inline-block;
 }
-.steps > div.seperator{
+.steps > div > div.seperator{
 width: 100px;
 position: relative;
 top: -4px;
 border-top: 1px dashed #333;
+	display: inline-block;
 }
-.steps > div.step.active{
+.steps > div > div.step.done{
+background-color: green;
+color: #FFF;
+}
+.steps > div > div.step.active{
 background-color: #4487fa; 
 color: #FFF;
 }
-.steps > div.step.done{
-background-color: green;
-color: #FFF;
+.steps > div > div.step.pending{
+background-color: #FFF;
+color: #333;
 }
 .stageBox{
 /*    float: left;*/
