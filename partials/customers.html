@@ -636,12 +636,12 @@
                 <td> {{unitCostSheetDetail.cstcmpcalcval19 | currency:"&#8377;"}}</td>
                 <td>{{unitCostSheetDetail.cstcmpcalccmnt19}}</td>
             </tr>
-            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==0 " >
+            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==1 " >
                 <td>Formula - {{unitCostSheetDetail.cstcmpnme20}} </td>
                 <td> {{unitCostSheetDetail.cstcmpcalcval20 | currency:"&#8377;"}} on Customer Actual Price/Sq.Ft</td>
                 <td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
             </tr>
-            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==1 " >
+            <tr ng-show="unitCostSheetDetail.cstcmpnme20!=''  && unitCostSheetDetail.cstcmpcalctyp20==0 " >
                 <td>Flat - {{unitCostSheetDetail.cstcmpnme20}} </td>
                 <td> {{unitCostSheetDetail.cstcmpcalcval20 | currency:"&#8377;"}} </td>
                 <td>{{unitCostSheetDetail.cstcmpcalccmnt20}}</td>
@@ -653,7 +653,7 @@
             </tr>
              <tr>
                 <td><strong>Total Cost in Words(Excluding cost of registration)</strong></td>
-                <td><strong>{{unitCostSheetDetail.unitTotalAmtinWords}}</strong></td>
+                <td><strong>{{unitCostSheetDetail.unitTotalAmtinWords}} only </strong></td>
                 <td></td>
             </tr>
         </table>
