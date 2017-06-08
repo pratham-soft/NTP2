@@ -104,6 +104,7 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
 
 
     $scope.saveRule = function(formName, formObj) {
+
         $scope.submit = true;
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
@@ -127,7 +128,8 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
                     else{
                         $state.go('/UpdateRule', {
                         ruleId: data.ruleid,
-                        moduleId: data.rule_moduleid
+                        moduleId: data.rule_moduleid,
+                        actionId: formObj.rule_actiontypeid
                     });
                     }
                 }
@@ -333,6 +335,7 @@ $scope.pageTitle = "Set Rule";
     var ruleId = $stateParams.ruleId;
     var moduleId = $stateParams.moduleId;
     var comp_guid= $cookieStore.get('comp_guid');
+    var actionId = $stateParams.actionId;
     $scope.subModules = [];
     $scope.subModulesobj = [{
         modfieldid: '',
@@ -500,6 +503,9 @@ $scope.pageTitle = "Set Rule";
     
 
     $scope.updateRule = function(obj) {		
+        if(actionId==24 || actionId==25 || actionId==26 || actionId==27 || actionId==28 || actionId==19){
+            obj=[{"rulecriteria_modfield_id":"72","rulecriteria_operator":"=","rulecriteria_criteria":"2","rulecriteria_condition":"and","rulecriteriaid":1,"rulecriteria_rule_id":"3","rule_user_id":0,"rulecriteria_comp_guid":"d0cb84c5-6b52-4dff-beb5-50b2f4af5398"},{"rulecriteria_modfield_id":"59","rulecriteria_operator":">=","rulecriteria_criteria":"TodayOtr","rulecriteriaid":2,"rulecriteria_rule_id":"3","rule_user_id":1,"rulecriteria_comp_guid":"d0cb84c5-6b52-4dff-beb5-50b2f4af5398"}];
+        }
         angular.element(".loader").show();
         for (i = 0; i < obj.length; i++) {
             if(obj[i].rulecriteriaid==undefined){
@@ -571,6 +577,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     var moduleId = $stateParams.moduleId;
     var comp_guid= $cookieStore.get('comp_guid');
     var actionId= $stateParams.actionId;
+    $scope.disableMatchingCondition=false;
     $scope.subModules = [];
     $scope.subModulesobj = [{
         modfieldid: '',
@@ -585,6 +592,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     ($scope.selectAllRecords=function(){
       if(actionId==24 || actionId==25 || actionId==26 || actionId==27 || actionId==28 || actionId==19){
             $scope.recordType=1;
+            $scope.disableMatchingCondition=true;
         }  
     })();
 
@@ -750,7 +758,8 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     
     
 
-    $scope.updateRule = function(obj) {		
+    $scope.updateRule = function(obj) {	
+        console.log(obj);
         angular.element(".loader").show();
         for (i = 0; i < obj.length; i++) {
             if(obj[i].rulecriteriaid==undefined){
@@ -760,7 +769,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
             obj[i].rule_user_id = $cookieStore.get('user_id');
             obj[i].rulecriteria_comp_guid = $cookieStore.get('comp_guid');
         }
-        console.log(JSON.stringify(obj));
+    //    console.log(JSON.stringify(obj));
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
@@ -1055,6 +1064,7 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
     $scope.monthDates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
     $scope.pageTitle = "Schedule Alert";
     $scope.ruleId = $stateParams.ruleId;
+    $scope.minDate = new Date().toString();
     
     ($scope.geteditRule = function() {
         $http({
@@ -1097,8 +1107,27 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
         });
 
     })();
+    
+  
+    
+    $scope.checkErr = function(startDate,endDate) {
+    $scope.errMessage = '';
+    var curDate = new Date();
+    startDate = startDate.split("/").reverse().join("-");
+    endDate = endDate.split("/").reverse().join("-");  
+    if((new Date(startDate) > new Date(endDate)) && (endDate!= "0001-01-01")){
+      alert('End Date should be greater than start date'); 
+      return false;
+    }
+    if(new Date(startDate) < curDate){
+      alert ('Start date should not be before today.');
+       return false;
+    }
+};
+    
 
     $scope.saveSchedule = function(formObj, formName) {
+//        $scope.checkErr(formObj.execStartDate,formObj.execEndDate);
         $scope.submit = true;
         var ruleId = $stateParams.ruleId;
         var exstrtdt = formObj.execStartDate.split("/").reverse().join("-");

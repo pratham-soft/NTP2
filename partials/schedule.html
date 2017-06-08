@@ -14,9 +14,9 @@
             <label for="execStartDate">Execution Start Date</label>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
-            <datepicker date-format="dd/MM/yyyy" selector="form-control">
+            <datepicker date-min-limit="{{minDate}}" date-format="dd/MM/yyyy" selector="form-control">
             <div class="input-group">
-              <input class="form-control" placeholder="Execution Start Date" name="execStartDate" ng-model="scheduleAlert.execStartDate" ng-required="false" ng-class="{blankInput: scheduleAlertForm.execStartDate.$error.required &amp;&amp; submit}"/> 
+              <input class="form-control" placeholder="Execution Start Date" name="execStartDate" ng-model="scheduleAlert.execStartDate" ng-required="false" ng-class="{blankInput: scheduleAlertForm.execStartDate.$error.required &amp;&amp; submit}" ng-change="checkErr(scheduleAlert.execStartDate,scheduleAlert.execEndDate)"/> 
               <span class="input-group-addon">
                   <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
               </span>
@@ -31,7 +31,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
             <datepicker date-format="dd/MM/yyyy" selector="form-control">
             <div class="input-group">
-              <input class="form-control" placeholder="Execution End Date" name="execEndDate" ng-model="scheduleAlert.execEndDate" ng-required="true" ng-class="{blankInput: scheduleAlertForm.execEndDate.$error.required &amp;&amp; submit}"/> 
+              <input class="form-control" placeholder="Execution End Date" name="execEndDate" ng-model="scheduleAlert.execEndDate" ng-required="true" ng-class="{blankInput: scheduleAlertForm.execEndDate.$error.required &amp;&amp; submit}" ng-change="checkErr(scheduleAlert.execStartDate,scheduleAlert.execEndDate)"/> 
               <span class="input-group-addon">
                   <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
               </span>

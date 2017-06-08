@@ -279,7 +279,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'siteVisitListingCtrl'
         })
         .state('/UpdateRule', {
-            url: '/UpdateRule/:ruleId/:moduleId',
+            url: '/UpdateRule/:ruleId/:moduleId/:actionId',
             templateUrl: 'partials/updateRule.html',
             controller: 'updateRuleCtrl'
         })
@@ -317,6 +317,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/UnitVwEdit',
             templateUrl: 'partials/UnitVwEdit.html',
             controller: 'unitVwEditCtrl'
+        })
+        .state('/FollowUp', {
+            url: '/FollowUp',
+            templateUrl: 'partials/followUp.html',
+            controller: 'followUpCtrl'
         })
 		.state('/BookUnit-Step1', {
             url: '/BookUnit-Step1',
