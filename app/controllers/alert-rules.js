@@ -503,8 +503,12 @@ $scope.pageTitle = "Set Rule";
     
 
     $scope.updateRule = function(obj) {		
+//        console.log(obj);
+//        console.log(JSON.stringify(obj));
         if(actionId==24 || actionId==25 || actionId==26 || actionId==27 || actionId==28 || actionId==19){
-            obj=[{"rulecriteria_modfield_id":"72","rulecriteria_operator":"=","rulecriteria_criteria":"2","rulecriteria_condition":"and","rulecriteriaid":1,"rulecriteria_rule_id":"3","rule_user_id":0,"rulecriteria_comp_guid":"d0cb84c5-6b52-4dff-beb5-50b2f4af5398"},{"rulecriteria_modfield_id":"59","rulecriteria_operator":">=","rulecriteria_criteria":"TodayOtr","rulecriteriaid":2,"rulecriteria_rule_id":"3","rule_user_id":1,"rulecriteria_comp_guid":"d0cb84c5-6b52-4dff-beb5-50b2f4af5398"}];
+            obj= [{"rulecriteria_modfield_id":"72","rulecriteria_operator":"=","rulecriteria_criteria":"2","rulecriteria_condition":"and"},{"rulecriteria_modfield_id":"65","rulecriteria_operator":">=","rulecriteria_criteria":"TodayOtr"}];
+//            console.log("new object");
+//            console.log(obj);
         }
         angular.element(".loader").show();
         for (i = 0; i < obj.length; i++) {
@@ -515,7 +519,7 @@ $scope.pageTitle = "Set Rule";
             obj[i].rule_user_id = $cookieStore.get('user_id');
             obj[i].rulecriteria_comp_guid = $cookieStore.get('comp_guid');
         }
-        console.log(JSON.stringify(obj));
+//        console.log(JSON.stringify(obj));
         $http({
             method: "POST",
             url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
@@ -759,7 +763,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     
 
     $scope.updateRule = function(obj) {	
-        console.log(obj);
+        console.log("obj: ");console.log(obj);
         angular.element(".loader").show();
         for (i = 0; i < obj.length; i++) {
             if(obj[i].rulecriteriaid==undefined){
@@ -1117,11 +1121,10 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
     endDate = endDate.split("/").reverse().join("-");  
     if((new Date(startDate) > new Date(endDate)) && (endDate!= "0001-01-01")){
       alert('End Date should be greater than start date'); 
-      return false;
+        $scope.scheduleAlert.execEndDate='';
     }
     if(new Date(startDate) < curDate){
       alert ('Start date should not be before today.');
-       return false;
     }
 };
     
@@ -1156,6 +1159,7 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
                     "rule_alterttyp": 1
                 }
             }).success(function(data) {
+                console.log(data.ErrorDesc);
                 if (data.user_id != 0) {
                     $state.go("/AlertRules", {
                         ruleId: ruleId
