@@ -59,7 +59,8 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
     $scope.createNewRule = {
         rule_moduleid: ''
     };
-
+    
+    
     $scope.getModulesFun = (function() {
         angular.element(".loader").show();
         myService.getModules().then(function(response) {

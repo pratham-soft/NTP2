@@ -318,6 +318,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/UnitVwEdit.html',
             controller: 'unitVwEditCtrl'
         })
+        .state('/AddFollowUp', {
+            url: '/AddFollowUp',
+            templateUrl: 'partials/addFollowUp.html',
+            controller: 'addFollowUpCtrl'
+        })
         .state('/FollowUp', {
             url: '/FollowUp',
             templateUrl: 'partials/followUp.html',

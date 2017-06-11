@@ -1,181 +1,34 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle ng-scope">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
    <h1>Follow Up</h1>
 </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
-   <ol class="breadcrumb">
-      <li><a ui-sref="/">Home</a></li>
-      <li class="active">Follow Up</li>
-   </ol>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right ctaContainer">
+   <a ng-click="addNewFollowUp()" class="btn btn-primary">+ Add New FollowUp</a>
 </div>
-<h3>This page is under construction...!</h3>
-<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-   <form name="followUpForm" class="form" method="POST" novalidate="novalidate">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Subject</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="text" placeholder="Subject*" class="form-control" name="subject" ng-model="followUpForm.Subject" ng-required="true" ng-class="{blankInput: followUpForm.Subject.$error.required &amp;&amp; submit}" ng-minlength="2" ng-model="followUpForm.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1"/>
-             <p style="color:#ff0000;" ng-show="number_error_show>0 && (followUpForm.Subject.$error.minlength)"> Please enter the subject</p>
-         </div>
-      </div>
-
-
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Followup Type</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-             <select class="form-control" name="campaign" ng-model="addLead.campaign">
-               <option value="" disabled selected>
-                  Select Campaign
-               </option>
-               <option ng-repeat= "data in allFollowUpData" value="{{data.campaign_id}}">
-                  {{data.campaign_name}}
-               </option>
-            </select>
-         </div>
-      </div>
-<!--
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Email ID</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="email" placeholder="Email ID" class="form-control" name="emailId" ng-model="addLead.emailId" ng-class="{blankInput: followUpForm.emailId.$error.required &amp;&amp; submit}"/>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">D.O.B</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <datepicker date-format="dd/MM/yyyy">
-                <input type="text" placeholder="D.O.B. (DD/MM/YYYY)" class="form-control"  name="dob" ng-model="addLead.dob" ng-change="validAge(addLead.dob)"/>
-                    <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
-            </datepicker>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Gender</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 radioBtn" ng-class="{blankInput: followUpForm.gender.$error.required &amp;&amp; submit}" style="width:auto;">
-            <input type="radio" name="gender" ng-model="addLead.gender" ng-required="true" id="male" value="0"/>
-            <label for="male">Male</label> <span>|</span>
-            <input type="radio" name="gender" ng-model="addLead.gender" ng-required="true" id="female" value="1"/>
-            <label for="female">Female</label>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Country</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <select class="form-control" name="country" ng-model="addLead.country">
-               <option value="">
-                  Country
-               </option>
-               <option value="india">
-                  India
-               </option>
-            </select>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">State</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <select class="form-control" name="state" ng-model="addLead.state">
-               <option value="">
-                  State
-               </option>
-               <option value="1">
-                  Delhi
-               </option>
-            </select>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">City</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <select class="form-control" name="city" ng-model="addLead.city">
-               <option value="">
-                  City
-               </option>
-               <option value="1">
-                  New Delhi
-               </option>
-            </select>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Address</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="text" placeholder="Address" class="form-control"  name="address" ng-model="addLead.address"/>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Zip Code</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="text" placeholder="ZIP Code" class="form-control"  name="zip" ng-model="addLead.zip"/>
-         </div>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Lead Code</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="text" placeholder="Lead Code" class="form-control"  name="leadCode" ng-model="addLead.leadCode"/>
-         </div>
-      </div>
-
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Lead Source</label>
-         </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-             <select class="form-control" name="leadSource" ng-model="addLead.leadSource">
-               <option value="" disabled selected>
-                  Select Lead Source
-               </option>
-               <option ng-repeat= "x in lead_source_list" value="{{x.lead_source_id}}">
-                  {{x.lead_source_name}}
-               </option>
-            </select>
-         </div>
-         
-      </div>
-       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
-         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Campaign Source</label>
-         </div>
-          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-             <select class="form-control" name="campaign" ng-model="addLead.campaign">
-               <option value="" disabled selected>
-                  Select Campaign
-               </option>
-               <option ng-repeat= "camp in campaign_list" value="{{camp.campaign_id}}">
-                  {{camp.campaign_name}}
-               </option>
-            </select>
-         </div>
-       </div>
-      <div class="text-center" ng-show="addLeadBtn">
-         <button type="button" class="btn btn-success" ng-click="addLead(addLead,'followUpForm')">+ Add Lead</button>
-      </div>
--->
-      <div class="text-center" ng-show="editLeadBtn">
-         <button type="button" class="btn btn-success" ng-click="updateLead(addLead,'followUpForm')">Update Lead</button>
-      </div>
-   </form>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <input type="text" class="form-control marginBottom5 search" placeholder="Search Campaign" ng-model="searchCampaign"/>
+   <table class="table dataTable">
+      <thead>
+         <tr>
+            <th>#</th>
+            <th>Subject</th>
+            <th>Follow Up</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Priority</th>
+            <th>Status</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr ng-repeat="x in allFollowUpData | filter:searchCampaign track by $index">
+            <td>{{$index + 1}}</td>
+            <td>{{x.schedule_subj}}</td>
+            <td>{{x.schedule_Flwuptype_Id}}</td>
+            <td>{{x.schedule_stdt | date:'dd-MM-yyyy'}}</td>
+            <td>{{x.schedule_enddt | date:'dd-MM-yyyy'}}</td>
+            <td>{{x.schedule_priority}}</td>
+            <td>{{x.schedule_status}}</td> 
+         </tr>
+      </tbody>
+   </table>
 </div>
-<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>

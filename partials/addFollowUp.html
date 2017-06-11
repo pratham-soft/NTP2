@@ -1,0 +1,213 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle ng-scope">
+   <h1>Follow Up</h1>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
+   <ol class="breadcrumb">
+      <li><a ui-sref="/">Home</a></li>
+      <li class="active">Follow Up</li>
+   </ol>
+</div>
+
+<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+   <form name="followUpForm" class="form" method="POST" novalidate="novalidate">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="projectName">Subject</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <input type="text" placeholder="Subject*" class="form-control" name="subject" ng-model="followUpForm.Subject" ng-required="true" ng-class="{blankInput: followUpForm.Subject.$error.required &amp;&amp; submit}" ng-minlength="2" ng-model="followUpForm.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1"/>
+             <p style="color:#ff0000;" ng-show="number_error_show>0 && (followUpForm.Subject.$error.minlength)"> Please enter the subject</p>
+         </div>
+      </div>
+
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="followUpForm">Followup Type</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+             <select class="form-control" name="followUpForm" ng-model="followUpForm.followupType">
+               <option value="" disabled selected>
+                  Select Type
+               </option>
+               <option value="1">
+                 Phone Call
+               </option>
+                 <option value="2">
+                  Appointment
+               </option>
+                 <option value="3">
+                  Others
+               </option>
+            </select>
+         </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="projectName">Project</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <select ng-model="followUpForm.projectName" name="projectName" class="form-control" autofocus="true"  ng-required="true" ng-class="{blankInput: followUpForm.projectName.$error.required &amp;&amp; submit}">
+                    <option value="" disabled selected>
+                        Project
+                    </option>
+                    <option ng-repeat="x in projectList" value="{{x.ProjId}}">
+                        {{x.Proj_Name}}
+                    </option>
+                </select>
+         </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="descText">Description</label>
+         </div>
+         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+            <textarea ng-model="followUpForm.descText" name="mailsubject" class="form-control" placeholder="Enter Description" ng-required="true" ng-class="{blankInput: followUpForm.descText.$error.required &amp;&amp; submit}"></textarea>
+         </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labelCntr">
+            <label for="startDate">Start Date</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <datepicker date-min-limit="{{minDate}}" date-format="dd/MM/yyyy" selector="form-control">
+            <div class="input-group">
+              <input class="form-control" placeholder="Start Date" name="startDate" ng-model="followUpForm.startDate" ng-required="false" ng-class="{blankInput: followUpForm.startDate.$error.required &amp;&amp; submit}" ng-change="checkErr(followUpForm.startDate,followUpForm.endDate)"/> 
+              <span class="input-group-addon">
+                  <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
+              </span>
+            </div>
+          </datepicker>
+         </div>
+          </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labelCntr">
+            <label for="endDate">&nbsp; &nbsp; End Date</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <datepicker date-min-limit="{{minDate}}" date-format="dd/MM/yyyy" selector="form-control">
+            <div class="input-group">
+              <input class="form-control" placeholder="End Date" name="endDate" ng-model="followUpForm.endDate" ng-required="false" ng-class="{blankInput: followUpForm.endDate.$error.required &amp;&amp; submit}" ng-change="checkErr(followUpForm.startDate,followUpForm.endDate)"/> 
+              <span class="input-group-addon">
+                  <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
+              </span>
+            </div>
+          </datepicker>
+         </div>
+          </div>
+      </div>
+       
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labelCntr">
+            <label for="priority">Priority</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <select class="form-control" name="Priority" ng-model="followUpForm.priority">
+               <option value="" disabled selected>
+                  Select Priority
+               </option>
+               <option value="1">
+                 Low
+               </option>
+                 <option value="2">
+                  Medium
+               </option>
+                 <option value="3">
+                  High
+               </option>
+            </select>
+         </div>
+          </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 labelCntr">
+            <label for="status">&nbsp; &nbsp; Status</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+            <select class="form-control" name="status" ng-model="followUpForm.status">
+               <option value="" disabled selected>
+                  Select Type
+               </option>
+               <option value="1">
+                 Started
+               </option>
+                 <option value="2">
+                  In Progress
+               </option>
+                 <option value="3">
+                  Completed  
+               </option>
+                <option value="4">
+                   Deferred
+               </option>
+            </select>
+         </div>
+          </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="reminderDate">Reminder Date</label>
+         </div>
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
+            <datepicker date-min-limit="{{minDate}}" date-format="dd/MM/yyyy" selector="form-control">
+            <div class="input-group">
+              <input class="form-control" placeholder="Reminder Date" name="reminderDate" ng-model="followUpForm.reminderDate" ng-required="false" ng-class="{blankInput: followUpForm.reminderDate.$error.required &amp;&amp; submit}"/> 
+              <span class="input-group-addon">
+                  <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
+              </span>
+            </div>
+          </datepicker>
+         </div>
+      </div>
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+            <label for="userType">Select user to Follow Up on</label>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
+             <select class="form-control" ng-model="followUpForm.userType" ng-change="getUser(followUpForm.userType)">
+               <option value="" disabled selected>
+                  Select Type
+               </option>
+               <option value=3>
+                 Leads
+               </option>
+                 <option value=7>
+                  Prospects
+               </option>
+                 <option value=4>
+                  Customers
+               </option>
+            </select>
+         </div>
+      </div>
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-if="followUpForm.userType!=undefined && followUpForm.userType > 0">
+           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr"></div>
+           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+       <scrollable-table watch="visibleProjects">
+      <table class="table dataTable">
+          <thead>
+              <tr>
+                   <th sortable-header col="facility">#</th>
+                   <th sortable-header col="code">Name</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="x in leads">
+                  <td><input type="checkbox" ng-click="toggleSelection(x.user_id)" name="" ng-model="selected"
+                           ng-checked="exist(x.user_id)" ></td>
+                  <td>{{x.fullName}}</td>        
+              </tr>
+          </tbody>
+      </table>
+    </scrollable-table>
+           </div></div>
+      <div class="text-center">
+         <button type="button" class="btn btn-success">Update</button>
+      </div>
+   </form>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>
