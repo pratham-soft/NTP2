@@ -149,7 +149,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
     $scope.checkAll = function() {
         if ($scope.selectAll) {
             angular.forEach($scope.leads, function(item) {
-                idx = $scope.selected.indexOf(item.user_id);
+               var idx = $scope.selected.indexOf(item.user_id);
                 if (idx >= 0) {
                     return true;
                     //                        console.log($scope.selected);

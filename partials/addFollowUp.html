@@ -10,13 +10,13 @@
 
 <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs"></div>
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-   <form name="followUpForm" class="form" method="POST" novalidate="novalidate">
+   <form name="followUpFullForm" class="form" method="POST" novalidate="novalidate">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">Subject</label>
          </div>
          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="text" placeholder="Subject*" class="form-control" name="subject" ng-model="followUpForm.Subject" ng-required="true" ng-class="{blankInput: followUpForm.Subject.$error.required &amp;&amp; submit}" ng-minlength="2" ng-model="followUpForm.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1"/>
+            <input type="text" placeholder="Subject*" class="form-control" name="subject" ng-model="followUpForm.Subject" ng-required="true" ng-class="{blankInput: followUpForm.Subject.$error.required &amp;&amp; submit}" />
              <p style="color:#ff0000;" ng-show="number_error_show>0 && (followUpForm.Subject.$error.minlength)"> Please enter the subject</p>
          </div>
       </div>
@@ -76,7 +76,7 @@
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
             <datepicker date-min-limit="{{minDate}}" date-format="dd/MM/yyyy" selector="form-control">
             <div class="input-group">
-              <input class="form-control" placeholder="Start Date" name="startDate" ng-model="followUpForm.startDate" ng-required="false" ng-class="{blankInput: followUpForm.startDate.$error.required &amp;&amp; submit}" ng-change="checkErr(followUpForm.startDate,followUpForm.endDate)"/> 
+              <input class="form-control" placeholder="Start Date" name="startDate" ng-model="followUpForm.startDate" ng-required="true" ng-class="{blankInput: followUpForm.startDate.$error.required &amp;&amp; submit}" ng-change="checkErr(followUpForm.startDate,followUpForm.endDate,1)"/> 
               <span class="input-group-addon">
                   <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
               </span>
@@ -91,7 +91,7 @@
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
             <datepicker date-min-limit="{{minDate}}" date-format="dd/MM/yyyy" selector="form-control">
             <div class="input-group">
-              <input class="form-control" placeholder="End Date" name="endDate" ng-model="followUpForm.endDate" ng-required="false" ng-class="{blankInput: followUpForm.endDate.$error.required &amp;&amp; submit}" ng-change="checkErr(followUpForm.startDate,followUpForm.endDate)"/> 
+              <input class="form-control" placeholder="End Date" name="endDate" ng-model="followUpForm.endDate" ng-required="true" ng-class="{blankInput: followUpForm.endDate.$error.required &amp;&amp; submit}" ng-change="checkErr(followUpForm.startDate,followUpForm.endDate,1)"/> 
               <span class="input-group-addon">
                   <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
               </span>
@@ -107,7 +107,7 @@
             <label for="priority">Priority</label>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <select class="form-control" name="Priority" ng-model="followUpForm.priority">
+            <select class="form-control" name="Priority" ng-model="followUpForm.priority" ng-required="true">
                <option value="" disabled selected>
                   Select Priority
                </option>
@@ -128,7 +128,7 @@
             <label for="status">&nbsp; &nbsp; Status</label>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-            <select class="form-control" name="status" ng-model="followUpForm.status">
+            <select class="form-control" name="status" ng-model="followUpForm.status" ng-required="true">
                <option value="" disabled selected>
                   Select Type
                </option>
@@ -155,7 +155,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
             <datepicker date-min-limit="{{minDate}}" date-format="dd/MM/yyyy" selector="form-control">
             <div class="input-group">
-              <input class="form-control" placeholder="Reminder Date" name="reminderDate" ng-model="followUpForm.reminderDate" ng-required="false" ng-class="{blankInput: followUpForm.reminderDate.$error.required &amp;&amp; submit}"/> 
+              <input class="form-control" placeholder="Reminder Date" name="reminderDate" ng-model="followUpForm.reminderDate" ng-required="false" ng-class="{blankInput: followUpForm.reminderDate.$error.required &amp;&amp; submit}" ng-change="checkErr(followUpForm.startDate,followUpForm.reminderDate,2)"/> 
               <span class="input-group-addon">
                   <a href="javascript:void(0);" ><i class="glyphicon glyphicon-calendar"></i></a>
               </span>
@@ -168,7 +168,7 @@
             <label for="userType">Select user to Follow Up on</label>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
-             <select class="form-control" ng-model="followUpForm.userType" ng-change="getUser(followUpForm.userType)">
+             <select class="form-control" ng-model="followUpForm.userType" ng-change="getUser(followUpForm.userType)" ng-required="true">
                <option value="" disabled selected>
                   Select Type
                </option>
@@ -191,8 +191,8 @@
       <table class="table dataTable">
           <thead>
               <tr>
-                   <th sortable-header col="facility">#</th>
-                   <th sortable-header col="code">Name</th>
+                   <th> <input type="checkbox" name="" ng-model="checkboxModel.value1" ng-click="checkAll()"></th>
+                   <th>Name</th>
               </tr>
           </thead>
           <tbody>
@@ -206,7 +206,7 @@
     </scrollable-table>
            </div></div>
       <div class="text-center">
-         <button type="button" class="btn btn-success">Update</button>
+         <button type="button" class="btn btn-success" ng-click="addFollowUp(followUpForm,selected,'followUpFullForm')">Update</button>
       </div>
    </form>
 </div>
