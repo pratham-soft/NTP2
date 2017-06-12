@@ -1,8 +1,8 @@
-app.service('httpSvc', function($http) {
+app.service('httpSvc', function($http, appConfig) {
     this.getUnitCostSheet = function(unitId, compId) {
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstSheet/Gt",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstSheet/Gt",
             ContentType: 'application/json',
             data: {
 			  "UnitDtls_Id": unitId,
