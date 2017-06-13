@@ -1,4 +1,6 @@
 app.controller("addFollowUpCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+    $scope.addFollowUpBtn=true;
+    $scope.pagetitle="Add Follow Up";
     $scope.selected = [];
     $scope.minDate = new Date().toString();
     $scope.followUpForm={};
@@ -71,10 +73,10 @@ app.controller("addFollowUpCtrl", function($scope, $http, $cookieStore, $state, 
         var idx = $scope.selected.indexOf(item);
         if (idx > -1) {
             $scope.selected.splice(idx, 1);
-                        console.log($scope.selected);
+     //                   console.log($scope.selected);
         } else {
             $scope.selected.push(item);
-                    console.log($scope.selected);
+      //              console.log($scope.selected);
         }
 
     }
@@ -143,6 +145,195 @@ app.controller("addFollowUpCtrl", function($scope, $http, $cookieStore, $state, 
     
     
 });
+
+app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+    $scope.pagetitle="Edit Follow Up";
+    $scope.editFollowUpBtn=true;
+    $scope.selected = [];
+    $scope.minDate = new Date().toString();
+    $scope.followUpForm={};
+    ($scope.projectListFun = function() {
+        angular.element(".loader").show();
+        myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
+            $scope.projectList = response.data;
+            angular.element(".loader").hide();
+        });
+    })();
+    
+    $scope.checkErr = function(startDate,endDate,type) {
+        if(startDate != undefined && endDate != undefined){
+            var curDate = new Date();
+            startDate = startDate.split("/").reverse().join("-");
+            endDate = endDate.split("/").reverse().join("-");  
+            if((new Date(startDate) > new Date(endDate)) && (endDate!= "0001-01-01")){
+            if(type==1){
+               alert('End Date should be greater than start date'); 
+                $scope.followUpForm.endDate=''; 
+            }
+             else if(type==2){
+                alert('Reminder Date should be greater than Start date'); 
+                $scope.followUpForm.reminderDate='';  
+             } 
+            }
+            if(new Date(startDate) < curDate){
+              alert ('Start date should not be before today.');
+            }}
+};
+
+    
+    $scope.getUser = function(user_type) {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/User/UserDtls/ByUserType",
+            ContentType: 'application/json',
+            data: {
+                "user_comp_guid": $cookieStore.get('comp_guid'),
+                "user_type": user_type,
+                "user_loggedin_type":$cookieStore.get('user_loggedin_type'),
+                "user_id":$cookieStore.get('user_id')
+            }
+        }).success(function(data) {
+            //console.log(data);
+            if (data[0].user_ErrorDesc != '-1 | User record does not exist') {
+                angular.element(".loader").hide();
+                for(var i=0;i<data.length;i++){
+                    data[i].fullName=data[i].user_first_name+" "+data[i].user_middle_name+" "+data[i].user_last_name;
+                }
+                $scope.leads = data; 
+//                ctrlRead();
+            } else {
+                angular.element(".loader").hide();
+            }
+            //console.log("data:"+JSON.stringify(data));
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    };
+    
+   $scope.checkboxModel = {
+       value1 : ""
+     };
+   $scope.exist = function(item) {
+        return $scope.selected.indexOf(item) > -1;
+    }
+    $scope.toggleSelection = function(item) {
+        var idx = $scope.selected.indexOf(item);
+        if (idx > -1) {
+            $scope.selected.splice(idx, 1);
+         //               console.log($scope.selected);
+        } else {
+            $scope.selected.push(item);
+          //          console.log($scope.selected);
+        }
+
+    }
+    $scope.checkAll = function() {
+        "use strict";
+        if ($scope.checkboxModel.value1) {
+            angular.forEach($scope.leads, function(item) {
+              var idx = $scope.selected.indexOf(item.user_id);
+                if (idx >= 0) {
+                    return true;
+//                                            console.log($scope.selected);
+                } else {
+                    $scope.selected.push(item.user_id);
+//                                          console.log($scope.selected);
+                }
+            })
+        } else {
+            $scope.selected = [];
+//                      console.log($scope.selected);
+        }
+    };
+    
+    ($scope.getFollowUpData = function(){
+        angular.element(".loader").show();
+        $scope.scheduleId = $stateParams.scheduleId;
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/FollowupGetByScheduleId",
+            ContentType: 'application/json',
+            data: {
+                "schedule_comp_guid": $cookieStore.get('comp_guid'),
+                "scheduleId": $scope.scheduleId
+            }
+        }).success(function(data) {
+         //   console.log(data);
+            var startDate = $filter('date')(data[0].schedule_stdt, 'dd/MM/yyyy');
+            var endDate = $filter('date')(data[0].schedule_enddt, 'dd/MM/yyyy');
+            var reminderDate = $filter('date')(data[0].schedule_reminder, 'dd/MM/yyyy');
+                
+                
+            if (data[0].scheduleId != 0) {
+                $scope.followUpForm={
+                     Subject: data[0].schedule_subj,
+                     followupType:data[0].schedule_Flwuptype_Id + "",
+                     projectName:data[0].schedule_projId + "",
+                     descText:data[0].schedule_desc,
+                     startDate:startDate,
+                     endDate:endDate,
+                     priority:data[0].schedule_priority + "",
+                     status:data[0].schedule_status + "",
+                     reminderDate:reminderDate
+                     
+                }
+                angular.element(".loader").hide();
+            } else {
+                //$state.go("/Leads");
+            }
+        }).error(function() {});
+    })();
+    
+    
+     $scope.editFollowUp = function(formObj, selectedId, formName) {
+            $scope.submit = true;
+            var newlist = [];
+            for(var i=0; i<selectedId.length;i++){
+               var rv = {"usrschdId":"",
+                         "usrschd_user_id":""};
+               rv["usrschdId"] = selectedId[i];
+               rv["usrschd_user_id"] = selectedId[i];
+                newlist.push(rv);
+            }
+            console.log(newlist);
+            var startDate = formObj.startDate;
+            var newStartDate = startDate.split("/").reverse().join("-");
+            var endDate = formObj.endDate;
+            var newEndDate = endDate.split("/").reverse().join("-");
+            var remDate = formObj.reminderDate;
+            var newRemDate = remDate.split("/").reverse().join("-");
+        if ($scope[formName].$valid) {
+            $http({
+                method: "POST",
+                url: "http://120.138.8.150/pratham/Comp/FollowupInsert",
+                ContentType: 'application/json',
+                data: {
+                    "schedule_comp_guid" : $cookieStore.get('comp_guid'),
+                    "schedule_projId" : formObj.projectName,
+                    "schedule_Flwuptype_Id" : formObj.followupType,
+                    "schedule_subj" : formObj.Subject,
+                    "schedule_desc" : formObj.descText,
+                    "schedule_stdt" : newStartDate,
+                    "schedule_enddt" : newEndDate,
+                    "schedule_priority" :formObj.priority,
+                    "schedule_status" : formObj.status,
+                    "schedule_reminder" : newRemDate,
+                    "lstusrschd" : newlist
+
+                }
+            }).success(function(data) {
+                console.log(data.ErrorDesc);
+                $state.go("/FollowUp");
+            }).error(function(data) {
+                console.log(data.ErrorDesc);
+            });
+        }
+    };
+    
+    
+});
+
 
 app.controller("followUpCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
     

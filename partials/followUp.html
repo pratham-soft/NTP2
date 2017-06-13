@@ -17,6 +17,7 @@
             <th>End Date</th>
             <th>Priority</th>
             <th>Status</th>
+            <th></th>
          </tr>
       </thead>
       <tbody>
@@ -28,6 +29,7 @@
             <td>{{x.schedule_enddt | date:'dd-MM-yyyy'}}</td>
             <td>{{x.schedule_priority}}</td>
             <td>{{x.schedule_status}}</td> 
+            <td><a ui-sref="/EditFollowUp({scheduleId:{{x.scheduleId}} })"><span class="link">Edit</span></a></td>
          </tr>
       </tbody>
    </table>
