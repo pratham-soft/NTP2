@@ -449,7 +449,7 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
     }
 });
 
-app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, myService) {
+app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, myService,encyrptSvc) {
     $scope.pageTitle = "Add Prospect";
     $scope.addLeadBtn = true;
     ($scope.getLeadSource = function() {
@@ -568,7 +568,7 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, 
             }).success(function(data) {
                 if (data.user_id != 0) {
                     $state.go("/ProjectDetails", {
-                        "leadID": data.user_id
+                        "leadID":  encyrptSvc.encyrpt(data.user_id)
                     });
                 } else {
                     alert("Error! " + data.user_ErrorDesc);
