@@ -221,10 +221,10 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
         var idx = $scope.selected.indexOf(item);
         if (idx > -1) {
             $scope.selected.splice(idx, 1);
-         //               console.log($scope.selected);
+                       console.log($scope.selected);
         } else {
             $scope.selected.push(item);
-          //          console.log($scope.selected);
+                    console.log($scope.selected);
         }
 
     }
@@ -235,17 +235,63 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
               var idx = $scope.selected.indexOf(item.user_id);
                 if (idx >= 0) {
                     return true;
-//                                            console.log($scope.selected);
+                                           console.log($scope.selected);
                 } else {
                     $scope.selected.push(item.user_id);
-//                                          console.log($scope.selected);
+                                         console.log($scope.selected);
                 }
             })
         } else {
             $scope.selected = [];
-//                      console.log($scope.selected);
+                      console.log($scope.selected);
         }
     };
+    
+    
+    $scope.lstusrschd=[];
+    $scope.getLeadDetail = function(userId) {
+        angular.element(".loader").show();
+        $scope.leadId = userId;
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/User/UserDtls",
+            ContentType: 'application/json',
+            data: {
+                "user_id": $scope.leadId,
+                "user_comp_guid": $cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            if (data.user_id != 0) {
+                $scope.user={
+                    userName: data.user_first_name+" "+data.user_middle_name+" "+data.user_last_name,
+                    userId:data.user_id
+                }
+                
+                $scope.lstusrschd.push($scope.user);
+                angular.element(".loader").hide();
+            } 
+        }).error(function() {});
+    };
+    
+    $scope.checkAll2 = function() {
+        if ($scope.checkAllBox) {
+            angular.forEach($scope.lstusrschd, function(item) {
+              var idx = $scope.selected.indexOf(item.userId);
+                if (idx >= 0) {
+                    return true;
+                                           console.log($scope.selected);
+                } else {
+                    $scope.selected.push(item.userId);
+                                         console.log($scope.selected);
+                }
+            })
+        } else {
+            $scope.selected = [];
+                      console.log($scope.selected);
+        }
+    };
+    
+    
     
     ($scope.getFollowUpData = function(){
         angular.element(".loader").show();
@@ -273,6 +319,11 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
                     usrschdObj.usrschdId = data[0].lstusrschd[i].usrschdId;
                     usrschdObj.usrschd_user_id =data[0].lstusrschd[i].usrschd_user_id;
                     lstusrschd.push(usrschdObj);
+                }
+                                                   
+                for(var i=0;i<lstusrschd.length;i++){
+                    var idNo=lstusrschd[i].usrschd_user_id;
+                    $scope.getLeadDetail(idNo); 
                 }
                 $scope.followUpForm={
                      Subject: data[0].schedule_subj,

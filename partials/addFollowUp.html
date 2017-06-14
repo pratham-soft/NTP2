@@ -185,7 +185,9 @@
          </div>
       </div>
        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-if="followUpForm.userType!=undefined && followUpForm.userType > 0">
-           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr"></div>
+           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+               <label for="userType">Select Users</label>
+           </div>
            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
        <scrollable-table watch="visibleProjects">
       <table class="table dataTable">
@@ -205,6 +207,29 @@
       </table>
     </scrollable-table>
            </div></div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="editFollowUpBtn">
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
+           <label for="userType">Already Selected Users</label>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">  
+      <table class="table dataTable">
+          <thead>
+              <tr>
+                   <th> <input type="checkbox" name="" ng-model="checkAllBox" ng-click="checkAll2()"></th>
+                   <th>Name</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="x in lstusrschd">
+                  <td><input type="checkbox" ng-click="toggleSelection(x.userId)" name="" ng-model="selected"
+                           ng-checked="exist(x.userId)" ></td>
+                  <td>{{x.userName}}</td>        
+              </tr>
+          </tbody>
+      </table>
+        </div>
+    </div>
+       
       <div class="text-center" ng-show="addFollowUpBtn">
          <button type="button" class="btn btn-success" ng-click="addFollowUp(followUpForm,selected,'followUpFullForm')">Save</button>
       </div>
