@@ -266,6 +266,14 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
                 
                 
             if (data[0].scheduleId != 0) {
+                var lstusrschd=[];  // Declared to get the List of users_id and there respective usrschdId , help in update
+                for(var i=0;i<data[0].lstusrschd.length;i++) 
+                {
+                    var usrschdObj={};
+                    usrschdObj.usrschdId = data[0].lstusrschd[i].usrschdId;
+                    usrschdObj.usrschd_user_id =data[0].lstusrschd[i].usrschd_user_id;
+                    lstusrschd.push(usrschdObj);
+                }
                 $scope.followUpForm={
                      Subject: data[0].schedule_subj,
                      followupType:data[0].schedule_Flwuptype_Id + "",
@@ -275,9 +283,11 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
                      endDate:endDate,
                      priority:data[0].schedule_priority + "",
                      status:data[0].schedule_status + "",
-                     reminderDate:reminderDate
-                     
+                     reminderDate:reminderDate,
+                     lstusrschd: lstusrschd
+                    
                 }
+                console.log(JSON.stringify($scope.followUpForm)) //Later you can remove it 
                 angular.element(".loader").hide();
             } else {
                 //$state.go("/Leads");
@@ -296,19 +306,20 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
                rv["usrschd_user_id"] = selectedId[i];
                 newlist.push(rv);
             }
-            console.log(newlist);
+          //  console.log(newlist);
             var startDate = formObj.startDate;
             var newStartDate = startDate.split("/").reverse().join("-");
             var endDate = formObj.endDate;
             var newEndDate = endDate.split("/").reverse().join("-");
             var remDate = formObj.reminderDate;
             var newRemDate = remDate.split("/").reverse().join("-");
-        if ($scope[formName].$valid) {
+          if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/FollowupInsert",
+                url: "http://120.138.8.150/pratham/Comp/FollowUpUpdate",
                 ContentType: 'application/json',
                 data: {
+                    "scheduleId":$scope.scheduleId,
                     "schedule_comp_guid" : $cookieStore.get('comp_guid'),
                     "schedule_projId" : formObj.projectName,
                     "schedule_Flwuptype_Id" : formObj.followupType,
