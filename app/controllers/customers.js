@@ -514,7 +514,7 @@ app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $uib
             $scope.cancelData=data;
             angular.element(".loader").hide();
             console.log($scope.cancelData);
-            $state.go('ReceivePayment');
+            $state.go('/Customers');
             $scope.ok();
         }).error(function() {
             angular.element(".loader").hide();
