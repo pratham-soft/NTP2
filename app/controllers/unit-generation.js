@@ -167,7 +167,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                 var resSplit = res.split('|');
                 if (resSplit[0] == 0) {
 					var realeaseNoOptions = '<option value="">Select</option>';
-					for(i=1;i<=formObj.plotvillaReleaseNo;i++){
+					for(var i=1;i<=formObj.plotvillaReleaseNo;i++){
 						realeaseNoOptions = realeaseNoOptions+'<option value="'+i+'">'+i+'</option>';
 					}
 					angular.element("#plotRowsCntr").html('');

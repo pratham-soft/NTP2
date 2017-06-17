@@ -106,8 +106,52 @@
        
 </div>
     
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" >
+         <h4>
+			 Plots Generation Formula
+		  	 <button type="button" class="btn btn-default" ng-click="addPlotTYpeRow()">Add More</button>
+		  </h4>
+         <div id="plotTypeGrid">
+		  	<div class="plotTypeRow">
+		 <label for="plotFacing">Facing: </label>
+		 <select name="plotFacing" id="plotFacing" ng-model="untGeneration.plotType[0].plotFacing" ng-required="true" class="form">
+		  <option value="">Select</option>
+		 <option value="E">E </option>
+		 <option value="W">W </option>
+		 <option value="N">N </option>
+		 <option value="S">S </option>
+		 <option value="NW">NW </option>
+		 <option value="NE">NE </option>
+		 <option value="SW">SW </option>
+		 <option value="SE">SE </option>
+		 </select> | 
+         <label for="eastDimension">East:</label>
+		 <input type="number" id="eastDimension" ng-model="untGeneration.plotType[0].eastDimension" ng-required="true">
+		  
+		 <label for="westDimension">West:</label>
+		  <input type="number" id="westDimension" ng-model="untGeneration.plotType[0].westDimension" ng-required="true">
+		  
+		 <label for="northDimension">North:</label>
+		  <input type="number" id="northDimension" ng-model="untGeneration.plotType[0].northDimension" ng-required="true">
+		  
+		 <label for="southDimension">South:</label>
+		  <input type="number" id="southDimension" ng-model="untGeneration.plotType[0].southDimension" ng-required="true"> | 
+		  
+		  <label for="noOfPlots">No. of Plots:</label>
+		  <input type="number" id="noOfPlots" ng-model="untGeneration.plotType[0].noOfPlots" ng-required="true">
+			 </div>
+		  </div>
+         
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20">
+         <button type="button" class="btn btn-success" ng-click="addSamplePlots(untGeneration,'untGenerationForm')">
+         Generate New Plots
+         </button>
+      </div>
+   </div>   
     
-    
+<!--
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" >
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" >
            <h4>Unit Generation Formula</h4>
@@ -126,7 +170,7 @@
             <label for="formulaSouth">South:</label>
             <input type="text" id="formulaSouth" name="formulaSouth" ng-model="untGeneration.formulaSouth" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaSouth.$error.required &amp;&amp; submit}"> &nbsp;|&nbsp; 
             <label for="unitsPerFloor">ReleaseNo:</label>
-<!--            <select  id="formulaRelease" name="formulaRelease" ng-model="untGeneration[' + x + '].formulaRelease" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaRelease.$error.required &amp;&amp; submit}">'+str1+'</select> -->
+            <select  id="formulaRelease" name="formulaRelease" ng-model="untGeneration[' + x + '].formulaRelease" ng-required="true" ng-class="{blankInput: untGenerationForm.formulaRelease.$error.required &amp;&amp; submit}">'+str1+'</select> 
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" >
            <button type="button" class="btn btn-success" ng-click="addSamplePlots(untGeneration,'untGenerationForm')">
@@ -134,6 +178,7 @@
            </button>
         </div>
        </div>
+-->
        
 </form>
 
@@ -214,6 +259,7 @@
                <td><input type="text" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" disabled="true"/></td>
 
                 <td><input type="text" class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" disabled="true"/></td>
+<!--
                <td>
                   <select class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot" disabled="true">
                     
@@ -221,24 +267,30 @@
                      <option value="0">N</option>
                   </select>
                </td>
-              <td>
+-->
+<!--
+                <td>
                   <select class="form-control" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium" disabled="true">
                    
                      <option value="1">Y</option>
                      <option value="0">N</option>
                   </select>
                </td>
+-->
+               <td class="text-center"> <input type="checkbox" name="UnitDtls_Premium" ng-model="UnitsArr[$index].UnitDtls_Premium" ng-true-value="1" ng-false-value="0" disabled="true" ng-checked="UnitsArr[$index].UnitDtls_Premium==1"/> </td>
+               <td class="text-center"> <input type="checkbox" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot" ng-true-value="1" ng-false-value="0" disabled="true" ng-checked="UnitsArr[$index].UnitDtls_Cornerplot==1"/> </td>
+              
             </tr>
          </form>
       </tbody>
-       <tbody id="plotRows"></tbody>
+       <tbody id="plotRowsCntr"></tbody>
    </table>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center padding0 marginTop10">
-        <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',untDetails,untGeneration)" ng-show="optionButton">Add</button>
+        <button type="button" class="btn btn-primary" ng-click="saveAllPlots('units',UnitsArr,untGeneration)" ng-show="optionButton">Add</button>
         
         <p ng-hide="optionButton">Saving the Cost Sheet generates the updated Cost Sheet for all Units that are not Sold. </p>
         <P ng-hide="optionButton">Do you Want to Continue</P>
-        <button type="button" class="btn btn-success" ng-click="goto('units',untDetails,untGeneration)" ng-hide="optionButton">Yes</button>
+        <button type="button" class="btn btn-success" ng-click="goto('units',UnitsArr,untGeneration)" ng-hide="optionButton">Yes</button>
         <button type="button" class="btn btn-primary" ng-click="gohome()" ng-hide="optionButton">No </button>
         
     </div>
