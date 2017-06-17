@@ -182,9 +182,14 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
             }).success(function(data) {
                 console.log(data);
                 angular.element(".loader").hide();
-                 $state.go("/GenerateCostSheet", {
+//                 $state.go("/GenerateCostSheet", {
+//                        "blockId": $stateParams.blockId
+//                    });
+//                
+                 $state.go("/unitListingAfterEdit", {
                         "blockId": $stateParams.blockId
                     });
+                
             }).error(function() {
                 angular.element(".loader").hide();
             });
