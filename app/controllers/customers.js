@@ -419,7 +419,7 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
 });
 
 
-app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $uibModal, $cookieStore, $state, $http, httpSvc, item, $uibModalInstance){
+app.controller("cancelUnitCtrl", function($scope, $rootScope, $window,$stateParams, $uibModal, $cookieStore, $state, $http, httpSvc, item, $uibModalInstance){
     var unitObj=item;
      $scope.customerData=item.customer;
     $scope.unitinfo=[];
@@ -513,15 +513,16 @@ app.controller("cancelUnitCtrl", function($scope, $rootScope, $stateParams, $uib
         }).success(function(data) {
             $scope.cancelData=data;
             angular.element(".loader").hide();
-            console.log($scope.cancelData);
-            $state.go('/Customers');
-            $scope.ok();
+           // console.log($scope.cancelData);
+            //$state.go('/Customers');
+            $uibModalInstance.close();
+            $window.location.reload();
+            
         }).error(function() {
             angular.element(".loader").hide();
         });
     };
-    
-    
+  
       
 });
 
