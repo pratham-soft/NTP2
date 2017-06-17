@@ -136,6 +136,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/editBlockCostSheet.html',
             controller: 'editBlockCostSheetCtrl'
         })
+      .state('/unitListingAfterEdit', {
+            url: '/unitListingAfterEdit/:blockId',
+            templateUrl: 'partials/unitListingAfterEdit.html',
+            controller: 'unitListingAfterEditCtrl'
+        })
         .state('/EditCostSheetTemplate', {
             url: '/EditCostSheetTemplate/:templateId',
             templateUrl: 'partials/costSheetTemplate.html',
