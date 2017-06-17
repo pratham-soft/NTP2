@@ -175,7 +175,7 @@
 
          <h4>
 			 Villas Generation Formula
-		  	 <button type="button" class="btn btn-default" ng-click="addPlotTYpeRow()">Add More</button>
+		  	 <button type="button" class="btn btn-default" ng-click="addVillaTypeRow()">Add More</button>
 		  </h4>
             <table class="table">
               <thead>
@@ -194,7 +194,7 @@
               <tbody>
                   <tr>
                   <td>  
-                  <select name="plotFacing" id="plotFacing" ng-model="untGeneration.plotType[0].plotFacing" ng-required="true" class="form">
+                  <select name="villaFacing" id="villaFacing" ng-model="untGeneration.villaType[0].villaFacing" ng-required="true" class="form">
                       <option value="">Select</option>
                      <option value="E">E </option>
                      <option value="W">W </option>
@@ -207,19 +207,19 @@
                      </select>
                   </td>
                   <td>
-                     <input type="number" id="eastDimension" ng-model="untGeneration.plotType[0].eastDimension" ng-required="true"> 
+                     <input type="number" id="eastDimension" ng-model="untGeneration.villaType[0].eastDimension" ng-required="true"> 
                   </td>
                   <td>
-                    <input type="number" id="westDimension" ng-model="untGeneration.plotType[0].westDimension" ng-required="true">  
+                    <input type="number" id="westDimension" ng-model="untGeneration.villaType[0].westDimension" ng-required="true">  
                   </td>
                   <td>
-                     <input type="number" id="northDimension" ng-model="untGeneration.plotType[0].northDimension" ng-required="true"> 
+                     <input type="number" id="northDimension" ng-model="untGeneration.villaType[0].northDimension" ng-required="true"> 
                   </td>
                   <td>
-                     <input type="number" id="southDimension" ng-model="untGeneration.plotType[0].southDimension" ng-required="true"> 
+                     <input type="number" id="southDimension" ng-model="untGeneration.villaType[0].southDimension" ng-required="true"> 
                   </td>
                   <td>
-                      <select name="bedRoom" id="bedRoom" ng-model="untGeneration.plotType[0].bedRoom" ng-required="true" class="form">
+                      <select name="bedRoom" id="bedRoom" ng-model="untGeneration.villaType[0].bedRoom" ng-required="true" class="form">
                           <option value="">Select</option>
                          <option value="1">1 </option>
                          <option value="2">2 </option>
@@ -232,7 +232,7 @@
                          </select>
                   </td>
                   <td>
-                      <select name="balconies" id="balconies" ng-model="untGeneration.plotType[0].balconies" ng-required="true" class="form">
+                      <select name="balconies" id="balconies" ng-model="untGeneration.villaType[0].balconies" ng-required="true" class="form">
                       <option value="">Select</option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
@@ -242,7 +242,7 @@
                      </select>
                   </td>
                   <td>
-                    <select name="bathRoom" id="bathRoom" ng-model="untGeneration.plotType[0].bathRoom" ng-required="true" class="form">
+                    <select name="bathRoom" id="bathRoom" ng-model="untGeneration.villaType[0].bathRoom" ng-required="true" class="form">
                       <option value="">Select</option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
@@ -252,15 +252,17 @@
                      </select>  
                   </td>
                   <td>
-                     <input type="number" id="noOfPlots" ng-model="untGeneration.plotType[0].noOfPlots" ng-required="true"> 
+                     <input type="number" id="noOfVillas" ng-model="untGeneration.villaType[0].noOfVillas" ng-required="true"> 
                   </td>
                   </tr>
               </tbody>
-            <tbody></tbody>
+            <tbody id="villaTypeGrid">
+                <tr class="villaTypeRow"></tr>
+            </tbody>
           </table>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
-         <button type="button" class="btn btn-success" ng-click="addSamplePlots(untGeneration,'untGenerationForm')">
+         <button type="button" class="btn btn-success" ng-click="addSampleVillas(untGeneration,'untGenerationForm')">
          Generate Villas
          </button>
       </div>
@@ -367,8 +369,9 @@
                <th>Corner PLot</th>
             </tr>
          </thead>
-         <tbody id="villaRows">
+         <tbody id="villaRowsCntr">
             
+<!--
                <form name="" class="form" method="POST" novalidate="novalidate">
                     <tr>
                        <td><input type="text" class="form-control" name="UnitDtls_No" /></td>
@@ -444,6 +447,7 @@
                     </tr>
                  </form>
                
+-->
          </tbody>
       </table>
    </div>
@@ -747,18 +751,6 @@
                         <option value="5">5</option>
                      </select>
                   </td>
-                  <!--
-                     <td>
-                        <select class="form-control" name="UnitDtls_ComBRoom" ng-model="UnitsArr[$index].UnitDtls_ComBRoom">
-                           <option value="">Select</option>
-                           <option value="0">0</option>
-                           <option value="1">1</option>
-                           <option value="2">2</option>
-                           <option value="3">3</option>
-                           <option value="4">4</option>
-                        </select>
-                     </td>
-                     -->
                   <td>
                      <select class="form-control" style="width:60px;" name="UnitDtls_BRoom" ng-model="UnitsArr[$index].UnitDtls_BRoom">
                         <option value="">Select</option>
