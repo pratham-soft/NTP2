@@ -89,7 +89,7 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
                 unitObj.UnitDtls_ComBRoom = $scope.units[i].UnitDtls_ComBRoom + "";
                 unitObj.UnitDtls_BRoom = $scope.units[i].UnitDtls_BRoom + "";
                 unitObj.UnitDtls_Balcn = $scope.units[i].UnitDtls_Balcn + "";
-                unitObj.UnitDtls_BuliltupArea = $scope.units[i].UnitDtls_Msrmnt;
+                unitObj.UnitDtls_BuliltupArea = $scope.units[i].UnitDtls_BuliltupArea;
                 unitObj.UnitDtls_Msrmnt = $scope.units[i].UnitDtls_Msrmnt;
                 unitObj.UnitDtls_Premium = $scope.units[i].UnitDtls_Premium + "";
                 unitObj.UnitDtls_Directn = $scope.units[i].UnitDtls_Directn;
@@ -184,8 +184,19 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
 //            /*End Update Block*/
 //        
 //    };
+    
+    
+     $scope.addPlotTYpeRow = function(){
+		var i =	angular.element("#plotTypeGrid > .plotTypeRow").length;
+		var rowHtml = '<div class="plotTypeRow"> <label for="plotFacing">Facing: </label> <select name="plotFacing" id="plotFacing" ng-model="untGeneration.plotType['+i+'].plotFacing" ng-required="true" class="form"> <option value="">Select</option> <option value="E">E </option> <option value="W">W </option> <option value="N">N </option> <option value="S">S </option> <option value="NW">NW </option> <option value="NE">NE </option> <option value="SW">SW </option> <option value="SE">SE </option> </select> | <label for="eastDimension">East:</label> <input type="number" id="eastDimension" ng-model="untGeneration.plotType['+i+'].eastDimension" ng-required="true"> <label for="westDimension">West:</label> <input type="number" id="westDimension" ng-model="untGeneration.plotType['+i+'].westDimension" ng-required="true"> <label for="northDimension">North:</label> <input type="number" id="northDimension" ng-model="untGeneration.plotType['+i+'].northDimension" ng-required="true"> <label for="southDimension">South:</label> <input type="number" id="southDimension" ng-model="untGeneration.plotType['+i+'].southDimension" ng-required="true"> | <label for="noOfPlots">No. of Plots:</label> <input type="number" id="noOfPlots" ng-model="untGeneration.plotType['+i+'].noOfPlots" ng-required="true"> </div>';
+		
+		var rowHtmlComplied = $compile(rowHtml)($scope);
+ 		angular.element("#plotTypeGrid").append(rowHtmlComplied);
+	}
+    
  
     $scope.addSamplePlots = function(formObj, formName) {
+        $scope.showHideFormula = false;
         $scope.submit = true;
         if ($scope[formName].$valid) {
 			console.log(JSON.stringify(formObj.plotType));
@@ -233,10 +244,7 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
                     if($scope.units.length>0){
                         var plotNoCalc = $scope.units.length+1;
                     }
-                    else{
-                        var plotNoCalc = 0;
-                    }
-					
+                   
 					for(i=0;i<plotTypeData.length;i++){
 						for(j=0;j<plotTypeData[i].noOfPlots;j++){
 							var plotEastWestCalc = (plotTypeData[i].eastDimension+plotTypeData[i].westDimension)/2;
@@ -261,8 +269,8 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
 							obj={};
 						}
 					}
-                    $scope.UnitsArr=$scope.UnitsArr.concat($scope.plotDetails);
-					console.log(JSON.stringify($scope.UnitsArr));
+//                    $scope.UnitsArr=$scope.UnitsArr.concat($scope.plotDetails);
+//					console.log(JSON.stringify($scope.UnitsArr));
 				}
                 angular.element(".loader").hide();
             }).error(function() {
@@ -277,14 +285,7 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
     
     
     
-    $scope.addPlotTYpeRow = function(){
-		var i =	angular.element("#plotTypeGrid > .plotTypeRow").length;
-		var rowHtml = '<div class="plotTypeRow"> <label for="plotFacing">Facing: </label> <select name="plotFacing" id="plotFacing" ng-model="untGeneration.plotType['+i+'].plotFacing" ng-required="true" class="form"> <option value="">Select</option> <option value="E">E </option> <option value="W">W </option> <option value="N">N </option> <option value="S">S </option> <option value="NW">NW </option> <option value="NE">NE </option> <option value="SW">SW </option> <option value="SE">SE </option> </select> | <label for="eastDimension">East:</label> <input type="number" id="eastDimension" ng-model="untGeneration.plotType['+i+'].eastDimension" ng-required="true"> <label for="westDimension">West:</label> <input type="number" id="westDimension" ng-model="untGeneration.plotType['+i+'].westDimension" ng-required="true"> <label for="northDimension">North:</label> <input type="number" id="northDimension" ng-model="untGeneration.plotType['+i+'].northDimension" ng-required="true"> <label for="southDimension">South:</label> <input type="number" id="southDimension" ng-model="untGeneration.plotType['+i+'].southDimension" ng-required="true"> | <label for="noOfPlots">No. of Plots:</label> <input type="number" id="noOfPlots" ng-model="untGeneration.plotType['+i+'].noOfPlots" ng-required="true"> </div>';
-		
-		var rowHtmlComplied = $compile(rowHtml)($scope);
- 		angular.element("#plotTypeGrid").append(rowHtmlComplied);
-	}
-    
+   
     
     $scope.calculateEastWestP = function(id) {
         var eastNo =parseInt($('#untDetails' + id + 'EastP').val());
@@ -359,7 +360,7 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
         }
         var unitsJson = [];
        
-            for (j = 1; j < formObj.length; j++) {
+            for (j = 0; j < formObj.length; j++) {
                 var unitObj = {};
                 //var unitNo = plotsNosArr[j - 1];
  

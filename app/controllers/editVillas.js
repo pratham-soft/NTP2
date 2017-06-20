@@ -76,7 +76,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
  
    
     $scope.addSampleVillas = function(formObj, formName) {
-      //  $scope.showHideFormula = false;
+        $scope.showHideFormula = false;
         $scope.submit = true;
         if ($scope[formName].$valid) {
 			//console.log(JSON.stringify(formObj.villaType));
@@ -113,7 +113,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
 					
 					for(i=0;i<villaTypeData.length;i++){
 						for(j=0;j<villaTypeData[i].noOfVillas;j++){
-							var villaRowHtml = '<tr> <td><input type="text" style="width:70px;" class="form-control" name="villaNo" ng-model="villaDetails[' + increamenter + '].villaNo" ng-required="true"/> </td><td><select style="width:70px;" class="form-control" name="villaFacing" ng-model="villaDetails[' + increamenter + '].villaFacing"> <option  value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td><td><input type="text" style="width:70px;" class="form-control" name="villaEast" ng-model="villaDetails[' + increamenter + '].villaEast"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaWest" ng-model="villaDetails[' + increamenter + '].villaWest"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaNorth" ng-model="villaDetails[' + increamenter + '].villaNorth"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaSouth" ng-model="villaDetails[' + increamenter + '].villaSouth"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaEastWest" ng-model="villaDetails[' + increamenter + '].villaEastWest" ng-disabled="true"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaNorthSouth" ng-model="villaDetails[' + increamenter + '].villaNorthSouth" ng-disabled="true"/> </td><td><input type="text" class="form-control" name="villaSuperArea" ng-model="villaDetails[' + increamenter + '].villaSuperArea" ng-disabled="true"/> </td><td><input type="number" style="width:70px;"  class="form-control" name="villaPercentage" ng-model="villaDetails[' + increamenter + '].villaPercentage"/></td> <td><input type="number" style="width:70px;" class="form-control" ng-disabled="true" name="villaCarpetArea" ng-model="villaDetails[' + increamenter + '].villaCarpetArea"/></td> <td><select class="form-control" style="width:60px;" name="villaRooms" ng-model="villaDetails[' + increamenter + '].villaRooms"><option value="0">0</option><option value="1" ng-selected="villaDetails[' + increamenter + '].villaRooms==1">1</option><option value="2" ng-selected="villaDetails[' + increamenter + '].villaRooms==2">2</option><option value="3" ng-selected="villaDetails[' + increamenter + '].villaRooms==3">3</option><option value="4" ng-selected="villaDetails[' + increamenter + '].villaRooms==4">4</option><option value="5" ng-selected="villaDetails[' + increamenter + '].villaRooms==5">5</option><option value="6" ng-selected="villaDetails[' + increamenter + '].villaRooms==6">6</option> <option value="7" ng-selected="villaDetails[' + increamenter + '].villaRooms==7">7</option><option value="8" ng-selected="villaDetails[' + increamenter + '].villaRooms==8"></option> </select></td><td><select class="form-control" style="width:60px;" name="villaBalcn" ng-model="villaDetails[' + increamenter + '].villaBalcn"><option value="0">0</option><option value="1" ng-selected="villaDetails[' + increamenter + '].villaBalcn==1">1</option><option value="2" ng-selected="villaDetails[' + increamenter + '].villaBalcn==2">2</option><option value="3" ng-selected="villaDetails[' + increamenter + '].villaBalcn==3">3</option><option value="4" ng-selected="villaDetails[' + increamenter + '].villaBalcn==4">4</option><option value="5" ng-selected="villaDetails[' + increamenter + '].villaBalcn==5">5</option></select></td><td><select class="form-control" style="width:60px;" name="UnitDtls_BRoom" ng-model="villaDetails[' + increamenter + '].UnitDtls_BRoom"><option value="">Select</option><option value="0">0</option><option value="1" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==1">1</option><option value="2" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==2">2</option><option value="3" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==3">3</option><option value="4" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==4">4</option><option value="5" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==5">5</option> </select></td><td> <select style="width:70px;" class="form-control" name="releaseNo" ng-model="villaDetails[' + increamenter + '].releaseNo">'+realeaseNoOptions+'</select></td><td class="text-center"><input type="checkbox" name="premiumvilla" ng-model="villaDetails[' + increamenter + '].premiumvilla" ng-true-value="1" ng-false-value="0"/> </td><td class="text-center"> <input type="checkbox" name="villaCorner" ng-model="villaDetails[' + increamenter + '].villaCorner" ng-true-value="1" ng-false-value="0"/> </td></tr>';
+							var villaRowHtml = '<tr> <td><input type="text" style="width:70px;" class="form-control" name="villaNo" ng-model="villaDetails[' + increamenter + '].UnitDtls_No" ng-required="true"/> </td><td><select style="width:70px;" class="form-control" name="villaFacing" ng-model="villaDetails[' + increamenter + '].UnitDtls_Directn"> <option  value="E">E</option> <option value="W">W</option> <option value="N">N</option> <option value="S">S</option> <option value="NW">NW</option> <option value="NE">NE</option> <option value="SW">SW</option> <option value="SE">SE</option> </select> </td><td><input type="text" style="width:70px;" class="form-control" name="villaEast" ng-model="villaDetails[' + increamenter + '].UnitDtls_EstMsrmnt"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaWest" ng-model="villaDetails[' + increamenter + '].UnitDtls_WstMsrmnt"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaNorth" ng-model="villaDetails[' + increamenter + '].UnitDtls_NrtMsrmnt"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaSouth" ng-model="villaDetails[' + increamenter + '].UnitDtls_SthMsrmnt"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaEastWest" ng-model="villaDetails[' + increamenter + '].UnitDtls_EstWstMsrmnt" ng-disabled="true"/> </td><td><input type="text" style="width:70px;" class="form-control" name="villaNorthSouth" ng-model="villaDetails[' + increamenter + '].UnitDtls_NrtSthMsrmnt" ng-disabled="true"/> </td><td><input type="text" class="form-control" name="villaSuperArea" ng-model="villaDetails[' + increamenter + '].UnitDtls_BuliltupArea" ng-disabled="true"/> </td><td><input type="number" style="width:70px;"  class="form-control" name="villaPercentage" ng-model="villaDetails[' + increamenter + '].UnitDtls_percentage"/></td> <td><input type="number" style="width:70px;" class="form-control" ng-disabled="true" name="villaCarpetArea" ng-model="villaDetails[' + increamenter + '].UnitDtls_Msrmnt"/></td> <td><select class="form-control" style="width:60px;" name="villaRooms" ng-model="villaDetails[' + increamenter + '].UnitDtls_Rooms"><option value="0">0</option><option value="1" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==1">1</option><option value="2" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==2">2</option><option value="3" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==3">3</option><option value="4" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==4">4</option><option value="5" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==5">5</option><option value="6" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==6">6</option> <option value="7" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==7">7</option><option value="8" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Rooms==8"></option> </select></td><td><select class="form-control" style="width:60px;" name="villaBalcn" ng-model="villaDetails[' + increamenter + '].UnitDtls_BalcnUnitDtls_Balcn"><option value="0">0</option><option value="1" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Balcn==1">1</option><option value="2" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Balcn==2">2</option><option value="3" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Balcn==3">3</option><option value="4" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Balcn==4">4</option><option value="5" ng-selected="villaDetails[' + increamenter + '].UnitDtls_Balcn==5">5</option></select></td><td><select class="form-control" style="width:60px;" name="UnitDtls_BRoom" ng-model="villaDetails[' + increamenter + '].UnitDtls_BRoom"><option value="">Select</option><option value="0">0</option><option value="1" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==1">1</option><option value="2" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==2">2</option><option value="3" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==3">3</option><option value="4" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==4">4</option><option value="5" ng-selected="villaDetails[' + increamenter + '].UnitDtls_BRoom==5">5</option> </select></td><td> <select style="width:70px;" class="form-control" name="releaseNo" ng-model="villaDetails[' + increamenter + '].UnitDtls_Floor">'+realeaseNoOptions+'</select></td><td class="text-center"><input type="checkbox" name="premiumvilla" ng-model="villaDetails[' + increamenter + '].UnitDtls_Premium" ng-true-value="1" ng-false-value="0"/> </td><td class="text-center"> <input type="checkbox" name="villaCorner" ng-model="villaDetails[' + increamenter + '].UnitDtls_Cornerplot" ng-true-value="1" ng-false-value="0"/> </td></tr>';
 							
 							var villaRowHtmlComplied = $compile(villaRowHtml)($scope);
  							angular.element("#villaRowsCntr").append(villaRowHtmlComplied);
@@ -124,10 +124,7 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
                     if($scope.units.length>0){
                         var villaNoCalc = $scope.units.length+1;
                     }
-                    else{
-                        var villaNoCalc = 0;
-                    }
-					
+                    
 					for(i=0;i<villaTypeData.length;i++){
 						for(j=0;j<villaTypeData[i].noOfVillas;j++){
 							var villaEastWestCalc = (villaTypeData[i].eastDimension+villaTypeData[i].westDimension)/2;
@@ -135,31 +132,31 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
 							var villaSuperAreaCalc = villaEastWestCalc*villaNorthSouthCalc;
                             var carpetAreaCalc = villaSuperAreaCalc*(villaTypeData[i].buildPercent/100);
 							var obj = {
-								villaNo:villaNoCalc,
-								villaFacing:villaTypeData[i].villaFacing,
-								villaEast:villaTypeData[i].eastDimension,
-								villaWest:villaTypeData[i].westDimension,
-								villaNorth:villaTypeData[i].northDimension,
-								villaSouth:villaTypeData[i].southDimension,
-								villaEastWest:villaEastWestCalc,
-								villaNorthSouth:villaNorthSouthCalc,
-								villaSuperArea:villaSuperAreaCalc,
-                                villaRooms:villaTypeData[i].bedRoom,
+								UnitDtls_No:villaNoCalc,
+								UnitDtls_Directn:villaTypeData[i].villaFacing,
+								UnitDtls_EstMsrmnt:villaTypeData[i].eastDimension,
+								UnitDtls_WstMsrmnt:villaTypeData[i].westDimension,
+								UnitDtls_NrtMsrmnt:villaTypeData[i].northDimension,
+								UnitDtls_SthMsrmnt:villaTypeData[i].southDimension,
+								UnitDtls_EstWstMsrmnt:villaEastWestCalc,
+								UnitDtls_NrtSthMsrmnt:villaNorthSouthCalc,
+								UnitDtls_BuliltupArea:villaSuperAreaCalc,
+                                UnitDtls_Rooms:villaTypeData[i].bedRoom,
                                 UnitDtls_BRoom:villaTypeData[i].bathRoom,
-                                villaBalcn:villaTypeData[i].balconies,
-                                villaPercentage:villaTypeData[i].buildPercent,
-                                villaCarpetArea:carpetAreaCalc,
-								premiumvilla:0,
-								villaCorner:0,
-								releaseNo:villaTypeData[i].releaseNo
+                                UnitDtls_Balcn:villaTypeData[i].balconies,
+                                UnitDtls_percentage:villaTypeData[i].buildPercent,
+                                UnitDtls_Msrmnt:carpetAreaCalc,
+								UnitDtls_Premium:0,
+								UnitDtls_Cornerplot:0,
+								UnitDtls_Floor:villaTypeData[i].releaseNo
 							};
 							$scope.villaDetails.push(obj);
 							villaNoCalc++;
 							obj={};
 						}
 					}
-                    $scope.UnitsArr=$scope.UnitsArr.concat($scope.villaDetails);
-					console.log(JSON.stringify($scope.UnitsArr));
+//                    $scope.UnitsArr=$scope.UnitsArr.concat($scope.villaDetails);
+//					console.log(JSON.stringify($scope.UnitsArr));
 				}
                 angular.element(".loader").hide();
             }).error(function() {
@@ -336,30 +333,32 @@ app.controller("villaGenerationCtrl", function($scope, $http, $state, $cookieSto
             unitObj.UnitDtls_Unit_type_id = "3";
             unitObj.UnitDtls_Block_Id = parentObj.block.toString();
             unitObj.UnitDtls_user_id = $cookieStore.get('user_id');
-            unitObj.UnitDtls_No = formObj[j].villaNo;
+            unitObj.UnitDtls_No = formObj[j].UnitDtls_No;
             unitObj.UnitDtls_Name = "";
             unitObj.UnitDtls_Type = "";
-            unitObj.UnitDtls_Balcn = formObj[j].villaBalcn;
+            unitObj.UnitDtls_Balcn = formObj[j].UnitDtls_Balcn;
             unitObj.UnitDtls_ComBRoom = "0";
-            unitObj.UnitDtls_BRoom = formObj[j].villaBRoom;
-            unitObj.UnitDtls_Rooms = formObj[j].villaRooms;
-            unitObj.UnitDtls_Msrmnt = formObj[j].villaCarpetArea;
-            unitObj.UnitDtls_Directn = formObj[j].villaFacing;
-            unitObj.UnitDtls_Floor = parseInt(formObj[j].releaseNo);
+            unitObj.UnitDtls_BRoom = formObj[j].UnitDtls_BRoom;
+            unitObj.UnitDtls_Rooms = formObj[j].UnitDtls_Rooms;
+            unitObj.UnitDtls_Msrmnt = formObj[j].UnitDtls_Msrmnt;
+            unitObj.UnitDtls_Directn = formObj[j].UnitDtls_Directn;
+            unitObj.UnitDtls_Floor = parseInt(formObj[j].UnitDtls_Floor);
             unitObj.UnitDtls_SrvntRoom = "0";
-            unitObj.UnitDtls_EstMsrmnt = parseInt(formObj[j].villaEast);
-            unitObj.UnitDtls_WstMsrmnt = parseInt(formObj[j].villaWest);
-            unitObj.UnitDtls_NrtMsrmnt = parseInt(formObj[j].villaNorth);
-            unitObj.UnitDtls_SthMsrmnt = parseInt(formObj[j].villaSouth);
-            unitObj.UnitDtls_BuliltupArea = formObj[j].villaSuperArea;
-            unitObj.UnitDtls_Cornerplot = parseInt(formObj[j].villaCorner);
-            unitObj.UnitDtls_Premium = parseInt(formObj[j].premiumvilla);
+            unitObj.UnitDtls_EstMsrmnt = parseInt(formObj[j].UnitDtls_EstMsrmnt);
+            unitObj.UnitDtls_WstMsrmnt = parseInt(formObj[j].UnitDtls_WstMsrmnt);
+            unitObj.UnitDtls_NrtMsrmnt = parseInt(formObj[j].UnitDtls_NrtMsrmnt);
+            unitObj.UnitDtls_SthMsrmnt = parseInt(formObj[j].UnitDtls_SthMsrmnt);
+            unitObj.UnitDtls_BuliltupArea = formObj[j].UnitDtls_BuliltupArea;
+            unitObj.UnitDtls_Cornerplot = parseInt(formObj[j].UnitDtls_Cornerplot);
+            unitObj.UnitDtls_Premium = parseInt(formObj[j].UnitDtls_Premium);
             unitObj.UnitDtls_Status = 1;
-            unitObj.UnitDtls_percentage = formObj[j].villaPercentage;
+            unitObj.UnitDtls_percentage = formObj[j].UnitDtls_percentage;
             unitsJson.push(unitObj);
 
         }
-
+            
+            
+           
 
         unitsJson = JSON.stringify(unitsJson);
         console.log(unitsJson);

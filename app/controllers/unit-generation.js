@@ -674,7 +674,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
                     $scope.UnitsArr.push(unitObj);
                 }
 
-                $scope.checkUnitType(unitObj); // We change later.    
+               
                 console.log($scope.UnitsArr);
                 angular.element(".loader").hide();
 
@@ -682,22 +682,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         };
     })();
 
-    $scope.checkUnitType = function(unitObj) {
-        var typeidvalue = parseInt($scope.typeObj.UnitType_Id);
-        if ((typeidvalue != unitObj.UnitDtls_Unit_type_id) && (unitObj.UnitDtls_Unit_type_id != 0)) {
-            var typename = "";
-            if (unitObj.UnitDtls_Unit_type_id == 1) {
-                typename = "Flats";
-            }
-            if (unitObj.UnitDtls_Unit_type_id == 2) {
-                typename = "Plots";
-            }
-            if (unitObj.UnitDtls_Unit_type_id == 3) {
-                typename = "villa";
-            }
-            alert("Type Mismatch! Please select: " + typename);
-        }
-    }
+
 
 
     $scope.addBlockUnit = function(formObj, formName, parentObj) {
@@ -762,6 +747,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             plotObj.UnitDtls_EstWstMsrmnt = parseFloat(formObj[j].plotEastWest);
             plotObj.UnitDtls_NrtSthMsrmnt = parseFloat(formObj[j].plotNorthSouth);
             plotObj.UnitDtls_Msrmnt = parseFloat(formObj[j].plotSuperArea);
+            plotObj.UnitDtls_BuliltupArea = parseFloat(formObj[j].plotSuperArea);
             plotObj.UnitDtls_Cornerplot = parseInt(formObj[j].plotCorner);
             plotObj.UnitDtls_Premium = parseInt(formObj[j].premiumPlot);
             plotObj.UnitDtls_Status = 1;

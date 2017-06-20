@@ -16,4 +16,3 @@ app.filter('format', function () {
    };
 });
 
-});
