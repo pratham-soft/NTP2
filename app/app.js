@@ -9,3 +9,11 @@ app.filter('reverse', function() {
     return items.slice().reverse();
   };
 });
+
+app.filter('format', function () {
+   return function (input) {
+       return input.replace('TC','')
+   };
+});
+
+});
