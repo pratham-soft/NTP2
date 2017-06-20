@@ -47,6 +47,7 @@
 					  </tr>
 				   </thead>				
             </table>
+<!--
                <table class="table dataTable"  id="selectionForm" >
                      <thead>
 					  <tr>
@@ -62,25 +63,28 @@
                          <td>{{custpayhstryinfo.usruntpymtrec_pymt_dt | date}}</td>                      
 					  </tr>
 				   </thead>
+-->
 				
 <!--            </table>-->
-	</table>
+<!--	</table>-->
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
 	<table class="table dataTable"  id="selectionForm">
 		<thead>
 			<tr>
-                <th>Stage Name</th>
+                <th class="text-left">Stage Name</th>
 				<th class="text-center">Value</th>
                 <th class="text-center">Status</th>
-				<th class="text-right">Amount to be paid</th>
+				<th class="text-right">Amount to be paid(INR)</th>
+                
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="x in paymentStagesData">
 				<td>{{x.blockstageName}}</td>
-				<td class="text-center">{{x.PaymentScheduleCalcValue}}</td>
-				<td class="text-center">{{stageStatus[x.blocksatgeCompleted]}}</td>
+				<td class="text-center">{{x.PaymentScheduleCalcValue | format}}</td>
+				<td class="text-center"  ng-if="$index > 0">{{stageStatus[x.blocksatgeCompleted]}}</td>  
+                <td class="text-center"  ng-if="$index == 0">-</td>
 				<td class="text-right">{{x.userpymtstg_stgcost}}</td>
 			</tr>
 		</tbody>

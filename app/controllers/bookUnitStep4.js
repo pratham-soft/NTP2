@@ -92,18 +92,18 @@ app.controller("bookUnitStep4Ctrl", function ($scope, $rootScope, $stateParams, 
                 if(res=="0")
                     {
                         $scope.custPayinfo=response.data;
-                        httpSvc.CustPaymentHistory(postObj).then(function(response){
-                                    var res = response.data[0].ErrorDesc;
-                                    if(res=="0")
-                                        {
-                                            $scope.custPayHistoryinfo=response.data;
-                                        }
-                                     else
-                                        {
-                                         alert(response.data[0].ErrorDesc.toString());
-                                        }
-
-                                })
+//                        httpSvc.CustPaymentHistory(postObj).then(function(response){
+//                                    var res = response.data[0].ErrorDesc;
+//                                    if(res=="0")
+//                                        {
+//                                            $scope.custPayHistoryinfo=response.data;
+//                                        }
+//                                     else
+//                                        {
+//                                         alert(response.data[0].ErrorDesc.toString());
+//                                        }
+//
+//                                })
                       
                     }
                  else
