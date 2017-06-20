@@ -6,6 +6,7 @@ app.controller("plotGenerationCtrl", function($scope, $http, $state, $cookieStor
     $scope.plotvillaReleaseNo=0;
     $scope.oldReleaseNo=0;
     $scope.optionButton=true;
+    $scope.showHideFormula = true;                                                                                                                                  
     
 
     
