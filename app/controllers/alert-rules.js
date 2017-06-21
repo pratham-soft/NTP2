@@ -121,10 +121,13 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
                 var res = data.ErrorDesc;
                 var resSplit = res.split('|');
                 if (resSplit[0] == 0) {
-                    if((formObj.rule_actiontypeid==26) || (formObj.rule_actiontypeid==27) ){
+                    if((formObj.rule_actiontypeid==26) || (formObj.rule_actiontypeid==27) || (formObj.rule_actiontypeid==19) || (formObj.rule_actiontypeid==25) || (formObj.rule_actiontypeid==28)){
                         $state.go('/Action', {
                         ruleId: data.ruleid
                     });
+                        if((formObj.rule_actiontypeid==19) || (formObj.rule_actiontypeid==25) || (formObj.rule_actiontypeid==28)){ 
+                            $scope.preSetRule(formObj.rule_actiontypeid);  
+                        }
                     }
                     else{
                         $state.go('/UpdateRule', {
@@ -140,6 +143,44 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
             });
         }
     }
+    
+   $scope.preSetRule = function(rule_actiontypeid) {		
+        if(rule_actiontypeid==25 || rule_actiontypeid==19){
+           var obj= [{"rulecriteria_modfield_id":"72","rulecriteria_operator":"=","rulecriteria_criteria":"2","rulecriteria_condition":"and"},{"rulecriteria_modfield_id":"65","rulecriteria_operator":">=","rulecriteria_criteria":"TodayOtr"}];
+//            console.log("new object");
+//            console.log(obj);
+        }
+       else if(rule_actiontypeid== 28){
+           var obj= [{"rulecriteria_modfield_id":"76","rulecriteria_operator":"=","rulecriteria_criteria":"TodayOtrexct"}];
+       }
+        angular.element(".loader").show();
+        for (i = 0; i < obj.length; i++) {
+            if(obj[i].rulecriteriaid==undefined){
+                obj[i].rulecriteriaid = 0;
+            }
+            obj[i].rulecriteria_rule_id = rule_actiontypeid;
+            obj[i].rule_user_id = $cookieStore.get('user_id');
+            obj[i].rulecriteria_comp_guid = $cookieStore.get('comp_guid');
+        }
+       console.log(JSON.stringify("+++++++++++++check++++++++++++"));
+       console.log(JSON.stringify(obj));
+        $http({
+            method: "POST",
+            url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {
+            console.log(JSON.stringify(data));
+            $state.go("/Action", {
+                ruleId: rule_actiontypeid
+            });
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    } 
+    
+    
 });
 
 app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter, myService) {
@@ -156,7 +197,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
     // $scope.selected= '';
    
     $scope.MoveToUpdateRulePage = function() {
-        if(($scope.actionTypes[0].actiontypeid==26) || ($scope.actionTypes[0].actiontypeid==27) ){
+        if(($scope.actionTypes[0].actiontypeid==26) || ($scope.actionTypes[0].actiontypeid==27) || ($scope.actionTypes[0].actiontypeid==19) || ($scope.actionTypes[0].actiontypeid==25) || ($scope.actionTypes[0].actiontypeid==28) ){
                         $state.go('/Action', {
                         ruleId: $scope.ruleid
                     });
@@ -205,133 +246,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
 });
 
 app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, myService, $uibModal) {
-//    $scope.pageTitle = "Set Rule";
-//    var ruleId = $stateParams.ruleId;
-//    var moduleId = $stateParams.moduleId;
-//    $scope.subModules = [{}];
-//    $scope.recordType = 0;
-//
-//    $scope.rules = [{}];
-//	
-//	$scope.disableUpdateQuery = true;
-//
-//    $scope.getSubModules = function(moduleId) {
-//        angular.element(".loader").show();
-//        $http({
-//            method: "POST",
-//            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
-//            ContentType: 'application/json',
-//            data: {
-//                "module_id": moduleId,
-//                "ruleid":ruleId
-//            }
-//        }).success(function(data) {
-//            $scope.subModules = data;
-//            angular.element(".loader").hide();
-//        }).error(function() {
-//            angular.element(".loader").hide();
-//        });
-//    }
-//    $scope.getRuleCriteria = function(ruleId) {
-//        angular.element(".loader").show();
-//        $http({
-//            method: "POST",
-//            url: "http://120.138.8.150/pratham/Comp/RuleCriteriaGet",
-//            ContentType: 'application/json',
-//            data: {
-//                "rulecriteria_rule_id": ruleId,
-//                "rulecriteria_comp_guid": $cookieStore.get('comp_guid')
-//            }
-//        }).success(function(data) {
-//            $scope.ruleCriteria = data[0];
-//            $scope.subModules[0].modfieldid = $scope.ruleCriteria.modfieldid;
-//            $scope.subModules[0].modfield_name = $scope.ruleCriteria.modfield_name;
-//            $scope.rules[0].rule_criteria_operator = $scope.ruleCriteria.rulecriteria_operator;
-//            $scope.rules[0].rulecriteria_criteria = $scope.ruleCriteria.rulecriteria_criteria;
-//            $scope.rules[0].rulecriteria_condition = $scope.ruleCriteria.rulecriteria_condition;
-//            angular.element(".loader").hide();
-//        }).error(function() {
-//            angular.element(".loader").hide();
-//        });
-//    }
-//    $scope.getSubModules(moduleId);
-//  // $scope.getRuleCriteria(ruleId);
-//    $scope.showInput0 = true;
-//    $scope.getFieldValues = function(fieldId, index) {
-//        var fieldValues = 'fieldValues' + index;
-//        var showDrodown = 'showDrodown' + index;
-//        var showInput = 'showInput' + index;
-//        var disableOperator = 'disableOperator' + index;
-//        angular.element(".loader").show();
-//        $http({
-//            method: "POST",
-//            url: "http://120.138.8.150/pratham/Comp/ModfldvaluesGet",
-//            ContentType: 'application/json',
-//            data: {
-//                "module_id": fieldId
-//            }
-//        }).success(function(data) {
-//            console.log(JSON.stringify(data));
-//            if (data.length == 1 && data[0].ErrorDesc == "-1 | No Module field Values do not exist for this Module") {
-//                $scope[showDrodown] = false;
-//                $scope[showInput] = true;
-//                $scope[disableOperator] = false;
-//            } else {
-//                $scope[fieldValues] = data;
-//                $scope[showInput] = false;
-//                $scope[showDrodown] = true;
-//                $scope.rules[index].rulecriteria_condition = "=";
-//                $scope[disableOperator] = true;
-//            }
-//            angular.element(".loader").hide();
-//        }).error(function() {
-//            angular.element(".loader").hide();
-//        });
-//    }
-//
-//    $scope.addRow = function(selectedVal) {
-//        if (selectedVal == "" || selectedVal == undefined) {
-//            alert("AA");
-//            return;
-//        }
-//
-//        var i = $(".alertRuleTable tr").length;
-//        var showInput = 'showInput' + i;
-//        var htmlRow = '<tr> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_modfield_id" ng-change="getFieldValues(rules[' + i + '].rulecriteria_modfield_id,' + i + ')"> <option value="">Field</option> <option ng-repeat="x in subModules" value="{{x.modfieldid}}">{{x.modfield_name}}</option> </select> </td> <td> <select class="form-control" class="form-control" ng-model="rules[' + i + '].rulecriteria_operator" ng-disabled="disableOperator' + i + '"> <option value="">Operator</option> <option value="=">=</option><option value=">">&#62;</option> <option value="<">&#60;</option> <option value="Starts with">Starts with</option> <option value="Ends With">Ends With</option><option value="Contains">Contains</option> </select> </td> <td class="inputType"> <input type="text" class="form-control" ng-show="showInput' + i + '" placeholder="Value" ng-model="rules[' + i + '].rulecriteria_criteria"/> <select ng-show="showDrodown' + i + '" class="form-control" ng-model="rules[' + i + '].rulecriteria_criteria"> <option value="">Value</option> <option ng-repeat="x in fieldValues' + i + '" value="{{x.modfieldvalues_defdbvalue}}">{{x.modfieldvalues_value}}</option> </select> </td> <td> <select class="form-control" ng-model="rules[' + i + '].rulecriteria_condition"> <option value="">Condition</option> <option value="and">AND</option> <option value="or">OR</option> </select> </td> <td><button type="button" class="btn btn-default" ng-click="addRow(rules[' + i + '].rulecriteria_condition)">Add</button></td></tr>';
-//
-//        htmlRow = $compile(htmlRow)($scope);
-//        angular.element(".alertRuleTable").append(htmlRow);
-//        $scope[showInput] = true;
-//    }
-//	
-//	$scope.checkQuery = function(obj){
-//		$scope.disableUpdateQuery = false;
-//	}
-//
-//    $scope.updateRule = function(obj) {
-//        angular.element(".loader").show();
-//        for (i = 0; i < obj.length; i++) {
-//            obj[i].rulecriteriaid = 0;
-//            obj[i].rulecriteria_rule_id = ruleId;
-//            obj[i].rule_user_id = $cookieStore.get('user_id');
-//            obj[i].rulecriteria_comp_guid = $cookieStore.get('comp_guid');
-//        }
-//        console.log(JSON.stringify(obj));
-//        $http({
-//            method: "POST",
-//            url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
-//            ContentType: 'application/json',
-//            data: obj
-//        }).success(function(data) {
-//            console.log(JSON.stringify(data));
-//            $state.go("/Action", {
-//                ruleId: ruleId
-//            });
-//            angular.element(".loader").hide();
-//        }).error(function() {
-//            angular.element(".loader").hide();
-//        });
-//    }
+
 $scope.pageTitle = "Set Rule";
     var ruleId = $stateParams.ruleId;
     var moduleId = $stateParams.moduleId;
@@ -506,11 +421,7 @@ $scope.pageTitle = "Set Rule";
     $scope.updateRule = function(obj) {		
 //        console.log(obj);
 //        console.log(JSON.stringify(obj));
-        if(actionId==24 || actionId==25 || actionId==26 || actionId==27 || actionId==28 || actionId==19){
-            obj= [{"rulecriteria_modfield_id":"72","rulecriteria_operator":"=","rulecriteria_criteria":"2","rulecriteria_condition":"and"},{"rulecriteria_modfield_id":"65","rulecriteria_operator":">=","rulecriteria_criteria":"TodayOtr"}];
-//            console.log("new object");
-//            console.log(obj);
-        }
+        
         angular.element(".loader").show();
         for (i = 0; i < obj.length; i++) {
             if(obj[i].rulecriteriaid==undefined){
@@ -977,7 +888,8 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
             console.log(JSON.stringify(data));
             if(data[0].ErrorDesc!="-1|No Template Exists for this Record"){
                 $scope.newSave="false";
-				$scope.showTempDropDown = false;
+                $scope.tempemail_name=data[0].tempemail_name;
+				$scope.showTempDropDown = true;
 				$scope.action.tempName = data[0].tempemail_name;
                 $scope.action.cctxtar = data[0].tempemail_recpcc;
                 $scope.action.bcctxtar = data[0].tempemail_recpbcc;

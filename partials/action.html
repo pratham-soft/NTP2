@@ -27,15 +27,17 @@
             <label for="template" ng-hide="action.actionType == 'desktop'">Template</label>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 padding0">
-            <select ng-model="action.templateid" name="templateid" id="templateid" class="form-control" ng-show="action.actionType == 'email' && showTempDropDown" ng-change="getEmailTemplsFun()" ng-required="true" ng-class="{blankInput: actionForm.template.$error.required &amp;&amp; submit}">
+            <select ng-model="action.templateid" name="templateid" id="templateid" class="form-control" ng-show="action.actionType == 'email' && showTempDropDown" ng-change="getEmailTemplsFun()" ng-required="true" ng-class="{blankInput: actionForm.template.$error.required &amp;&amp; submit}" ng-init="action.templateid=tempemail_id" ng-options="x.tempemailid as x.tempemail_name for x in emltmlptList">
+<!--
                <option value="">
                   Email Template
                </option>
                <option ng-repeat="x in emltmlptList" value="{{x.tempemailid}}">
                   {{x.tempemail_name}}
                </option>
+-->
 			 </select>
-			 <input type="text" class="form-control" ng-model="action.tempName" ng-show="!showTempDropDown" readonly="true"/> 
+<!--			 <input type="text" class="form-control" ng-model="action.tempName" ng-show="!showTempDropDown" readonly="true"/> -->
          </div>
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-show="!showTempDropDown">
             <button type="button" class="btn btn-default" ng-click="previewTemplate({tempBody:action.tempBody,tempId:action.templateid})">
