@@ -12,7 +12,19 @@ app.filter('reverse', function() {
 
 app.filter('format', function () {
    return function (input) {
-       return input.replace('TC','')
+       return input.replace('TC','');
+   };
+});
+
+app.filter('blocksatgeCompletedStatus', function () {
+   return function (input) {
+       if( input==1)
+           {
+             return "Completed"  ;
+           }
+       else{ 
+           return "Pending"  ; 
+           }
    };
 });
 

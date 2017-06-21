@@ -52,6 +52,7 @@
          <tr>
             <th>#</th>
             <th>Block Stage Name</th>
+            <th>Status</th>
             <th>Payment Schedule Value</th>
             <th>Action</th>
          </tr>
@@ -60,7 +61,8 @@
          <tr ng-repeat="x in paymentScheduleList track by $index">
             <td>{{$index + 1}}</td>
             <td>{{x.blockstageName}}</td>
-            <td>{{x.PaymentScheduleCalcValue}}</td>
+             <td>{{x.blocksatgeCompleted | blocksatgeCompletedStatus}}</td>
+            <td>{{x.PaymentScheduleCalcValue | format}}</td>
             <td><a ng-click="editPaymentSchedule(x)"><span class="link">Edit</span></a></td>
          </tr>
       </tbody>
