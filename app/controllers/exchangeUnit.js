@@ -108,18 +108,74 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
     
     
 
-    $scope.getUnits = function(blocks) {
+//    $scope.getUnits = function(blocks) {
+//        $scope.units = [];
+//        $scope.perFloorUnits = [];
+//        if (blocks == "") {
+//            return;
+//        }
+//        /*for (i = 0; i < $scope.blockList.length; i++) {
+//            if ($scope.blockList[i].Blocks_Id == blocks) {
+//                $scope.blockFloors = $scope.blockList[i].Blocks_Floors;
+//                $scope.blockFloorUnits = $scope.blockList[i].Blocks_UnitPerfloor;
+//            }
+//        }*/
+//        angular.element(".loader").show();
+//        $http({
+//            method: "POST",
+//            url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+//            ContentType: 'application/json',
+//            data: {
+//                "UnitDtls_Block_Id": blocks,
+//                "UnitDtls_comp_guid": $cookieStore.get('comp_guid')
+//            }
+//        }).success(function(data) {
+//            //console.log(JSON.stringify(data));
+//
+//            $scope.blockFloors = data[1].Blocks_Floors;
+//            $scope.blockFloorUnits = data[1].Blocks_UnitPerfloor;
+//
+//            var dataOfUnits = data[0];
+//
+//            console.log($scope.blockFloors + " - " + $scope.blockFloorUnits);
+//
+//            $scope.selectedUnits = [];
+//            $(".dispNone").each(function(index) {
+//                var projObj = $(this).text();
+//                projObj = angular.fromJson(projObj);
+//                $scope.selectedUnits.push(projObj.UnitDtls_Id);
+//            });
+//
+//            for (i = 0; i < dataOfUnits.length; i++) {
+//                for (j = 0; j < $scope.selectedUnits.length; j++) {
+//                    if (dataOfUnits[i].UnitDtls_Id == $scope.selectedUnits[j]) {
+//                        dataOfUnits[i].markUp = "selected";
+//                        break;
+//                    }
+//                }
+//            }
+//            var count = 0;
+//            for (k = 0; k < $scope.blockFloors; k++) {
+//                var floorUnits = [];
+//                for (l = 0; l < $scope.blockFloorUnits; l++) {
+//                    floorUnits.push(dataOfUnits[count]);
+//                    count++;
+//                }
+//                $scope.perFloorUnits.push(floorUnits);
+//            }
+//            $scope.units = dataOfUnits;
+//            angular.element(".loader").hide();
+//
+//        }).error(function() {
+//            angular.element(".loader").hide();
+//        });
+//    };
+    $scope.getUnits = function(blocks) {		
         $scope.units = [];
         $scope.perFloorUnits = [];
         if (blocks == "") {
             return;
         }
-        /*for (i = 0; i < $scope.blockList.length; i++) {
-            if ($scope.blockList[i].Blocks_Id == blocks) {
-                $scope.blockFloors = $scope.blockList[i].Blocks_Floors;
-                $scope.blockFloorUnits = $scope.blockList[i].Blocks_UnitPerfloor;
-            }
-        }*/
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -130,14 +186,19 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
                 "UnitDtls_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            //console.log(JSON.stringify(data));
-
             $scope.blockFloors = data[1].Blocks_Floors;
             $scope.blockFloorUnits = data[1].Blocks_UnitPerfloor;
 
             var dataOfUnits = data[0];
-
-            console.log($scope.blockFloors + " - " + $scope.blockFloorUnits);
+			
+			$scope.startZero = 0;
+			if(dataOfUnits[0].UnitDtls_Floor == 0){
+				$scope.startZero = 1;
+			}
+			
+			console.log(dataOfUnits);
+			
+			$scope.floorStartingNumber = dataOfUnits[0].UnitDtls_Floor;
 
             $scope.selectedUnits = [];
             $(".dispNone").each(function(index) {
@@ -163,6 +224,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
                 }
                 $scope.perFloorUnits.push(floorUnits);
             }
+			console.log($scope.perFloorUnits);
             $scope.units = dataOfUnits;
             angular.element(".loader").hide();
 
