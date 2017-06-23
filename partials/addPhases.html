@@ -1,6 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-   <h1>{{pageTitle}}</h1>
-</div>
+  <h1> Project phase</h1> </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
    <ol class="breadcrumb">
       <li><a href="#">Home</a></li>
@@ -15,7 +14,7 @@
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
 				<label for="type">Project Name</label>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
                 <select ng-model="projectDetails.projectName" name="projectName" class="form-control" autofocus="true" ng-disabled="true">
                     <option value="">
                         Project
@@ -24,14 +23,15 @@
                         {{x.Proj_Name}}
                     </option>
                 </select>
+
 			</div>
 		</div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
 				<label for="type">Phase Name</label>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-                    <input type="text" class="form-control" id="phaseName" name="phaseName" ng-model="projectDetails.phaseName" ng-required="true" ng-class="{blankInput: addPhaseForm.phaseName.$error.required &amp;&amp; submit}"/>
+			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                    <input type="text" class="form-control" id="phaseName"lenght="50" max name="phaseName" ng-model="projectDetails.phaseName" ng-required="true" ng-class="{blankInput: addPhaseForm.phaseName.$error.required &amp;&amp; submit}"/>
 			</div>
 		</div>        
 <!--
@@ -56,19 +56,24 @@
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
 				<label for="type">No. of Blocks</label>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-                    <input type="number" class="form-control" name="noOfBlocks" ng-model="projectDetails.noOfBlocks" ng-required="true" ng-change="appendFields(projectDetails.noOfBlocks)" ng-disabled="editPhaseBtn" ng-class="{blankInput: addPhaseForm.noOfBlocks.$error.required &amp;&amp; submit}" id="blockCount"/>
+			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
+                    <input type="number"  min="1" max="25" class="form-control" name="noOfBlocks" ng-model="projectDetails.noOfBlocks" ng-required="true" ng-change="appendFields(projectDetails.noOfBlocks)" ng-disabled="editPhaseBtn" ng-class="{blankInput: addPhaseForm.noOfBlocks.$error.required &amp;&amp; submit}" id="blockCount"/>
 			</div>
 		</div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="editPhaseBtn">
             <button type="button" name="addBlock" id="addBlock" class="btn btn-default" ng-click="appendFields()">Add Block</button>
         </div>
-        <div id="noOfBlocks" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0"></div>
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+				
+			</div>
+        <div id="noOfBlocks" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " ></div>
+        </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
 				<label for="type">Type</label>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
 				<select name="phaseType" ng-model="projectDetails.phaseType" class="form-control" id="type">
 					<option value="1">
 						Flat
@@ -77,7 +82,7 @@
 						Plot
 					</option>
 					<option value="3">
-						Villa
+						Villaments
 					</option>
 				</select>
 			</div>
@@ -86,7 +91,7 @@
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
 				<label for="type">Unit Of Msrmt.</label>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
 				<select name="phaseType" ng-model="projectDetails.unitOfMeasurement" class="form-control" id="type">
 					<option value="1">
 						Sq. Feet
@@ -100,11 +105,14 @@
 				</select>
 			</div>
 		</div>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right padding0 marginTop10" ng-show="addPhaseBtn">
-			<button type="button" class="btn btn-success" ng-click="addPhase(projectDetails,'addPhaseForm')">Save & Next</button>
+		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-right padding0 marginTop10" ng-show="addPhaseBtn">
+			<button type="button" class="btn btn-success" ng-click="addPhase(projectDetails,'addPhaseForm')">Save</button>
+            <button type="button" class="btn btn-success" ng-click="goback()" >Cancel</button> 
 		</div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right padding0 marginTop10" ng-show="editPhaseBtn">
-			<button type="button" class="btn btn-success" ng-click="editPhase(projectDetails,'addPhaseForm')">Update & Next</button>
+           
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-right padding0 marginTop10" ng-show="editPhaseBtn">
+			<button type="button" class="btn btn-success" ng-click="editPhase(projectDetails,'addPhaseForm')">Saves </button>
+             <button type="button" class="btn btn-success" ng-click="editgoback()" >Cancel</button>
 		</div>
 	</form>
 </div>

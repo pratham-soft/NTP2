@@ -1070,3 +1070,7 @@ td.inputType{
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+.starimp{
+    color:red;
+    font-size:18px;
+}

@@ -2,7 +2,7 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
     var Phase_Proj_Id = $stateParams.projId;
     var Phase_Id = $stateParams.phaseId;
 
-    $scope.pageTitle = "Add Phase";
+    $scope.pageTitle = "Project Details";
     $scope.editPhaseBtn = true;
 
     ($scope.projectListFun = function() {
@@ -52,7 +52,10 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
         });
     })();
 
-
+ $scope.editgoback= function()
+    {
+        $state.go('/Phases');
+    }
 
 
     function editAppendFields(data) {
@@ -172,11 +175,11 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
 });
 
 app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, encyrptSvc) {
-    $scope.pageTitle = "Add Phase";
+    $scope.pageTitle = "Project Details";
     $scope.addPhaseBtn = true;
-
+  
     ($scope.getProjectList = function() {
-        $scope.perFloorUnits = [];
+          $scope.perFloorUnits = [];
         $scope.units = [];
         angular.element(".loader").show();
         $http({
@@ -198,6 +201,12 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
             angular.element(".loader").hide();
         });
     })();
+    
+     $scope.goback= function()
+    {
+        $state.go('/Phases');
+    }
+
 
     $scope.appendFields = function(noOfLocation) {
         angular.element("#noOfBlocks").html('');
@@ -270,6 +279,7 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
 app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $compile, encyrptSvc) {
     $scope.typeNames = ['Flat', 'Sites', 'Villa', 'Row Houses'];
 
+   
     ($scope.getProjectList = function() {
         $scope.perFloorUnits = [];
         $scope.units = [];
@@ -289,7 +299,8 @@ app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $comp
             angular.element(".loader").hide();
         });
     })();
-
+    
+   
     $scope.getPhases = function(projId) {
         angular.element(".loader").show();
         $http({
