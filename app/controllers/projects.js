@@ -45,7 +45,7 @@ app.controller("projectsCtrl", function($scope, $http, $cookieStore, $state) {
                 typeName = 'Plots';
                 break;
             case 3:
-                typeName = 'Villa';
+                typeName = 'Villaments';
                 break;
             case 4:
                 typeName = 'Row Houses';
@@ -121,7 +121,7 @@ app.controller("addProjectCtrl", function($scope, $http, $cookieStore, $state) {
             case 'Plots':
                 typeId = 2;
                 break;
-            case 'Villa':
+            case 'Villaments':
                 typeId = 3;
                 break;
             case 'Row Houses':
@@ -177,7 +177,7 @@ app.controller("editProjectCtrl", function($scope, $http, $cookieStore, $state, 
                 typeName = 'Plotss';
                 break;
             case 3:
-                typeName = 'Villa';
+                typeName = 'Villaments';
                 break;
             case 4:
                 typeName = 'Row Houses';
@@ -248,7 +248,7 @@ app.controller("editProjectCtrl", function($scope, $http, $cookieStore, $state, 
             case 'Plots':
                 typeId = 2;
                 break;
-            case 'Villa':
+            case 'Villaments':
                 typeId = 3;
                 break;
             case 'Row Houses':
