@@ -153,29 +153,33 @@ app.controller("generatedCostSheetDetailsCtrl", function($scope, $http, $cookieS
             }
         });
     };
-    ($scope.generateCostSheetUnits = function(templId) {
-        angular.element(".loader").show();
-        $http({
-            method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/BldValforUtCtSt",
-            ContentType: 'application/json',
-            data: {
-                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
-                "untctcm_Blocks_Id": parseInt(blockId),
-                "untctcm_Id": templId
-            }
-        }).success(function(data) {
-            console.log(data);
-            var res = data.Comm_ErrorDesc;
-            var resSplit = res.split('|');
-            if (resSplit[0] == 0) {
-                $scope.getUnitsWithCostSheet(blockId);
-            }
-            angular.element(".loader").hide();
-        }).error(function() {
-            angular.element(".loader").hide();
-        });
-    })();
+    
+    // Below Code Commented as Cost Sheet was Aplied on page load, Cost sheet apply to units multiple times 24june 
+//    ($scope.generateCostSheetUnits = function(templId) {
+//        angular.element(".loader").show();
+//        $http({
+//            method: "POST",
+//            url: "http://120.138.8.150/pratham/Proj/Blk/BldValforUtCtSt",
+//            ContentType: 'application/json',
+//            data: {
+//                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
+//                "untctcm_Blocks_Id": parseInt(blockId),
+//                "untctcm_Id": templId
+//            }
+//        }).success(function(data) {
+//            console.log(data);
+//            var res = data.Comm_ErrorDesc;
+//            var resSplit = res.split('|');
+//            if (resSplit[0] == 0) {
+//                $scope.getUnitsWithCostSheet(blockId);
+//            }
+//            angular.element(".loader").hide();
+//        }).error(function() {
+//            angular.element(".loader").hide();
+//        });
+//    })();
+     $scope.getUnitsWithCostSheet(blockId);
+
 });
 
 
