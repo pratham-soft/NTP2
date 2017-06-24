@@ -1,9 +1,9 @@
-app.controller("addDepartmentCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {
+app.controller("addDepartmentCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile) {
     ($scope.getParentDepartmentDetails = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/Department",
+            url: appConfig.baseUrl+"/Comp/Department",
             ContentType: 'application/json',
             data: {
                 "dept_compguid": $cookieStore.get('comp_guid')
@@ -20,7 +20,7 @@ app.controller("addDepartmentCtrl", function($scope, $http, $cookieStore, $state
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -41,7 +41,7 @@ app.controller("addDepartmentCtrl", function($scope, $http, $cookieStore, $state
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SaveDept",
+                url: appConfig.baseUrl+"/Comp/SaveDept",
                 ContentType: 'application/json',
                 data: {
                     "dept_compguid": $cookieStore.get('comp_guid'),

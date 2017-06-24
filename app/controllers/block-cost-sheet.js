@@ -1,4 +1,4 @@
-app.controller("blockCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("blockCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Block Cost Sheet";
 
     myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -46,7 +46,7 @@ app.controller("blockCostSheetCtrl", function($scope, $http, $cookieStore, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -73,7 +73,7 @@ app.controller("blockCostSheetCtrl", function($scope, $http, $cookieStore, $stat
     }
 });
 
-app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Edit Block Cost Sheet";
     $scope.showPremium=false;
 
@@ -97,7 +97,7 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -151,7 +151,7 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
         var modalInstance = $uibModal.open({
             templateUrl: 'formula.html',
             controller: 'costComponentFormulaCtrl',
-            scope: $scope,
+            scope: $scope, 
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -176,7 +176,7 @@ app.controller("editBlockCostSheetCtrl", function($scope, $http, $cookieStore, $
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Updt",
+                url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Updt",
                 ContentType: 'application/json',
                 data: formObj
             }).success(function(data) {

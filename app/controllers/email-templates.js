@@ -1,4 +1,4 @@
-app.controller("editEmailTemplateCtrl", function($scope, $http, $rootScope, $cookieStore, $state, $compile, $stateParams, myService) {
+app.controller("editEmailTemplateCtrl", function($scope,  $http, $rootScope, $cookieStore, $state, $compile, $stateParams, myService) {
     var Tempemail_Id = $stateParams.tempemailid;
     var tempbpdy = $('#contentEditor').summernote('code');
 
@@ -9,7 +9,7 @@ app.controller("editEmailTemplateCtrl", function($scope, $http, $rootScope, $coo
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ModulesGetAlrt",
+            url: appConfig.baseUrl+"/Comp/ModulesGetAlrt",
             ContentType: 'application/json',
             data: {
                 "module_id": 0
@@ -28,7 +28,7 @@ app.controller("editEmailTemplateCtrl", function($scope, $http, $rootScope, $coo
     ($scope.getEmlTmpl = function() {
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/Emltmplt/gt",
+            url: appConfig.baseUrl+"/Comp/Emltmplt/gt",
             ContentType: 'application/json',
             data: {
                 "tempemail_comp_guid": $cookieStore.get('comp_guid'),
@@ -66,7 +66,7 @@ app.controller("editEmailTemplateCtrl", function($scope, $http, $rootScope, $coo
             console.log(formObj);
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/Emltmplt/Ins",
+                url: appConfig.baseUrl+"/Comp/Emltmplt/Ins",
                 ContentType: 'application/json',
                 data: {
                     "tempemail_comp_guid": $cookieStore.get('comp_guid'),
@@ -100,7 +100,7 @@ app.controller("editEmailTemplateCtrl", function($scope, $http, $rootScope, $coo
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
+            url: appConfig.baseUrl+"/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
                 "module_id": moduleId,
@@ -136,7 +136,7 @@ app.controller("editEmailTemplateCtrl", function($scope, $http, $rootScope, $coo
     
   
 });
-app.controller("emailTemplatesCtrl", function($scope, $http, $cookieStore, $state, $stateParams,myService, $filter, $compile) {
+app.controller("emailTemplatesCtrl", function($scope,  $http, $cookieStore, $state, $stateParams,myService, $filter, $compile) {
         $scope.pageTitle = "Email Templates";
     $scope.getEmailTempls = (function() {
         angular.element(".loader").show();
@@ -149,7 +149,7 @@ app.controller("emailTemplatesCtrl", function($scope, $http, $cookieStore, $stat
 		angular.element(".loader").show();
 		$http({
 			method:"POST",
-			url:"http://120.138.8.150/pratham/Comp/Emltmplt/gt",
+			url:appConfig.baseUrl+"/Comp/Emltmplt/gt",
 			ContentType: 'application/json',
             data: {
 			  "tempemailid" : 0,
@@ -165,7 +165,7 @@ app.controller("emailTemplatesCtrl", function($scope, $http, $cookieStore, $stat
     
     
 });
-app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http, $state,$stateParams, $cookieStore) {
+app.controller("createNewEmailTemplateCtrl", function($scope,  $rootScope, $http, $state,$stateParams, $cookieStore) {
     $scope.pageTitle = "Create New Email Template";
     $scope.template = {
         mergeFieldType:"",
@@ -183,7 +183,7 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ModulesGetAlrt",
+            url: appConfig.baseUrl+"/Comp/ModulesGetAlrt",
             ContentType: 'application/json',
             data: {
                 "module_id": 0
@@ -212,7 +212,7 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
             console.log(formObj);
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/Emltmplt/Ins",
+                url: appConfig.baseUrl+"/Comp/Emltmplt/Ins",
                 ContentType: 'application/json',
                 data: {
                     "tempemail_comp_guid": $cookieStore.get('comp_guid'),
@@ -245,7 +245,7 @@ app.controller("createNewEmailTemplateCtrl", function($scope, $rootScope, $http,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
+            url: appConfig.baseUrl+"/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
                 "module_id": moduleId,

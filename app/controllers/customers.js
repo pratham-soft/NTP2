@@ -1,4 +1,4 @@
-app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $uibModal) {
+app.controller("customerCtrl", function($scope,  $http, $cookieStore, $state, $uibModal) {
         $scope.sortColumn = "fullName";
         $scope.reverseSort = false;
 
@@ -23,7 +23,7 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/UserDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -80,7 +80,7 @@ app.controller("customerCtrl", function($scope, $http, $cookieStore, $state, $ui
     };
 });
 
-app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,encyrptSvc) {
+app.controller("customerDetailCtrl", function($scope,  $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,encyrptSvc) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -105,7 +105,7 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
     $scope.deleteRow = function(projId, rowId) {
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/ProjUnitDel",
+            url: appConfig.baseUrl+"/User/ProjUnitDel",
             ContentType: 'application/json',
             data: [{
                 "comp_guid": $cookieStore.get('comp_guid'),
@@ -198,7 +198,7 @@ app.controller("customerDetailCtrl", function($scope, $http, $cookieStore, $stat
 
 
 
-app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
+app.controller("unitOperationCtrl", function($scope,  $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
     $scope.customer = item;
     $scope.unitStatus = [];
     $scope.unitStatus[2] = "Interested";
@@ -357,7 +357,7 @@ app.controller("unitOperationCtrl", function($scope, $http, $cookieStore, $state
 
 
 
-app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
+app.controller("custPaymentCtrl", function($scope,  $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
    // myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
     $scope.convertNumToWords = function (numvalue)
     {
@@ -419,7 +419,7 @@ app.controller("custPaymentCtrl", function($scope, $rootScope, $stateParams, $co
 });
 
 
-app.controller("cancelUnitCtrl", function($scope, $rootScope, $window,$stateParams, $uibModal, $cookieStore, $state, $http, httpSvc, item, $uibModalInstance){
+app.controller("cancelUnitCtrl", function($scope,  $rootScope, $window,$stateParams, $uibModal, $cookieStore, $state, $http, httpSvc, item, $uibModalInstance){
     var unitObj=item;
      $scope.customerData=item.customer;
     $scope.unitinfo=[];
@@ -494,7 +494,7 @@ app.controller("cancelUnitCtrl", function($scope, $rootScope, $window,$statePara
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Cust/Cancelunit",
+            url: appConfig.baseUrl+"/Cust/Cancelunit",
             ContentType: 'application/json',
             data: {
                 "UnitCancel_Cust_User_Id"  : unitObj.CustId,

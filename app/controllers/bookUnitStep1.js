@@ -1,4 +1,4 @@
-app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService,$window){
+app.controller("bookUnitStep1Ctrl", function($scope,  $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService,$window){
 	$scope.pageTitle = "Book Unit - Cost Details";
 	$scope.unitObj = $cookieStore.get("unitObj");
     $scope.leadFullName=$cookieStore.get("leadName");
@@ -105,7 +105,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
         var modalInstance = $uibModal.open({
             templateUrl: 'formula.html',
             controller: 'bookUnitCostComponentFormulaCtrl',
-            scope: $scope,
+            scope: $scope, 
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -158,7 +158,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 	}
 });
 
-app.controller("bookUnitCostComponentFormulaCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, item) {
+app.controller("bookUnitCostComponentFormulaCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, item) {
     $scope.formula = {
         abbreviation: '',
         operator: ''

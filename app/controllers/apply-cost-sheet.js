@@ -1,4 +1,4 @@
-app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("applyCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Apply Cost Sheet";
     $scope.projectId = $stateParams.projectId;
     $scope.phaseId = $stateParams.phaseId;
@@ -9,7 +9,7 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -47,7 +47,7 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -86,7 +86,7 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
         var modalInstance = $uibModal.open({
             templateUrl: 'formula.html',
             controller: 'costComponentFormulaCtrl',
-            scope: $scope,
+            scope: $scope, 
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -123,7 +123,7 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -251,7 +251,7 @@ app.controller("applyCostSheetCtrl", function($scope, $http, $cookieStore, $stat
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Save",
+                url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Save",
                 ContentType: 'application/json',
                 data: formObj
             }).success(function(data) {

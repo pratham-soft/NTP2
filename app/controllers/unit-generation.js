@@ -1,4 +1,4 @@
-app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, myService) {
+app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService) {
     $scope.untDetails = [];
     $scope.projectId = $stateParams.projId;
     $scope.phaseId = $stateParams.phaseId;
@@ -45,7 +45,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/BlockDtls/ByPhaseBlocksId",
+            url: appConfig.baseUrl+"/Proj/BlockDtls/ByPhaseBlocksId",
             ContentType: 'application/json',
             data: {
                 "Blocks_Phase_Id": $scope.phaseId,
@@ -70,7 +70,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Block/Updt",
+                url: appConfig.baseUrl+"/Proj/Block/Updt",
                 ContentType: 'application/json',
                 data: {
                     "Blocks_comp_guid": $cookieStore.get('comp_guid'),
@@ -155,7 +155,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             /*Update Block*/
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Block/Updt",
+                url: appConfig.baseUrl+"/Proj/Block/Updt",
                 ContentType: 'application/json',
                 data: {
                     "Blocks_comp_guid": $cookieStore.get('comp_guid'),
@@ -294,7 +294,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
             /*Update Block*/
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Block/Updt",
+                url: appConfig.baseUrl+"/Proj/Block/Updt",
                 ContentType: 'application/json',
                 data: {
                     "Blocks_comp_guid": $cookieStore.get('comp_guid'),
@@ -379,7 +379,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
 //        /*Update Block*/
 //        $http({
 //            method: "POST",
-//            url: "http://120.138.8.150/pratham/Proj/Block/Updt",
+//            url: appConfig.baseUrl+"/Proj/Block/Updt",
 //            ContentType: 'application/json',
 //            data: {
 //                "Blocks_comp_guid": $cookieStore.get('comp_guid'),
@@ -610,7 +610,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
             data: unitsJson
         }).success(function(data) {
@@ -699,7 +699,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Update",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Update",
             ContentType: 'application/json',
             data: unitsData
         }).success(function(data) {
@@ -762,7 +762,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
             data: plotsJson
         }).success(function(data) {
@@ -830,7 +830,7 @@ app.controller("unitGenerationCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Save",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Save",
             ContentType: 'application/json',
             data: unitsJson
         }).success(function(data) {

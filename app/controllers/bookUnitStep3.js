@@ -1,4 +1,4 @@
-app.controller("bookUnitStep3Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,myService){
+app.controller("bookUnitStep3Ctrl", function($scope,  $rootScope, $stateParams, $cookieStore, $state, httpSvc,myService){
 	$scope.pageTitle = "Book Unit - Payment Details";
     var receivePaymentUnitObj=$cookieStore.get("receivePaymentUnitObj");
     var unitObj = $cookieStore.get("unitObj");

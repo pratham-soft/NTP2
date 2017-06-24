@@ -1,10 +1,10 @@
-app.controller("heirarchyCtrl", function($scope, $http, $cookieStore, $state) {
+app.controller("heirarchyCtrl", function($scope,  $http, $cookieStore, $state) {
 
     ($scope.heirarchyDetails = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/DeptHeirarchy",
+            url: appConfig.baseUrl+"/Comp/DeptHeirarchy",
             ContentType: 'application/json',
             data: {
                 "dept_compguid": $cookieStore.get('comp_guid')

@@ -1,10 +1,10 @@
-app.controller("projectsCtrl", function($scope, $http, $cookieStore, $state) {
+app.controller("projectsCtrl", function($scope,  $http, $cookieStore, $state) {
 
     ($scope.getProjectsList = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Proj/View",
+            url: appConfig.baseUrl+"/Proj/Proj/View",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": $cookieStore.get('comp_guid'),
@@ -57,7 +57,7 @@ app.controller("projectsCtrl", function($scope, $http, $cookieStore, $state) {
     }
 });
 
-app.controller("addProjectCtrl", function($scope, $http, $cookieStore, $state) {
+app.controller("addProjectCtrl", function($scope,  $http, $cookieStore, $state) {
     $scope.pageTitle = "Add Project";
     $scope.addProjectBtn = true;
     $scope.saveProject = function(formObj, formName) {
@@ -86,7 +86,7 @@ app.controller("addProjectCtrl", function($scope, $http, $cookieStore, $state) {
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Proj/Save",
+                url: appConfig.baseUrl+"/Proj/Proj/Save",
                 ContentType: 'application/json',
                 data: {
                     "Proj_comp_guid": $cookieStore.get('comp_guid'),
@@ -130,7 +130,7 @@ app.controller("addProjectCtrl", function($scope, $http, $cookieStore, $state) {
     }
 });
 
-app.controller("editProjectCtrl", function($scope, $http, $cookieStore, $state, $stateParams) {
+app.controller("editProjectCtrl", function($scope,  $http, $cookieStore, $state, $stateParams) {
     $scope.pageTitle = "Edit Project";
     $scope.editProjectBtn = true;
 
@@ -138,7 +138,7 @@ app.controller("editProjectCtrl", function($scope, $http, $cookieStore, $state, 
         $scope.projId = $stateParams.projId;
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Proj/View",
+            url: appConfig.baseUrl+"/Proj/Proj/View",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": $cookieStore.get('comp_guid'),
@@ -210,7 +210,7 @@ app.controller("editProjectCtrl", function($scope, $http, $cookieStore, $state, 
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Proj/Save",
+                url: appConfig.baseUrl+"/Proj/Proj/Save",
                 ContentType: 'application/json',
                 data: {
                     "Proj_comp_guid": $cookieStore.get('comp_guid'),
