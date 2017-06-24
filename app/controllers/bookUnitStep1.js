@@ -1,7 +1,8 @@
-app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService){
+app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService,$window){
 	$scope.pageTitle = "Book Unit - Cost Details";
 	$scope.unitObj = $cookieStore.get("unitObj");
     $scope.leadFullName=$cookieStore.get("leadName");
+    var previous_discount=0;
   
 	$scope.prospectId = $cookieStore.get("prospectId");
     if( $cookieStore.get("skip3rdStep") == true)
@@ -40,6 +41,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
         angular.element(".loader").show();
         httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
             $scope.unitCostSheetDetail = response.data;
+            previous_discount = $scope.unitCostSheetDetail.cstcmpcalcval20;
         $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
             
         $scope.updatedCostSheetObj = {
@@ -118,10 +120,12 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
         discountVal:''
     };
 	$scope.calculateFinalPrice = function(obj){
+        angular.element(".loader").show();
         $scope.updatedCostSheetObj.Untctcm_code20 = "DISC";
         $scope.updatedCostSheetObj.Untctcm_name20 = "DISCOUNT";
         $scope.updatedCostSheetObj.Untctcm_calctyp20 = 0;  // Always be Falt Discount Value 
-        $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + obj2.cstcmpcalcval20);
+       // $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + obj2.cstcmpcalcval20);
+        $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + previous_discount);
         $scope.updatedCostSheetObj.Untctcm_comments20 = "";
         
         console.log(JSON.stringify($scope.updatedCostSheetObj));
@@ -129,6 +133,15 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 			var res = response.data.Comm_ErrorDesc;
 			resArr = res.split('|');
 			$scope.finalCost = resArr[2];
+                // The below service will refresh the Cost sheet after discount
+                httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
+                $scope.unitCostSheetDetail = response.data;
+                previous_discount = $scope.unitCostSheetDetail.cstcmpcalcval20;
+    $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
+                angular.element(".loader").hide();
+                })
+               
+            
 		});
     }
     
