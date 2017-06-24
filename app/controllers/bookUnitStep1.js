@@ -3,6 +3,7 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
 	$scope.unitObj = $cookieStore.get("unitObj");
     $scope.leadFullName=$cookieStore.get("leadName");
     var previous_discount=0;
+    var totalDiscount=0;
   
 	$scope.prospectId = $cookieStore.get("prospectId");
     if( $cookieStore.get("skip3rdStep") == true)
@@ -120,7 +121,10 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
         discountVal:''
     };
 	$scope.calculateFinalPrice = function(obj){
+        totalDiscount= parseFloat(obj.discountVal + previous_discount);
+          if( totalDiscount < $scope.unitCostSheetDetail.unitcostcal_totcost){                       
         angular.element(".loader").show();
+
         $scope.updatedCostSheetObj.Untctcm_code20 = "DISC";
         $scope.updatedCostSheetObj.Untctcm_name20 = "DISCOUNT";
         $scope.updatedCostSheetObj.Untctcm_calctyp20 = 0;  // Always be Falt Discount Value 
@@ -143,6 +147,10 @@ app.controller("bookUnitStep1Ctrl", function($scope, $rootScope, $stateParams, $
                
             
 		});
+          }
+        else{
+            alert("Discount can not be more than Total Cost")
+        }
     }
     
 	$scope.saveStep1 = function(){        
