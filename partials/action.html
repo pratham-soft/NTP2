@@ -18,8 +18,10 @@
             <label for="actionTypeEmail">Email</label>
             <input type="radio"  name="actionType" id="actionTypeSms" value="sms" ng-model="action.actionType" ng-required="true" ng-class="{blankInput: actionForm.actionType.$error.required &amp;&amp; submit}"/>
             <label for="actionTypeSms">SMS</label>
+<!--
             <input type="radio"  name="actionType" id="actionTypeDesktop" value="desktop" ng-model="action.actionType" ng-required="true" ng-class="{blankInput: actionForm.actionType.$error.required &amp;&amp; submit}"/>
             <label for="actionTypeDesktop">Desktop Notification</label>
+-->
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="action.actionType == 'email'">
@@ -46,6 +48,7 @@
          </div>
       </div>
         <br>
+<!--
        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="action.actionType == 'desktop'">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label>Do you want Dektop Nortifications?</label>
@@ -57,6 +60,7 @@
 				<label for="desktopNotificationsNo">No</label>
 			 </div>
        </div>
+-->
        
        
        
