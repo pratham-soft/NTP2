@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-		<h1>Assign Project to Prospect</h1>
+		<h3>Assign Project to Prospect</h3>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
 	<ol class="breadcrumb">
@@ -104,8 +104,10 @@
         <div ng-repeat="x in floor track by $index" class="flat {{flatStatus[x.UnitDtls_Status-1]}} {{x.markUp}}" id="unit{{x.UnitDtls_Id}}" ng-click="selectUnit(x.UnitDtls_Id,projectDetails)" title="Unit No.{{x.UnitDtls_No}} | {{x.UnitDtls_Rooms}} BHK | Floor - {{x.UnitDtls_Floor}}  | {{flatStatusText[x.UnitDtls_Status-1]}}">
 	    </div>
 -->
+      
          <div ng-repeat="x in floor track by $index" class="fa fa-home fa-pull-left {{flatStatus[x.UnitDtls_Status-1]}} {{x.markUp}}" id="unit{{x.UnitDtls_Id}}" ng-click="selectUnit(x.UnitDtls_Id,projectDetails)" title="Unit No.{{x.UnitDtls_No}} | {{x.UnitDtls_Rooms}} BHK | Floor - {{x.UnitDtls_Floor}}  | {{flatStatusText[x.UnitDtls_Status-1]}}">
 	    </div>
+
     </div>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20">
@@ -114,7 +116,7 @@
 <script type="text/ng-template" id="unitCostSheet.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId</h3>
+        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId<<h3>
     </div>
     <div class="modal-body" id="modal-body">
         <table class="table borderDef">

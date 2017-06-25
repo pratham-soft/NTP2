@@ -269,9 +269,11 @@
 	color: red;
 }
 .fa-home.selected{
+    z-index: -99;
 	background-image: url(../img/tick_blue.png);
     background-position: 45% 45%;
     background-repeat: no-repeat;
+    
 }
 
 
