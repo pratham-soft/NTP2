@@ -91,7 +91,7 @@
                <label>No. of Releases:</label>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-               <select class="form-control" name="plotReleaseNo" ng-model="untGeneration.plotvillaReleaseNo" ng-required="true"  >
+               <select class="form-control" name="plotvillaReleaseNo" ng-model="untGeneration.plotvillaReleaseNo" ng-required="true">
                   <option value="">Select</option>
 				   <option value="1">1 </option>
                   <option value="2">2 </option>
@@ -115,7 +115,7 @@
                <label>No. of Types:</label>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-               <input type="text" class="form-control" placeholder="No. of Types" name="noOfFloors" ng-model="untGeneration.noOfFloors" ng-required="true" ng-class="{blankInput: untGenerationForm.noOfFloors.$error.required &amp;&amp; submit}">
+               <input type="number" class="form-control" placeholder="No. of Types" name="noOfVillaType" ng-model="untGeneration.noOfVillaType" ng-required="true" ng-class="{blankInput: untGenerationForm.noOfVillaType.$error.required &amp;&amp; submit}">
             </div>
             <br><br>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
@@ -192,7 +192,7 @@
 
          <h4>
 			 Villas Generation Formula
-		  	 <button type="button" class="btn btn-default" ng-click="addVillaTypeRow()">Add More</button>
+		  	 <button type="button" class="btn btn-default" ng-click="addVillaTypeRow()">Generate Type Samples</button>
 		  </h4>
             <table class="table">
               <thead>
@@ -206,11 +206,12 @@
               <th>Bedrooms </th>
               <th>Balconies </th>
               <th>Bathrooms</th>
-              <th>Build%</th>
+<!--              <th>Build%</th>-->
               <th>No. of floors</th>
               <th>No. of Villasments</th>
               </tr>
               </thead>
+<!--
               <tbody>
                   <tr>
                   <td>  
@@ -285,6 +286,7 @@
                   </td>
                   </tr>
               </tbody>
+-->
             <tbody id="villaTypeGrid">
                 
             </tbody>
@@ -292,7 +294,7 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20" ng-show="blockFloorUnits == 0">
          <button type="button" class="btn btn-success" ng-click="addSampleVillas(untGeneration,'untGenerationForm')">
-         Generate Villas
+         Generate All Villas
          </button>
       </div>
    </div>
@@ -392,12 +394,14 @@
                <th>East+west</th>
                <th>North+South</th>
                <th>Super Built-up Area</th>
+<!--
                <th>% Age</th>
                <th>Carpet Area</th>
+-->
                <th>Bedrooms</th>
                <th>Balconies</th>
                <th>Bathrooms</th>
-               <th>Release No</th>
+<!--               <th>Release No</th>-->
                <th>Floors</th>
                <th>Premium</th>
                <th>Corner PLot</th>
@@ -632,6 +636,7 @@
             <tr>
                <th>Site No.</th>
                <th>Facing   </th>
+               <th>Type Name</th>
                <th>East</th>
                <th>West</th>
                <th>North</th>
@@ -642,10 +647,12 @@
                <th>Balconies</th>
                <th>Bathrooms</th>
                <th>Super Built-up Area</th>
+<!--
                <th>% Age</th>
                <th>Carpet Area</th>
+-->
                <th>Premium</th>
-               <th>Release No</th>
+<!--               <th>Release No</th>-->
                <th>Corner PLot</th>
             </tr>
          </thead>
@@ -665,6 +672,8 @@
                         <option value="SE">SE</option>
                      </select>
                   </td>
+                  <td>  
+                    <input type="text" style="width:70px;" class="form-control" name="unitType" ng-model="UnitsArr[$index].UnitDtls_Name"/></td>
                   <td>
                      <input type="text" style="width:70px;" class="form-control" name="UnitDtls_EstMsrmnt" ng-model="UnitsArr[$index].UnitDtls_EstMsrmnt"   ng-keyup="calculateEastWestValue($index,UnitsArr)"/>
                   </td>
@@ -720,9 +729,11 @@
                         <option value="5">5</option>
                      </select>
                   </td>
+
                   <td><input type="text" style="width:75px;" class="form-control" name="UnitDtls_BuliltupArea" ng-model="UnitsArr[$index].UnitDtls_BuliltupArea" disabled="true"/></td>
-                  <td><input type="text" style="width:50px;" class="form-control" name="UnitDtls_percentage" ng-model="UnitsArr[$index].UnitDtls_percentage" ng-keyup="calculateCarpet($index,UnitsArr)"/></td>
+<!--                  <td><input type="text" style="width:50px;" class="form-control" name="UnitDtls_percentage" ng-model="UnitsArr[$index].UnitDtls_percentage" ng-keyup="calculateCarpet($index,UnitsArr)"/></td>
                   <td><input type="text" style="width:70px;" class="form-control" name="UnitDtls_Msrmnt" ng-model="UnitsArr[$index].UnitDtls_Msrmnt" disabled="true"/></td>
+-->
                   <!--
                      <td> 
                        <select class="form-control" name="UnitDtls_SrvntRoom" ng-model="UnitsArr[$index].UnitDtls_SrvntRoom">
@@ -738,7 +749,7 @@
                         <option value="0">N</option>
                      </select>
                   </td>
-                  <td><input type="text" style="width:50px;"  class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" /></td>
+<!--                  <td><input type="text" style="width:50px;"  class="form-control" name="UnitDtls_Floor" ng-model="UnitsArr[$index].UnitDtls_Floor" /></td>-->
                   <td>
                      <select style="width:60px;"  class="form-control" name="UnitDtls_Cornerplot" ng-model="UnitsArr[$index].UnitDtls_Cornerplot">
                         <option value="1">Y</option>
