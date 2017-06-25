@@ -268,12 +268,17 @@
 .fa-home.sold{
 	color: red;
 }
-.fa-home.selected{
+.fa-home.selected:before{
+/*
     z-index: -99;
 	background-image: url(../img/tick_blue.png);
     background-position: 45% 45%;
     background-repeat: no-repeat;
-    
+*/
+    content: "\f046";
+    font-family: FontAwesome; 
+    font-size: 27px;
+    padding: 2px;
 }
 
 
