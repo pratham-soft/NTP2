@@ -85,7 +85,7 @@
             </div>
          </div>
       </div>
-      <div ng-hide="untGeneration.typeId == 1">
+      <div ng-show="untGeneration.typeId == 2">
          <div ng-show="blockFloorUnits == 0">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3  labelDiv">
                <label>No. of Releases:</label>
@@ -109,6 +109,23 @@
             </div>
          </div>
       </div>
+       <div ng-show="untGeneration.typeId == 3">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0" ng-show="blockFloorUnits == 0">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+               <label>No. of Types:</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+               <input type="text" class="form-control" placeholder="No. of Types" name="noOfFloors" ng-model="untGeneration.noOfFloors" ng-required="true" ng-class="{blankInput: untGenerationForm.noOfFloors.$error.required &amp;&amp; submit}">
+            </div>
+            <br><br>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-left labelDiv">
+               <label>No of Villaments:</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+               <input type="text" class="form-control" placeholder="No of Villaments" name="totalVillaments" ng-model="untGeneration.totalVillaments" ng-required="true" ng-class="{blankInput: untGenerationForm.totalVillaments.$error.required &amp;&amp; submit}">
+            </div>
+         </div>
+         </div>
    </div>
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf"  ng-if="untGeneration.typeId == 1">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ugf" ng-if="blockFloorUnits == 0 ">
@@ -180,16 +197,18 @@
             <table class="table">
               <thead>
               <tr>
-              <th>Facing: </th>
-              <th>East:</th>
-              <th>West:</th>
-              <th>North:</th>
-              <th>South:</th>
-              <th>Bedrooms: </th>
-              <th>Balconies: </th>
-              <th>Bathrooms:</th>
-              <th>Build%:</th>
-              <th>No. of Villas:</th>
+              <th>Facing </th>
+              <th>Type Name</th>
+              <th>East</th>
+              <th>West</th>
+              <th>North</th>
+              <th>South</th>
+              <th>Bedrooms </th>
+              <th>Balconies </th>
+              <th>Bathrooms</th>
+              <th>Build%</th>
+              <th>No. of floors</th>
+              <th>No. of Villasments</th>
               </tr>
               </thead>
               <tbody>
@@ -207,6 +226,9 @@
                      <option value="SE">SE </option>
                      </select>
                   </td>
+                  <td>  
+                    <input type="text" style="width:70px;" class="form" name="villaType" ng-model="untGeneration.villaType[0].unitType"/>
+                  </td> 
                   <td>
                      <input type="number" id="eastDimension" ng-model="untGeneration.villaType[0].eastDimension" ng-required="true"> 
                   </td>
@@ -254,6 +276,9 @@
                   </td>
                   <td>
                     <input type="number" id="buildPercent" ng-model="untGeneration.villaType[0].buildPercent" ng-required="true">
+                  </td>
+                  <td>
+                     <input type="number" id="villaFloorsNo" ng-model="untGeneration.villaType[0].villaFloorNo" ng-required="true"> 
                   </td>
                   <td>
                      <input type="number" id="noOfVillas" ng-model="untGeneration.villaType[0].noOfVillas" ng-required="true"> 
@@ -359,6 +384,7 @@
             <tr>
                <th>Site No.</th>
                <th>Facing   </th>
+               <th>Type Name</th>
                <th>East</th>
                <th>West</th>
                <th>North</th>
@@ -372,6 +398,7 @@
                <th>Balconies</th>
                <th>Bathrooms</th>
                <th>Release No</th>
+               <th>Floors</th>
                <th>Premium</th>
                <th>Corner PLot</th>
             </tr>
@@ -589,6 +616,7 @@
    </div>
 </div>
 <!--- villa started -->
+
 <div ng-show="untGeneration.typeId == 3">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right marginBottom20  ng-scope" >
       <button type="button" class="btn btn-primary" ng-click="addMoreVillas(untGeneration,'untGenerationForm')" ng-show="blockFloorUnits > 0"> + Add More Villas</button>
