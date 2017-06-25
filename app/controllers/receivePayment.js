@@ -1,4 +1,4 @@
-app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $state, $uibModal) {
+app.controller("receivePaymentCtrl", function($scope,  $http, $cookieStore, $state, $uibModal) {
         $scope.sortColumn = "fullName";
         $scope.reverseSort = false;
 
@@ -23,7 +23,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/UserDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -64,7 +64,7 @@ app.controller("receivePaymentCtrl", function($scope, $http, $cookieStore, $stat
     
 });
 
-app.controller("customerReceivePaymentDetailCtrl2", function($scope, $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
+app.controller("customerReceivePaymentDetailCtrl2", function($scope,  $http, $cookieStore, $state, $uibModalInstance, item,$window,$uibModal,httpSvc) {
      $scope.showPaymentHistoryView=false;
     $scope.customer = item;
     $scope.unitStatus = [];
@@ -175,7 +175,7 @@ app.controller("customerReceivePaymentDetailCtrl2", function($scope, $http, $coo
     }
 });
 
-app.controller("custPaymentCtrl2", function($scope, $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
+app.controller("custPaymentCtrl2", function($scope,  $rootScope, $stateParams, $cookieStore, $state, httpSvc,item,$uibModalInstance,$uibModal, myService){
    // myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
     $scope.convertNumToWords = function (numvalue)
     {

@@ -1,4 +1,4 @@
-app.controller("unitUpdateController", function($scope, $http, $cookieStore, $state, $uibModalInstance, item) {
+app.controller("unitUpdateController", function($scope,  $http, $cookieStore, $state, $uibModalInstance, item) {
     $scope.unit = item;
     $scope.ok = function() {
         $uibModalInstance.close();
@@ -7,7 +7,7 @@ app.controller("unitUpdateController", function($scope, $http, $cookieStore, $st
         if (formObj.updateStatus != undefined && formObj.updateStatus != '') {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/UpdtUnitDtls/ByUnitDtlsID",
+                url: appConfig.baseUrl+"/Proj/UpdtUnitDtls/ByUnitDtlsID",
                 ContentType: 'application/json',
                 data: {
                     "UnitDtls_comp_guid": $cookieStore.get('comp_guid'),
@@ -36,7 +36,7 @@ app.controller("unitUpdateController", function($scope, $http, $cookieStore, $st
     };
 });
 
-app.controller("updateRoleIdAndAssignedToCtrl", function($scope, $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
+app.controller("updateRoleIdAndAssignedToCtrl", function($scope,  $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
     $scope.firstDropValues=[];
     $scope.repotingDetails =[];
     $scope.roleIdDetails =[];
@@ -70,7 +70,7 @@ app.controller("updateRoleIdAndAssignedToCtrl", function($scope, $uibModalInstan
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/RoleGet",
+                url: appConfig.baseUrl+"/Comp/RoleGet",
                 ContentType: 'application/json',
                 data: {
                     "role_compguid": $cookieStore.get('comp_guid')
@@ -102,7 +102,7 @@ app.controller("updateRoleIdAndAssignedToCtrl", function($scope, $uibModalInstan
             angular.element(".loader").show();
             $http({
                 method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -133,7 +133,7 @@ app.controller("updateRoleIdAndAssignedToCtrl", function($scope, $uibModalInstan
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserUpdt/AssignedTo",
+            url: appConfig.baseUrl+"/User/UserUpdt/AssignedTo",
             ContentType: 'application/json',
             data: {
                 "user_ids":item,
@@ -159,7 +159,7 @@ app.controller("updateRoleIdAndAssignedToCtrl", function($scope, $uibModalInstan
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserUpdt/RoleId",
+            url: appConfig.baseUrl+"/User/UserUpdt/RoleId",
             ContentType: 'application/json',
             data: {
                 "user_ids":item,

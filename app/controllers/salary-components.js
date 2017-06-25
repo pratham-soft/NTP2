@@ -1,4 +1,4 @@
-app.controller("ctcDetailCtrl", function($scope, $http, $cookieStore, $uibModalInstance, $stateParams, $state, item) {
+app.controller("ctcDetailCtrl", function($scope,  $http, $cookieStore, $uibModalInstance, $stateParams, $state, item) {
     $scope.empObject = item;
 
     ($scope.getSalaryComponentDetails = function() {
@@ -6,7 +6,7 @@ app.controller("ctcDetailCtrl", function($scope, $http, $cookieStore, $uibModalI
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/CalculateUserSalaryHeads",
+            url: appConfig.baseUrl+"/User/CalculateUserSalaryHeads",
             ContentType: 'application/json',
             data: {
                 "UserSalheadsCompGuid": $cookieStore.get('comp_guid'),
@@ -33,7 +33,7 @@ app.controller("ctcDetailCtrl", function($scope, $http, $cookieStore, $uibModalI
     $scope.saveSalaryComponent = function(salaryCode, salaryId, salaryCompId) {
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/SalaryHeadsInsert",
+            url: appConfig.baseUrl+"/User/SalaryHeadsInsert",
             ContentType: 'application/json',
             data: {
                 "UserSalheadsCompGuid": $cookieStore.get('comp_guid'),
@@ -56,13 +56,13 @@ app.controller("ctcDetailCtrl", function($scope, $http, $cookieStore, $uibModalI
     };
 });
 
-app.controller("salaryComponentDetailsCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $rootScope) {
+app.controller("salaryComponentDetailsCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $rootScope) {
 
     ($scope.getSalaryComponentDetails = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SalaryHeadsGet",
+            url: appConfig.baseUrl+"/Comp/SalaryHeadsGet",
             ContentType: 'application/json',
             data: {
                 "SalHeads_comp_guid": $cookieStore.get('comp_guid')
@@ -104,7 +104,7 @@ app.controller("salaryComponentDetailsCtrl", function($scope, $http, $cookieStor
     };
 });
 
-app.controller("addSalaryComponentCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
+app.controller("addSalaryComponentCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
     $scope.pageTitle = "Add Salary Component";
     $scope.addSalaryComponentBtn = true;
 
@@ -115,7 +115,7 @@ app.controller("addSalaryComponentCtrl", function($scope, $http, $cookieStore, $
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SalaryHeadsInsert",
+                url: appConfig.baseUrl+"/Comp/SalaryHeadsInsert",
                 ContentType: 'application/json',
                 data: {
                     "SalHeads_comp_guid": $cookieStore.get('comp_guid'),
@@ -142,7 +142,7 @@ app.controller("addSalaryComponentCtrl", function($scope, $http, $cookieStore, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SalaryHeadsGet",
+            url: appConfig.baseUrl+"/Comp/SalaryHeadsGet",
             ContentType: 'application/json',
             data: {
                 "SalHeads_comp_guid": $cookieStore.get('comp_guid')
@@ -161,7 +161,7 @@ app.controller("addSalaryComponentCtrl", function($scope, $http, $cookieStore, $
     };
 });
 
-app.controller("editSalaryComponentCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
+app.controller("editSalaryComponentCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
     $scope.pageTitle = "Edit Salary Component";
     $scope.editSalaryComponentBtn = true;
 
@@ -186,7 +186,7 @@ app.controller("editSalaryComponentCtrl", function($scope, $http, $cookieStore, 
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SalaryHeadsUpdate",
+                url: appConfig.baseUrl+"/Comp/SalaryHeadsUpdate",
                 ContentType: 'application/json',
                 data: {
                     "SalHeads_Id": item.SalHeads_Id,
@@ -214,7 +214,7 @@ app.controller("editSalaryComponentCtrl", function($scope, $http, $cookieStore, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SalaryHeadsGet",
+            url: appConfig.baseUrl+"/Comp/SalaryHeadsGet",
             ContentType: 'application/json',
             data: {
                 "SalHeads_comp_guid": $cookieStore.get('comp_guid')

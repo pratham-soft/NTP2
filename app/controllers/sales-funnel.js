@@ -1,10 +1,10 @@
-app.controller("salesFunnelCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $rootScope) {
+app.controller("salesFunnelCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $rootScope) {
 
     ($scope.getSalesFunnelDetails = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SalesFunnelGet",
+            url: appConfig.baseUrl+"/Comp/SalesFunnelGet",
             ContentType: 'application/json',
             data: {
                 "salesfunnel_compguid": $cookieStore.get('comp_guid')
@@ -46,7 +46,7 @@ app.controller("salesFunnelCtrl", function($scope, $http, $cookieStore, $state, 
     };
 });
 
-app.controller("addSalesFunnelCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
+app.controller("addSalesFunnelCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
     $scope.pageTitle = "Add Sales Funnel";
     $scope.addSalesFunnelBtn = true;
 
@@ -56,7 +56,7 @@ app.controller("addSalesFunnelCtrl", function($scope, $http, $cookieStore, $stat
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SalesFunnelInsert",
+                url: appConfig.baseUrl+"/Comp/SalesFunnelInsert",
                 ContentType: 'application/json',
                 data: {
                     "salesfunnel_name": formObj.salesFunnelName,
@@ -77,7 +77,7 @@ app.controller("addSalesFunnelCtrl", function($scope, $http, $cookieStore, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SalesFunnelGet",
+            url: appConfig.baseUrl+"/Comp/SalesFunnelGet",
             ContentType: 'application/json',
             data: {
                 "salesfunnel_compguid": $cookieStore.get('comp_guid')
@@ -95,7 +95,7 @@ app.controller("addSalesFunnelCtrl", function($scope, $http, $cookieStore, $stat
     };
 });
 
-app.controller("editSalesFunnelCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
+app.controller("editSalesFunnelCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
     $scope.pageTitle = "Edit Sales Funnel";
     $scope.editSalesFunnelBtn = true;
 
@@ -112,7 +112,7 @@ app.controller("editSalesFunnelCtrl", function($scope, $http, $cookieStore, $sta
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SalesFunnelUpdate",
+                url: appConfig.baseUrl+"/Comp/SalesFunnelUpdate",
                 ContentType: 'application/json',
                 data: {
                     "salesfunnel_id": item.salesfunnel_id,
@@ -134,7 +134,7 @@ app.controller("editSalesFunnelCtrl", function($scope, $http, $cookieStore, $sta
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SalesFunnelGet",
+            url: appConfig.baseUrl+"/Comp/SalesFunnelGet",
             ContentType: 'application/json',
             data: {
                 "salesfunnel_compguid": $cookieStore.get('comp_guid')

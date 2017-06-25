@@ -15,7 +15,7 @@
                     '<div class="headerSpacer"></div>' +
                     '<div class="scrollArea" ng-transclude></div>' +
                   '</div>',
-        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs', function ($scope,  $element, $attrs) {
           // define an API for child directives to view and modify sorting parameters
           this.getSortExpr = function () {
             return $scope.sortExpr;

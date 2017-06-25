@@ -1,10 +1,10 @@
-app.controller("costSheetTemplatesCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal) {
+app.controller("costSheetTemplatesCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal) {
     $scope.title = "Cost Sheet Templates";
     ($scope.getCostSheetTemplates = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -36,7 +36,7 @@ app.controller("costSheetTemplatesCtrl", function($scope, $http, $state, $cookie
     };
 });
 
-app.controller("costSheetDetailCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModalInstance, item) {
+app.controller("costSheetDetailCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModalInstance, item) {
     $scope.costSheetDetail = item;
     $scope.formulaType = ['Formula', 'Flat'];
     $scope.ok = function() {
@@ -44,7 +44,7 @@ app.controller("costSheetDetailCtrl", function($scope, $http, $state, $cookieSto
     };
 });
 
-app.controller("costSheetTemplateCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal) {
+app.controller("costSheetTemplateCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal) {
     $scope.title = "Add Cost Sheet Template";
     /*$scope.costSheetTemplate = {
         untctcm_Ascending: '',
@@ -58,7 +58,7 @@ app.controller("costSheetTemplateCtrl", function($scope, $http, $state, $cookieS
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+                url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
                 ContentType: 'application/json',
                 data: {
                     "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -127,7 +127,7 @@ app.controller("costSheetTemplateCtrl", function($scope, $http, $state, $cookieS
         var modalInstance = $uibModal.open({
             templateUrl: 'formula.html',
             controller: 'costComponentFormulaCtrl',
-            scope: $scope,
+            scope: $scope, 
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -143,7 +143,7 @@ app.controller("costSheetTemplateCtrl", function($scope, $http, $state, $cookieS
     };
 
     $scope.saveCostSheetTemplate = function(formName, formObj) {
-        var url = "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Save";
+        var url = appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Save";
         $scope.submit = true;
         if ($scope[formName].$valid) {
             formObj.untctcm_comp_guid = $cookieStore.get('comp_guid');
@@ -153,7 +153,7 @@ app.controller("costSheetTemplateCtrl", function($scope, $http, $state, $cookieS
 
             if ($scope.editTemplate) {
                 formObj.untctcm_Id = $stateParams.templateId;
-                url = "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Updt";
+                url = appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Updt";
             }
 
             console.log(formObj);
@@ -178,7 +178,7 @@ app.controller("costSheetTemplateCtrl", function($scope, $http, $state, $cookieS
         }
     };
 });
-app.controller("costComponentFormulaCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, item) {
+app.controller("costComponentFormulaCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, item) {
     $scope.formula = {
         abbreviation: '',
         operator: ''

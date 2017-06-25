@@ -1,4 +1,4 @@
-app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
+app.controller("exchangeUnitCtrl", function($scope,  $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
 	console.log($window.sessionStorage);
  //   var test = $window.sessionStorage.getItem('projId');
     $scope.leadId = $stateParams.leadID;
@@ -17,7 +17,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.leadId,
@@ -123,7 +123,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
 //        angular.element(".loader").show();
 //        $http({
 //            method: "POST",
-//            url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+//            url: appConfig.baseUrl+"/Proj/UnitDtls/ByUnitDtlsBlocksId",
 //            ContentType: 'application/json',
 //            data: {
 //                "UnitDtls_Block_Id": blocks,
@@ -179,7 +179,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+            url: appConfig.baseUrl+"/Proj/UnitDtls/ByUnitDtlsBlocksId",
             ContentType: 'application/json',
             data: {
                 "UnitDtls_Block_Id": blocks,
@@ -284,7 +284,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/ProjUnitDel",
+                url: appConfig.baseUrl+"/User/ProjUnitDel",
                 ContentType: 'application/json',
                 data: [{
                     "comp_guid": $cookieStore.get('comp_guid'),
@@ -316,7 +316,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/ProjUnitSave",
+            url: appConfig.baseUrl+"/User/ProjUnitSave",
             ContentType: 'application/json',
             data: projJson
         }).success(function(data) {

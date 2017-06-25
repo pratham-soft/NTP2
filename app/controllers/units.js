@@ -1,4 +1,4 @@
-app.controller("unitsCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, myService) {
+app.controller("unitsCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService) {
     $scope.title = "Units";
 
     $scope.projectListFun = function() {
@@ -94,7 +94,7 @@ app.controller("unitsCtrl", function($scope, $http, $state, $cookieStore, $state
 
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Update",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Update",
             ContentType: 'application/json',
             data: unitsData
         }).success(function(data) {

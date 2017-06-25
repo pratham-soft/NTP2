@@ -1,4 +1,4 @@
-app.controller("addAgentCtrl", function($scope, $http, $cookieStore, $state) {
+app.controller("addAgentCtrl", function($scope,$http,$cookieStore, $state) {
     $scope.pageTitle = "Add Agent";
     $scope.addAgentBtn = true;
 
@@ -6,7 +6,7 @@ app.controller("addAgentCtrl", function($scope, $http, $cookieStore, $state) {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RoleGet",
+            url: appConfig.baseUrl+"/Comp/RoleGet",
             ContentType: 'application/json',
             data: {
                 "role_compguid": $cookieStore.get('comp_guid')
@@ -28,7 +28,7 @@ app.controller("addAgentCtrl", function($scope, $http, $cookieStore, $state) {
 
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/SaveUser",
+                url: appConfig.baseUrl+"/User/SaveUser",
                 ContentType: 'application/json',
                 data: {
                     "user_type": formObj.type,
@@ -78,7 +78,7 @@ app.controller("addAgentCtrl", function($scope, $http, $cookieStore, $state) {
         }
     };
 });
-app.controller("agentsCtrl", function($scope, $http, $cookieStore, $state, $uibModal) {
+app.controller("agentsCtrl", function($scope,  $http, $cookieStore, $state, $uibModal) {
     $scope.searchAgents = ''; // set the default search/filter term
     $scope.selected=[];
     $scope.roleIdValues=[];
@@ -112,7 +112,7 @@ app.controller("agentsCtrl", function($scope, $http, $cookieStore, $state, $uibM
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -142,7 +142,7 @@ app.controller("agentsCtrl", function($scope, $http, $cookieStore, $state, $uibM
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/RoleGet",
+                url: appConfig.baseUrl+"/Comp/RoleGet",
                 ContentType: 'application/json',
                 data: {
                     "role_compguid": $cookieStore.get('comp_guid')
@@ -222,7 +222,7 @@ app.controller("agentsCtrl", function($scope, $http, $cookieStore, $state, $uibM
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/Designations",
+            url: appConfig.baseUrl+"/User/Designations",
             ContentType: 'application/json',
             data: {
                 "designation_compguid": $cookieStore.get('comp_guid')
@@ -242,7 +242,7 @@ app.controller("agentsCtrl", function($scope, $http, $cookieStore, $state, $uibM
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/AgentDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/AgentDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_type": 5,
@@ -296,13 +296,13 @@ app.controller("agentsCtrl", function($scope, $http, $cookieStore, $state, $uibM
         });
     };
 });
-app.controller("agentsDetailCtrl", function($scope, $http, $cookieStore, $uibModalInstance, item) {
+app.controller("agentsDetailCtrl", function($scope,  $http, $cookieStore, $uibModalInstance, item) {
     $scope.agentDetail = item;
     $scope.ok = function() {
         $uibModalInstance.close();
     };
 });
-app.controller("editAgentCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
+app.controller("editAgentCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $filter) {
     $scope.pageTitle = "Edit Agent";
     $scope.editAgentBtn = true;
 
@@ -310,7 +310,7 @@ app.controller("editAgentCtrl", function($scope, $http, $state, $cookieStore, $s
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RoleGet",
+            url: appConfig.baseUrl+"/Comp/RoleGet",
             ContentType: 'application/json',
             data: {
                 "role_compguid": $cookieStore.get('comp_guid')
@@ -328,7 +328,7 @@ app.controller("editAgentCtrl", function($scope, $http, $state, $cookieStore, $s
 
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/AgentUserDtls",
+            url: appConfig.baseUrl+"/User/AgentUserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.agentId,
@@ -383,7 +383,7 @@ app.controller("editAgentCtrl", function($scope, $http, $state, $cookieStore, $s
 
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/UpdateUserAgent",
+                url: appConfig.baseUrl+"/User/UpdateUserAgent",
                 ContentType: 'application/json',
                 data: {
                     "Agents_comp_guid": $cookieStore.get('comp_guid'),

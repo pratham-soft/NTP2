@@ -4,7 +4,7 @@ angular.module('pratham')
   .service('UserService', function GetUserService() {
     // AngularJS will instantiate a singleton by calling "new" on this function
         this.getUsersDataByUserTypeId = function ($http, $q, dataobj) {
-            var apiPath = "http://120.138.8.150/pratham/User/UserDtls/ByUserType";
+            var apiPath = appConfig.baseUrl+"/User/UserDtls/ByUserType";
             var deferred = $q.defer();
 
             $http({

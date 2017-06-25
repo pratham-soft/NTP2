@@ -1,4 +1,4 @@
-app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieStore,myService, $stateParams, $filter, $state) {
+app.controller("convertCustomerCtrl", function($scope,  $http, $compile, $cookieStore,myService, $stateParams, $filter, $state) {
     ($scope.convertCustomer = function() {
         angular.element(".loader").show();
         $scope.leadId = $stateParams.leadID;
@@ -6,7 +6,7 @@ app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieS
 
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.leadId,
@@ -205,7 +205,7 @@ app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieS
 
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Cust/CustUpdate",
+                url: appConfig.baseUrl+"/Cust/CustUpdate",
                 ContentType: 'application/json',
                 data: {                 
                     "user_first_name": formObj.firstName,
@@ -340,7 +340,7 @@ app.controller("convertCustomerCtrl", function($scope, $http, $compile, $cookieS
 
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Cust/SaveCust",
+                url: appConfig.baseUrl+"/Cust/SaveCust",
                 ContentType: 'application/json',
                 data: {
                     "user_id": $scope.leadId,

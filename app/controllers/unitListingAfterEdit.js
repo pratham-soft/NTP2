@@ -1,12 +1,12 @@
 
-app.controller("unitListingAfterEditCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Unit Listing After Edit";
     var blockId = $stateParams.blockId;
 //    ($scope.getBlockCostSheet = function() {
 //        angular.element(".loader").show();
 //        $http({
 //            method: "POST",
-//            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+//            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
 //            ContentType: 'application/json',
 //            data: {
 //                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -25,7 +25,7 @@ app.controller("unitListingAfterEditCtrl", function($scope, $http, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntdtlsViewGrd/Gt",
+            url: appConfig.baseUrl+"/Proj/Blk/UntdtlsViewGrd/Gt",
             ContentType: 'application/json',
             data: {
                 "Blocks_Id": blockId,
@@ -66,7 +66,7 @@ app.controller("unitListingAfterEditCtrl", function($scope, $http, $cookieStore,
 //        angular.element(".loader").show();
 //        $http({
 //            method: "POST",
-//            url: "http://120.138.8.150/pratham/Proj/Blk/BldValforUtCtSt",
+//            url: appConfig.baseUrl+"/Proj/Blk/BldValforUtCtSt",
 //            ContentType: 'application/json',
 //            data: {
 //                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -88,14 +88,14 @@ app.controller("unitListingAfterEditCtrl", function($scope, $http, $cookieStore,
 });
 
 
-app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item ,myService) {
+app.controller("unitCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item ,myService) {
     
     $scope.unitId = item;
     ($scope.getUnitCostSheetDetails = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstSheet/Gt",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstSheet/Gt",
             ContentType: 'application/json',
             data: {
                 "UnitDtls_Id": parseInt($scope.unitId),

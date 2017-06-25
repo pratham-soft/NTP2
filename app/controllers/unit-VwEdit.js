@@ -1,4 +1,4 @@
-app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $uibModal,$window, myService, $stateParams) {
+app.controller("unitVwEditCtrl", function($scope,  $http, $cookieStore, $state, $uibModal,$window, myService, $stateParams) {
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
 
@@ -13,7 +13,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
         });
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
+            url: appConfig.baseUrl+"/Proj/ProjDtls/ByCompGuid",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": $cookieStore.get('comp_guid')
@@ -44,7 +44,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
         });
        /* $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/PhaseDtls/ByPhaseProjId",
+            url: appConfig.baseUrl+"/Proj/PhaseDtls/ByPhaseProjId",
             ContentType: 'application/json',
             data: {
                 "Phase_Proj_Id": projectName,
@@ -99,7 +99,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
     };
       /*  $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/BlockDtls/ByPhaseBlocksId",
+            url: appConfig.baseUrl+"/Proj/BlockDtls/ByPhaseBlocksId",
             ContentType: 'application/json',
             data: {
                 "Blocks_Phase_Id": phase,
@@ -127,7 +127,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
 
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Unitdetail/Update",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Update",
             ContentType: 'application/json',
             data: unitsData
         }).success(function(data) {
@@ -193,7 +193,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/UpdtUnitDtls/ByMultiUnitDtlsID",
+                url: appConfig.baseUrl+"/Proj/UpdtUnitDtls/ByMultiUnitDtlsID",
                 ContentType: 'application/json',
                 data: {
                     
@@ -259,7 +259,7 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+                url: appConfig.baseUrl+"/Proj/UnitDtls/ByUnitDtlsBlocksId",
                 ContentType: 'application/json',
                 data: {
                     "UnitDtls_comp_guid": $cookieStore.get('comp_guid'),
@@ -299,13 +299,13 @@ app.controller("unitVwEditCtrl", function($scope, $http, $cookieStore, $state, $
     }
 });
 
-app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item,myService) {
+app.controller("unitCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item,myService) {
     $scope.unitId = item;
     ($scope.getUnitCostSheetDetails = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstSheet/Gt",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstSheet/Gt",
             ContentType: 'application/json',
             data: {
                 "UnitDtls_Id": parseInt($scope.unitId),

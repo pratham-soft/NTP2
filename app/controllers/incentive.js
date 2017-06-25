@@ -1,4 +1,4 @@
-app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, myService) {
+app.controller("incentiveCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, myService) {
     
     //initialize the project list dropdown on page load -Atul 26 April 
     ($scope.projectListFun = function() {
@@ -48,7 +48,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/PaymentSchedule/ByblockId",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/ByblockId",
                 ContentType: 'application/json',
                 data: {
                     "blockstageCompGuid": $cookieStore.get('comp_guid'),
@@ -72,7 +72,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/IncentiveGet",
+                url: appConfig.baseUrl+"/Comp/IncentiveGet",
                 ContentType: 'application/json',
                 data: {
                     "incentive_compguid": $cookieStore.get('comp_guid'),
@@ -105,7 +105,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/IncentiveInsert",
+                url: appConfig.baseUrl+"/Comp/IncentiveInsert",
                 ContentType: 'application/json',
                 data: {
                     "incentive_name": "My client Incentive",
@@ -145,7 +145,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
 //    };
 });
 
-//app.controller("paymentScheduleChangeCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, item) {
+//app.controller("paymentScheduleChangeCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, item) {
 //
 //    ($scope.getPaymentScheduleDetail = function() {
 //        $scope.blockStage = {
@@ -159,7 +159,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
 //            angular.element(".loader").show();
 //            $http({
 //                method: "POST",
-//                url: "http://120.138.8.150/pratham/Proj/Blk/PaymentSchedule/Update",
+//                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/Update",
 //                ContentType: 'application/json',
 //                data: {
 //                    "PaymentScheduleId": item.PaymentScheduleId,
@@ -184,7 +184,7 @@ app.controller("incentiveCtrl", function($scope, $http, $state, $cookieStore, $s
 //            angular.element(".loader").show();
 //            $http({
 //                method: "POST",
-//                url: "http://120.138.8.150/pratham/Proj/Blk/PaymentSchedule/ByblockId",
+//                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/ByblockId",
 //                ContentType: 'application/json',
 //                data: {
 //                    "blockstageCompGuid": $cookieStore.get('comp_guid'),

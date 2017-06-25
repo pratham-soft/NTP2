@@ -359,6 +359,8 @@ th {
 }
 .glyphicon-home:before {
   content: "\e021";
+  font-size: 22px;
+  padding :5px
 }
 .glyphicon-file:before {
   content: "\e022";
