@@ -277,7 +277,7 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
 });
 
 app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $compile, encyrptSvc) {
-    $scope.typeNames = ['Flat', 'Sites', 'Villa', 'Row Houses'];
+    $scope.typeNames = ['Flat', 'Plots', 'Villaments', 'Row Houses'];
 
    
     ($scope.getProjectList = function() {
@@ -341,6 +341,24 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
 
     $scope.pageTitle = "Add Unit";
     $scope.addPhaseUnitBtn = "ture";
+//    $scope.validatePANNumber = function() {    
+//         var regExp = /[a-zA-z]{5}\d{4}[a-zA-Z]{1}/; 
+//        
+//         if ($scope.addUnit.ownerPan.length == 10 ) { 
+//          if( $scope.addUnit.ownerPan.match(regExp) ){ 
+//           alert('PAN match found');
+//          }
+//          else {
+//           alert("Not a valid PAN number");
+//           
+//          } 
+//         } 
+//         else { 
+//               alert('Please enter 10 digits for a valid PAN number');
+//             
+//         } 
+//
+//    }
 
     ($scope.getPhaseDetail = function() {
         angular.element(".loader").show();

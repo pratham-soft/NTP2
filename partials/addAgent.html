@@ -56,7 +56,7 @@
       </div>
       <div class="field">
          <label ng-show="addAgent.address" class="show-hide">Address *</label>
-         <input type="text" placeholder="Address *" class="form-control"  name="address" ng-model="addAgent.address" ng-required="true" ng-class="{blankInput: addAgentForm.address.$error.required &amp;&amp; submit}"/>
+         <input type="text" placeholder="Address *" maxlength="100" class="form-control"  name="address" ng-model="addAgent.address" ng-required="true" ng-class="{blankInput: addAgentForm.address.$error.required &amp;&amp; submit}"/>
       </div>
       <div class="field">
          <label ng-show="addAgent.mobileNumber" class="show-hide">Mobile Number *</label>
@@ -122,7 +122,7 @@
       </div>
       <div class="field">
          <label ng-show="addAgent.bankAddress" class="show-hide">Bank Address *</label>
-         <input type="text" placeholder="Bank Address *" class="form-control" name="bankAddress" ng-model="addAgent.bankAddress" ng-required="true" ng-class="{blankInput: addAgentForm.bankAddress.$error.required &amp;&amp; submit}"/>
+         <input type="text" placeholder="Bank Address *" maxlength="100" class="form-control" name="bankAddress" ng-model="addAgent.bankAddress" ng-required="true" ng-class="{blankInput: addAgentForm.bankAddress.$error.required &amp;&amp; submit}"/>
       </div>
       <div class="field">
          <label ng-show="addAgent.accountType" class="show-hide">Account Type *</label>

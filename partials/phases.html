@@ -19,7 +19,7 @@
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
                 <select ng-model="phases.projectName" name="projectName" class="form-control" autofocus="true" ng-change="getPhases(phases.projectName)" ng-required="true" ng-class="{blankInput: phasesForm.projectName.$error.required &amp;&amp; submit}">
                     <option value="">
-                        Project
+                        Project     
                     </option>
                     <option ng-repeat="x in projectList" value="{{x.ProjId}}">
                         {{x.Proj_Name}}
