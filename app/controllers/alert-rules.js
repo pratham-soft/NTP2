@@ -1,10 +1,10 @@
-app.controller("alertRulesCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {
+app.controller("alertRulesCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile) {
     $scope.pageTitle = "Alert Rules";
     ($scope.getAlertRules = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesVwGet",
+            url: appConfig.baseUrl+"/Comp/RulesVwGet",
             ContentType: 'application/json',
             data: {
                 "rule_user_id": $cookieStore.get('user_id'),
@@ -32,7 +32,7 @@ app.controller("alertRulesCtrl", function($scope, $http, $cookieStore, $state, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/Rules/UpdtSwtchflg",
+            url: appConfig.baseUrl+"/Comp/Rules/UpdtSwtchflg",
             ContentType: 'application/json',
             data: {
                 "ruleid":ruleId,
@@ -51,7 +51,7 @@ app.controller("alertRulesCtrl", function($scope, $http, $cookieStore, $state, $
 });
 
 
-app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, myService) {
+app.controller("createNewRuleCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, myService) {
     $scope.pageTitle = "Create New Alert Rule";
     $scope.EditRuleBtn = false;
     $scope.CreateRuleBtn = true;
@@ -73,7 +73,7 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
            angular.element(".loader").show();
            $http({
                method: "POST",
-               url: "http://120.138.8.150/pratham/Comp/ModulesGet",
+               url: appConfig.baseUrl+"/Comp/ModulesGet",
                ContentType: 'application/json',
                data: {
                    "module_id": 0
@@ -90,7 +90,7 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ActiontypeGet",
+            url: appConfig.baseUrl+"/Comp/ActiontypeGet",
             ContentType: 'application/json',
             data: {
                 "module_id": moduleId
@@ -114,7 +114,7 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
             console.log(JSON.stringify(formObj));
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/Rules/Ins",
+                url: appConfig.baseUrl+"/Comp/Rules/Ins",
                 ContentType: 'application/json',
                 data: formObj
             }).success(function(data) {
@@ -166,7 +166,7 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
        console.log(JSON.stringify(obj));
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
+            url: appConfig.baseUrl+"/Comp/RulesCrit/Ins",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -183,7 +183,7 @@ app.controller("createNewRuleCtrl", function($scope, $http, $cookieStore, $state
     
 });
 
-app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter, myService) {
+app.controller("editRuleCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $filter, myService) {
     $scope.pageTitle = "Edit Alert Rule";
     var ruleid = $stateParams.ruleId;
     var moduleid = '';
@@ -216,7 +216,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
     ($scope.geteditRule = function() {
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesVwGet",
+            url: appConfig.baseUrl+"/Comp/RulesVwGet",
             ContentType: 'application/json',
             data: {
                 "rule_user_id": $cookieStore.get('user_id'),
@@ -245,7 +245,7 @@ app.controller("editRuleCtrl", function($scope, $http, $state, $cookieStore, $st
 
 });
 
-app.controller("updateRuleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, myService, $uibModal) {
+app.controller("updateRuleCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, myService, $uibModal) {
 
 $scope.pageTitle = "Set Rule";
     var ruleId = $stateParams.ruleId;
@@ -267,7 +267,7 @@ $scope.pageTitle = "Set Rule";
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
+            url: appConfig.baseUrl+"/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
                 "module_id": moduleId,
@@ -288,7 +288,7 @@ $scope.pageTitle = "Set Rule";
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RuleCriteriaGet",
+            url: appConfig.baseUrl+"/Comp/RuleCriteriaGet",
             ContentType: 'application/json',
             data: {
                 "rulecriteria_rule_id": ruleId,
@@ -331,7 +331,7 @@ $scope.pageTitle = "Set Rule";
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ModfldvaluesGet",
+            url: appConfig.baseUrl+"/Comp/ModfldvaluesGet",
             ContentType: 'application/json',
             data: {
                 "module_id": fieldId
@@ -403,7 +403,7 @@ $scope.pageTitle = "Set Rule";
         console.log(JSON.stringify(obj));
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
+            url: appConfig.baseUrl+"/Comp/RulesCrit/Ins",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -434,7 +434,7 @@ $scope.pageTitle = "Set Rule";
 //        console.log(JSON.stringify(obj));
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
+            url: appConfig.baseUrl+"/Comp/RulesCrit/Ins",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -487,7 +487,7 @@ $scope.pageTitle = "Set Rule";
     };
 });
 
-app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile,myService,$uibModal) {	
+app.controller("updateRuleCriteriaCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile,myService,$uibModal) {	
     $scope.pageTitle = "Update Criteria Rule";
     var ruleId = $stateParams.ruleId;
     var moduleId = $stateParams.moduleId;
@@ -516,7 +516,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
+            url: appConfig.baseUrl+"/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
                 "module_id": moduleId,
@@ -538,7 +538,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RuleCriteriaGet",
+            url: appConfig.baseUrl+"/Comp/RuleCriteriaGet",
             ContentType: 'application/json',
             data: {
                 "rulecriteria_rule_id": ruleId,
@@ -587,7 +587,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ModfldvaluesGet",
+            url: appConfig.baseUrl+"/Comp/ModfldvaluesGet",
             ContentType: 'application/json',
             data: {
                 "module_id": fieldId
@@ -659,7 +659,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
         console.log(JSON.stringify(obj));
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
+            url: appConfig.baseUrl+"/Comp/RulesCrit/Ins",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -688,7 +688,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     //    console.log(JSON.stringify(obj));
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesCrit/Ins",
+            url: appConfig.baseUrl+"/Comp/RulesCrit/Ins",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -742,7 +742,7 @@ app.controller("updateRuleCriteriaCtrl", function($scope, $http, $cookieStore, $
     
 });
 
-app.controller("testQueryResultCtrl", function($scope, $uibModalInstance,item) {
+app.controller("testQueryResultCtrl", function($scope,  $uibModalInstance,item) {
 	$(function(){
 		 $scope.query = item;
 		
@@ -753,7 +753,7 @@ app.controller("testQueryResultCtrl", function($scope, $uibModalInstance,item) {
 	}
 });
 
-app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $rootScope, $filter, $compile, $uibModal, myService) {
+app.controller("actionCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $rootScope, $filter, $compile, $uibModal, myService) {
     $scope.pageTitle = "Choose Action";
     $scope.showTempDropDown = true;
     $scope.addEditorBtn=true;
@@ -774,7 +774,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ModulesGetAlrt",
+            url: appConfig.baseUrl+"/Comp/ModulesGetAlrt",
             ContentType: 'application/json',
             data: {
                 "module_id": 0
@@ -793,7 +793,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/SubModulesGet",
+            url: appConfig.baseUrl+"/Comp/SubModulesGet",
             ContentType: 'application/json',
             data: {
                 "module_id": moduleId,
@@ -836,7 +836,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
             console.log(formObj);
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/rulEmltmplt/Ins",
+                url: appConfig.baseUrl+"/Comp/rulEmltmplt/Ins",
                 ContentType: 'application/json',
                 data: {
                     "tempemail_comp_guid": $cookieStore.get('comp_guid'),
@@ -878,7 +878,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/EmailTmpltGet",
+            url: appConfig.baseUrl+"/Comp/EmailTmpltGet",
             ContentType: 'application/json',
             data: {
                 "tempemail_ruleid": ruleId,
@@ -916,7 +916,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
 		var modalInstance = $uibModal.open({
             templateUrl: 'previewTemp.html',
             controller: 'previewTempCtrl',
-            scope: $scope,
+            scope: $scope, 
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -930,7 +930,7 @@ app.controller("actionCtrl", function($scope, $http, $cookieStore, $state, $stat
 
 // $scope.getEmailTemplsFun();
 
-app.controller("previewTempCtrl", function($scope, $uibModalInstance, $window, $compile, $http, $cookieStore, $stateParams, item) {
+app.controller("previewTempCtrl", function($scope,  $uibModalInstance, $window, $compile, $http, $cookieStore, $stateParams, item) {
 	var tempId = item.tempId;
 	var ruleId = $stateParams.ruleId;
 	$(function(){
@@ -944,7 +944,7 @@ app.controller("previewTempCtrl", function($scope, $uibModalInstance, $window, $
 		var templateBody = $("#contentEditor").summernote("code");
 		$http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/Emltmplt/Ins",
+                url: appConfig.baseUrl+"/Comp/Emltmplt/Ins",
                 ContentType: 'application/json',
                 data: {
                     "tempemail_comp_guid": $cookieStore.get('comp_guid'),
@@ -977,16 +977,16 @@ app.controller("previewTempCtrl", function($scope, $uibModalInstance, $window, $
 	
 });
 
-app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile) {
+app.controller("scheduleCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile) {
     $scope.monthDates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
     $scope.pageTitle = "Schedule Alert";
     $scope.ruleId = $stateParams.ruleId;
-    $scope.minDate = new Date().toString();
+    $scope.minDate = new Date().toDateString();
     
     ($scope.geteditRule = function() {
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RulesVwGet",
+            url: appConfig.baseUrl+"/Comp/RulesVwGet",
             ContentType: 'application/json',
             data: {
                 "rule_user_id": $cookieStore.get('user_id'),
@@ -1059,7 +1059,7 @@ app.controller("scheduleCtrl", function($scope, $http, $cookieStore, $state, $st
             console.log(formObj);
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/Rules/UpdtSchd",
+                url: appConfig.baseUrl+"/Comp/Rules/UpdtSchd",
                 ContentType: 'application/json',
                 data: {
                     "rule_comp_guid": $cookieStore.get('comp_guid'),

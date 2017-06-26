@@ -1,11 +1,12 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-	<h1>Leads</h1>
+    <h3>Leads</h3>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
 	<ol class="breadcrumb">
 	  <li><a ui-sref="/">Home</a></li>
 	  <li class="active">Leads</li>
 	</ol>	
+    
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right ctaContainer">
     <button class="btn btn-primary" type="button"  ng-click="prospectDetail(prospectIds)">Mass Update </button> 
@@ -64,7 +65,7 @@
 <script type="text/ng-template" id="leadDetail.html">
         <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">{{lead.user_first_name}} {{lead.user_middle_name}} {{lead.user_last_name}} - <span>{{leadType[lead.user_lead_status_id-1]}}</span></h3>
+            <h3 class="modal-title" id="modal-title">{{lead.user_first_name}} {{lead.user_middle_name}} {{lead.user_last_name}} - <span>{{leadType[lead.user_lead_status_id-1]}}</span><<h3>
         </div>
         <div class="modal-body" id="modal-body">
 			<div class="subHeading">Contact Details</div>
@@ -123,7 +124,7 @@
 <script type="text/ng-template" id="updateProPage.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">Update Prospects</h3>
+        <h3 class="modal-title" id="modal-title">Update Prospects<<h3>
     </div>
     <div class="modal-body" id="modal-body">
     <form class="form-inline" name="form">

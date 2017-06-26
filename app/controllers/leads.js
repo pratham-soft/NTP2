@@ -1,4 +1,4 @@
-app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $state, $window, $filter) {
+app.controller("leadsCtrl", function($scope,  $http, $cookieStore, $uibModal, $state, $window, $filter) {
     $scope.searchLead = ''; // set the default search/filter term
     $scope.selected = []; //stores checked items only
      $scope.files = []; //Stores Files 
@@ -54,7 +54,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
                     objXhr.addEventListener("load", transferComplete, false);
 
                     // SEND FILE DETAILS TO THE API.
-                    objXhr.open("POST", "http://120.138.8.150/pratham/Test/fileupload");
+                    objXhr.open("POST", appConfig.baseUrl+"/Test/fileupload");
 
 
                     objXhr.send(data); 
@@ -84,7 +84,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/UserDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -170,7 +170,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/UserUpdt/leadToProspect",
+                url: appConfig.baseUrl+"/User/UserUpdt/leadToProspect",
                 ContentType: 'application/json',
                 data: {
                     "user_ids": str,
@@ -216,7 +216,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ImportCSVFile",
+            url: appConfig.baseUrl+"/Comp/ImportCSVFile",
             ContentType: 'application/json',
             data: {            
                  "import_path":"csvupload",
@@ -239,7 +239,7 @@ app.controller("leadsCtrl", function($scope, $http, $cookieStore, $uibModal, $st
     }
 });
 
-app.controller("leadDetailCtrl", function($scope, $uibModalInstance, encyrptSvc, $state, encyrptSvc, item) {
+app.controller("leadDetailCtrl", function($scope,  $uibModalInstance, encyrptSvc, $state, encyrptSvc, item) {
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
     $scope.cities = ["New Delhi"];
@@ -285,14 +285,14 @@ app.controller("leadDetailCtrl", function($scope, $uibModalInstance, encyrptSvc,
     }
 });
 
-app.controller("addLeadCtrl", function($scope, $http, $state,encyrptSvc, $cookieStore,myService) {
+app.controller("addLeadCtrl", function($scope,  $http, $state,encyrptSvc, $cookieStore,myService) {
     $scope.pageTitle = "Add Lead";
     $scope.addLeadBtn = true;
     ($scope.getLeadSource = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/LeadSourceGet",
+            url: appConfig.baseUrl+"/Comp/LeadSourceGet",
             ContentType: 'application/json',
             data: {
                 "lead_source_compguid": "d0cb84c5-6b52-4dff-beb5-50b2f4af5398"
@@ -308,7 +308,7 @@ app.controller("addLeadCtrl", function($scope, $http, $state,encyrptSvc, $cookie
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            url: appConfig.baseUrl+"/Comp/CampaginGet",
             ContentType: 'application/json',
             data: {
                 "campaign_compguid":$cookieStore.get('comp_guid')
@@ -358,7 +358,7 @@ app.controller("addLeadCtrl", function($scope, $http, $state,encyrptSvc, $cookie
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/SaveUser",
+                url: appConfig.baseUrl+"/User/SaveUser",
                 ContentType: 'application/json',
                 data: {
                     "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -395,14 +395,14 @@ app.controller("addLeadCtrl", function($scope, $http, $state,encyrptSvc, $cookie
     };
 });
 
-app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
+app.controller("editLeadCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $filter) {
     $scope.pageTitle = "Edit Lead";
     $scope.editLeadBtn = true;
     ($scope.getLeadSource = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/LeadSourceGet",
+            url: appConfig.baseUrl+"/Comp/LeadSourceGet",
             ContentType: 'application/json',
             data: {
                 "lead_source_compguid": "d0cb84c5-6b52-4dff-beb5-50b2f4af5398"
@@ -419,7 +419,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            url: appConfig.baseUrl+"/Comp/CampaginGet",
             ContentType: 'application/json',
             data: {
                 "campaign_compguid":$cookieStore.get('comp_guid')
@@ -437,7 +437,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
         $scope.leadId = $stateParams.leadID;
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.leadId,
@@ -492,7 +492,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/UpdateUser",
+                url: appConfig.baseUrl+"/User/UpdateUser",
                 ContentType: 'application/json',
                 data: {
                     "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -528,7 +528,7 @@ app.controller("editLeadCtrl", function($scope, $http, $state, $cookieStore, $st
     };
 });
 
-app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService, $uibModal,encyrptSvc) {
+app.controller("projectDetailsCtrl", function($scope,  $http, $state, $cookieStore, $compile, $stateParams, $window, myService, $uibModal,encyrptSvc) {
     $scope.leadId = encyrptSvc.decyrpt($stateParams.leadID);
     if ($scope.leadId == undefined) {
         $state.go('/AddLead');
@@ -537,7 +537,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.leadId,
@@ -612,7 +612,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+            url: appConfig.baseUrl+"/Proj/UnitDtls/ByUnitDtlsBlocksId",
             ContentType: 'application/json',
             data: {
                 "UnitDtls_Block_Id": blocks,
@@ -684,7 +684,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
 
                         //                      console.log($scope.projectDetails);
 
-                        var projectRow = '<tr id="' + $scope.units[i].UnitDtls_Id + '"><td>' + $scope.projectDetails.projectName + '</td><td>' + $scope.projectDetails.phase + '</td><td>' + $scope.projectDetails.blocks + '</td><td>' + 'Flat Type' + '</td><td><div class="dispNone">' + projObj + '</div>' + $scope.units[i].UnitDtls_BRoom + 'BHK - ' + $scope.units[i].UnitDtls_No + ' - ' + $scope.units[i].UnitDtls_Floor + ' Floor</td><td>' + $scope.units[i].UnitDtls_BuliltupArea + ' sq ft</td><td class="text-center"><a class="link" ng-click="viewUnitCostSheet('+ $scope.units[i].UnitDtls_Id +')">View</a></td><td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(' + projectDetails.projectName + ',' + $scope.units[i].UnitDtls_Id + ')"></span></td></tr>';
+                        var projectRow = '<tr id="' + $scope.units[i].UnitDtls_Id + '"><td>' + $scope.projectDetails.projectName + '</td><td>' + $scope.projectDetails.phase + '</td><td>' + $scope.projectDetails.blocks + '</td><td>' + 'Flat Type' + '</td><td><div class="dispNone">' + projObj + '</div>' + $scope.units[i].UnitDtls_Rooms + 'BHK - ' + $scope.units[i].UnitDtls_No + ' - ' + $scope.units[i].UnitDtls_Floor + ' Floor</td><td>' + $scope.units[i].UnitDtls_BuliltupArea + ' sq ft</td><td class="text-center"><a class="link" ng-click="viewUnitCostSheet('+ $scope.units[i].UnitDtls_Id +')">View</a></td><td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(' + projectDetails.projectName + ',' + $scope.units[i].UnitDtls_Id + ')"></span></td></tr>';
                         var projectRowComplied = $compile(projectRow)($scope);
                         angular.element(document.getElementById('projectList')).append(projectRowComplied);
                     }
@@ -702,7 +702,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/ProjUnitDel",
+                url: appConfig.baseUrl+"/User/ProjUnitDel",
                 ContentType: 'application/json',
                 data: [{
                     "comp_guid": $cookieStore.get('comp_guid'),
@@ -734,7 +734,7 @@ app.controller("projectDetailsCtrl", function($scope, $http, $state, $cookieStor
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/ProjUnitSave",
+            url: appConfig.baseUrl+"/User/ProjUnitSave",
             ContentType: 'application/json',
             data: projJson
         }).success(function(data) {

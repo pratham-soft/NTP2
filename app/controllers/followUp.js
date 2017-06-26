@@ -1,4 +1,4 @@
-app.controller("addFollowUpCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
     $scope.addFollowUpBtn=true;
     $scope.pagetitle="Add Follow Up";
     $scope.selected = [];
@@ -37,7 +37,7 @@ app.controller("addFollowUpCtrl", function($scope, $http, $cookieStore, $state, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/UserDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -118,7 +118,7 @@ app.controller("addFollowUpCtrl", function($scope, $http, $cookieStore, $state, 
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/FollowupInsert",
+                url: appConfig.baseUrl+"/Comp/FollowupInsert",
                 ContentType: 'application/json',
                 data: {
                     "schedule_comp_guid" : $cookieStore.get('comp_guid'),
@@ -146,7 +146,7 @@ app.controller("addFollowUpCtrl", function($scope, $http, $cookieStore, $state, 
     
 });
 
-app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+app.controller("editFollowUpCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
     $scope.pagetitle="Edit Follow Up";
     $scope.editFollowUpBtn=true;
     $scope.selected = [];
@@ -185,7 +185,7 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/UserDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -254,7 +254,7 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
         $scope.leadId = userId;
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.leadId,
@@ -298,7 +298,7 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
         $scope.scheduleId = $stateParams.scheduleId;
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/FollowupGetByScheduleId",
+            url: appConfig.baseUrl+"/Comp/FollowupGetByScheduleId",
             ContentType: 'application/json',
             data: {
                 "schedule_comp_guid": $cookieStore.get('comp_guid'),
@@ -367,7 +367,7 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
           if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/FollowUpUpdate",
+                url: appConfig.baseUrl+"/Comp/FollowUpUpdate",
                 ContentType: 'application/json',
                 data: {
                     "scheduleId":$scope.scheduleId,
@@ -397,13 +397,13 @@ app.controller("editFollowUpCtrl", function($scope, $http, $cookieStore, $state,
 });
 
 
-app.controller("followUpCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+app.controller("followUpCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
     
     ($scope.getFollowUpData = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/FollowupGet",
+            url: appConfig.baseUrl+"/Comp/FollowupGet",
             ContentType: 'application/json',
             data: {
                 "schedule_comp_guid":$cookieStore.get('comp_guid')

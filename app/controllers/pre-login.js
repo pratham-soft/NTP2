@@ -9,7 +9,7 @@ app.controller("firmRegisterCtrl", function($scope, $http, $state, $cookieStore)
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SaveComp",
+                url: appConfig.baseUrl+"/Comp/SaveComp",
                 ContentType: 'application/json',
                 data: {
                     "comp_address": formObj.firmAddress,
@@ -37,14 +37,14 @@ app.controller("firmRegisterCtrl", function($scope, $http, $state, $cookieStore)
     }
 });
 
-app.controller("adminCreationCtrl", function($scope, $http, $state, $cookieStore) {
+app.controller("adminCreationCtrl", function($scope,$http, $state, $cookieStore) {
     $scope.createAdminUser = function(formObj, formName) {
         alert($cookieStore.get('comp_guid'));
         $scope.submit = true;
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/SaveUser",
+                url: appConfig.baseUrl+"/User/SaveUser",
                 ContentType: 'application/json',
                 data: {
                     "user_type": 1,
@@ -72,7 +72,7 @@ app.controller("loginCtrl", function($scope, $http, $cookieStore, $window) {
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/UserLogin",
+                url: appConfig.baseUrl+"/User/UserLogin",
                 ContentType: 'application/json',
                 data: {
                     "user_comp_guid": "d0cb84c5-6b52-4dff-beb5-50b2f4af5398",

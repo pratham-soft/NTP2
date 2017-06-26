@@ -1,4 +1,4 @@
-app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uibModal,$state) {
+app.controller("updateProspectsCtrl", function($scope,  $http, $cookieStore, $uibModal,$state) {
     $scope.searchLead = '';//set the default search/filter term
     $scope.selected=[];//stores checked items only
     $scope.salesfunnelnameValues=[];
@@ -30,7 +30,7 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SalesFunnelGet",
+                url: appConfig.baseUrl+"/Comp/SalesFunnelGet",
                 ContentType: 'application/json',
                 data: {
                     "salesfunnel_compguid": $cookieStore.get('comp_guid')
@@ -60,7 +60,7 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -92,7 +92,7 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/UserDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -265,7 +265,7 @@ app.controller("updateProspectsCtrl", function($scope, $http, $cookieStore, $uib
   
     
 });
-app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter,$uibModal, encyrptSvc) {
+app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter,$uibModal, encyrptSvc) {
     $scope.timeslots = ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '07:00 PM', '07:30 PM', '08:30 PM'];
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
@@ -353,7 +353,7 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/UserSiteVisitGet",
+            url: appConfig.baseUrl+"/Comp/UserSiteVisitGet",
             ContentType: 'application/json',
             data: {
                 "sitevisit_userid": $scope.lead.user_id,
@@ -398,7 +398,7 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SiteVisitInsert",
+                url: appConfig.baseUrl+"/Comp/SiteVisitInsert",
                 ContentType: 'application/json',
                 data: {
                     "sitevisit_userid": $scope.lead.user_id,
@@ -449,14 +449,14 @@ app.controller("prospectDetailCtrl", function($scope, $uibModalInstance, $state,
     }
 });
 
-app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, myService,encyrptSvc) {
+app.controller("addProspectCtrl", function($scope,  $http, $state, $cookieStore, myService,encyrptSvc) {
     $scope.pageTitle = "Add Prospect";
     $scope.addLeadBtn = true;
     ($scope.getLeadSource = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/LeadSourceGet",
+            url: appConfig.baseUrl+"/Comp/LeadSourceGet",
             ContentType: 'application/json',
             data: {
                 "lead_source_compguid":"d0cb84c5-6b52-4dff-beb5-50b2f4af5398"
@@ -473,7 +473,7 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            url: appConfig.baseUrl+"/Comp/CampaginGet",
             ContentType: 'application/json',
             data: {
                 "campaign_compguid":$cookieStore.get('comp_guid')
@@ -490,7 +490,7 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -541,7 +541,7 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, 
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/SaveUser",
+                url: appConfig.baseUrl+"/User/SaveUser",
                 ContentType: 'application/json',
                 data: {
                     "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -578,7 +578,7 @@ app.controller("addProspectCtrl", function($scope, $http, $state, $cookieStore, 
     };
 });
 
-app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $filter) {
+app.controller("editProspectCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $filter) {
     $scope.pageTitle = "Edit Prospect";
     $scope.editLeadBtn = true;
     ($scope.getLeadDetail = function() {
@@ -589,7 +589,7 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/LeadSourceGet",
+            url: appConfig.baseUrl+"/Comp/LeadSourceGet",
             ContentType: 'application/json',
             data: {
                 "lead_source_compguid": "d0cb84c5-6b52-4dff-beb5-50b2f4af5398"
@@ -606,7 +606,7 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            url: appConfig.baseUrl+"/Comp/CampaginGet",
             ContentType: 'application/json',
             data: {
                 "campaign_compguid":$cookieStore.get('comp_guid')
@@ -623,7 +623,7 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -640,7 +640,7 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.leadId,
@@ -695,7 +695,7 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/UpdateUser",
+                url: appConfig.baseUrl+"/User/UpdateUser",
                 ContentType: 'application/json',
                 data: {
                     "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -729,14 +729,14 @@ app.controller("editProspectCtrl", function($scope, $http, $state, $cookieStore,
         }
     };
 });
-app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieStore, $state, $uibModal) {
+app.controller("prospectsUnitAllocationCtrl", function($scope,  $http, $cookieStore, $state, $uibModal) {
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
     ($scope.getProjectList = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
+            url: appConfig.baseUrl+"/Proj/ProjDtls/ByCompGuid",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": $cookieStore.get('comp_guid')
@@ -769,7 +769,7 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/PhaseDtls/ByPhaseProjId",
+            url: appConfig.baseUrl+"/Proj/PhaseDtls/ByPhaseProjId",
             ContentType: 'application/json',
             data: {
                 "Phase_Proj_Id": projectName,
@@ -793,7 +793,7 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/BlockDtls/ByPhaseBlocksId",
+            url: appConfig.baseUrl+"/Proj/BlockDtls/ByPhaseBlocksId",
             ContentType: 'application/json',
             data: {
                 "Blocks_Phase_Id": phase,
@@ -823,7 +823,7 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/AllocByUserType",
+                url: appConfig.baseUrl+"/User/AllocByUserType",
                 ContentType: 'application/json',
                 data: {
                     "comp_guid": $cookieStore.get('comp_guid'),
@@ -890,7 +890,7 @@ app.controller("prospectsUnitAllocationCtrl", function($scope, $http, $cookieSto
     };
 });
 
-app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
+app.controller("updateProPageCtrl", function($scope,  $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
       $scope.secondDropValues=[];
       $scope.myModel = "";
       $scope.firstDropValues=[{name:"Lead Staus", value:1},{name:"Sales Funnel", value:2},{name:"Assigned to", value:3},{name:"Campaign", value:4}];
@@ -903,7 +903,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/SalesFunnelGet",
+                url: appConfig.baseUrl+"/Comp/SalesFunnelGet",
                 ContentType: 'application/json',
                 data: {
                     "salesfunnel_compguid": $cookieStore.get('comp_guid')
@@ -931,7 +931,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -959,7 +959,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            url: appConfig.baseUrl+"/Comp/CampaginGet",
             ContentType: 'application/json',
             data: {
                 "campaign_compguid":$cookieStore.get('comp_guid')
@@ -1015,7 +1015,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserUpdt/leadStatus",
+            url: appConfig.baseUrl+"/User/UserUpdt/leadStatus",
             ContentType: 'application/json',
             data: {
                 "user_ids":item,
@@ -1039,7 +1039,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserUpdt/SalesFunnel",
+            url: appConfig.baseUrl+"/User/UserUpdt/SalesFunnel",
             ContentType: 'application/json',
             data: {
                 "user_ids":item,
@@ -1062,7 +1062,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserUpdt/AssignedTo",
+            url: appConfig.baseUrl+"/User/UserUpdt/AssignedTo",
             ContentType: 'application/json',
             data: {
                 "user_ids":item,
@@ -1084,7 +1084,7 @@ app.controller("updateProPageCtrl", function($scope, $uibModalInstance, $state, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserUpdt/Campaign",
+            url: appConfig.baseUrl+"/User/UserUpdt/Campaign",
             ContentType: 'application/json',
             data: {
                 "user_ids":item,

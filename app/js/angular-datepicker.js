@@ -143,7 +143,7 @@
     }
     , datepickerDirective = function datepickerDirective($window, $compile, $locale, $filter, $interpolate, $timeout) {
 
-      var linkingFunction = function linkingFunction($scope, element, attr) {
+      var linkingFunction = function linkingFunction($scope,  element, attr) {
 
         //get child input
         var selector = attr.selector
@@ -850,7 +850,7 @@
           $scope.datepickerAppendTo.indexOf('.') !== -1) {
 
           $scope.datepickerID = 'datepicker-id-' + new Date().getTime() + (Math.floor(Math.random() * 6) + 8);
-          angular.element(document.getElementsByClassName($scope.datepickerAppendTo.replace('.', ''))[0]).append($compile(angular.element(htmlTemplate))($scope, function afterCompile(el) {
+          angular.element(document.getElementsByClassName($scope.datepickerAppendTo.replace('.', ''))[0]).append($compile(angular.element(htmlTemplate))($scope,  function afterCompile(el) {
 
             theCalendar = angular.element(el)[0];
           }));
@@ -858,14 +858,14 @@
           $scope.datepickerAppendTo.indexOf('#') !== -1) {
 
           $scope.datepickerID = 'datepicker-id-' + new Date().getTime() + (Math.floor(Math.random() * 6) + 8);
-          angular.element(document.getElementById($scope.datepickerAppendTo.replace('#', ''))).append($compile(angular.element(htmlTemplate))($scope, function afterCompile(el) {
+          angular.element(document.getElementById($scope.datepickerAppendTo.replace('#', ''))).append($compile(angular.element(htmlTemplate))($scope,  function afterCompile(el) {
 
             theCalendar = angular.element(el)[0];
           }));
         } else if ($scope.datepickerAppendTo &&
           $scope.datepickerAppendTo === 'body') {
           $scope.datepickerID = 'datepicker-id-' + (new Date().getTime() + (Math.floor(Math.random() * 6) + 8));
-          angular.element(document).find('body').append($compile(angular.element(htmlTemplate))($scope, function afterCompile(el) {
+          angular.element(document).find('body').append($compile(angular.element(htmlTemplate))($scope,  function afterCompile(el) {
 
             theCalendar = angular.element(el)[0];
           }));

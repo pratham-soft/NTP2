@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">  
-    <h1>Customers</h1>
+    <h3>Customers</h3>
 </div>
    
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
@@ -50,7 +50,7 @@
 <script type="text/ng-template" id="customerDetail.html">
         <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">{{customer.user_first_name}} {{customer.user_middle_name}} {{customer.user_last_name}}</h3>
+            <h3 class="modal-title" id="modal-title">{{customer.user_first_name}} {{customer.user_middle_name}} {{customer.user_last_name}}<<h3>
         </div>
         <div class="modal-body" id="modal-body">
 			<div class="subHeading">Contact Details</div>
@@ -242,7 +242,7 @@
 <script type="text/ng-template" id="custPayment.html">
     <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">Receive Payment From Customer</h3>
+            <h3 class="modal-title" id="modal-title">Receive Payment From Customer<<h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div>
@@ -399,7 +399,7 @@
 <script type="text/ng-template" id="cancelUnit.html">
     <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">Cancellation Form</h3>
+            <h3 class="modal-title" id="modal-title">Cancellation Form<<h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div>
@@ -496,7 +496,7 @@
 <script type="text/ng-template" id="unitCostSheet.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId</h3>
+        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId<<h3>
     </div>
     <div class="modal-body" id="modal-body">
         <table class="table borderDef">
@@ -662,7 +662,7 @@
             </tr>
              <tr>
                 <td><strong>Total Cost in Words(Excluding cost of registration)</strong></td>
-                <td><strong>{{unitCostSheetDetail.unitTotalAmtinWords}} only </strong></td>
+                <td><strong>INR {{unitCostSheetDetail.unitTotalAmtinWords}} only </strong></td>
                 <td></td>
             </tr>
         </table>

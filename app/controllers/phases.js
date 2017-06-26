@@ -1,4 +1,4 @@
-app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, myService, encyrptSvc) {
+app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, $stateParams, myService, encyrptSvc) {
     var Phase_Proj_Id = $stateParams.projId;
     var Phase_Id = $stateParams.phaseId;
 
@@ -16,7 +16,7 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
     ($scope.getPhaseInfo = function() {
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Phase/View",
+            url: appConfig.baseUrl+"/Proj/Phase/View",
             ContentType: 'application/json',
             data: {
                 "Phase_comp_guid": $cookieStore.get('comp_guid'),
@@ -109,7 +109,7 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Phase/Save",
+                url: appConfig.baseUrl+"/Proj/Phase/Save",
                 ContentType: 'application/json',
                 data: {
                     "Phase_comp_guid": $cookieStore.get('comp_guid'),
@@ -151,7 +151,7 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Block/Delete",
+            url: appConfig.baseUrl+"/Proj/Block/Delete",
             ContentType: 'application/json',
             data: {
                 "Blocks_comp_guid": $cookieStore.get('comp_guid'),
@@ -174,8 +174,13 @@ app.controller("editPhasesCtrl", function($scope, $http, $cookieStore, $state, $
     };
 });
 
+<<<<<<< HEAD
 app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $compile, $stateParams, encyrptSvc) {
     $scope.pageTitle = "Project Details";
+=======
+app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, $stateParams, encyrptSvc) {
+    $scope.pageTitle = "Add Phase";
+>>>>>>> b6da9c7f8f1b8c000673bd32520b8dc688583baa
     $scope.addPhaseBtn = true;
   
     ($scope.getProjectList = function() {
@@ -184,7 +189,7 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
+            url: appConfig.baseUrl+"/Proj/ProjDtls/ByCompGuid",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": $cookieStore.get('comp_guid')
@@ -232,7 +237,7 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Phase/Save",
+                url: appConfig.baseUrl+"/Proj/Phase/Save",
                 ContentType: 'application/json',
                 data: {
                     "Phase_comp_guid": $cookieStore.get('comp_guid'),
@@ -276,8 +281,13 @@ app.controller("addPhasesCtrl", function($scope, $http, $cookieStore, $state, $c
     };
 });
 
+<<<<<<< HEAD
 app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $compile, encyrptSvc) {
     $scope.typeNames = ['Flat', 'Plots', 'Villaments', 'Row Houses'];
+=======
+app.controller("phasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, encyrptSvc) {
+    $scope.typeNames = ['Flat', 'Sites', 'Villa', 'Row Houses'];
+>>>>>>> b6da9c7f8f1b8c000673bd32520b8dc688583baa
 
    
     ($scope.getProjectList = function() {
@@ -286,7 +296,7 @@ app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $comp
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
+            url: appConfig.baseUrl+"/Proj/ProjDtls/ByCompGuid",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": $cookieStore.get('comp_guid')
@@ -305,7 +315,7 @@ app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $comp
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham//Proj/Phase/View",
+            url: appConfig.baseUrl+"//Proj/Phase/View",
             ContentType: 'application/json',
             data: {
                 "Phase_comp_guid": $cookieStore.get('comp_guid'),
@@ -335,7 +345,7 @@ app.controller("phasesCtrl", function($scope, $http, $cookieStore, $state, $comp
         }
     };
 });
-app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $stateParams, encyrptSvc) {
+app.controller("addUnitCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, encyrptSvc) {
     var projectId = encyrptSvc.decyrpt($stateParams.projId);
     var phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
 
@@ -365,7 +375,7 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
         $scope.leadId = $stateParams.leadID;
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/UnitDt/Getdata",
+            url: appConfig.baseUrl+"/Proj/UnitDt/Getdata",
             ContentType: 'application/json',
             data: {
                 "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
@@ -475,7 +485,7 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/UnitDt/Save",
+                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
                 ContentType: 'application/json',
                 data: {
                     "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
@@ -554,7 +564,7 @@ app.controller("addUnitCtrl", function($scope, $http, $state, $cookieStore, $sta
     };
 });
 
-app.controller("editUnitCtrl", function($scope, $http, $state, $cookieStore, $stateParams, myService) {
+app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, myService) {
     var projectId = $stateParams.projId;
     var phaseId = $stateParams.phaseId;
 
@@ -567,7 +577,7 @@ app.controller("editUnitCtrl", function($scope, $http, $state, $cookieStore, $st
 
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/UnitDt/Getdata",
+            url: appConfig.baseUrl+"/Proj/UnitDt/Getdata",
             ContentType: 'application/json',
             data: {
                 "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
@@ -709,7 +719,7 @@ app.controller("editUnitCtrl", function($scope, $http, $state, $cookieStore, $st
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/UnitDt/Save",
+                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
                 ContentType: 'application/json',
                 data: {
                     "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),

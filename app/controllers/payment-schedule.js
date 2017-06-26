@@ -1,4 +1,4 @@
-app.controller("paymentScheduleCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $rootScope, myService) {
+app.controller("paymentScheduleCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $rootScope, myService) {
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -42,7 +42,7 @@ app.controller("paymentScheduleCtrl", function($scope, $http, $state, $cookieSto
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/PaymentSchedule/ByblockId",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/ByblockId",
                 ContentType: 'application/json',
                 data: {
                     "blockstageCompGuid": $cookieStore.get('comp_guid'),
@@ -74,7 +74,7 @@ app.controller("paymentScheduleCtrl", function($scope, $http, $state, $cookieSto
     };
 });
 
-app.controller("paymentScheduleChangeCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, item) {
+app.controller("paymentScheduleChangeCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, item) {
 
     ($scope.getPaymentScheduleDetail = function() {
         $scope.blockStage = {
@@ -94,7 +94,7 @@ app.controller("paymentScheduleChangeCtrl", function($scope, $http, $state, $coo
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/PaymentSchedule/Update",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/Update",
                 ContentType: 'application/json',
                 data: {
                     "PaymentScheduleId": item.PaymentScheduleId,
@@ -119,7 +119,7 @@ app.controller("paymentScheduleChangeCtrl", function($scope, $http, $state, $coo
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/PaymentSchedule/ByblockId",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/ByblockId",
                 ContentType: 'application/json',
                 data: {
                     "blockstageCompGuid": $cookieStore.get('comp_guid'),

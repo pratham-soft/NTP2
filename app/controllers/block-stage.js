@@ -1,4 +1,4 @@
-app.controller("blockStageCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $rootScope, myService) {
+app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $rootScope, myService) {
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -41,7 +41,7 @@ app.controller("blockStageCtrl", function($scope, $http, $state, $cookieStore, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/BlockStage/ByblockstageBlockId",
+            url: appConfig.baseUrl+"/Proj/Blk/BlockStage/ByblockstageBlockId",
             ContentType: 'application/json',
             data: {
                 "blockstageCompGuid": $cookieStore.get('comp_guid'),
@@ -92,7 +92,7 @@ app.controller("blockStageCtrl", function($scope, $http, $state, $cookieStore, $
     };
 });
 
-app.controller("blockStageChangeCtrl", function($scope, $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, item) {
+app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, item) {
 
     ($scope.getBlockStageDetail = function() {
         if (item.action == 'add') {
@@ -105,7 +105,7 @@ app.controller("blockStageChangeCtrl", function($scope, $http, $state, $cookieSt
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/BlockStage/ByblockstageId",
+                url: appConfig.baseUrl+"/Proj/Blk/BlockStage/ByblockstageId",
                 ContentType: 'application/json',
                 data: {
                     "blockstageCompGuid": $cookieStore.get('comp_guid'),
@@ -135,7 +135,7 @@ app.controller("blockStageChangeCtrl", function($scope, $http, $state, $cookieSt
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/BlockStage/Save",
+                url: appConfig.baseUrl+"/Proj/Blk/BlockStage/Save",
                 ContentType: 'application/json',
                 data: {
                     "blockstageCompGuid": $cookieStore.get('comp_guid'),
@@ -158,7 +158,7 @@ app.controller("blockStageChangeCtrl", function($scope, $http, $state, $cookieSt
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/BlockStage/ByblockstageBlockId",
+            url: appConfig.baseUrl+"/Proj/Blk/BlockStage/ByblockstageBlockId",
             ContentType: 'application/json',
             data: {
                 "blockstageCompGuid": $cookieStore.get('comp_guid'),
@@ -179,7 +179,7 @@ app.controller("blockStageChangeCtrl", function($scope, $http, $state, $cookieSt
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Proj/Blk/BlockStage/Update",
+                url: appConfig.baseUrl+"/Proj/Blk/BlockStage/Update",
                 ContentType: 'application/json',
                 data: {
                     "blockstageCompGuid": $cookieStore.get('comp_guid'),

@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-   <h1>{{pageTitle}}</h1>
+   <h3>{{pageTitle}}</h3>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
    <ol class="breadcrumb">
@@ -24,7 +24,7 @@
       <span>Flat No.: {{unitObj.UnitDtls_No}}</span>
       <span>Unit Type.: {{unitCostSheetDetail.UnitDtls_Type}}</span>
    </div>
-   <h3 class="text-center">Unit Cost Sheet -> {{unitCostSheetDetail.unitcostcal_Unitdtls_Id}} - UnitDtlsId</h3>
+    <h3 class="text-center">Unit Cost Sheet -> {{unitCostSheetDetail.unitcostcal_Unitdtls_Id}} - UnitDtlsId</h3>
    <table class="table borderDef">
       <!--
          <tr>
@@ -318,7 +318,7 @@
       </tr>
       <tr>
          <td><strong>Total Cost in Words(Excluding cost of registration)</strong></td>
-         <td><strong>{{unitCostSheetDetail.unitTotalAmtinWords}} only </strong></td>
+         <td><strong>INR {{unitCostSheetDetail.unitTotalAmtinWords}} only </strong></td>
          <td></td>
       </tr>
    </table>
@@ -364,7 +364,7 @@
 <script type="text/ng-template" id="formula.html">
    <div class="modal-header">
        <button type="button" class="close" ng-click="close()">&times;</button>
-       <h3 class="modal-title" id="modal-title">Cost Component Formula - {{fieldCount}}</h3>
+       <h3 class="modal-title" id="modal-title">Cost Component Formula - {{fieldCount}}</h3>>
    </div>
    <div class="modal-body" id="modal-body">
        <div class="row">

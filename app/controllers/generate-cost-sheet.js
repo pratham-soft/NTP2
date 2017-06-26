@@ -1,4 +1,4 @@
-app.controller("generateCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Generate Cost Sheet";
     $scope.activeBtn=true;
     $scope.pressCount=0;
@@ -7,7 +7,7 @@ app.controller("generateCostSheetCtrl", function($scope, $http, $cookieStore, $s
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -26,7 +26,7 @@ app.controller("generateCostSheetCtrl", function($scope, $http, $cookieStore, $s
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntdtlsViewGrd/Gt",
+            url: appConfig.baseUrl+"/Proj/Blk/UntdtlsViewGrd/Gt",
             ContentType: 'application/json',
             data: {
                 "Blocks_Id": blockId,
@@ -67,7 +67,7 @@ app.controller("generateCostSheetCtrl", function($scope, $http, $cookieStore, $s
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/BldValforUtCtSt",
+            url: appConfig.baseUrl+"/Proj/Blk/BldValforUtCtSt",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -90,14 +90,14 @@ app.controller("generateCostSheetCtrl", function($scope, $http, $cookieStore, $s
 });
 
 
-app.controller("generatedCostSheetDetailsCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("generatedCostSheetDetailsCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Generated Cost Sheet Details";
     var blockId = $stateParams.blockId;
     ($scope.getBlockCostSheet = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstTempl/Getall",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstTempl/Getall",
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
@@ -116,7 +116,7 @@ app.controller("generatedCostSheetDetailsCtrl", function($scope, $http, $cookieS
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntdtlsViewGrd/Gt",
+            url: appConfig.baseUrl+"/Proj/Blk/UntdtlsViewGrd/Gt",
             ContentType: 'application/json',
             data: {
                 "Blocks_Id": blockId,
@@ -153,40 +153,44 @@ app.controller("generatedCostSheetDetailsCtrl", function($scope, $http, $cookieS
             }
         });
     };
-    ($scope.generateCostSheetUnits = function(templId) {
-        angular.element(".loader").show();
-        $http({
-            method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/BldValforUtCtSt",
-            ContentType: 'application/json',
-            data: {
-                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
-                "untctcm_Blocks_Id": parseInt(blockId),
-                "untctcm_Id": templId
-            }
-        }).success(function(data) {
-            console.log(data);
-            var res = data.Comm_ErrorDesc;
-            var resSplit = res.split('|');
-            if (resSplit[0] == 0) {
-                $scope.getUnitsWithCostSheet(blockId);
-            }
-            angular.element(".loader").hide();
-        }).error(function() {
-            angular.element(".loader").hide();
-        });
-    })();
+    
+    // Below Code Commented as Cost Sheet was Aplied on page load, Cost sheet apply to units multiple times 24june 
+//    ($scope.generateCostSheetUnits = function(templId) {
+//        angular.element(".loader").show();
+//        $http({
+//            method: "POST",
+//            url: appConfig.baseUrl+"/Proj/Blk/BldValforUtCtSt",
+//            ContentType: 'application/json',
+//            data: {
+//                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
+//                "untctcm_Blocks_Id": parseInt(blockId),
+//                "untctcm_Id": templId
+//            }
+//        }).success(function(data) {
+//            console.log(data);
+//            var res = data.Comm_ErrorDesc;
+//            var resSplit = res.split('|');
+//            if (resSplit[0] == 0) {
+//                $scope.getUnitsWithCostSheet(blockId);
+//            }
+//            angular.element(".loader").hide();
+//        }).error(function() {
+//            angular.element(".loader").hide();
+//        });
+//    })();
+     $scope.getUnitsWithCostSheet(blockId);
+
 });
 
 
-app.controller("unitCostSheetCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item ,myService) {
+app.controller("unitCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, item ,myService) {
     
     $scope.unitId = item;
     ($scope.getUnitCostSheetDetails = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Blk/UntCstSheet/Gt",
+            url: appConfig.baseUrl+"/Proj/Blk/UntCstSheet/Gt",
             ContentType: 'application/json',
             data: {
                 "UnitDtls_Id": parseInt($scope.unitId),

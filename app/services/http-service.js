@@ -1,4 +1,4 @@
-app.service('httpSvc', function($http, appConfig) {
+app.service('httpSvc', function($http) {
     this.getUnitCostSheet = function(unitId, compId) {
         var promise = $http({
             method: "POST",
@@ -18,7 +18,7 @@ app.service('httpSvc', function($http, appConfig) {
 	this.getUserDetails = function(userId, compId) {
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": userId,
@@ -34,7 +34,7 @@ app.service('httpSvc', function($http, appConfig) {
 	this.generateCustomerCostSheet = function(obj){
 		var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/Cust/BldValforUtCtSt",
+            url: appConfig.baseUrl+"/Proj/Cust/BldValforUtCtSt",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -47,7 +47,7 @@ app.service('httpSvc', function($http, appConfig) {
     this.updatePaymentDetails = function(obj){
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Cust/Cmpunitpymntsave",
+            url: appConfig.baseUrl+"/Cust/Cmpunitpymntsave",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -60,7 +60,7 @@ app.service('httpSvc', function($http, appConfig) {
 	this.getPaymentStages = function(obj){
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Cust/GetCustPymntStg",
+            url: appConfig.baseUrl+"/Cust/GetCustPymntStg",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -73,7 +73,7 @@ app.service('httpSvc', function($http, appConfig) {
         alert("updateUnitStatus");
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/UpdtUnitDtls/ByUnitDtlsID",
+            url: appConfig.baseUrl+"/Proj/UpdtUnitDtls/ByUnitDtlsID",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
@@ -87,7 +87,7 @@ app.service('httpSvc', function($http, appConfig) {
        
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Cust/Changeunit",
+            url: appConfig.baseUrl+"/Cust/Changeunit",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {        
@@ -102,7 +102,7 @@ app.service('httpSvc', function($http, appConfig) {
        
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Cust/UnitCost/Pymtstg",
+            url: appConfig.baseUrl+"/Cust/UnitCost/Pymtstg",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {        
@@ -116,7 +116,7 @@ app.service('httpSvc', function($http, appConfig) {
        
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Cust/Unit/PaymentHistory",
+            url: appConfig.baseUrl+"/Cust/Unit/PaymentHistory",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {        
@@ -137,7 +137,7 @@ app.service('myService', function($http) {
     this.getProjectList = function(compId) {
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
+            url: appConfig.baseUrl+"/Proj/ProjDtls/ByCompGuid",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": compId
@@ -152,7 +152,7 @@ app.service('myService', function($http) {
     this.getPhaseList = function(compId,projectName) {
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/PhaseDtls/ByPhaseProjId",
+            url: appConfig.baseUrl+"/Proj/PhaseDtls/ByPhaseProjId",
             ContentType: 'application/json',
             data: {
                 "Phase_Proj_Id": projectName,
@@ -168,7 +168,7 @@ app.service('myService', function($http) {
     this.getBlockList = function(phase, compId) {
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/BlockDtls/ByPhaseBlocksId",
+            url: appConfig.baseUrl+"/Proj/BlockDtls/ByPhaseBlocksId",
             ContentType: 'application/json',
             data: {
                 "Blocks_Phase_Id": phase,
@@ -185,7 +185,7 @@ app.service('myService', function($http) {
         console.log("blockId: "+blockId);
         var promise = $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+            url: appConfig.baseUrl+"/Proj/UnitDtls/ByUnitDtlsBlocksId",
             ContentType: 'application/json',
             data: {
                   "UnitDtls_Block_Id":blockId,
@@ -203,7 +203,7 @@ app.service('myService', function($http) {
         
 		var promise =$http({
 			method:"POST",
-			url:"http://120.138.8.150/pratham/Comp/Emltmplt/gt",
+			url:appConfig.baseUrl+"/Comp/Emltmplt/gt",
 			ContentType: 'application/json',
             data: {
 			  "tempemailid" : 0,
@@ -221,7 +221,7 @@ app.service('myService', function($http) {
         
 		var promise =$http({
 			method:"POST",
-			url:"http://120.138.8.150/pratham/Comp/ModulesGet",
+			url:appConfig.baseUrl+"/Comp/ModulesGet",
 			ContentType: 'application/json',
             data: {
 			     "module_id": 0
@@ -320,7 +320,7 @@ app.service('myService', function($http) {
         
 		var promise =$http({
 			method:"POST",
-			url:"http://120.138.8.150/pratham/Comp/Rulescrit/Gtebmsq",
+			url:appConfig.baseUrl+"/Comp/Rulescrit/Gtebmsq",
 			ContentType: 'application/json',
             data: {
 			     "rulecriteria_comp_guid": comp_guid,
@@ -337,7 +337,7 @@ app.service('myService', function($http) {
         
 		var promise =$http({
 			method:"POST",
-			url:"http://120.138.8.150/pratham/Comp/RulesCrit/Del",
+			url:appConfig.baseUrl+"/Comp/RulesCrit/Del",
 			ContentType: 'application/json',
             data: {
                     "rulecriteria_comp_guid" :comp_guid,

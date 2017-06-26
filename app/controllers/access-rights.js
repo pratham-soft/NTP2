@@ -1,4 +1,4 @@
-app.controller("accessRightsCtrl", function($scope, $http, $state, $cookieStore) {
+app.controller("accessRightsCtrl", function($scope,  $http, $state, $cookieStore) {
     $scope.pageTitle = "Access Rights";
     $scope.currentRoleId = 0;
 
@@ -6,7 +6,7 @@ app.controller("accessRightsCtrl", function($scope, $http, $state, $cookieStore)
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RoleGet",
+            url: appConfig.baseUrl+"/Comp/RoleGet",
             ContentType: 'application/json',
             data: {
                 "role_compguid": $cookieStore.get('comp_guid')
@@ -25,7 +25,7 @@ app.controller("accessRightsCtrl", function($scope, $http, $state, $cookieStore)
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/ModulesGet",
+                url: appConfig.baseUrl+"/Comp/ModulesGet",
                 ContentType: 'application/json',
                 data: {}
             }).success(function(data) {
@@ -43,7 +43,7 @@ app.controller("accessRightsCtrl", function($scope, $http, $state, $cookieStore)
     function getRoleaccrgts(roleId) {
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/Roleaccrgts",
+            url: appConfig.baseUrl+"/User/Roleaccrgts",
             ContentType: 'application/json',
             data: {
                 "RoleAccRgts_compguid": $cookieStore.get('comp_guid'),
@@ -108,7 +108,7 @@ app.controller("accessRightsCtrl", function($scope, $http, $state, $cookieStore)
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/SaveRoleaccrgts",
+                url: appConfig.baseUrl+"/User/SaveRoleaccrgts",
                 ContentType: 'application/json',
                 data: rolesRightDataArray
             }).success(function(data) {

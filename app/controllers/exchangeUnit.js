@@ -1,4 +1,4 @@
-app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
+app.controller("exchangeUnitCtrl", function($scope,  $http, $state, $cookieStore, $compile, $stateParams, $window, myService) {
 	console.log($window.sessionStorage);
  //   var test = $window.sessionStorage.getItem('projId');
     $scope.leadId = $stateParams.leadID;
@@ -17,7 +17,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/UserDtls",
+            url: appConfig.baseUrl+"/User/UserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.leadId,
@@ -123,7 +123,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
 //        angular.element(".loader").show();
 //        $http({
 //            method: "POST",
-//            url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+//            url: appConfig.baseUrl+"/Proj/UnitDtls/ByUnitDtlsBlocksId",
 //            ContentType: 'application/json',
 //            data: {
 //                "UnitDtls_Block_Id": blocks,
@@ -179,7 +179,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/UnitDtls/ByUnitDtlsBlocksId",
+            url: appConfig.baseUrl+"/Proj/UnitDtls/ByUnitDtlsBlocksId",
             ContentType: 'application/json',
             data: {
                 "UnitDtls_Block_Id": blocks,
@@ -257,7 +257,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
 
                         //                      console.log($scope.projectDetails);
 
-                        var projectRow = '<tr id="' + $scope.units[i].UnitDtls_Id + '"><td>' + $scope.projId + '</td><td>' + $scope.phaseId + '</td><td>' + 'Flat Type' + '</td><td><div class="dispNone">' + projObj + '</div>' + $scope.units[i].UnitDtls_BRoom + 'BHK - ' + $scope.units[i].UnitDtls_No + ' - ' + $scope.units[i].UnitDtls_Floor + ' Floor</td><td>' + $scope.units[i].UnitDtls_BuliltupArea + ' sq ft</td><td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(' + $scope.projId + ',' + $scope.units[i].UnitDtls_Id + ')"></span></td></tr>';
+                        var projectRow = '<tr id="' + $scope.units[i].UnitDtls_Id + '"><td>' + $scope.projId + '</td><td>' + $scope.phaseId + '</td><td>' + 'Flat Type' + '</td><td><div class="dispNone">' + projObj + '</div>' + $scope.units[i].UnitDtls_Rooms + 'BHK - ' + $scope.units[i].UnitDtls_No + ' - ' + $scope.units[i].UnitDtls_Floor + ' Floor</td><td>' + $scope.units[i].UnitDtls_BuliltupArea + ' sq ft</td><td><span class="glyphicon glyphicon-trash delete" ng-click="deleteRow(' + $scope.projId + ',' + $scope.units[i].UnitDtls_Id + ')"></span></td></tr>';
                         var projectRowComplied = $compile(projectRow)($scope);
                         angular.element(document.getElementById('projectList')).append(projectRowComplied);
                        
@@ -284,7 +284,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/ProjUnitDel",
+                url: appConfig.baseUrl+"/User/ProjUnitDel",
                 ContentType: 'application/json',
                 data: [{
                     "comp_guid": $cookieStore.get('comp_guid'),
@@ -316,7 +316,7 @@ app.controller("exchangeUnitCtrl", function($scope, $http, $state, $cookieStore,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/ProjUnitSave",
+            url: appConfig.baseUrl+"/User/ProjUnitSave",
             ContentType: 'application/json',
             data: projJson
         }).success(function(data) {

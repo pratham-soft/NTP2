@@ -1,4 +1,4 @@
-app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $stateParams, $compile, $cookieStore, $filter, httpSvc,$state){
+app.controller("bookUnitStep2Ctrl", function($scope,  $http, $rootScope, $stateParams, $compile, $cookieStore, $filter, httpSvc,$state){
     $scope.leadId = $stateParams.leadID;
 	$scope.pageTitle = "Book Unit - Add Customer";
     var unitObj = $cookieStore.get("unitObj");
@@ -125,7 +125,7 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
 
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Cust/SaveCust",
+                url: appConfig.baseUrl+"/Cust/SaveCust",
                 ContentType: 'application/json',
                 data: {
                     "user_id": prospectId,
@@ -277,7 +277,7 @@ app.controller("bookUnitStep2Ctrl", function($scope, $http, $rootScope, $statePa
 
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Cust/CustUpdate",
+                url: appConfig.baseUrl+"/Cust/CustUpdate",
                 ContentType: 'application/json',
                 data: {                 
                     "user_first_name": formObj.firstName,

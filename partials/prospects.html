@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-    <h1>Prospects</h1>
+    <h3>Prospects</h3>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
     <ol class="breadcrumb">
@@ -55,7 +55,7 @@
 <script type="text/ng-template" id="leadDetail.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">{{lead.user_first_name}} {{lead.user_middle_name}} {{lead.user_last_name}} - <span>{{leadType[lead.user_lead_status_id-1]}}</span></h3>
+        <h3 class="modal-title" id="modal-title">{{lead.user_first_name}} {{lead.user_middle_name}} {{lead.user_last_name}} - <span>{{leadType[lead.user_lead_status_id-1]}}</span><<h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div class="subHeading">Contact Details</div>
@@ -124,7 +124,7 @@
 <script type="text/ng-template" id="addSiteVisit.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">Schedule site visit - {{lead.user_first_name}} {{lead.user_middle_name}} {{lead.user_last_name}}</h3>
+        <h3 class="modal-title" id="modal-title">Schedule site visit - {{lead.user_first_name}} {{lead.user_middle_name}} {{lead.user_last_name}}<<h3>
     </div>
     <div class="modal-body pull-left" id="modal-body">
         <div ng-show="siteVisitData.length>0" class="prevVisits">
@@ -273,7 +273,7 @@
 <script type="text/ng-template" id="updateProPage.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">Update Prospects</h3>
+        <h3 class="modal-title" id="modal-title">Update Prospects<<h3>
     </div>
     <div class="modal-body" id="modal-body">
     <form class="form-inline" name="form">
@@ -305,7 +305,7 @@
 <script type="text/ng-template" id="unitCostSheet.html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="ok()">&times;</button>
-        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId</h3>
+        <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId<<h3>
     </div>
     <div class="modal-body" id="modal-body">
         <table class="table borderDef">
@@ -471,7 +471,7 @@
             </tr>
              <tr>
                 <td><strong>Total Cost in Words(Excluding cost of registration)</strong></td>
-                <td><strong>{{unitCostSheetDetail.unitTotalAmtinWords}} only </strong></td>
+                <td><strong>INR {{unitCostSheetDetail.unitTotalAmtinWords}} only </strong></td>
                 <td></td>
             </tr>
         </table>

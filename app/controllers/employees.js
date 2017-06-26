@@ -1,4 +1,4 @@
-app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, $compile, $stateParams, myService, $window) {
+app.controller("addEmployeeCtrl", function($scope,  $http, $state, $cookieStore, $compile, $stateParams, myService, $window) {
     $scope.pageTitle = "Add Employee";
     $scope.addEmployeeBtn = true;
     
@@ -6,7 +6,7 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RoleGet",
+            url: appConfig.baseUrl+"/Comp/RoleGet",
             ContentType: 'application/json',
             data: {
                 "role_compguid": $cookieStore.get('comp_guid')
@@ -23,7 +23,7 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/Department",
+            url: appConfig.baseUrl+"/Comp/Department",
             ContentType: 'application/json',
             data: {
                 "dept_compguid": $cookieStore.get('comp_guid')
@@ -40,7 +40,7 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/Designations",
+            url: appConfig.baseUrl+"/User/Designations",
             ContentType: 'application/json',
             data: {
                 "designation_compguid": $cookieStore.get('comp_guid')
@@ -111,7 +111,7 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
             console.log(formObj);
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/SaveUser",
+                url: appConfig.baseUrl+"/User/SaveUser",
                 ContentType: 'application/json',
                 data: {
                     "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -188,7 +188,7 @@ app.controller("addEmployeeCtrl", function($scope, $http, $state, $cookieStore, 
     };
 });
 
-app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal) {
+app.controller("editEmployeeCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal) {
     $scope.pageTitle = "Edit Employee";
     $scope.editEmployeeBtn = true;
     $scope.employeeId = $stateParams.employeeId;
@@ -197,7 +197,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/RoleGet",
+            url: appConfig.baseUrl+"/Comp/RoleGet",
             ContentType: 'application/json',
             data: {
                 "role_compguid": $cookieStore.get('comp_guid')
@@ -214,7 +214,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeUserDtls",
+            url: appConfig.baseUrl+"/User/EmployeeUserDtls",
             ContentType: 'application/json',
             data: {
                 "user_id": $scope.employeeId,
@@ -292,7 +292,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/Department",
+            url: appConfig.baseUrl+"/Comp/Department",
             ContentType: 'application/json',
             data: {
                 "dept_compguid": $cookieStore.get('comp_guid')
@@ -309,7 +309,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/Designations",
+            url: appConfig.baseUrl+"/User/Designations",
             ContentType: 'application/json',
             data: {
                 "designation_compguid": $cookieStore.get('comp_guid')
@@ -365,7 +365,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/UpdateUserEmployee",
+                url: appConfig.baseUrl+"/User/UpdateUserEmployee",
                 ContentType: 'application/json',
                 data: {
                     "Emp_comp_guid": $cookieStore.get('comp_guid'),
@@ -463,7 +463,7 @@ app.controller("editEmployeeCtrl", function($scope, $http, $cookieStore, $state,
         });
     };
 });
-app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uibModal, $state) {
+app.controller("employeeDetailsCtrl", function($scope,  $http, $cookieStore, $uibModal, $state) {
     $scope.selected=[];
     $scope.roleIdValues=[];
     $scope.roleIdDetails=[];
@@ -524,7 +524,7 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
                     objXhr.addEventListener("load", transferComplete, false);
 
                     // SEND FILE DETAILS TO THE API.
-                    objXhr.open("POST", "http://120.138.8.150/pratham/Test/fileupload");
+                    objXhr.open("POST", appConfig.baseUrl+"/Test/fileupload");
 
 
                     objXhr.send(data);
@@ -554,7 +554,7 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -583,7 +583,7 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/RoleGet",
+                url: appConfig.baseUrl+"/Comp/RoleGet",
                 ContentType: 'application/json',
                 data: {
                     "role_compguid": $cookieStore.get('comp_guid')
@@ -613,7 +613,7 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/Department",
+            url: appConfig.baseUrl+"/Comp/Department",
             ContentType: 'application/json',
             data: {
                 "dept_compguid": $cookieStore.get('comp_guid')
@@ -667,7 +667,7 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/Designations",
+            url: appConfig.baseUrl+"/User/Designations",
             ContentType: 'application/json',
             data: {
                 "designation_compguid": $cookieStore.get('comp_guid')
@@ -687,7 +687,7 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/EmployeeDtls/ByUserType",
+            url: appConfig.baseUrl+"/User/EmployeeDtls/ByUserType",
             ContentType: 'application/json',
             data: {
                 "user_comp_guid": $cookieStore.get('comp_guid'),
@@ -752,7 +752,7 @@ app.controller("employeeDetailsCtrl", function($scope, $http, $cookieStore, $uib
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/ImportCSVFile",
+            url: appConfig.baseUrl+"/Comp/ImportCSVFile",
             ContentType: 'application/json',
             data: {            
                  "import_path":"csvupload",

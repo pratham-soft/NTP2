@@ -359,6 +359,8 @@ th {
 }
 .glyphicon-home:before {
   content: "\e021";
+  font-size: 22px;
+  padding :5px
 }
 .glyphicon-file:before {
   content: "\e022";
@@ -1222,8 +1224,8 @@ h2,
 .h2,
 h3,
 .h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 h1 small,
 .h1 small,

@@ -1,10 +1,10 @@
-app.controller("campaignDetailCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $rootScope) {
+app.controller("campaignDetailCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $rootScope) {
 
     ($scope.getCampaignDetail = function() {
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Comp/CampaginGet",
+            url: appConfig.baseUrl+"/Comp/CampaginGet",
             ContentType: 'application/json',
             data: {
                 "campaign_compguid":$cookieStore.get('comp_guid')
@@ -49,7 +49,7 @@ app.controller("campaignDetailCtrl", function($scope, $http, $cookieStore, $stat
     
 });
 
-app.controller("addNewCampaignCtrl", function($scope, $http, myService, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
+app.controller("addNewCampaignCtrl", function($scope,  $http, myService, $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
     $scope.pageTitle = "Add New Campaign";
     $scope.addNewCampaignBtn = true;
     var blockId=0;
@@ -63,7 +63,7 @@ app.controller("addNewCampaignCtrl", function($scope, $http, myService, $cookieS
         });
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/Proj/ProjDtls/ByCompGuid",
+            url: appConfig.baseUrl+"/Proj/ProjDtls/ByCompGuid",
             ContentType: 'application/json',
             data: {
                 "Proj_comp_guid": $cookieStore.get('comp_guid')
@@ -120,7 +120,7 @@ app.controller("addNewCampaignCtrl", function($scope, $http, myService, $cookieS
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/CampaginInsert",
+                url: appConfig.baseUrl+"/Comp/CampaginInsert",
                 ContentType: 'application/json',
                 data: {                   
                     "campaign_compguid" :$cookieStore.get('comp_guid'),
@@ -154,7 +154,7 @@ app.controller("addNewCampaignCtrl", function($scope, $http, myService, $cookieS
     
 });
 
-app.controller("editCampaignCtrl", function($scope, $http,  $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
+app.controller("editCampaignCtrl", function($scope,  $http,  $cookieStore, $state, $stateParams, $filter, $compile, $uibModalInstance, $rootScope, item) {
     $scope.pageTitle = "Edit Campaign";
     $scope.editCampaignBtn = true;
     $scope.addNewCampaignBtn = false;
@@ -189,7 +189,7 @@ app.controller("editCampaignCtrl", function($scope, $http,  $cookieStore, $state
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/Comp/CampaginUpdate",
+                url: appConfig.baseUrl+"/Comp/CampaginUpdate",
                 ContentType: 'application/json',
                 data: {
                     "campaign_id":item.campaign_id,

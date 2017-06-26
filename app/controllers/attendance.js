@@ -1,4 +1,4 @@
-app.controller("attendanceCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal) {
+app.controller("attendanceCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal) {
     $scope.title = "Attendance";
     $scope.attendanceCodes = ['', 'P', 'A', 'L', 'H'];
     var d = new Date();
@@ -88,7 +88,7 @@ app.controller("attendanceCtrl", function($scope, $http, $cookieStore, $state, $
         angular.element(".loader").show();
         $http({
             method: "POST",
-            url: "http://120.138.8.150/pratham/User/Attendance/Get",
+            url: appConfig.baseUrl+"/User/Attendance/Get",
             ContentType: 'application/json',
             data: {
                 "attendance_compguid": $cookieStore.get('comp_guid'),
@@ -111,7 +111,7 @@ app.controller("attendanceCtrl", function($scope, $http, $cookieStore, $state, $
         var modalInstance = $uibModal.open({
             templateUrl: 'markAttendance.html',
             controller: 'markAttendanceCtrl',
-            scope: $scope,
+            scope: $scope, 
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -122,7 +122,7 @@ app.controller("attendanceCtrl", function($scope, $http, $cookieStore, $state, $
         });
     }
 });
-app.controller("markAttendanceCtrl", function($scope, $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, $location, item) {
+app.controller("markAttendanceCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, $uibModalInstance, $location, item) {
     $scope.empAttn = item;
     $scope.saveAttn = function(formName, formObj) {
         $scope.submit = true;
@@ -135,7 +135,7 @@ app.controller("markAttendanceCtrl", function($scope, $http, $cookieStore, $stat
             angular.element(".loader").show();
             $http({
                 method: "POST",
-                url: "http://120.138.8.150/pratham/User/Attendance/Save",
+                url: appConfig.baseUrl+"/User/Attendance/Save",
                 ContentType: 'application/json',
                 data: attnArr
             }).success(function(data) {

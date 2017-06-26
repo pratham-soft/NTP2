@@ -273,16 +273,16 @@ span.link{
 }
 .floorName{
     float: left;
-    padding: 5px 0;
-    margin: 0 10px 10px 0;
-    border-radius: 3px;
-    cursor: pointer;
+    padding: 1px 0;
+    margin: 4px 10px 4px 0px;
+    border-radius: 11px;
     background-color: #DDD;
-    width: 100px;
+    width: 80px;
 }
+/*
 .flat{
     float: left;
-    padding: 15px;
+    padding: 11px;
     margin: 0 10px 10px 0;
     border-radius: 3px;
 	cursor: pointer;
@@ -311,6 +311,7 @@ span.link{
     background-position: 45% 45%;
     background-repeat: no-repeat;
 }
+*/
 .delete{
 	cursor: pointer;
 }
@@ -390,22 +391,22 @@ span.link{
 }
 
 div.vacant{
-	background-color: green;
+	color: green;
 }
 div.userinterest{
-	background-color: orange;
+	color: orange;
 }
 div.mgmtquota{
-	background-color: blue;
+	color: blue;
 }
 div.blockedbyadvnc{
-	background-color: maroon;
+	color: #c62222;
 }
 div.blockedbynotadvnc{
-	background-color: maroon;
+	color: maroon;
 }
 div.sold{
-	background-color: red;
+	color: red;
 }
 .unitStatus {
     padding: 10px;
