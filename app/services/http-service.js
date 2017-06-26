@@ -371,6 +371,22 @@ app.service('myService', function($http) {
      }
 };
     
+    this.convertTime = function(timeString) {
+    var time = timeString;
+    if(time.includes(' PM') ){
+        var  newtime= time.replace( ' PM','');
+        var timeComp=newtime.split(':');
+        var hrs24= parseInt(timeComp[0])+12;
+        var hrs24Str=hrs24+'';
+        var finalDate=hrs24Str+':'+timeComp[1];
+        return finalDate;
+    }
+    else{
+        var finalDate=time.replace(' AM')
+        return finalDate;
+    }
+};
+    
 });
 
 
