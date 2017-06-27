@@ -543,12 +543,12 @@ $scope.panNOvaladition = function()
 var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
 if (regpan.test($scope.addUnit.ownerPan) == false)
 {
-alert("VaLid Pan");
+
 $scope.not_valid = true;
 $scope.is_valid = false;
 }else
 {
-alert("Invalid VaLid Pan");
+
 $scope.is_valid = true ;
 $scope.not_valid = false;
 
