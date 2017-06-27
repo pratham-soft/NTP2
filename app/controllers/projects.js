@@ -60,10 +60,6 @@ app.controller("projectsCtrl", function($scope,  $http, $cookieStore, $state) {
 app.controller("addProjectCtrl", function($scope,  $http, $cookieStore, $state) {
     $scope.pageTitle = "Add Project";
     $scope.addProjectBtn = true;
-    $scope.gobackPreviousPage= function()
-    {
-        $state.go('/Projects');
-    }
     $scope.saveProject = function(formObj, formName) {
         $scope.submit = true;
         if ($scope[formName].$valid) {
@@ -105,7 +101,7 @@ app.controller("addProjectCtrl", function($scope,  $http, $cookieStore, $state) 
             }).success(function(data) {
                 //                console.log(data);
                 angular.element(".loader").hide();
-            
+                $state.go('/Projects');
             }).error(function() {
                 angular.element(".loader").hide();
             });
@@ -132,12 +128,16 @@ app.controller("addProjectCtrl", function($scope,  $http, $cookieStore, $state) 
         }
         return typeId;
     }
+     $scope.gobackPreviousPage= function()
+    {
+        $state.go('/Projects');
+    }
 });
 
 app.controller("editProjectCtrl", function($scope,  $http, $cookieStore, $state, $stateParams) {
     $scope.pageTitle = "Edit Project";
     $scope.editProjectBtn = true;
- 
+
     ($scope.getProjectList = function() {
         $scope.projId = $stateParams.projId;
         $http({
@@ -229,16 +229,13 @@ app.controller("editProjectCtrl", function($scope,  $http, $cookieStore, $state,
             }).success(function(data) {
                 //                console.log(data);
                 angular.element(".loader").hide();
-                alert("Project Details Updated Successfully");
-                $state.go("/Projects");
-                
+                $state.go('/Projects');
             }).error(function() {
                 angular.element(".loader").hide();
             });
         }
     };
 
-   
     function getTypeIdByName(typeName) {
         var typeId = '';
         switch (typeName) {
@@ -259,7 +256,7 @@ app.controller("editProjectCtrl", function($scope,  $http, $cookieStore, $state,
         }
         return typeId;
     }
-     $scope.gobackPage= function()
+$scope.gobackPage= function()
     {
         $state.go('/Projects');
     }

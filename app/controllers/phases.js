@@ -1,13 +1,13 @@
 app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, $stateParams, myService, encyrptSvc) {
     var Phase_Proj_Id = $stateParams.projId;
     var Phase_Id = $stateParams.phaseId;
-
-    $scope.pageTitle = "Add Phase";
-    $scope.editPhaseBtn = true;
-     $scope.editgoback= function()
+ $scope.editgoback= function()
     {
         $state.go('/Phases');
     };
+    $scope.pageTitle = "Add Phase";
+    $scope.editPhaseBtn = true;
+
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -177,11 +177,10 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
 app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, $stateParams, encyrptSvc) {
     $scope.pageTitle = "Add Phase";
     $scope.addPhaseBtn = true;
-    $scope.goback= function()
+ $scope.goback= function()
     {
         $state.go('/Phases');
     };
-    
     ($scope.getProjectList = function() {
         $scope.perFloorUnits = [];
         $scope.units = [];
@@ -275,7 +274,7 @@ app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $
 });
 
 app.controller("phasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, encyrptSvc) {
-    $scope.typeNames = ['Flat', 'Sites', 'Villa', 'Row Houses'];
+    $scope.typeNames = ['Flat', 'Sites', 'Villaments', 'Row Houses'];
 
     ($scope.getProjectList = function() {
         $scope.perFloorUnits = [];
@@ -331,31 +330,17 @@ app.controller("phasesCtrl", function($scope,  $http, $cookieStore, $state, $com
         }
     };
 });
+
 app.controller("addUnitCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, encyrptSvc) {
     var projectId = encyrptSvc.decyrpt($stateParams.projId);
     var phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
-    ($scope.txtPANNumber= function () {     
- var regExp = /[a-zA-z]{5}\d{4}[a-zA-Z]{1}/; 
- $scope.addUnit.ownerPan = $(this).val(); 
- if ($scope.addUnit.ownerPan.length == 10 ) { 
-  if( $scope.addUnit.ownerPan.match(regExp) ){ 
-   alert('PAN match found');
-  }
-  else {
-   alert('Not a valid PAN number');
-  } 
- } 
- else { 
-       alert('Please enter 10 digits for a valid PAN number');
- }
-
-});
-     $scope.goPhases = function()
+$scope.goPhases = function()
     {
         $state.go('/Phases');
     };
     $scope.pageTitle = "Add Unit";
     $scope.addPhaseUnitBtn = "ture";
+
     ($scope.getPhaseDetail = function() {
         angular.element(".loader").show();
         $scope.leadId = $stateParams.leadID;
@@ -553,7 +538,26 @@ app.controller("addUnitCtrl", function($scope,  $http, $state, $cookieStore, $st
 app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, myService) {
     var projectId = $stateParams.projId;
     var phaseId = $stateParams.phaseId;
+$scope.panNOvaladition = function()
+{
+var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+if (regpan.test($scope.addUnit.ownerPan) == false)
+{
+alert("VaLid Pan");
+$scope.not_valid = true;
+$scope.is_valid = false;
+}else
+{
+alert("Invalid VaLid Pan");
+$scope.is_valid = true ;
+$scope.not_valid = false;
 
+}
+};
+   $scope.GotoPhases = function()
+    {
+        $state.go('/Phases');
+    };
     $scope.pageTitle = "Edit Unit";
     $scope.editPhaseUnitBtn = "ture";
     $scope.editTypeDataId = 0;

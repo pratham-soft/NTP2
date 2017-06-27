@@ -134,6 +134,19 @@ app.service('myService', function($http) {
         return compId;
     };
 
+    this.panNOvaladition = function(Pan_no){
+        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+            if (regpan.editUnitCtrl(pan_no) == false)
+            {
+            return true;
+            }
+        else
+            {
+            return false;
+            }
+        };
+    
+    
     this.getProjectList = function(compId) {
         var promise = $http({
             method: "POST",
