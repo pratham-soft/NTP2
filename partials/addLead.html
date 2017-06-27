@@ -13,9 +13,9 @@
    <form name="addLeadForm" class="form" method="POST" novalidate="novalidate">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">First Name</label>
+            <label for="projectName">First Name<b class="starimp">*</b></label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="text" placeholder="First Name*" class="form-control" name="firstName" ng-model="addLead.firstName" ng-required="true" ng-class="{blankInput: addLeadForm.firstName.$error.required &amp;&amp; submit}" ng-minlength="2" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1"/>
              <p style="color:#ff0000;" ng-show="number_error_show>0 && (addLeadForm.firstName.$error.minlength)"> Name should contain atleast 2 characters</p>
          </div>
@@ -24,23 +24,23 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">Middle Name</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="text" placeholder="Middle Name" class="form-control" name="middleName" ng-model="addLead.middleName"/>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Last Name</label>
+            <label for="projectName">Last Name <b class="starimp">*</b></label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="text" placeholder="Last Name*" class="form-control" name="lastName" ng-model="addLead.lastName" ng-required="true" ng-class="{blankInput: addLeadForm.lastName.$error.required &amp;&amp; submit}"/>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Mobile Number</label>
+            <label for="projectName">Mobile Number <b class="starimp">*</b></label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="number" placeholder="Mobile Number*" class="form-control" name="mobileNumber" ng-maxlength="10" ng-minlength="10" ng-model="addLead.mobileNumber" ng-init="number_error_show=0" ng-focus="number_error_show=1" ng-change="number_error_show=number_error_show+1" ng-required="true" ng-class="{blankInput: addLeadForm.mobileNumber.$error.required &amp;&amp; submit}"/>
              <p style="color:#ff0000;" ng-show="number_error_show>0 && (addLeadForm.mobileNumber.$error.minlength || addLeadForm.mobileNumber.$error.maxlength)"> Mobile number should be of 10 digits</p>
          </div>
@@ -49,15 +49,15 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">Office Number</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="text" placeholder="Office Number" class="form-control" name="officeNumber" ng-model="addLead.officeNumber"/>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Email ID</label>
+            <label for="projectName">Email ID <b class="starimp">*</b></label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="email" placeholder="Email ID" class="form-control" name="emailId" ng-model="addLead.emailId" ng-class="{blankInput: addLeadForm.emailId.$error.required &amp;&amp; submit}"/>
          </div>
       </div>
@@ -65,7 +65,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">D.O.B</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <datepicker date-format="dd/MM/yyyy">
                 <input type="text" placeholder="D.O.B. (DD/MM/YYYY)" class="form-control"  name="dob" ng-model="addLead.dob" ng-change="validAge(addLead.dob)"/>
                     <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
@@ -74,9 +74,9 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Gender</label>
+            <label for="projectName">Gender<b class="starimp">*</b></label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0 radioBtn" ng-class="{blankInput: addLeadForm.gender.$error.required &amp;&amp; submit}" style="width:auto;">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0 radioBtn" ng-class="{blankInput: addLeadForm.gender.$error.required &amp;&amp; submit}" style="width:auto;">
             <input type="radio" name="gender" ng-model="addLead.gender" ng-required="true" id="male" value="0"/>
             <label for="male">Male</label> <span>|</span>
             <input type="radio" name="gender" ng-model="addLead.gender" ng-required="true" id="female" value="1"/>
@@ -87,7 +87,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">Country</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <select class="form-control" name="country" ng-model="addLead.country">
                <option value="">
                   Country
@@ -102,7 +102,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">State</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <select class="form-control" name="state" ng-model="addLead.state">
                <option value="">
                   State
@@ -117,7 +117,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">City</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <select class="form-control" name="city" ng-model="addLead.city">
                <option value="">
                   City
@@ -130,17 +130,17 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Address</label>
+            <label for="projectName">Address<b class="starimp">*</b></label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
-            <input type="text" placeholder="Address" class="form-control"  name="address" ng-model="addLead.address"/>
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
+            <input type="text" placeholder="Address" maxlength="100" class="form-control"  name="address" ng-model="addLead.address"/>
          </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
-            <label for="projectName">Zip Code</label>
+            <label for="projectName">Zip Code<b class="starimp">*</b></label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="text" placeholder="ZIP Code" class="form-control"  name="zip" ng-model="addLead.zip"/>
          </div>
       </div>
@@ -148,7 +148,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">Lead Code</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
             <input type="text" placeholder="Lead Code" class="form-control"  name="leadCode" ng-model="addLead.leadCode"/>
          </div>
       </div>
@@ -157,7 +157,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">Lead Source</label>
          </div>
-         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
              <select class="form-control" name="leadSource" ng-model="addLead.leadSource">
                <option value="" disabled selected>
                   Select Lead Source
@@ -173,7 +173,7 @@
          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 labelCntr">
             <label for="projectName">Campaign Source</label>
          </div>
-          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding0">
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 padding0">
              <select class="form-control" name="campaign" ng-model="addLead.campaign">
                <option value="" disabled selected>
                   Select Campaign

@@ -94,7 +94,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('/AddPhases', {
             url: '/AddPhases/:projId',
             templateUrl: 'partials/addPhases.html',
-            controller: 'addPhasesCtrl'
+            controller: 'AddPhases'
         })
         .state('/EditPhases', {
             url: '/EditPhases/:projId/:phaseId',
