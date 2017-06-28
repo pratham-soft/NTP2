@@ -784,8 +784,7 @@ app.controller("projectDetailsCtrl", function($scope,  $http, $state, $cookieSto
             }
         });
     }
-       
-        $scope.deleteRow = function(projId, rowId) {
+         $scope.deleteRow = function(projId, rowId) {
         clickCounter=0;
         var deleteUser = $window.confirm('Are you sure you want to delete ?');
 
@@ -803,6 +802,9 @@ app.controller("projectDetailsCtrl", function($scope,  $http, $state, $cookieSto
                 if (data.Comm_ErrorDesc == '0|0') {
                     $("tr#" + rowId).remove();
                     $("#unit" + rowId).removeClass('selected');
+                    $("#unit" + rowId).removeClass('userinterest');
+                    $("#unit" + rowId).addClass('vacant');
+                    
                 }
                 angular.element(".loader").hide();
             }).error(function() {
