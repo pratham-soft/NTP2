@@ -695,30 +695,7 @@ app.controller("projectDetailsCtrl", function($scope,  $http, $state, $cookieSto
             }
         }
     };
-    $scope.deleteRow = function(projId, rowId) {
-        var deleteUser = $window.confirm('Are you sure you want to delete ?');
 
-        if (deleteUser) {
-            angular.element(".loader").show();
-            $http({
-                method: "POST",
-                url: appConfig.baseUrl+"/User/ProjUnitDel",
-                ContentType: 'application/json',
-                data: [{
-                    "comp_guid": $cookieStore.get('comp_guid'),
-                    "ProjDtl_Id": projId
-                }]
-            }).success(function(data) {
-                if (data.Comm_ErrorDesc == '0|0') {
-                    $("tr#" + rowId).remove();
-                    $("#unit" + rowId).removeClass('selected');
-                }
-                angular.element(".loader").hide();
-            }).error(function() {
-                angular.element(".loader").hide();
-            });
-        }
-    };
     $scope.saveLead = function(projectObj) {
         var projJson = [];
         $(".dispNone").each(function(index) {

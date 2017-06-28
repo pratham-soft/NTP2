@@ -1,4 +1,5 @@
-app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, myService, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+    $scope.timeslots = ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '07:00 PM', '07:30 PM', '08:30 PM'];
     $scope.addFollowUpBtn=true;
     $scope.pagetitle="Add Follow Up";
     $scope.selected = [];
@@ -102,6 +103,8 @@ app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, $state,
     
         $scope.addFollowUp = function(formObj, selectedId, formName) {
             $scope.submit = true;
+            var time = formObj.reminderTime.toString();
+            var  nwtime= myService.convertTime(time);
             var newlist = [];
             for(var i=0; i<selectedId.length;i++){
                var rv = {"usrschd_user_id":""};
@@ -146,11 +149,12 @@ app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, $state,
     
 });
 
-app.controller("editFollowUpCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+app.controller("editFollowUpCtrl", function($scope, myService, $http, $cookieStore, $state, $stateParams, $filter, myService, $compile, $uibModal, $rootScope) {
+    $scope.timeslots = ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '07:00 PM', '07:30 PM', '08:30 PM'];
     $scope.pagetitle="Edit Follow Up";
     $scope.editFollowUpBtn=true;
     $scope.selected = [];
-    $scope.minDate = new Date().toString();
+    $scope.minDate = new Date().toDateString();
     $scope.followUpForm={};
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
@@ -309,6 +313,18 @@ app.controller("editFollowUpCtrl", function($scope,  $http, $cookieStore, $state
             var startDate = $filter('date')(data[0].schedule_stdt, 'dd/MM/yyyy');
             var endDate = $filter('date')(data[0].schedule_enddt, 'dd/MM/yyyy');
             var reminderDate = $filter('date')(data[0].schedule_reminder, 'dd/MM/yyyy');
+            var splitDate = data[0].schedule_reminder.split('T');
+            var timePortion = splitDate[1];
+            var splitTime = timePortion.split(':');
+            var hrsPart=parseInt(splitTime[0]);
+            if(hrsPart>12){
+                hrsPart=hrsPart-12;
+                var hrsStr=hrsPart+'';
+                var reminderTime=hrsStr+splitTime[1]+' PM';
+            }
+            else{
+                var reminderTime=splitTime[0]+':'+splitTime[1]+' AM';
+            }
                 
                 
             if (data[0].scheduleId != 0) {
@@ -335,7 +351,8 @@ app.controller("editFollowUpCtrl", function($scope,  $http, $cookieStore, $state
                      priority:data[0].schedule_priority + "",
                      status:data[0].schedule_status + "",
                      reminderDate:reminderDate,
-                     lstusrschd: lstusrschd
+                     lstusrschd: lstusrschd,
+                     reminderTime: reminderTime
                     
                 }
                 console.log(JSON.stringify($scope.followUpForm)) //Later you can remove it 
@@ -349,6 +366,8 @@ app.controller("editFollowUpCtrl", function($scope,  $http, $cookieStore, $state
     
      $scope.editFollowUp = function(formObj, selectedId, formName) {
             $scope.submit = true;
+            var time = formObj.reminderTime.toString();
+            var  nwtime= myService.convertTime(time);
             var newlist = [];
             for(var i=0; i<selectedId.length;i++){
                var rv = {"usrschdId":"",
@@ -363,7 +382,8 @@ app.controller("editFollowUpCtrl", function($scope,  $http, $cookieStore, $state
             var endDate = formObj.endDate;
             var newEndDate = endDate.split("/").reverse().join("-");
             var remDate = formObj.reminderDate;
-            var newRemDate = remDate.split("/").reverse().join("-");
+            var newRemDate = remDate.split("/").reverse().join("-") +'T'+ nwtime;
+            
           if ($scope[formName].$valid) {
             $http({
                 method: "POST",
