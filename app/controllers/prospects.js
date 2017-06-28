@@ -338,7 +338,7 @@ app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state
                 typeName = 'Plots';
                 break;
             case 3:
-                typeName = 'Villa';
+                typeName = 'Villaments';
                 break;
             case 4:
                 typeName = 'Row Houses';

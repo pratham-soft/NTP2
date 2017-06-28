@@ -43,7 +43,7 @@
 				<label for="phases">Phases<b class="starimp">*</b></label>
 			</div>
 			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding0">
-				<input type="number" class="form-control" id="phases" min="1" max="2" name="phases" ng-model="addProject.phases" ng-required="true" ng-class="{blankInput: addProjectForm.phases.$error.required &amp;&amp; submit}"/>
+				<input type="text" class="form-control" id="phases" name="phases" min="1" maxlength="2"  ng-model="addProject.phases" ng-required="true" ng-class="{blankInput: addProjectForm.phases.$error.required &amp;&amp; submit}"/>
 			</div>
 		</div>
         

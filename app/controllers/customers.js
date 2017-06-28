@@ -169,7 +169,7 @@ app.controller("customerDetailCtrl", function($scope,  $http, $cookieStore, $sta
                 typeName = 'Sites';
                 break;
             case 3:
-                typeName = 'Villa';
+                typeName = 'Villaments';
                 break;
             case 4:
                 typeName = 'Row Houses';
@@ -343,7 +343,7 @@ app.controller("unitOperationCtrl", function($scope,  $http, $cookieStore, $stat
                 typeName = 'Sites';
                 break;
             case 3:
-                typeName = 'Villa';
+                typeName = 'Villaments';
                 break;
             case 4:
                 typeName = 'Row Houses';

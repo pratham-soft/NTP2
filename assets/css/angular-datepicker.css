@@ -40,10 +40,10 @@ datepicker, .datepicker, [datepicker],
   position: absolute;
   z-index: 999;
   top: 34px;
-  min-width: 220px;
+  min-width: 200px;
   margin: 0 auto;
 /* change the size of calendar */
-  width: 150px;     
+  width: 100px;     
   -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
   -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
@@ -55,13 +55,13 @@ datepicker, .datepicker, [datepicker],
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-._720kb-datepicker-calendar._720kb-datepicker-open,._720kb-datepicker-calendar._720kb-datepicker-forced-to-open {
+._720kb-datepicker-calendar._720kb-datepicker-open,._720b-datepicker-calendar._720kb-datepicker-forced-to-open {
   visibility: visible;
 }
 ._720kb-datepicker-calendar-header {
   text-align: center;
   font-size: 15px;
-  line-height: 40px;
+  line-height: 24px;
 }
 ._720kb-datepicker-calendar-header:nth-child(odd) {
   background: #138EFA;
