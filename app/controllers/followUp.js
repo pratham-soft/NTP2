@@ -3,7 +3,7 @@ app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, myServi
     $scope.addFollowUpBtn=true;
     $scope.pagetitle="Add Follow Up";
     $scope.selected = [];
-    $scope.minDate = new Date().toString();
+    $scope.minDate = new Date().toDateString();
     $scope.followUpForm={};
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
@@ -28,9 +28,7 @@ app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, myServi
                 $scope.followUpForm.reminderDate='';  
              } 
             }
-            if(new Date(startDate) < curDate){
-              alert ('Start date should not be before today.');
-            }}
+            }
 };
 
     
@@ -117,7 +115,7 @@ app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, myServi
             var endDate = formObj.endDate;
             var newEndDate = endDate.split("/").reverse().join("-");
             var remDate = formObj.reminderDate;
-            var newRemDate = remDate.split("/").reverse().join("-");
+            var newRemDate = remDate.split("/").reverse().join("-")+'T'+nwtime;
         if ($scope[formName].$valid) {
             $http({
                 method: "POST",
@@ -179,9 +177,7 @@ app.controller("editFollowUpCtrl", function($scope, myService, $http, $cookieSto
                 $scope.followUpForm.reminderDate='';  
              } 
             }
-            if(new Date(startDate) < curDate){
-              alert ('Start date should not be before today.');
-            }}
+            }
 };
 
     
@@ -319,8 +315,8 @@ app.controller("editFollowUpCtrl", function($scope, myService, $http, $cookieSto
             var hrsPart=parseInt(splitTime[0]);
             if(hrsPart>12){
                 hrsPart=hrsPart-12;
-                var hrsStr=hrsPart+'';
-                var reminderTime=hrsStr+splitTime[1]+' PM';
+                var hrsStr=hrsPart+':';
+                var reminderTime='0'+hrsStr+splitTime[1]+' PM';
             }
             else{
                 var reminderTime=splitTime[0]+':'+splitTime[1]+' AM';
