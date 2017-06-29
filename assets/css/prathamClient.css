@@ -422,7 +422,7 @@ input[disabled]{
     background-color: #fff;
 }
 .inputWithIcon{
-    width: 95%;
+    width: 85%;
     display: inline-block;
     margin: 0px 5px 5px 0px;
 }
@@ -444,6 +444,7 @@ input[disabled]{
 }
 #noOfBlocks > div{
     margin-bottom: 8px;
+    float:right;
 }
 .labelDiv{
 	padding: 7px 0;

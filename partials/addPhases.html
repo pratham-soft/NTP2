@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle">
-   <h3>{{pageTitle}}</h3>
+   <h3>Phases</h3>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20">
    <ol class="breadcrumb">
@@ -107,13 +107,13 @@
 		</div>
 		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right padding0 marginTop10" ng-show="addPhaseBtn">
 			<button type="button" class="btn btn-success" ng-click="addPhase(projectDetails,'addPhaseForm')">Save </button>
-            <button type="button" class="btn btn-success" ng-click="goNextunit()">Next </button>
-            <button type="button" class="btn btn-success" ng-click="goback()" >Cancel</button> 
+            <button type="button" class="btn btn-success" ng-click="goNextu(projectDetails,'addPhaseForm')">Next </button>
+            <button type="button" class="btn btn-success" ng-click="goback()">Cancel</button> 
 		</div>
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right padding0 marginTop10" ng-show="editPhaseBtn">
 			<button type="button" class="btn btn-success" ng-click="editPhase(projectDetails,'addPhaseForm')">Save</button>
-            <button type="button" class="btn btn-success" ng-click="goNextunit()">Next </button>
-            <button type="button" class="btn btn-success" ng-click="editgoback()" >Cancel</button>
+            <button type="button" class="btn btn-success" ng-click="goNextunit(projectDetails,'addPhaseForm')">Next </button>
+            <button type="button" class="btn btn-success" ng-click="editgoback()">Cancel</button>
 		</div>
 	</form>
 </div>

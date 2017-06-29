@@ -62,7 +62,7 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
         angular.element("#noOfBlocks").html('');
         if (data[0].LstofBlocks != null) {
             for (i = 1; i <= data[0].LstofBlocks.length; i++) {
-                var childDiv = '<div id="block' + data[0].LstofBlocks[i - 1].Blocks_Id + '"><input type="text" placeholder="Block  ' + i + ' Name" title="Block ' + i + ' Name" class="form-control inputWithIcon" name="blockName[' + (i - 1) + ']" ng-model="projectDetails.blockName[' + (i - 1) + ']" /> <input type="text" class="form-control dispNone" ng-model="projectDetails.blockId[' + (i - 1) + ']" ng-value="' + data[0].LstofBlocks[i - 1].Blocks_Id + '" name="blockId[' + (i - 1) + ']"/>';
+                var childDiv = '<label for="type">Block Name</label><div id="block' + data[0].LstofBlocks[i - 1].Blocks_Id + '"><input type="text" placeholder="Block  ' + i + ' Name" title="Block ' + i + ' Name" class="form-control inputWithIcon" name="blockName[' + (i - 1) + ']" ng-model="projectDetails.blockName[' + (i - 1) + ']" /> <input type="text" class="form-control dispNone" ng-model="projectDetails.blockId[' + (i - 1) + ']" ng-value="' + data[0].LstofBlocks[i - 1].Blocks_Id + '" name="blockId[' + (i - 1) + ']"/>';
 
                 if (!data[0].LstofBlocks[i - 1].blnunitexists)
                     childDiv = childDiv + '<span ng-click="deleteBlock(' + data[0].Phase_Id + ',' + data[0].LstofBlocks[i - 1].Blocks_Id + ')" class="glyphicon glyphicon-trash delete"></span></div>';
@@ -85,7 +85,7 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
             placeholder = index + 1;
         }
 
-        var childDiv = '<div id="block' + index + '"><input type="text" placeholder="Block  ' + placeholder + ' Name" title="Block ' + index + ' Name" class="form-control inputWithIcon" name="blockName[' + (index) + ']" ng-model="projectDetails.blockName[' + (index) + ']" /></div>';
+        var childDiv = '<label for="type">Block Name</label><div id="block' + index + '"><input type="text" placeholder="Block  ' + placeholder + ' Name" title="Block ' + index + ' Name" class="form-control inputWithIcon" name="blockName[' + (index) + ']" ng-model="projectDetails.blockName[' + (index) + ']" /></div>';
         var childDivComplied = $compile(childDiv)($scope);
         angular.element("#noOfBlocks").append(childDivComplied);
 
@@ -146,13 +146,61 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
             alert("Not valid Form.");
         }
     };
-    $scope.goNextunit= function()
-    {
-    $state.go("/EditUnit", {
+    $scope.goNextunit= function(formObj, formName) {
+        var noOfBlocks = $("#blockCount").val();
+        $scope.submit = true;
+        if ($scope[formName].$valid) {
+            var blockLst = [];
+            for (var i = 0; i < noOfBlocks; i++) {
+                var tmp = {};
+                tmp.Blocks_Name = formObj.blockName[i];
+                tmp.Blocks_Id = 0;
+                if (formObj.blockId[i] != undefined)
+                    tmp.Blocks_Id = formObj.blockId[i];
+                blockLst.push(tmp);
+            }
+
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/Phase/Save",
+                ContentType: 'application/json',
+                data: {
+                    "Phase_comp_guid": $cookieStore.get('comp_guid'),
+                    "Phase_Id": $stateParams.phaseId,
+                    "Phase_Proj_Id": formObj.projectName,
+                    "Phase_Name": formObj.phaseName,
+                    "Phase_Surveynos": formObj.surveyNos,
+                    "Phase_UnitMsmnt": {
+                        "UnitMsmnt_Id": formObj.unitOfMeasurement
+                    },
+                    "Phase_UnitType": {
+                        "UnitType_Id": formObj.phaseType
+                    },
+                    "Phase_NoofBlocks": noOfBlocks,
+                    "Phase_Location": formObj.location,
+                    "LstofBlocks": blockLst
+                }
+            }).success(function(data) {
+                console.log(data);
+                $scope.addPhaseResult = data;
+                angular.element(".loader").hide();
+                if ($scope.addPhaseResult.Comm_ErrorDesc.match('0|')) {
+                    $state.go("/EditUnit", {
                         projId: Phase_Proj_Id,
                         phaseId: Phase_Id
                     });
+                } else {
+                    alert("Something went wrong.");
+                }
+            }).error(function() {
+                angular.element(".loader").hide();
+            });
+        } else {
+            alert("Not valid Form.");
+        }
     };
+   
     $scope.deleteBlock = function(blockId, phaseId) {
         angular.element(".loader").show();
         $http({
@@ -263,11 +311,13 @@ app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $
                 $scope.addPhaseResult = data;
                 angular.element(".loader").hide();
                 if (resDataArray[0] == 0) {
-                    $state.go("/AddUnit", {
-                        projId: encyrptSvc.encyrpt(formObj.projectName),
-                        phaseId: encyrptSvc.encyrpt(resDataArray[1])
-                    });
-                } else {
+                    alert("Your data saved");
+//                    $state.go("/AddUnit", {
+//                        projId: encyrptSvc.encyrpt(formObj.projectName),
+//                        phaseId: encyrptSvc.encyrpt(resDataArray[1])
+//                    });
+                } 
+                else {
                     alert("Something went wrong.");
                 }
             }).error(function() {
@@ -277,6 +327,67 @@ app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $
             alert("Not valid Form.");
         }
     };
+    $scope.goNextu = function(formObj, formName)
+    {
+     $scope.submit = true;
+        if ($scope[formName].$valid) {
+            var blockLst = [];
+            for (var i = 0; i < formObj.noOfBlocks; i++) {
+                var tmp = {};
+                tmp.Blocks_Name = formObj.blockName[i];
+                tmp.Blocks_Id = 0;
+                blockLst.push(tmp);
+            }
+
+            //            console.log(formObj);
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/Phase/Save",
+                ContentType: 'application/json',
+                data: {
+                    "Phase_comp_guid": $cookieStore.get('comp_guid'),
+                    "Phase_Id": 0,
+                    "Phase_Proj_Id": formObj.projectName,
+                    "Phase_Name": formObj.phaseName,
+                    "Phase_Surveynos": formObj.surveyNos,
+                    "Phase_UnitMsmnt": {
+                        "UnitMsmnt_Id": formObj.unitOfMeasurement
+                    },
+                    "Phase_UnitType": {
+                        "UnitType_Id": formObj.phaseType
+                    },
+                    "Phase_NoofBlocks": formObj.noOfBlocks,
+                    "Phase_Location": formObj.location,
+                    "LstofBlocks": blockLst
+                }
+            }).success(function(data) {
+                console.log(data.Comm_ErrorDesc);
+                var resultData = data.Comm_ErrorDesc;
+                var resDataArray = resultData.split('|');
+
+                console.log(resDataArray);
+
+                $scope.addPhaseResult = data;
+                angular.element(".loader").hide();
+                if (resDataArray[0] == 0) {
+                    alert("Your data saved");
+                    $state.go("/AddUnit", {
+                        projId: encyrptSvc.encyrpt(formObj.projectName),
+                        phaseId: encyrptSvc.encyrpt(resDataArray[1])
+                    });
+                } 
+                else {
+                    alert("Something went wrong.");
+                }
+            }).error(function() {
+                angular.element(".loader").hide();
+            });
+        } else {
+            alert("Not valid Form.");
+        }        
+    }
+
 });
 
 app.controller("phasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, encyrptSvc) {
@@ -527,6 +638,149 @@ $scope.goPhases = function()
             }).success(function(data) {
 //                console.log(data);
                 angular.element(".loader").hide();
+//                $state.go("/UnitGeneration", {
+//                    projId: projectId,s
+//                    phaseId: phaseId
+//                });
+            }).error(function() {
+                alert("Something went wrong.");
+                angular.element(".loader").hide();
+            });
+        } else {
+            alert("Not valid Form.");
+        }
+    };
+//     $scope.panNOvaladition = function()
+//        {
+//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+//        if (regpan.test($scope.addUnit.ownerPan) == false)
+//        {
+//        $scope.not_valid = true;
+//        $scope.is_valid = false;    
+//        }else
+//        {
+//        $scope.is_valid = true ;
+//        $scope.not_valid = false;
+//        }
+//        };
+//
+//        $scope.panGarNOvaladition = function()
+//        {
+//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+//        if (regpan.test($scope.addUnit.guardianPan) == false)
+//        {
+//        $scope.gnot_valid = true;
+//        $scope.gis_valid = false; 
+//        }else
+//        {
+//        $scope.gis_valid = true ;
+//        $scope.gnot_valid = false;
+//        }
+//        };
+//     $scope.garaadhaarValid = function()
+//        {
+//        var regpan = /^([0-9]){12}?$/;
+//        if (regpan.test($scope.addUnit.guardianAadhaar) == false)
+//        {
+//        $scope.aadhaargnot_valid = true;
+//        $scope.aadhaargis_valid = false;           
+//        }
+//         else
+//        {
+//        $scope.aadhaargis_valid = true ;
+//        $scope.aadhaargnot_valid = false;
+//        }
+//        };
+// $scope.ownaadhaarValid = function()
+//        {
+//        var regpan = /^([0-9]){12}?$/;
+//        if (regpan.test($scope.addUnit.ownerAadhaar) == false)
+//        {
+//            
+//        $scope.aadhaaronot_valid = true;
+//        $scope.aadhaarois_valid = false;
+//        }else
+//        {
+//
+//        $scope.aadhaarois_valid = true ;
+//        $scope.aadhaaronot_valid = false;
+//
+//        }
+//        };
+
+     $scope.saveNextData = function(formObj, formName) {
+        $scope.submit = true;
+        console.log(formObj);
+        if ($scope[formName].$valid) {
+            //            alert("Valid Form");
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
+                ContentType: 'application/json',
+                data: {
+                    "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
+                    "UnitTypeData_Phase_Id": phaseId,
+                    "UnitTypeData_ownrnm": formObj.ownerName,
+                    "UnitTypeData_sowodo": formObj.ownerSowodo,
+                    "UnitTypeData_dob": formObj.ownerDob,
+                    "UnitTypeData_add": formObj.ownerAddress,
+                    "UnitTypeData_pan": formObj.ownerPan,
+                    "UnitTypeData_minor": formObj.minor,
+                    "UnitTypeData_grdnm": formObj.guardianName,
+                    "UnitTypeData_gunsowodo": formObj.guardianSowodo,
+                    "UnitTypeData_gundob": formObj.guardianDob,
+                    "UnitTypeData_gunadd": formObj.guardianAddress,
+                    "UnitTypeData_gunpan": formObj.guardianPan,
+                    "UnitTypeData_gunrltnminor": formObj.relationshipWithMinor,
+                    "UnitTypeData_ttllndar": formObj.totalLandArea,
+                    "UnitTypeData_ttlhynlnd": formObj.totalHyneArea,
+                    "UnitTypeData_krblnd": formObj.totalKarabArea,
+                    "UnitTypeData_lndconv": formObj.landConverted,
+                    "UnitTypeData_convordr": formObj.conversionOrderDocNo,
+                    "UnitTypeData_convordrdt": formObj.conversionOrderDocDt,
+                    "UnitTypeData_planappvd": formObj.planApproved,
+                    "UnitTypeData_lstplappv": [{
+                        "plnappno": formObj.planApproveNo,
+                        "plnappdt": formObj.planApproveDt,
+                        "plnappaut": formObj.planApproveAuth
+                    }],
+                    "UnitTypeData_noc": formObj.nocObtained,
+                    "UnitTypeData_lstnoc": [{
+                        "nocdt": formObj.nocDate,
+                        "nocdocno": formObj.nocDocNo
+                    }],
+                    "UnitTypeData_rlqyn": formObj.relinquish,
+                    "UnitTypeData_lstlreq": [{
+                        "reqsno": formObj.docNum,
+                        "reqdocndt": formObj.docDate
+                    }],
+                    "UnitTypeData_lstrel": [{
+                        "relsno": "xx2",
+                        "relesnoplots": "xx4"
+                    }],
+                    "UnitTypeData_ttlsalearea": formObj.totalSaleArea,
+                    "UnitTypeData_ttlplots": formObj.totalPlots,
+                    "UnitTypeData_areafrroads": formObj.areaOfRoads,
+                    "UnitTypeData_araafrprks": formObj.areaOfParks,
+                    "UnitTypeData_arafrcivicamn": formObj.areaOfCivicAmen,
+                    "UnitTypeData_sprbltupara": formObj.superBuiltArea,
+                    "UnitTypeData_grdnara": formObj.gardenArea,
+                    "UnitTypeData_terara": formObj.terraceArea,
+                    "UnitTypeData_tergrdn": formObj.terraceGarden,
+                    "UnitTypeData_crptara": formObj.carpetArea,
+                    "UnitTypeData_pltnara": formObj.plinthArea,
+                    "UnitTypeData_noflors": formObj.noOfFloors,
+                    "UnitTypeData_nobdrms": formObj.noOfBedrooms,
+                    "UnitTypeData_cmnbtrms": formObj.commonBathrooms,
+                    "UnitTypeData_attchbtrms": formObj.attachedBathrooms,
+                    "UnitTypeData_srvntroom": formObj.servantRoom,
+                    "UnitTypeData_carprkara": formObj.carParkingArea,
+                    "UnitTypeData_Id": 0
+                }
+            }).success(function(data) {
+//                console.log(data);
+                angular.element(".loader").hide();
                 $state.go("/UnitGeneration", {
                     projId: projectId,
                     phaseId: phaseId
@@ -537,6 +791,7 @@ $scope.goPhases = function()
             });
         } else {
             alert("Not valid Form.");
+            console.log(formName.$error);
         }
     };
 });
@@ -545,73 +800,63 @@ app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $s
     var projectId = $stateParams.projId;
     var phaseId = $stateParams.phaseId;
 
-            $scope.panNOvaladition = function()
-        {
-        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
-        if (regpan.test($scope.addUnit.ownerPan) == false)
-        {
- 
-        $scope.not_valid = true;
-        $scope.is_valid = false;
-            alert(" Invalid  Pan Number");
-        }else
-        {
-
-        $scope.is_valid = true ;
-        $scope.not_valid = false;
-
-        }
-        };
-
-        $scope.panGarNOvaladition = function()
-        {
-        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
-        if (regpan.test($scope.addUnit.guardianPan) == false)
-        {
-
-        $scope.gnot_valid = true;
-        $scope.gis_valid = false;
-            alert(" Invalid  Pan Number");
-        }else
-        {
-
-        $scope.gis_valid = true ;
-        $scope.gnot_valid = false;
-
-        }
-        };
-     $scope.garaadhaarValid = function()
-        {
-        var regpan = /^([0-9]){12}?$/;
-        if (regpan.test($scope.addUnit.guardianAadhaar) == false)
-        {
-
-        $scope.aadhaargnot_valid = true;
-        $scope.aadhaargis_valid = false;
-        }else
-        {
-
-        $scope.aadhaargis_valid = true ;
-        $scope.aadhaargnot_valid = false;
-
-        }
-        };
- $scope.ownaadhaarValid = function()
-        {
-        var regpan = /^([0-9]){12}?$/;
-        if (regpan.test($scope.addUnit.ownerAadhaar) == false)
-        {
-            alert("invalid aadhaar number");
-        $scope.aadhaaronot_valid = true;
-        $scope.aadhaarois_valid = false;
-        }else
-        {
-
-        $scope.aadhaarois_valid = true ;
-        $scope.aadhaaronot_valid = false;
-
-        }
-        };
+//            $scope.panNOvaladition = function()
+//        {
+//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+//        if (regpan.test($scope.addUnit.ownerPan) == false)
+//        {
+//        $scope.not_valid = true;
+//        $scope.is_valid = false;    
+//        }else
+//        {
+//        $scope.is_valid = true ;
+//        $scope.not_valid = false;
+//        }
+//        };
+//
+//        $scope.panGarNOvaladition = function()
+//        {
+//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+//        if (regpan.test($scope.addUnit.guardianPan) == false)
+//        {
+//        $scope.gnot_valid = true;
+//        $scope.gis_valid = false; 
+//        }else
+//        {
+//        $scope.gis_valid = true ;
+//        $scope.gnot_valid = false;
+//        }
+//        };
+//     $scope.garaadhaarValid = function()
+//        {
+//        var regpan = /^([0-9]){12}?$/;
+//        if (regpan.test($scope.addUnit.guardianAadhaar) == false)
+//        {
+//        $scope.aadhaargnot_valid = true;
+//        $scope.aadhaargis_valid = false;           
+//        }
+//         else
+//        {
+//        $scope.aadhaargis_valid = true ;
+//        $scope.aadhaargnot_valid = false;
+//        }
+//        };
+// $scope.ownaadhaarValid = function()
+//        {
+//        var regpan = /^([0-9]){12}?$/;
+//        if (regpan.test($scope.addUnit.ownerAadhaar) == false)
+//        {
+//            
+//        $scope.aadhaaronot_valid = true;
+//        $scope.aadhaarois_valid = false;
+//        }else
+//        {
+//
+//        $scope.aadhaarois_valid = true ;
+//        $scope.aadhaaronot_valid = false;
+//
+//        }
+//        };
 
     $scope.GotoPhases = function()
     {
@@ -760,8 +1005,97 @@ app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $s
    }  
     };
     
+    
     $scope.editPhaseData = function(formObj, formName) {
         $scope.submit = true;
+        console.log(formObj);
+        if ($scope[formName].$valid) {
+            //            alert("Valid Form");
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
+                ContentType: 'application/json',
+                data: {
+                    "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
+                    "UnitTypeData_Phase_Id": phaseId,
+                    "UnitTypeData_ownrnm": formObj.ownerName,
+                    "UnitTypeData_sowodo": formObj.ownerSowodo,
+                    "UnitTypeData_dob": formObj.ownerDob,
+                    "UnitTypeData_add": formObj.ownerAddress,
+                    "UnitTypeData_pan": formObj.ownerPan,
+                    "UnitTypeData_minor": formObj.minor,
+                    "UnitTypeData_grdnm": formObj.guardianName,
+                    "UnitTypeData_gunsowodo": formObj.guardianSowodo,
+                    "UnitTypeData_gundob": formObj.guardianDob,
+                    "UnitTypeData_gunadd": formObj.guardianAddress,
+                    "UnitTypeData_gunpan": formObj.guardianPan,
+                    "UnitTypeData_gunrltnminor": formObj.relationshipWithMinor,
+                    "UnitTypeData_ttllndar": formObj.totalLandArea,
+                    "UnitTypeData_ttlhynlnd": formObj.totalHyneArea,
+                    "UnitTypeData_krblnd": formObj.totalKarabArea,
+                    "UnitTypeData_lndconv": formObj.landConverted,
+                    "UnitTypeData_convordr": formObj.conversionOrderDocNo,
+                    "UnitTypeData_convordrdt": formObj.conversionOrderDocDt,
+                    "UnitTypeData_planappvd": formObj.planApproved,
+                    "UnitTypeData_lstplappv": [{
+                        "plnappno": formObj.planApproveNo,
+                        "plnappdt": formObj.planApproveDt,
+                        "plnappaut": formObj.planApproveAuth
+                    }],
+                    "UnitTypeData_noc": formObj.nocObtained,
+                    "UnitTypeData_lstnoc": [{
+                        "nocdt": formObj.nocDate,
+                        "nocdocno": formObj.nocDocNo
+                    }],
+                    "UnitTypeData_rlqyn": formObj.relinquish,
+                    "UnitTypeData_lstlreq": [{
+                        "reqsno": formObj.docNum,
+                        "reqdocndt": formObj.docDate
+                    }],
+                    "UnitTypeData_lstrel": [{
+                        "relsno": "xx2",
+                        "relesnoplots": "xx4"
+                    }],
+                    "UnitTypeData_ttlsalearea": formObj.totalSaleArea,
+                    "UnitTypeData_ttlplots": formObj.totalPlots,
+                    "UnitTypeData_areafrroads": formObj.areaOfRoads,
+                    "UnitTypeData_araafrprks": formObj.areaOfParks,
+                    "UnitTypeData_arafrcivicamn": formObj.areaOfCivicAmen,
+                    "UnitTypeData_sprbltupara": formObj.superBuiltArea,
+                    "UnitTypeData_grdnara": formObj.gardenArea,
+                    "UnitTypeData_terara": formObj.terraceArea,
+                    "UnitTypeData_tergrdn": formObj.terraceGarden,
+                    "UnitTypeData_crptara": formObj.carpetArea,
+                    "UnitTypeData_pltnara": formObj.plinthArea,
+                    "UnitTypeData_noflors": formObj.noOfFloors, 
+                    "UnitTypeData_nobdrms": formObj.noOfBedrooms,
+                    "UnitTypeData_cmnbtrms": formObj.commonBathrooms,
+                    "UnitTypeData_attchbtrms": formObj.attachedBathrooms,
+                    "UnitTypeData_srvntroom": formObj.servantRoom,
+                    "UnitTypeData_carprkara": formObj.carParkingArea,
+                    "UnitTypeData_Id": $scope.editTypeDataId
+                }
+            }).success(function(data) {
+               alert("Your data is saved");
+                console.log(data);
+                angular.element(".loader").hide();
+//                $state.go("/UnitGeneration", {
+//                    projId: projectId,
+//                    phaseId: phaseId
+//                });
+            }).error(function() {
+                alert("Something went wrong.");
+                angular.element(".loader").hide();
+            });
+        } else {
+            alert("Not valid Form.");
+        }
+    };
+    
+    
+    $scope.editPhaseNext =function(formObj, formName) {
+         $scope.submit = true;
         console.log(formObj);
         if ($scope[formName].$valid) {
             //            alert("Valid Form");
@@ -845,4 +1179,4 @@ app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $s
             alert("Not valid Form.");
         }
     };
-});
+    });
