@@ -122,10 +122,8 @@
          </div>
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
             <input type="text" class="form-control" name="ownerPan"  placeholder="PAN" maxlength="10" ng-model="addUnit.ownerPan"  ng-class="{blankInput: addUnitForm.ownerPan.$error.required &amp;&amp; submit}"/>
-<!--
              <p style="color:red" ng-show="not_valid">Invalid Pan Number </p>ng-change="panNOvaladition()"
              <p style="color:green" ng-show="is_valid">Valid Pan Number </p>
--->
          </div>
             
       </div>
@@ -136,11 +134,9 @@
          </div>
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
             <input type="number" class="form-control" name="ownerAadhaar" min="0" placeholder="Aadhaar Number" ng-model="addUnit.ownerAadhaar" ng-maxlength="12" ng-minlength="12"   ng-class="{blankInput: addUnitForm.ownerAadhaar.$error.required &amp;&amp; submit}"/>
-<!--
           <p style="color:red" ng-show="aadhaaronot_valid">Invalid Aadhaar Number </p>ng-change="ownaadhaarValid()" 
              <p style="color:green" ng-show="aadhaarois_valid"> </p>
          
--->
             </div>
       </div>
        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -242,11 +238,11 @@
              
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
                <input type="text" class="form-control" name="guardianPan" placeholder="PAN" maxlength="10" ng-model="addUnit.guardianPan"   ng-class="{blankInput: addUnitForm.guardianPan.$error.required &amp;&amp; submit}"/>
-<!--
+
                <p style="color:red" ng-show="gnot_valid">Invalid Pan Number </p>
              <p style="color:green" ng-show="gis_valid">Valid Pan Number </p>
            ng-change="panGarNOvaladition()"  
---> </div>
+ </div>
             
          </div>
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0">
@@ -255,10 +251,8 @@
          </div>
          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padding0">
             <input type="number" maxlength="12" pattern="[0-9]{12}" class="form-control" min="0"  name="" placeholder="Aadhaar Number" ng-model="addUnit.guardianAadhaar"  ng-class="{blankInput: addUnitForm.guardianAadhaar.$error.required &amp;&amp; submit}" />
-<!--
          <p style="color:red" ng-show="aadhaargnot_valid">Invalid Aadhaar Number </p>
              <p style="color:green" ng-show="aadhaargis_valid"></p>ng-change="garaadhaarValid()" 
--->
                </div>
                
       </div>

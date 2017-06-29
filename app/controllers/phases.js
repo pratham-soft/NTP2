@@ -650,63 +650,63 @@ $scope.goPhases = function()
             alert("Not valid Form.");
         }
     };
-//     $scope.panNOvaladition = function()
-//        {
-//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
-//        if (regpan.test($scope.addUnit.ownerPan) == false)
-//        {
-//        $scope.not_valid = true;
-//        $scope.is_valid = false;    
-//        }else
-//        {
-//        $scope.is_valid = true ;
-//        $scope.not_valid = false;
-//        }
-//        };
-//
-//        $scope.panGarNOvaladition = function()
-//        {
-//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
-//        if (regpan.test($scope.addUnit.guardianPan) == false)
-//        {
-//        $scope.gnot_valid = true;
-//        $scope.gis_valid = false; 
-//        }else
-//        {
-//        $scope.gis_valid = true ;
-//        $scope.gnot_valid = false;
-//        }
-//        };
-//     $scope.garaadhaarValid = function()
-//        {
-//        var regpan = /^([0-9]){12}?$/;
-//        if (regpan.test($scope.addUnit.guardianAadhaar) == false)
-//        {
-//        $scope.aadhaargnot_valid = true;
-//        $scope.aadhaargis_valid = false;           
-//        }
-//         else
-//        {
-//        $scope.aadhaargis_valid = true ;
-//        $scope.aadhaargnot_valid = false;
-//        }
-//        };
-// $scope.ownaadhaarValid = function()
-//        {
-//        var regpan = /^([0-9]){12}?$/;
-//        if (regpan.test($scope.addUnit.ownerAadhaar) == false)
-//        {
-//            
-//        $scope.aadhaaronot_valid = true;
-//        $scope.aadhaarois_valid = false;
-//        }else
-//        {
-//
-//        $scope.aadhaarois_valid = true ;
-//        $scope.aadhaaronot_valid = false;
-//
-//        }
-//        };
+     $scope.panNOvaladition = function()
+        {
+        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+        if (regpan.test($scope.addUnit.ownerPan) == false)
+        {
+        $scope.not_valid = true;
+        $scope.is_valid = false;    
+        }else
+        {
+        $scope.is_valid = true ;
+        $scope.not_valid = false;
+        }
+        };
+
+        $scope.panGarNOvaladition = function()
+        {
+        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+        if (regpan.test($scope.addUnit.guardianPan) == false)
+        {
+        $scope.gnot_valid = true;
+        $scope.gis_valid = false; 
+        }else
+        {
+        $scope.gis_valid = true ;
+        $scope.gnot_valid = false;
+        }
+        };
+     $scope.garaadhaarValid = function()
+        {
+        var regpan = /^([0-9]){12}?$/;
+        if (regpan.test($scope.addUnit.guardianAadhaar) == false)
+        {
+        $scope.aadhaargnot_valid = true;
+        $scope.aadhaargis_valid = false;           
+        }
+         else
+        {
+        $scope.aadhaargis_valid = true ;
+        $scope.aadhaargnot_valid = false;
+        }
+        };
+ $scope.ownaadhaarValid = function()
+        {
+        var regpan = /^([0-9]){12}?$/;
+        if (regpan.test($scope.addUnit.ownerAadhaar) == false)
+        {
+            
+        $scope.aadhaaronot_valid = true;
+        $scope.aadhaarois_valid = false;
+        }else
+        {
+
+        $scope.aadhaarois_valid = true ;
+        $scope.aadhaaronot_valid = false;
+
+        }
+        };
 
      $scope.saveNextData = function(formObj, formName) {
         $scope.submit = true;
@@ -800,63 +800,63 @@ app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $s
     var projectId = $stateParams.projId;
     var phaseId = $stateParams.phaseId;
 
-//            $scope.panNOvaladition = function()
-//        {
-//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
-//        if (regpan.test($scope.addUnit.ownerPan) == false)
-//        {
-//        $scope.not_valid = true;
-//        $scope.is_valid = false;    
-//        }else
-//        {
-//        $scope.is_valid = true ;
-//        $scope.not_valid = false;
-//        }
-//        };
-//
-//        $scope.panGarNOvaladition = function()
-//        {
-//        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
-//        if (regpan.test($scope.addUnit.guardianPan) == false)
-//        {
-//        $scope.gnot_valid = true;
-//        $scope.gis_valid = false; 
-//        }else
-//        {
-//        $scope.gis_valid = true ;
-//        $scope.gnot_valid = false;
-//        }
-//        };
-//     $scope.garaadhaarValid = function()
-//        {
-//        var regpan = /^([0-9]){12}?$/;
-//        if (regpan.test($scope.addUnit.guardianAadhaar) == false)
-//        {
-//        $scope.aadhaargnot_valid = true;
-//        $scope.aadhaargis_valid = false;           
-//        }
-//         else
-//        {
-//        $scope.aadhaargis_valid = true ;
-//        $scope.aadhaargnot_valid = false;
-//        }
-//        };
-// $scope.ownaadhaarValid = function()
-//        {
-//        var regpan = /^([0-9]){12}?$/;
-//        if (regpan.test($scope.addUnit.ownerAadhaar) == false)
-//        {
-//            
-//        $scope.aadhaaronot_valid = true;
-//        $scope.aadhaarois_valid = false;
-//        }else
-//        {
-//
-//        $scope.aadhaarois_valid = true ;
-//        $scope.aadhaaronot_valid = false;
-//
-//        }
-//        };
+            $scope.panNOvaladition = function()
+        {
+        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+        if (regpan.test($scope.addUnit.ownerPan) == false)
+        {
+        $scope.not_valid = true;
+        $scope.is_valid = false;    
+        }else
+        {
+        $scope.is_valid = true ;
+        $scope.not_valid = false;
+        }
+        };
+
+        $scope.panGarNOvaladition = function()
+        {
+        var regpan = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+        if (regpan.test($scope.addUnit.guardianPan) == false)
+        {
+        $scope.gnot_valid = true;
+        $scope.gis_valid = false; 
+        }else
+        {
+        $scope.gis_valid = true ;
+        $scope.gnot_valid = false;
+        }
+        };
+     $scope.garaadhaarValid = function()
+        {
+        var regpan = /^([0-9]){12}?$/;
+        if (regpan.test($scope.addUnit.guardianAadhaar) == false)
+        {
+        $scope.aadhaargnot_valid = true;
+        $scope.aadhaargis_valid = false;           
+        }
+         else
+        {
+        $scope.aadhaargis_valid = true ;
+        $scope.aadhaargnot_valid = false;
+        }
+        };
+ $scope.ownaadhaarValid = function()
+        {
+        var regpan = /^([0-9]){12}?$/;
+        if (regpan.test($scope.addUnit.ownerAadhaar) == false)
+        {
+            
+        $scope.aadhaaronot_valid = true;
+        $scope.aadhaarois_valid = false;
+        }else
+        {
+
+        $scope.aadhaarois_valid = true ;
+        $scope.aadhaaronot_valid = false;
+
+        }
+        };
 
     $scope.GotoPhases = function()
     {
