@@ -670,8 +670,6 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
     }
 
 
-
-
     $scope.saveAllPlots = function(formName, formObj, parentObj) {
         var plotsJson = [];
 

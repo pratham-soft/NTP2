@@ -55,7 +55,10 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
             angular.element(".loader").hide();
         });
     };
-
+//    $scope.blockStageBtn = function(ProjectName,Phase,bloackId)
+//    {
+//        
+//    }
     $scope.addStatusChange = function(blockId) {
         var modalInstance = $uibModal.open({
             templateUrl: 'blockStatusChange.html',
