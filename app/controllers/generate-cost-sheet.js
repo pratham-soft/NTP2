@@ -21,7 +21,15 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
             angular.element(".loader").hide();
         });
     })();
+    $scope.PaymentSchedule = function(formObj,formName){
+        $state.go('/BlockStage');
+            ,{
+                    projId: $scope.projectId,
+                        phaseId: $scope.phaseId,
+                        blockId: parentObj.block
+        }
 
+    };
     $scope.getUnitsWithCostSheet = function(blockId) {
         angular.element(".loader").show();
         $http({

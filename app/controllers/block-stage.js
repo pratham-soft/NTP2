@@ -37,28 +37,83 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
         });
     };
 
-    $scope.getBlockStageList = function(blockId) {
-        angular.element(".loader").show();
-        $http({
-            method: "POST",
-            url: appConfig.baseUrl+"/Proj/Blk/BlockStage/ByblockstageBlockId",
-            ContentType: 'application/json',
-            data: {
-                "blockstageCompGuid": $cookieStore.get('comp_guid'),
-                "blockstageBlockId": blockId
-            }
-        }).success(function(data) {
-            $rootScope.blockStageList = data;
-            angular.element(".loader").hide();
-        }).error(function() {
-            alert('Something Went wrong.');
-            angular.element(".loader").hide();
-        });
+//    $scope.getBlockStageList = function(blockId) {
+//        angular.element(".loader").show();
+//        $http({
+//            method: "POST",
+//            url: appConfig.baseUrl+"/Proj/Blk/BlockStage/ByblockstageBlockId",
+//            ContentType: 'application/json',
+//            data: {
+//                "blockstageCompGuid": $cookieStore.get('comp_guid'),
+//                "blockstageBlockId": blockId
+//            }
+//        }).success(function(data) {
+//            $rootScope.blockStageList = data;
+//            angular.element(".loader").hide();
+//        }).error(function() {
+//            alert('Something Went wrong.');
+//            angular.element(".loader").hide();
+//        });
+//    };
+     $scope.getPaymentScheduleList = function(blockId) {
+        if (blockId != '') {
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/ByblockId",
+                ContentType: 'application/json',
+                data: {
+                    "blockstageCompGuid": $cookieStore.get('comp_guid'),
+                    "blockstageBlockId": blockId
+                }
+            }).success(function(data) {
+                console.log(data);
+                $rootScope.paymentScheduleList = data;
+                angular.element(".loader").hide();
+            }).error(function() {
+                alert('Something Went wrong.');
+                angular.element(".loader").hide();
+            });
+        }
     };
 //    $scope.blockStageBtn = function(ProjectName,Phase,bloackId)
 //    {
 //        
 //    }
+
+    
+    $scope.updatePaymentSchedule = function(formObj, formName) {
+        $scope.submit = true;
+        var paymentScheduleValue = formObj.paymentScheduleValue;
+         var PaymentScheduleCalcTypeValue =1;
+        if(paymentScheduleValue.includes('%'))
+            {
+             PaymentScheduleCalcTypeValue=0;
+            }
+        if ($scope[formName].$valid) {
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/Update",
+                ContentType: 'application/json',
+                data: {
+                    "PaymentScheduleId": item.PaymentScheduleId,
+                    "PaymentScheduleBlockstageId": item.blockstageId,
+                    "PaymentScheduleCompGuid": $cookieStore.get('comp_guid'),
+                    "PaymentScheduleCalcTypeValue": PaymentScheduleCalcTypeValue,
+                    "PaymentScheduleCalcValue": formObj.paymentScheduleValue
+                }
+            }).success(function(data) {
+                angular.element(".loader").hide();
+                $uibModalInstance.close();
+                getPaymentScheduleList(item.blockstageBlockId);
+            }).error(function() {
+                alert('Something Went wrong.');
+                angular.element(".loader").hide();
+            });
+        }
+    }
+
     $scope.addStatusChange = function(blockId) {
         var modalInstance = $uibModal.open({
             templateUrl: 'blockStatusChange.html',
@@ -89,6 +144,21 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
                     blocks.action = 'edit';
                     blocks.blockId = currentBlockId;
                     return blocks;
+                }
+            }
+        });
+    };
+    
+
+    $scope.editPaymentSchedule = function(paymentSchduleObj) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'paymentScheduleChange.html',
+            controller: 'paymentScheduleChangeCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return paymentSchduleObj;
                 }
             }
         });
@@ -200,5 +270,68 @@ app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieS
                 angular.element(".loader").hide();
             });
         }
+    };
+     ($scope.getPaymentScheduleDetail = function() {
+        $scope.blockStage = {
+            paymentScheduleValue: item.PaymentScheduleCalcValue
+        };
+    })();
+
+    $scope.updatePaymentSchedule = function(formObj, formName) {
+        $scope.submit = true;
+        var paymentScheduleValue = formObj.paymentScheduleValue;
+         var PaymentScheduleCalcTypeValue =1;
+        if(paymentScheduleValue.includes('%'))
+            {
+             PaymentScheduleCalcTypeValue=0;
+            }
+        if ($scope[formName].$valid) {
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/Update",
+                ContentType: 'application/json',
+                data: {
+                    "PaymentScheduleId": item.PaymentScheduleId,
+                    "PaymentScheduleBlockstageId": item.blockstageId,
+                    "PaymentScheduleCompGuid": $cookieStore.get('comp_guid'),
+                    "PaymentScheduleCalcTypeValue": PaymentScheduleCalcTypeValue,
+                    "PaymentScheduleCalcValue": formObj.paymentScheduleValue
+                }
+            }).success(function(data) {
+                angular.element(".loader").hide();
+                $uibModalInstance.close();
+                getPaymentScheduleList(item.blockstageBlockId);
+            }).error(function() {
+                alert('Something Went wrong.');
+                angular.element(".loader").hide();
+            });
+        }
+    }
+
+    function getPaymentScheduleList(blockId) {
+        if (blockId != '') {
+            angular.element(".loader").show();
+            $http({
+                method: "POST",
+                url: appConfig.baseUrl+"/Proj/Blk/PaymentSchedule/ByblockId",
+                ContentType: 'application/json',
+                data: {
+                    "blockstageCompGuid": $cookieStore.get('comp_guid'),
+                    "blockstageBlockId": blockId
+                }
+            }).success(function(data) {
+                console.log(data);
+                $rootScope.paymentScheduleList = data;
+                angular.element(".loader").hide();
+            }).error(function() {
+                alert('Something Went wrong.');
+                angular.element(".loader").hide();
+            });
+        }
+    };
+
+    $scope.ok = function() {
+        $uibModalInstance.close();
     };
 });
