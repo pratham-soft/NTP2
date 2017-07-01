@@ -121,7 +121,7 @@ app.controller("createNewRuleCtrl", function($scope,  $http, $cookieStore, $stat
                 var res = data.ErrorDesc;
                 var resSplit = res.split('|');
                 if (resSplit[0] == 0) {
-                    if((formObj.rule_actiontypeid==26) || (formObj.rule_actiontypeid==27) || (formObj.rule_actiontypeid==19) || (formObj.rule_actiontypeid==25) || (formObj.rule_actiontypeid==28)){
+                    if((formObj.rule_actiontypeid==26) || (formObj.rule_actiontypeid==27) || (formObj.rule_actiontypeid==19) || (formObj.rule_actiontypeid==25) || (formObj.rule_actiontypeid==28) || (formObj.rule_actiontypeid==35)){
                         $state.go('/Action', {
                         ruleId: data.ruleid
                     });
@@ -197,7 +197,7 @@ app.controller("editRuleCtrl", function($scope,  $http, $state, $cookieStore, $s
     // $scope.selected= '';
    
     $scope.MoveToUpdateRulePage = function() {
-        if(($scope.actionTypes[0].actiontypeid==26) || ($scope.actionTypes[0].actiontypeid==27) || ($scope.actionTypes[0].actiontypeid==19) || ($scope.actionTypes[0].actiontypeid==25) || ($scope.actionTypes[0].actiontypeid==28) ){
+        if(($scope.actionTypes[0].actiontypeid==26) || ($scope.actionTypes[0].actiontypeid==27) || ($scope.actionTypes[0].actiontypeid==19) || ($scope.actionTypes[0].actiontypeid==25) || ($scope.actionTypes[0].actiontypeid==28) || ($scope.actionTypes[0].actiontypeid==35)){
                         $state.go('/Action', {
                         ruleId: $scope.ruleid
                     });

@@ -132,6 +132,7 @@ app.controller("addFollowUpCtrl", function($scope,  $http, $cookieStore, myServi
                     "schedule_priority" :formObj.priority,
                     "schedule_status" : formObj.status,
                     "schedule_reminder" : newRemDate,
+                    "schedule_user_id_crtdby":$cookieStore.get('user_id'),
                     "lstusrschd" : newlist
 
                 }
@@ -302,7 +303,8 @@ app.controller("editFollowUpCtrl", function($scope, myService, $http, $cookieSto
             ContentType: 'application/json',
             data: {
                 "schedule_comp_guid": $cookieStore.get('comp_guid'),
-                "scheduleId": $scope.scheduleId
+                "scheduleId": $scope.scheduleId,
+                "schedule_user_id_crtdby":$cookieStore.get('user_id')
             }
         }).success(function(data) {
          //   console.log(data);
