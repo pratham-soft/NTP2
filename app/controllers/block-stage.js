@@ -19,38 +19,39 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
                     $scope.blkStage = {
                         projectName: $scope.projectId,
                         phase: $scope.phaseId,
+                    
                         typeId: $scope.phaseList[i].Phase_UnitType.UnitType_Id,
                         block: $scope.blockId
-                    };
-                    
+                    }; 
                 }
             }
-
+            
             angular.element(".loader").hide();
-
         });
 
     })();
+    
 
-//    ($scope.getBlockList = function() {
-//        angular.element(".loader").show();
-//        $http({
-//            method: "POST",
-//            url: appConfig.baseUrl+"/Proj/BlockDtls/ByPhaseBlocksId",
-//            ContentType: 'application/json',
-//            data: {
-//                "Blocks_Phase_Id": $scope.phaseId,
-//                "Blocks_comp_guid": $cookieStore.get('comp_guid')
-//            }
-//        }).success(function(data) {
-//            console.log(data);
-//            $scope.blockList = data;
-//            angular.element(".loader").hide();
-//        }).error(function() {
-//            angular.element(".loader").hide();
-//        });
-//    })();
-
+    
+    ($scope.getBlockList = function() {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Proj/BlockDtls/ByPhaseBlocksId",
+            ContentType: 'application/json',
+            data: {
+                "Blocks_Phase_Id": $scope.phaseId,
+                "Blocks_comp_guid": $cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            console.log(data);
+            $scope.blockList = data;
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+//
 //   $scope.phaseListFun = function(projectName) {
 //        $scope.perFloorUnits = [];
 //        $scope.units = [];
@@ -65,40 +66,44 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
 //        });
 //    };
 //
-//    $scope.blockListFun = function(phase) {
-//        $scope.perFloorUnits = [];
-//        $scope.units = [];
-//        $scope.projectDetails.blocks = "";
-//        for (i = 0; i < $scope.phaseList.length; i++) {
-//            if ($scope.phaseList[i].Phase_Id == phase) {
-//                $scope.flatType = $scope.phaseList[i].Phase_UnitType.UnitType_Name;
-//            }
-//        }
-//        angular.element(".loader").show();
-//        myService.getBlockList(phase, $cookieStore.get('comp_guid')).then(function(response) {
-//            $scope.blockList = response.data;
-//            angular.element(".loader").hide();
-//        });
-//    };
+    $scope.blockListFun = function(phase) {
+        $scope.perFloorUnits = [];
+        $scope.units = [];
+        $scope.projectDetails.blocks = "";
+        for (i = 0; i < $scope.phaseList.length; i++) {
+            if ($scope.phaseList[i].Phase_Id == phase) {
+                $scope.flatType = $scope.phaseList[i].Phase_UnitType.UnitType_Name;
+            }
+        }
+        angular.element(".loader").show();
+        myService.getBlockList(phase, $cookieStore.get('comp_guid')).then(function(response) {
+            $scope.blockList = response.data;
+            angular.element(".loader").hide();
+        });
+    };
 
-//    $scope.getBlockStageList = function(blockId) {
-//        angular.element(".loader").show();
-//        $http({
-//            method: "POST",
-//            url: appConfig.baseUrl+"/Proj/Blk/BlockStage/ByblockstageBlockId",
-//            ContentType: 'application/json',
-//            data: {
-//                "blockstageCompGuid": $cookieStore.get('comp_guid'),
-//                "blockstageBlockId": blockId
-//            }
-//        }).success(function(data) {
-//            $rootScope.blockStageList = data;
-//            angular.element(".loader").hide();
-//        }).error(function() {
-//            alert('Something Went wrong.');
-//            angular.element(".loader").hide();
-//        });
-//    };
+    $scope.getBlockStageList = function(blockId) {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Proj/Blk/BlockStage/ByblockstageBlockId",
+            ContentType: 'application/json',
+            data: {
+                "blockstageCompGuid": $cookieStore.get('comp_guid'),
+                "blockstageBlockId": blockId
+            }
+        }).success(function(data) {
+               if(data[0].blocksatgeErrorDesc!='-1 | Block Stage Record does not exist')
+                   {
+                     $rootScope.blockStageList = data;
+                   }
+            angular.element(".loader").hide();
+        }).error(function() {
+            alert('Something Went wrong.');
+            angular.element(".loader").hide();
+        });
+    };
+    $scope.getBlockStageList($scope.blockId);
      $scope.getPaymentScheduleList = function(blockId) {
         if (blockId != '') {
             angular.element(".loader").show();
@@ -112,7 +117,11 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
                 }
             }).success(function(data) {
                 console.log(data);
-                $rootScope.paymentScheduleList = data;
+                if(data[0].paymentscheduleByBlockErrorDesc!='-1 | Payment Schedule and Block Stage  Record does not exist')
+                   {
+                    $rootScope.paymentScheduleList = data;
+                   }
+               
                 angular.element(".loader").hide();
             }).error(function() {
                 alert('Something Went wrong.');
@@ -120,11 +129,8 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
             });
         }
     };
-//    $scope.blockStageBtn = function(ProjectName,Phase,bloackId)
-//    {
-//        
-//    }
 
+     $scope.getPaymentScheduleList($stateParams.blockId);
     
     $scope.updatePaymentSchedule = function(formObj, formName) {
         $scope.submit = true;
@@ -168,14 +174,15 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
                 item: function() {
                     var blocks = {};
                     blocks.blockId = blockId;
-                    blocks.action = 'add';
+                    blocks.action = 'add' ;
                     return blocks;
                 }
             }
         });
+        
     };
 
-    $scope.editStatusChange = function(blockstageId, currentBlockId) {
+    $scope.editStatusChange = function(blockstageId, currentBlockId, paymentScheduleValue) {
         var modalInstance = $uibModal.open({
             templateUrl: 'blockStatusChange.html',
             controller: 'blockStageChangeCtrl',
@@ -187,6 +194,7 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
                     blocks.blockstageId = blockstageId;
                     blocks.action = 'edit';
                     blocks.blockId = currentBlockId;
+                    blocks.PaymentScheduleCalcValue = paymentScheduleValue;
                     return blocks;
                 }
             }
@@ -209,11 +217,11 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
     };
 });
 
-app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, item) {
-
+app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, $window,item) {
+$scope.blockId =$stateParams.blockId;
     ($scope.getBlockStageDetail = function() {
         if (item.action == 'add') {
-            $scope.blockStage = {
+            $scope.blkStage = {
                 completed: "0",
                 action: "add"
             };
@@ -232,6 +240,7 @@ app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieS
                 $scope.blockStage = {
                     completed: data.blocksatgeCompleted + "",
                     name: data.blockstageName,
+                    PaymentScheduleCalcValue : data.PaymentScheduleCalcValue,
                     action: "edit"
                 };
                 angular.element(".loader").hide();
@@ -246,6 +255,7 @@ app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieS
         $uibModalInstance.close();
     };
 
+
     $scope.addBlockStage = function(formObj, formName) {
         $scope.submit = true;
         if ($scope[formName].$valid) {
@@ -258,11 +268,14 @@ app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieS
                     "blockstageCompGuid": $cookieStore.get('comp_guid'),
                     "blockstageName": formObj.name,
                     "blocksatgeCompleted": parseInt(formObj.completed),
-                    "blockstageBlockId": item.blockId
+                    "blockstageBlockId": item.blockId,
+                    "PaymentScheduleCalcValue":formObj.PaymentScheduleCalcValue
                 }
             }).success(function(data) {
                 $uibModalInstance.close();
-                getBlockStageList(data.blockstageBlockId);
+               // getBlockStageList(data.blockstageBlockId);
+               // $scope.getBlockStageList(data.blockstageBlockId);
+                 $window.location.reload();
                 angular.element(".loader").hide();
             }).error(function() {
                 alert('Something Went wrong.');
@@ -282,7 +295,11 @@ app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieS
                 "blockstageBlockId": blockId
             }
         }).success(function(data) {
-            $rootScope.blockStageList = data;
+            if(data[0].paymentscheduleByBlockErrorDesc!='-1 | Payment Schedule and Block Stage  Record does not exist')
+                   {
+                    $rootScope.paymentScheduleList = data;
+                   }
+               
             angular.element(".loader").hide();
         }).error(function() {
             alert('Something Went wrong.');
@@ -303,12 +320,15 @@ app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieS
                     "blockstageName": formObj.name,
                     "blocksatgeCompleted": parseInt(formObj.completed),
                     "blockstageBlockId": item.blockId,
-                    "blockstageId": item.blockstageId
+                    "blockstageId": item.blockstageId,
+                    "PaymentScheduleCalcValue":formObj.PaymentScheduleCalcValue
                 }
             }).success(function(data) {
-                angular.element(".loader").hide();
+                
                 $uibModalInstance.close();
-                getBlockStageList(data.blockstageBlockId);
+               // getBlockStageList(data.blockstageBlockId);
+                 $window.location.reload();
+                angular.element(".loader").hide();
             }).error(function() {
                 alert('Something Went wrong.');
                 angular.element(".loader").hide();

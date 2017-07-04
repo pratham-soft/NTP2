@@ -282,8 +282,11 @@ app.controller("applyCostSheetCtrl", function($scope,  $http, $cookieStore, $sta
     };
 
     $scope.editCstShtNo = function() {
-
-        $state.go("/Projects");
+        $state.go("/BlockStage",{
+                "projId": $stateParams.projectId,
+                "phaseId": $stateParams.phaseId,
+                "blockId": $stateParams.blockId
+        });
 
     };
 

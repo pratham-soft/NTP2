@@ -8,10 +8,13 @@
       <li class="active">Stage / Status</li>
    </ol>
 </div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 marginBottom20">
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
    <form class="form">
-<div>
-    <select name="projectName" class="form-control"  ng-model="blkStage.projectName" disabled="true">
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3">
+        <label>Project Name</label></div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+   <select name="projectName" class="form-control"  ng-model="blkStage.projectName" disabled="true">
 <!--   <select ng-model="projectDetails.projectName" name="projectName" class="form-control"  ng-change="phaseListFun(projectDetails.projectName)" autofocus="true" >-->
       <option value="">
          Project
@@ -21,7 +24,11 @@
       </option>
    </select>
 </div>
-<div>
+       </div>
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3"><label>Phase Name</label>
+        </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
     <select ng-model="blkStage.phase" name="phase" class="form-control" disabled="true">
 <!--   <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="blockListFun(projectDetails.phase)" >-->
       <option value="">
@@ -32,22 +39,37 @@
       </option>
    </select>
 </div>
+       </div>
+<!--
 <div class="divLabel">
    Type: <strong ng-model="blkStage.flatType">{{flatType}}</strong>
 </div>
-<div>
-   <select ng-model="blkStage.block" name="blocks" class="form-control"  ng-change="getPaymentScheduleList(projectDetails.blocks)" >
+-->
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3">
+        <label>Block Name</label>
+    </div>
+<!--    projectDetails.blocks-->
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+   <select ng-model="blkStage.block" name="blocks" class="form-control" disabled="true"  >
       <option value="">
          Block
       </option>
+       
       <option ng-repeat="x in blockList" value="{{x.Blocks_Id}}">
          {{x.Blocks_Name}}
       </option>
    </select>
 </div>
-    <div class="marginTop20 text-right">
-        <button type="button" class="btn btn-primary" ng-click="addStatusChange(projectDetails.blocks)">Add Stages</button>
        </div>
+       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4">
+           </div>
+       <div class="col-lg-3 col-md-8 col-sm-8 col-xs-8">
+            <button type="button" class="btn btn-primary" ng-click="addStatusChange(blkStage.block)">Add Stages</button></div>
+           
+           </div>
+       
     </form>
 </div>
 <!--
@@ -102,7 +124,7 @@
             <td>{{x.blockstageName}}</td>
              <td>{{x.blocksatgeCompleted | blocksatgeCompletedStatus}}</td>
             <td>{{x.PaymentScheduleCalcValue | format}}</td>
-            <td><a ng-click="editStatusChange(x.blockstageId, x.blockstageBlockId)"><span class="link">Edit</span></a></td>
+            <td><a ng-click="editStatusChange(x.blockstageId, x.blockstageBlockId, x.PaymentScheduleCalcValue)"><span class="link">Edit</span></a></td>
          </tr>
       </tbody>
    </table>
@@ -132,7 +154,7 @@
               <tr>
                 <td>Payment schedule Value</td>
                 <td>
-                  <input type="text" placeholder="20%TC" class="form-control" ng-model="paymentScheduleValue" placeholder="Payment Schedule Value" ng-required="true" ng-class="{blankInput: blockStageForm.paymentScheduleValue.$error.required &amp;&amp; submit}" />
+                  <input type="text" placeholder="" class="form-control" ng-model="blockStage.PaymentScheduleCalcValue" placeholder="Payment Schedule Value" ng-required="true" ng-class="{blankInput: blockStageForm.paymentScheduleValue.$error.required &amp;&amp; submit}" />
                 </td>
              </tr>
               <tr>
@@ -149,16 +171,20 @@
      </table>
      </form>
      </div>
-<!--
-<div class="modal-footer" ng-show="blockStage.action == 'add'">
+    <div class="modal-footer" ng-show="blkStage.action == 'add'">
           <button class="btn btn-primary" type="button" ng-click="addBlockStage(blockStage, 'blockStageForm')">Add Block Stage</button>
        </div>
        <div class="modal-footer" ng-show="blockStage.action == 'edit'">
           <button class="btn btn-primary" type="button" ng-click="editBlockStage(blockStage, 'blockStageForm')">Edit Block Stage</button>
        </div>
--->
-<div class="modal-footer">
+<!--
+    <div class="modal-footer" ng-show="blockStage.action == 'add'">
           <button class="btn btn-primary" type="button" ng-click="addBlockStage(blockStage, 'blockStageForm')">Add Block Stage</button>
+     </div>
+    <div class="modal-footer" ng-show="blockStage.action == 'edit'">
+          <button class="btn btn-primary" type="button" ng-click="editBlockStage(blockStage, 'blockStageForm')">Edit Block Stage</button>
+       </div>
+-->
 </script>
 
 
