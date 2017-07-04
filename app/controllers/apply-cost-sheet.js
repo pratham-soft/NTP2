@@ -261,7 +261,9 @@ app.controller("applyCostSheetCtrl", function($scope,  $http, $cookieStore, $sta
                 var resSplit = res.split('|');
                 if (resSplit[0] == 0) {
                     $state.go("/GenerateCostSheet", {
-                        "blockId": $scope.blockId
+                        "blockId": $scope.blockId,
+                        "phaseId" :$scope.phaseId,
+                        "projectId" :$scope.projectId
                     });
                 }
             }).error(function() {
@@ -273,13 +275,18 @@ app.controller("applyCostSheetCtrl", function($scope,  $http, $cookieStore, $sta
 
     $scope.editCstShtYes = function() {
         $state.go("/EditBlockCostSheet", {
-            "blockId": $scope.blockId
+            "blockId": $scope.blockId,
+            "phaseId" :$scope.phaseId,
+            "projectId" :$scope.projectId
         });
     };
 
     $scope.editCstShtNo = function() {
-
-        $state.go("/Projects");
+        $state.go("/BlockStage",{
+                "projId": $stateParams.projectId,
+                "phaseId": $stateParams.phaseId,
+                "blockId": $stateParams.blockId
+        });
 
     };
 

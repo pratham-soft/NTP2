@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle ng-scope">
-   <h3>Block Stage -Status </h3>
+   <h3>Block Stage - Status </h3>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center pageTitle marginBottom20 ng-scope">
    <ol class="breadcrumb">
@@ -8,10 +8,14 @@
       <li class="active">Stage / Status</li>
    </ol>
 </div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 marginBottom20">
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
    <form class="form">
-<div>
-   <select ng-model="projectDetails.projectName" name="projectName" class="form-control" ng-change="phaseListFun(projectDetails.projectName)" autofocus="true">
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3">
+        <label>Project Name</label></div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+   <select name="projectName" class="form-control"  ng-model="blkStage.projectName" disabled="true">
+<!--   <select ng-model="projectDetails.projectName" name="projectName" class="form-control"  ng-change="phaseListFun(projectDetails.projectName)" autofocus="true" >-->
       <option value="">
          Project
       </option>
@@ -20,8 +24,13 @@
       </option>
    </select>
 </div>
-<div>
-   <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="blockListFun(projectDetails.phase)">
+       </div>
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3"><label>Phase Name</label>
+        </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <select ng-model="blkStage.phase" name="phase" class="form-control" disabled="true">
+<!--   <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="blockListFun(projectDetails.phase)" >-->
       <option value="">
          Phase
       </option>
@@ -30,22 +39,37 @@
       </option>
    </select>
 </div>
+       </div>
+<!--
 <div class="divLabel">
-   Type: <strong ng-model="projectDetails.flatType">{{flatType}}</strong>
+   Type: <strong ng-model="blkStage.flatType">{{flatType}}</strong>
 </div>
-<div>
-   <select ng-model="projectDetails.blocks" name="blocks" class="form-control" ng-change="getBlockStageList(projectDetails.blocks)">
+-->
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3">
+        <label>Block Name</label>
+    </div>
+<!--    projectDetails.blocks-->
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+   <select ng-model="blkStage.block" name="blocks" class="form-control" disabled="true"  >
       <option value="">
          Block
       </option>
+       
       <option ng-repeat="x in blockList" value="{{x.Blocks_Id}}">
          {{x.Blocks_Name}}
       </option>
    </select>
 </div>
-    <div class="marginTop20 text-right">
-        <button type="button" class="btn btn-primary" ng-click="addStatusChange(projectDetails.blocks)">Add Stages</button>
        </div>
+       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4">
+           </div>
+       <div class="col-lg-3 col-md-8 col-sm-8 col-xs-8">
+            <button type="button" class="btn btn-primary" ng-click="addStatusChange(blkStage.block)">Add Stages</button></div>
+           
+           </div>
+       
     </form>
 </div>
 <!--
@@ -71,6 +95,7 @@
    </table>
 </div>
 -->
+<!--
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="stageBox status{{x.blocksatgeCompleted}}" ng-repeat="x in blockStageList track by $index">
         <div class="name">
@@ -80,10 +105,41 @@
         </div>
     </div>
 </div>
-<script type="text/ng-template" id="blockStatusChange.html">
+-->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop20"></div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ <table class="table dataTable">
+      <thead>
+         <tr>
+            <th>#</th>
+            <th>Block Stage Name</th>
+            <th>Status</th>
+            <th>Payment Schedule Value</th>
+            <th>Action</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr ng-repeat="x in paymentScheduleList track by $index">
+            <td>{{$index + 1}}</td>
+            <td>{{x.blockstageName}}</td>
+             <td>{{x.blocksatgeCompleted | blocksatgeCompletedStatus}}</td>
+            <td>{{x.PaymentScheduleCalcValue | format}}</td>
+            <td><a ng-click="editStatusChange(x.blockstageId, x.blockstageBlockId, x.PaymentScheduleCalcValue)"><span class="link">Edit</span></a></td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+<!--
+<div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 padding0 text-center">
+<button class="btn btn-success" type="button" ng-click="blockStageBtn()">Save</button>
+<button class="btn btn-success" type="button" ng-click="">Next</button>
+</div>
+-->
+
+ <script type="text/ng-template" id="blockStatusChange.html">
    <div class="modal-header">
       <button type="button" class="close" ng-click="ok()">&times;</button>
-      <h3 class="modal-title" id="modal-title">Add Block Stage<<h3>
+       <h3 class="modal-title" id="modal-title">Add Block Stage </h3>
    </div>
    <div class="modal-body" id="modal-body">
       <div class="subHeading">Add Block Stage Name</div>
@@ -93,6 +149,12 @@
                 <td>Block Stage Name:</td>
                 <td>
                    <input type="text" name="blockStageName" class="form-control" ng-model="blockStage.name" placeholder="Block Stage Name" ng-required="true" ng-class="{blankInput: blockStageForm.blockStageName.$error.required &amp;&amp; submit}" />
+                </td>
+             </tr>
+              <tr>
+                <td>Payment schedule Value</td>
+                <td>
+                  <input type="text" placeholder="" class="form-control" ng-model="blockStage.PaymentScheduleCalcValue" placeholder="Payment Schedule Value" ng-required="true" ng-class="{blankInput: blockStageForm.paymentScheduleValue.$error.required &amp;&amp; submit}" />
                 </td>
              </tr>
               <tr>
@@ -106,13 +168,23 @@
                    </div>
                 </td>
              </tr>
-          </table>
-       </form>
-       </div>
-       <div class="modal-footer" ng-show="blockStage.action == 'add'">
+     </table>
+     </form>
+     </div>
+    <div class="modal-footer" ng-show="blkStage.action == 'add'">
           <button class="btn btn-primary" type="button" ng-click="addBlockStage(blockStage, 'blockStageForm')">Add Block Stage</button>
        </div>
        <div class="modal-footer" ng-show="blockStage.action == 'edit'">
           <button class="btn btn-primary" type="button" ng-click="editBlockStage(blockStage, 'blockStageForm')">Edit Block Stage</button>
        </div>
+<!--
+    <div class="modal-footer" ng-show="blockStage.action == 'add'">
+          <button class="btn btn-primary" type="button" ng-click="addBlockStage(blockStage, 'blockStageForm')">Add Block Stage</button>
+     </div>
+    <div class="modal-footer" ng-show="blockStage.action == 'edit'">
+          <button class="btn btn-primary" type="button" ng-click="editBlockStage(blockStage, 'blockStageForm')">Edit Block Stage</button>
+       </div>
+-->
 </script>
+
+

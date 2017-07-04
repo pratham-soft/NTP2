@@ -71,7 +71,7 @@
 <script type="text/ng-template" id="paymentScheduleChange.html">
    <div class="modal-header">
       <button type="button" class="close" ng-click="ok()">&times;</button>
-      <h3 class="modal-title" id="modal-title">Add Payment Schedule<<h3>
+       <h3 class="modal-title" id="modal-title">Add Payment Schedule</h3>
    </div>
    <div class="modal-body" id="modal-body">
       <div class="subHeading">Add Payment Schedule</div>
@@ -80,7 +80,7 @@
               <tr>
                 <td>Payment Schedule Value:</td>
                 <td>        
-                    <input type="text" name="paymentScheduleValue" class="form-control" ng-model="blockStage.paymentScheduleValue" placeholder="Payment Schedule Value" ng-required="true" ng-class="{blankInput: blockStageForm.paymentScheduleValue.$error.required &amp;&amp; submit}" />
+                    <input type="text" name="paymentScheduleValue" class="form-control" ng-model="paymentScheduleValue" placeholder="Payment Schedule Value" ng-required="true" ng-class="{blankInput: paymentScheduleValue.$error.required &amp;&amp; submit}" />
                 </td>
              </tr>
           </table>

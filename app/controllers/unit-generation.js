@@ -639,8 +639,36 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
 
 
 
-
     $scope.addBlockUnit = function(formObj, formName, parentObj) {
+        for (i = 0; i < formObj.length; i++) {
+            formObj[i].UnitDtls_comp_guid = $cookieStore.get('comp_guid');
+            /*formObj[i].UnitDtls_Unit_type_id = 3;*/
+            formObj[i].UnitDtls_Block_Id = parentObj.block;
+            formObj[i].UnitDtls_user_id = $cookieStore.get('user_id');
+        }
+
+        console.log(formObj);
+
+        var unitsData = JSON.stringify(formObj);
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Update",
+            ContentType: 'application/json',
+            data: unitsData
+        }).success(function(data) {
+            angular.element(".loader").hide();
+            console.log(data);
+//            $state.go("/ApplyCostSheet", {
+//                "projectId": $stateParams.projId,
+//                "phaseId": $stateParams.phaseId,
+//                "blockId": parentObj.block
+//            });
+            }).error(function() {
+            angular.element(".loader").hide();
+        });
+    }
+ $scope.addBlockUnitNext = function(formObj, formName, parentObj) {
         for (i = 0; i < formObj.length; i++) {
             formObj[i].UnitDtls_comp_guid = $cookieStore.get('comp_guid');
             /*formObj[i].UnitDtls_Unit_type_id = 3;*/
@@ -669,8 +697,6 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
             angular.element(".loader").hide();
         });
     }
-
-
 
 
     $scope.saveAllPlots = function(formName, formObj, parentObj) {

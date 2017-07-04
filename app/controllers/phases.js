@@ -55,14 +55,11 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
         });
     })();
 
-
-
-
     function editAppendFields(data) {
         angular.element("#noOfBlocks").html('');
         if (data[0].LstofBlocks != null) {
             for (i = 1; i <= data[0].LstofBlocks.length; i++) {
-                var childDiv = '<label for="type">Block Name</label><div id="block' + data[0].LstofBlocks[i - 1].Blocks_Id + '"><input type="text" placeholder="Block  ' + i + ' Name" title="Block ' + i + ' Name" class="form-control inputWithIcon" name="blockName[' + (i - 1) + ']" ng-model="projectDetails.blockName[' + (i - 1) + ']" /> <input type="text" class="form-control dispNone" ng-model="projectDetails.blockId[' + (i - 1) + ']" ng-value="' + data[0].LstofBlocks[i - 1].Blocks_Id + '" name="blockId[' + (i - 1) + ']"/>';
+                var childDiv = '<div id="block' + data[0].LstofBlocks[i - 1].Blocks_Id + '"><label for="type">Block Name</label><input type="text" placeholder="Block  ' + i + ' Name" title="Block ' + i + ' Name" class="form-control inputWithIcon"  ng-required="true" name="blockName[' + (i - 1) + ']" ng-model="projectDetails.blockName[' + (i - 1) + ']" /> <input type="text" class="form-control dispNone"  ng-model="projectDetails.blockId[' + (i - 1) + ']" ng-value="' + data[0].LstofBlocks[i - 1].Blocks_Id + '" ng-required="true"  name="blockId[' + (i - 1) + ']"  />';
 
                 if (!data[0].LstofBlocks[i - 1].blnunitexists)
                     childDiv = childDiv + '<span ng-click="deleteBlock(' + data[0].Phase_Id + ',' + data[0].LstofBlocks[i - 1].Blocks_Id + ')" class="glyphicon glyphicon-trash delete"></span></div>';
@@ -85,7 +82,7 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
             placeholder = index + 1;
         }
 
-        var childDiv = '<label for="type">Block Name</label><div id="block' + index + '"><input type="text" placeholder="Block  ' + placeholder + ' Name" title="Block ' + index + ' Name" class="form-control inputWithIcon" name="blockName[' + (index) + ']" ng-model="projectDetails.blockName[' + (index) + ']" /></div>';
+        var childDiv = '<div id="block' + index + '"><label for="type">Block Name</label><input type="text"  ng-required="true" placeholder="Block  ' + placeholder + ' Name" title="Block ' + index + ' Name" class="form-control inputWithIcon" name="blockName[' + (index) + ']" ng-model="projectDetails.blockName[' + (index) + ']"  /></div>';
         var childDivComplied = $compile(childDiv)($scope);
         angular.element("#noOfBlocks").append(childDivComplied);
 
@@ -262,7 +259,7 @@ app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $
     $scope.appendFields = function(noOfLocation) {
         angular.element("#noOfBlocks").html('');
         for (i = 1; i <= noOfLocation; i++) {
-            var childDiv = '<div><input type="text" placeholder="Block  ' + i + ' Name" title="Block ' + i + ' Name" class="form-control" name="blockName[' + (i - 1) + ']" ng-model="projectDetails.blockName[' + (i - 1) + ']" /></div>';
+            var childDiv = '<div><input type="text" ng-required="true" placeholder="Block  ' + i + ' Name" title="Block ' + i + ' Name" class="form-control" name="blockName[' + (i - 1) + ']" ng-model="projectDetails.blockName[' + (i - 1) + ']" /></div>';
             var childDivComplied = $compile(childDiv)($scope);
             angular.element("#noOfBlocks").append(childDivComplied);
         }

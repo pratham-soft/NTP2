@@ -62,6 +62,12 @@ app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore
             }
         });
     };
+    $scope.nextPayBlock = function(block) {
+        $state.go('/BlockStage'),
+            {
+"blockId" : $stateParams.blockId
+        }
+    }
 //    ($scope.generateCostSheetUnits = function(templId) {
 //        angular.element(".loader").show();
 //        $http({

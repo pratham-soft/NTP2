@@ -1,5 +1,9 @@
 app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+    
     $scope.title = "Generate Cost Sheet";
+     $scope.projectId = $stateParams.projectId;
+    $scope.phaseId = $stateParams.phaseId;
+    $scope.blockId = $stateParams.blockId;
     $scope.activeBtn=true;
     $scope.pressCount=0;
     var blockId = $stateParams.blockId;
@@ -80,6 +84,36 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
             var resSplit = res.split('|');
             if (resSplit[0] == 0) {
                 $scope.getUnitsWithCostSheet(blockId);
+            }
+            $scope.pressCount=1;
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    }
+     $scope.generateCostSheetUnitsNext = function(templId) {
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Proj/Blk/BldValforUtCtSt",
+            ContentType: 'application/json',
+            data: {
+                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
+                "untctcm_Blocks_Id": parseInt(blockId),
+                "untctcm_Id": templId
+            }
+        }).success(function(data) {
+            console.log(data);
+            var res = data.Comm_ErrorDesc;
+            var resSplit = res.split('|');
+            if (resSplit[0] == 0) {
+                
+                $scope.getUnitsWithCostSheet(blockId);
+                $state.go('/BlockStage',{
+                "projId": $stateParams.projectId,
+                "phaseId": $stateParams.phaseId,
+                "blockId": $stateParams.blockId
+            });          
             }
             $scope.pressCount=1;
             angular.element(".loader").hide();
@@ -209,3 +243,5 @@ app.controller("unitCostSheetCtrl", function($scope,  $http, $cookieStore, $stat
         $uibModalInstance.close();
     };
 });
+
+
