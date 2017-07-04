@@ -55,9 +55,6 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
         });
     })();
 
-
-
-
     function editAppendFields(data) {
         angular.element("#noOfBlocks").html('');
         if (data[0].LstofBlocks != null) {

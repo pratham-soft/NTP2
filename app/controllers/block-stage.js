@@ -1,4 +1,7 @@
 app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $rootScope, myService) {
+    $scope.projectId = $stateParams.projId;
+    $scope.phaseId = $stateParams.phaseId;
+    $scope.blockId =$stateParams.blockId;
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -6,36 +9,77 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
             angular.element(".loader").hide();
         });
     })();
-
-    $scope.phaseListFun = function(projectName) {
-        $scope.perFloorUnits = [];
-        $scope.units = [];
-        $scope.flatType = "";
-        $scope.projectDetails.phase = "";
-        $scope.projectDetails.blocks = "";
-        $scope.blockList = {};
+    ($scope.phaseListFun = function(projectName) {
         angular.element(".loader").show();
-        myService.getPhaseList($cookieStore.get('comp_guid'), projectName).then(function(response) {
+        myService.getPhaseList($cookieStore.get('comp_guid'), $scope.projectId).then(function(response) {
             $scope.phaseList = response.data;
-            angular.element(".loader").hide();
-        });
-    };
-
-    $scope.blockListFun = function(phase) {
-        $scope.perFloorUnits = [];
-        $scope.units = [];
-        $scope.projectDetails.blocks = "";
-        for (i = 0; i < $scope.phaseList.length; i++) {
-            if ($scope.phaseList[i].Phase_Id == phase) {
-                $scope.flatType = $scope.phaseList[i].Phase_UnitType.UnitType_Name;
+            console.log($scope.phaseList);
+            for (i = 0; i < $scope.phaseList.length; i++) {
+                if ($scope.phaseList[i].Phase_Id == $scope.phaseId) {
+                    $scope.blkStage = {
+                        projectName: $scope.projectId,
+                        phase: $scope.phaseId,
+                        typeId: $scope.phaseList[i].Phase_UnitType.UnitType_Id,
+                        block: $scope.blockId
+                    };
+                    
+                }
             }
-        }
-        angular.element(".loader").show();
-        myService.getBlockList(phase, $cookieStore.get('comp_guid')).then(function(response) {
-            $scope.blockList = response.data;
+
             angular.element(".loader").hide();
+
         });
-    };
+
+    })();
+
+//    ($scope.getBlockList = function() {
+//        angular.element(".loader").show();
+//        $http({
+//            method: "POST",
+//            url: appConfig.baseUrl+"/Proj/BlockDtls/ByPhaseBlocksId",
+//            ContentType: 'application/json',
+//            data: {
+//                "Blocks_Phase_Id": $scope.phaseId,
+//                "Blocks_comp_guid": $cookieStore.get('comp_guid')
+//            }
+//        }).success(function(data) {
+//            console.log(data);
+//            $scope.blockList = data;
+//            angular.element(".loader").hide();
+//        }).error(function() {
+//            angular.element(".loader").hide();
+//        });
+//    })();
+
+//   $scope.phaseListFun = function(projectName) {
+//        $scope.perFloorUnits = [];
+//        $scope.units = [];
+//        $scope.flatType = "";
+//        $scope.projectDetails.phase = "";
+//        $scope.projectDetails.blocks = "";
+//        $scope.blockList = {};
+//        angular.element(".loader").show();
+//        myService.getPhaseList($cookieStore.get('comp_guid'), projectName).then(function(response) {
+//            $scope.phaseList = response.data;
+//            angular.element(".loader").hide();
+//        });
+//    };
+//
+//    $scope.blockListFun = function(phase) {
+//        $scope.perFloorUnits = [];
+//        $scope.units = [];
+//        $scope.projectDetails.blocks = "";
+//        for (i = 0; i < $scope.phaseList.length; i++) {
+//            if ($scope.phaseList[i].Phase_Id == phase) {
+//                $scope.flatType = $scope.phaseList[i].Phase_UnitType.UnitType_Name;
+//            }
+//        }
+//        angular.element(".loader").show();
+//        myService.getBlockList(phase, $cookieStore.get('comp_guid')).then(function(response) {
+//            $scope.blockList = response.data;
+//            angular.element(".loader").hide();
+//        });
+//    };
 
 //    $scope.getBlockStageList = function(blockId) {
 //        angular.element(".loader").show();

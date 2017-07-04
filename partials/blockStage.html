@@ -11,7 +11,8 @@
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 marginBottom20">
    <form class="form">
 <div>
-   <select ng-model="projectDetails.projectName" name="projectName" class="form-control" ng-change="phaseListFun(projectDetails.projectName)" autofocus="true">
+    <select name="projectName" class="form-control"  ng-model="blkStage.projectName" disabled="true">
+<!--   <select ng-model="projectDetails.projectName" name="projectName" class="form-control"  ng-change="phaseListFun(projectDetails.projectName)" autofocus="true" >-->
       <option value="">
          Project
       </option>
@@ -21,7 +22,8 @@
    </select>
 </div>
 <div>
-   <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="blockListFun(projectDetails.phase)">
+    <select ng-model="blkStage.phase" name="phase" class="form-control" disabled="true">
+<!--   <select ng-model="projectDetails.phase" name="phase" class="form-control" ng-change="blockListFun(projectDetails.phase)" >-->
       <option value="">
          Phase
       </option>
@@ -31,10 +33,10 @@
    </select>
 </div>
 <div class="divLabel">
-   Type: <strong ng-model="projectDetails.flatType">{{flatType}}</strong>
+   Type: <strong ng-model="blkStage.flatType">{{flatType}}</strong>
 </div>
 <div>
-   <select ng-model="projectDetails.blocks" name="blocks" class="form-control" ng-change="getPaymentScheduleList(projectDetails.blocks)">
+   <select ng-model="blkStage.block" name="blocks" class="form-control"  ng-change="getPaymentScheduleList(projectDetails.blocks)" >
       <option value="">
          Block
       </option>

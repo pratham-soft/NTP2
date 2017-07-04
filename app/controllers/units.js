@@ -129,7 +129,7 @@ app.controller("unitsCtrl", function($scope,  $http, $state, $cookieStore, $stat
 //                "projectId": $stateParams.projId,
 //                "phaseId": $stateParams.phaseId,
 //                "blockId": $stateParams.blockId
-//            });
+////            });
         }).error(function() {});
     }
 });

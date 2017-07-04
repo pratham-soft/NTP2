@@ -132,12 +132,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'blockCostSheetCtrl'
         })
         .state('/EditBlockCostSheet', {
-            url: '/EditBlockCostSheet/:blockId',
+            url: '/EditBlockCostSheet/:projId/:phaseId/:blockId',
             templateUrl: 'partials/editBlockCostSheet.html',
             controller: 'editBlockCostSheetCtrl'
         })
       .state('/unitListingAfterEdit', {
-            url: '/unitListingAfterEdit/:blockId',
+            url: '/unitListingAfterEdit/:projId/:phaseId/:blockId',
             templateUrl: 'partials/unitListingAfterEdit.html',
             controller: 'unitListingAfterEditCtrl'
         })
@@ -152,7 +152,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'costSheetTemplatesCtrl'
         })
         .state('/BlockStage', {
-            url: '/BlockStage',
+            url: '/BlockStage/:projId/:phaseId/:blockId',
             templateUrl: 'partials/blockStage.html',
             controller: 'blockStageCtrl'
         })
@@ -207,7 +207,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'applyCostSheetCtrl'
         })
         .state('/GenerateCostSheet', {
-            url: '/GenerateCostSheet/:blockId',
+            url: '/GenerateCostSheet/:projectId/:phaseId/:blockId',
             templateUrl: 'partials/generateCostSheet.html',
             controller: 'generateCostSheetCtrl'
         })
