@@ -106,4 +106,30 @@ app.controller("unitsCtrl", function($scope,  $http, $state, $cookieStore, $stat
             });
         }).error(function() {});
     }
+     $scope.addBlockUnitSave = function(formObj, formName, parentObj) {
+        for (i = 0; i < formObj.length; i++) {
+            formObj[i].UnitDtls_comp_guid = $cookieStore.get('comp_guid');
+            /*formObj[i].UnitDtls_Unit_type_id = 3;*/
+            formObj[i].UnitDtls_Block_Id = parentObj.block;
+            formObj[i].UnitDtls_user_id = $cookieStore.get('user_id');
+        }
+
+        console.log(formObj);
+
+        var unitsData = JSON.stringify(formObj);
+
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Proj/Block/Unitdetail/Update",
+            ContentType: 'application/json',
+            data: unitsData
+        }).success(function(data) {
+            console.log(data);
+//            $state.go("/ApplyCostSheet", {
+//                "projectId": $stateParams.projId,
+//                "phaseId": $stateParams.phaseId,
+//                "blockId": $stateParams.blockId
+////            });
+        }).error(function() {});
+    }
 });

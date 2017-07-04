@@ -1,6 +1,8 @@
 app.controller("blockCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Block Cost Sheet";
-
+ $scope.projectId = $stateParams.projectId;
+    $scope.phaseId = $stateParams.phaseId;
+    $scope.blockId = $stateParams.blockId;
     myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
         $scope.projectList = response.data;
         angular.element(".loader").hide();
@@ -74,6 +76,9 @@ app.controller("blockCostSheetCtrl", function($scope,  $http, $cookieStore, $sta
 });
 
 app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+     $scope.projectId = $stateParams.projectId;
+    $scope.phaseId = $stateParams.phaseId;
+    $scope.blockId = $stateParams.blockId;
     $scope.title = "Edit Block Cost Sheet";
     $scope.showPremium=false;
 
@@ -187,7 +192,10 @@ app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, 
 //                    });
 //                
                  $state.go("/unitListingAfterEdit", {
-                        "blockId": $stateParams.blockId
+                        "phaseId" :$scope.phaseId,
+                        "projectId" :$scope.projectId,
+                      "blockId": $scope.blockId,
+                        
                     });
                 
             }).error(function() {
