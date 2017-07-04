@@ -941,6 +941,7 @@ app.controller("actionCtrl", function($scope,  $http, $cookieStore, $state, $sta
 app.controller("previewTempCtrl", function($scope,  $uibModalInstance, $window, $compile, $http, $cookieStore, $stateParams, item) {
 	var tempId = item.tempId;
 	var ruleId = $stateParams.ruleId;
+    var tempName = item.tempName;
 	$(function(){
 		var mailBody = item.tempBody;
 		$("#contentEditor").summernote("code", mailBody);
@@ -962,8 +963,8 @@ app.controller("previewTempCtrl", function($scope,  $uibModalInstance, $window, 
                     "tempemail_recpto":"diwakar.rao@gmail.com;divu26@yahoo.com;diw26@yahoo.com",
                     "tempemail_recpcc":"diwakar.rao@gmail.com;divu26@yahoo.com;diw26@yahoo.com",
                     "tempemail_recpbcc":"diwakar.rao@gmail.com;divu26@yahoo.com;diw26@yahoo.com",
-                    "tempemail_name" :tmpname,
                     "tempemail_subject": tmpsubj,*/
+                    "tempemail_name" :tempName,
                     "tempemail_body":templateBody, 
                     "tempemailid": tempId
                 }
