@@ -5,6 +5,7 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
     $scope.blockId = $stateParams.blockId;
     $scope.plotvillaReleaseNo = 0;
     $scope.showHideFormula = true;
+  
    
 
     var unitNosArr = [];
@@ -143,6 +144,8 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
 	
     /*For generating plots*/
     $scope.addSamplePlots = function(formObj, formName) {
+        $scope.untGeneration.noOfVillaType=0;
+        $scope.untGeneration.totalVillaments=0;
         $scope.showHideFormula=false;
         $scope.submit = true;
         if ($scope[formName].$valid) {
@@ -222,7 +225,7 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
             /*End Update Block*/
         }
 		else{
-			alert("In Valid!");
+			alert("InValid!");
 		}
     };
 

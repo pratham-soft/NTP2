@@ -1058,6 +1058,7 @@ app.controller("scheduleCtrl", function($scope,  $http, $cookieStore, $state, $s
         $scope.submit = true;
         if($scope.hideFreq){
             formObj.frequency=1;
+            formObj.execTime='12:00 PM';
         }
         var ruleId = $stateParams.ruleId;
         var exstrtdt = formObj.execStartDate.split("/").reverse().join("-");
