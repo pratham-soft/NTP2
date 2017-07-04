@@ -294,12 +294,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'updateRuleCriteriaCtrl'
         })
         .state('/Action', {
-            url: '/Action/:ruleId',
+            url: '/Action/:ruleId/:actionId',
             templateUrl: 'partials/action.html',
             controller: 'actionCtrl'
         })
         .state('/Schedule', {
-            url: '/Schedule/:ruleId',
+            url: '/Schedule/:ruleId/:actionId',
             templateUrl: 'partials/schedule.html',
             controller: 'scheduleCtrl'
         })
