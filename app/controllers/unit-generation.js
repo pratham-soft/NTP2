@@ -225,12 +225,9 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
             /*End Update Block*/
         }
 		else{
-<<<<<<< HEAD
             console.log($scope[formName].$error);
 			alert("In Valid!");
-=======
-			alert("InValid!");
->>>>>>> 2aa97f12a989fdf08e7b4e304a107f1d6068cf9a
+
 		}
     };
 
