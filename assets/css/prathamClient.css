@@ -645,6 +645,13 @@ top: -4px;
 border-top: 1px dashed #333;
 	display: inline-block;
 }
+.steps > div > div.seperator1{
+width: 30px;
+position: relative;
+top: -4px;
+border-top: 1px dotted #333;
+	display: inline-block;
+}
 .steps > div > div.step.done{
 background-color: green;
 color: #FFF;

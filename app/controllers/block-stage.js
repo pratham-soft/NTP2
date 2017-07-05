@@ -2,6 +2,7 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
     $scope.projectId = $stateParams.projId;
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId =$stateParams.blockId;
+    $scope.Ugid =$stateParams.Ugid;
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -65,7 +66,50 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
 //            angular.element(".loader").hide();
 //        });
 //    };
-//
+     $scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "done"
+		},
+		{
+			stepName: "Phase Details",
+			status: "done"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "done"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "done"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "active"
+		}
+	];
+     $scope.stepsDataEdit = [
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "done"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "done"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "active"
+		}
+	];
     $scope.blockListFun = function(phase) {
         $scope.perFloorUnits = [];
         $scope.units = [];

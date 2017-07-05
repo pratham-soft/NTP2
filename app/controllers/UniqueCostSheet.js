@@ -1,0 +1,167 @@
+app.controller("UniqueCostSheetCtrl", function($scope,  $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService,$window) {
+    
+//    $scope.unitId = item;
+//    ($scope.getUnitCostSheetDetails = function() {
+//        angular.element(".loader").show();
+//        $http({
+//            method: "POST",
+//            url: appConfig.baseUrl+"/Proj/Blk/UntCstSheet/Gt",
+//            ContentType: 'application/json',
+//            data: {
+//                "UnitDtls_Id": parseInt($scope.unitId),
+//                "UnitDtls_comp_guid": $cookieStore.get('comp_guid')
+//            }
+//        }).success(function(data) {
+//            console.log("Atul Test " + JSON.stringify(data));
+//            $scope.unitCostSheetDetail = data;
+//        $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
+//            angular.element(".loader").hide();
+//        }).error(function() {
+//            angular.element(".loader").hide();
+//        });
+//    })();
+//    $scope.ok = function() {
+//        $uibModalInstance.close();
+//    };
+//    
+    
+    $scope.pageTitle = "Book Unit - Cost Details";
+	$scope.unitObj = $cookieStore.get("unitObj");
+    $scope.leadFullName=$cookieStore.get("leadName");
+    var previous_discount=0;
+    var totalDiscount=0;
+  
+	$scope.prospectId = $cookieStore.get("prospectId");
+    if( $cookieStore.get("skip3rdStep") == true)
+        {
+     var unitId = $cookieStore.get("newUnitDtls_Id");   
+     $scope.unitObj.UnitDtls_No=$cookieStore.get("newUnitDtls_No");
+        }
+    else{
+        var unitId = $scope.unitObj.UnitDtls_Id;
+    }
+    
+	
+	
+    $scope.updatedCostSheetObj = {};
+    var count = 0;
+    
+	$scope.getUnitCostSheet = (function() {
+        angular.element(".loader").show();
+        httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
+            $scope.unitCostSheetDetail = response.data;
+            previous_discount = $scope.unitCostSheetDetail.cstcmpcalcval20;
+        $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
+            
+        $scope.updatedCostSheetObj = {
+              "Untctcm_comp_guid": $cookieStore.get('comp_guid'),
+			  "untctcm_UnitDtls_Id":unitId,
+              "Untctcm_templname": "TestfromAPI",
+              "Untctcm_Blocks_Id": 0,
+              "Untctcm_SBA": $scope.unitCostSheetDetail.sba,
+              "Untctcm_SiteArea": 0,
+              "Untctcm_Cost": $scope.unitCostSheetDetail.basecost,
+              "Untctcm_Ascending": $scope.unitCostSheetDetail.flraiseasce,
+              "Untctcm_FlrRseCost": $scope.unitCostSheetDetail.flraisecost,
+              "Untctcm_From": $scope.unitCostSheetDetail.flraisefrm,
+              "Untctcm_To": $scope.unitCostSheetDetail.flraiseto
+        };
+            
+            for(i=1;i<=19;i++){
+                    $scope.updatedCostSheetObj['Untctcm_code'+i] = "";
+                    $scope.updatedCostSheetObj['Untctcm_name'+i] = $scope.unitCostSheetDetail['cstcmpnme'+i];
+                    $scope.updatedCostSheetObj['Untctcm_calctyp'+i] = $scope.unitCostSheetDetail['cstcmpcalctyp'+i];
+                    $scope.updatedCostSheetObj['Untctcm_val_formula'+i] = $scope.unitCostSheetDetail['cstcmpcalcfrm'+i];
+                    $scope.updatedCostSheetObj['Untctcm_comments'+i] = $scope.unitCostSheetDetail['cstcmpcalccmnt'+i];
+				if($scope.unitCostSheetDetail['cstcmpnme'+i]!=""){
+					count++;
+                }
+            }
+            /*console.log(JSON.stringify(updatedCostSheetObj));*/
+            angular.element(".loader").hide();
+        });
+    })();
+	
+    /* Add cost component*/
+    $scope.addCostComponent = function() {
+        var trCount = count+$(".formulaTable > tr").length;
+        var increment = trCount + 1;
+        if (increment == 7) {
+            increment = increment + 1;
+        }
+        if (increment >= 20) {
+            return;
+        }
+        var costComponentRow = '<tr> <td> <label>Code</label> </td> <td> <input type="text" class="form-control" name="Untctcm_code' + increment + '" ng-model="updatedCostSheetObj.Untctcm_code' + increment + '"/> </td> <td> <label>Name</label> </td> <td> <input type="text" class="form-control" name="Untctcm_name' + increment + '" ng-model="updatedCostSheetObj.Untctcm_name' + increment + '"/> </td> <td> <label>Calc. Type</label> </td> <td> <select class="form-control" name="Untctcm_calctyp' + increment + '" ng-model="updatedCostSheetObj.Untctcm_calctyp' + increment + '" ng-change="toggleFields(' + increment + ')"> <option value=""> Select </option> <option value="1"> Flat </option> <option value="0"> Formula </option> </select> </td> <td> <input type="text" class="form-control" placeholder="Value" name="Untctcm_val_formula' + increment + '" ng-model="updatedCostSheetObj.Untctcm_val_formula' + increment + '" disabled="true"/> </td> <td> <button type="button" class="btn btn-warning" name="formulaBtn' + increment + '" ng-click="openFormulaModal({formulaVal:updatedCostSheetObj.Untctcm_val_formula' + increment + ',index:' + increment + '})" disabled="true"> Formula </button> </td> <td> <input type="text" class="form-control comment" placeholder="Comment" name="Untctcm_comments' + increment + '" ng-model="updatedCostSheetObj.Untctcm_comments' + increment + '"/> </td></tr>';
+
+        costComponentRow = $compile(costComponentRow)($scope);
+        angular.element(".formulaTable").append(costComponentRow);
+    };
+
+    $scope.toggleFields = function(increment) {
+        var fieldName = "Untctcm_calctyp" + increment;
+        if ($scope.updatedCostSheetObj[fieldName] == 1) {
+            $("input[name='Untctcm_val_formula" + increment + "']").attr("disabled", false);
+            $("button[name='formulaBtn" + increment + "']").attr("disabled", true);
+        } else if ($scope.updatedCostSheetObj[fieldName] == 0) {
+            $("input[name='Untctcm_val_formula" + increment + "']").attr("disabled", true);
+            $("button[name='formulaBtn" + increment + "']").attr("disabled", false);
+        }
+    };
+
+    $scope.openFormulaModal = function(val) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'formula.html',
+            controller: 'bookUnitCostComponentFormulaCtrl',
+            scope: $scope, 
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return val;
+                }
+            }
+        });
+    };
+    /* Add cost component*/
+    $scope.discount = {
+        discountType:'1',
+        discountVal:''
+    };
+	$scope.calculateFinalPrice = function(obj){
+        totalDiscount= parseFloat(obj.discountVal + previous_discount);
+          if( totalDiscount < $scope.unitCostSheetDetail.unitcostcal_totcost){                       
+        angular.element(".loader").show();
+
+        $scope.updatedCostSheetObj.Untctcm_code20 = "DISC";
+        $scope.updatedCostSheetObj.Untctcm_name20 = "DISCOUNT";
+        $scope.updatedCostSheetObj.Untctcm_calctyp20 = 0;  // Always be Falt Discount Value 
+       // $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + obj2.cstcmpcalcval20);
+        $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + previous_discount);
+        $scope.updatedCostSheetObj.Untctcm_comments20 = "";
+        
+        console.log(JSON.stringify($scope.updatedCostSheetObj));
+		httpSvc.generateCustomerCostSheet($scope.updatedCostSheetObj).then(function(response) {
+			var res = response.data.Comm_ErrorDesc;
+			resArr = res.split('|');
+			$scope.finalCost = resArr[2];
+                // The below service will refresh the Cost sheet after discount
+                httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
+                $scope.unitCostSheetDetail = response.data;
+                previous_discount = $scope.unitCostSheetDetail.cstcmpcalcval20;
+    $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
+                angular.element(".loader").hide();
+                })
+               
+            
+		});
+               $scope.ok = function() {
+        $uibModalInstance.close();
+          }
+        else{
+            alert("Discount can not be more than Total Cost")
+        }
+    }
+    
+});
+       

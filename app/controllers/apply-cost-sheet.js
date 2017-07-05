@@ -3,7 +3,53 @@ app.controller("applyCostSheetCtrl", function($scope,  $http, $cookieStore, $sta
     $scope.projectId = $stateParams.projectId;
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
+    $scope.Ugid = $stateParams.Ugid;
     $scope.showPremium = false;
+    $scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "done"
+		},
+		{
+			stepName: "Phase Details",
+			status: "done"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "active"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
+     
+    $scope.stepsDataEdit = [
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "active"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
 
     $scope.getCostSheetTemplates = function() {
         angular.element(".loader").show();
@@ -277,7 +323,8 @@ app.controller("applyCostSheetCtrl", function($scope,  $http, $cookieStore, $sta
         $state.go("/EditBlockCostSheet", {
             "blockId": $scope.blockId,
             "phaseId" :$scope.phaseId,
-            "projectId" :$scope.projectId
+            "projectId" :$scope.projectId,
+            "Ugid" :$scope.Ugid
         });
     };
 

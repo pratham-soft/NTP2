@@ -1,16 +1,58 @@
 app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService) {
+   $scope.Ugid = $stateParams.Ugid;
     $scope.untDetails = [];
     $scope.projectId = $stateParams.projId;
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
     $scope.plotvillaReleaseNo = 0;
     $scope.showHideFormula = true;
-  
-   
-
     var unitNosArr = [];
     var plotsNosArr = [];
+ $scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "done"
+		},
+		{
+			stepName: "Phase Details",
+			status: "done"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "active"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
 
+    $scope.stepsDataEdit = [
+		{
+			stepName: "Unit Generation",
+			status: "active"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
 
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
@@ -695,7 +737,8 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
             $state.go("/ApplyCostSheet", {
                 "projectId": $stateParams.projId,
                 "phaseId": $stateParams.phaseId,
-                "blockId": parentObj.block
+                "blockId": parentObj.block,
+                "Ugid": $stateParams.Ugid
             });
         }).error(function() {
             angular.element(".loader").hide();

@@ -75,13 +75,57 @@ app.controller("blockCostSheetCtrl", function($scope,  $http, $cookieStore, $sta
     }
 });
 
-app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {    $scope.Ugid = $stateParams.Ugid;
      $scope.projectId = $stateParams.projectId;
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
+    $scope.Ugid = $stateParams.Ugid;
     $scope.title = "Edit Block Cost Sheet";
     $scope.showPremium=false;
-
+     $scope.stepsDataEdit = [
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "active"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
+             $scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "done"
+		},
+		{
+			stepName: "Phase Details",
+			status: "done"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "active"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];                                                                                                                                   
     $scope.checkBlockUnits = function(blockId) {
         var compId = $cookieStore.get('comp_guid');
         angular.element(".loader").show();
@@ -195,6 +239,7 @@ app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, 
                         "phaseId" :$scope.phaseId,
                         "projectId" :$scope.projectId,
                       "blockId": $scope.blockId,
+                      "Ugid" : $scope.Ugid
                         
                     });
                 

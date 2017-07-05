@@ -8,6 +8,22 @@
       <li class="active">Stage / Status</li>
    </ol>
 </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30" ng-show="Ugid==0">
+   <div class="steps">
+      <div class="" ng-repeat="step in stepsData">
+         <div class="step {{step.status}}">{{step.stepName}}</div>
+         <div class="seperator1"></div>
+      </div>
+   </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30" ng-show="Ugid==1">
+   <div class="steps">
+      <div class="" ng-repeat="step in stepsDataEdit">
+         <div class="step {{step.status}}">{{step.stepName}}</div>
+         <div class="seperator1"></div>
+      </div>
+   </div>
+</div>
 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
    <form class="form">
 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">

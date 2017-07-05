@@ -447,6 +447,19 @@ app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state
             }
         });
     }
+       $scope.UniqueCostSheet = function(item) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'UniqueCostSheet.html',
+            controller: 'UniqueCostSheetCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return item;
+                }
+            }
+        });
+    }
 });
 
 app.controller("addProspectCtrl", function($scope,  $http, $state, $cookieStore, myService,encyrptSvc) {
@@ -874,6 +887,19 @@ app.controller("prospectsUnitAllocationCtrl", function($scope,  $http, $cookieSt
             }
         });
     }
+    $scope.UniqueCostSheet = function(item) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'UniqueCostSheet.html',
+            controller: 'UniqueCostSheetCtrl',
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                item: function() {
+                    return item;
+                }
+            }
+        });
+    }
 
     $scope.updateUnitAllocationStatus = function(unitData) {
         var modalInstance = $uibModal.open({
@@ -889,7 +915,8 @@ app.controller("prospectsUnitAllocationCtrl", function($scope,  $http, $cookieSt
         });
     };
 });
-
+        
+               
 app.controller("updateProPageCtrl", function($scope,  $uibModalInstance, $state, item,$http, $cookieStore,$rootScope,$window) {
       $scope.secondDropValues=[];
       $scope.myModel = "";

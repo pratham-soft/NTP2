@@ -1,7 +1,7 @@
 app.controller("unitVwEditCtrl", function($scope,  $http, $cookieStore, $state, $uibModal,$window, myService, $stateParams) {
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
-
+    
      $scope.selected = []; //stores checked items only
     
     (   $scope.getProjectList = function() {
@@ -27,7 +27,7 @@ app.controller("unitVwEditCtrl", function($scope,  $http, $cookieStore, $state, 
         });
            
     })();
-
+    
     $scope.getPhaseList = function(projectName) {
         $scope.unitsList="";
         $scope.flatType = "";
@@ -94,6 +94,7 @@ app.controller("unitVwEditCtrl", function($scope,  $http, $cookieStore, $state, 
                     projId: projectId,
                     phaseId: phaseId,
                     blockId:blockId,
+                    Ugid :1 
                });
         }
     };

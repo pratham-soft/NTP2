@@ -2,6 +2,10 @@
 app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Unit Listing After Edit";
     var blockId = $stateParams.blockId;
+     $scope.projectId = $stateParams.projectId;
+    $scope.phaseId = $stateParams.phaseId;
+    $scope.blockId =$stateParams.blockId;
+    $scope.Ugid = $stateParams.Ugid;
 //    ($scope.getBlockCostSheet = function() {
 //        angular.element(".loader").show();
 //        $http({
@@ -62,6 +66,60 @@ app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore
             }
         });
     };
+    $scope.addBlockUnitsNext= function(){
+        $state.go('/BlockStage',{
+                "projId": $stateParams.projectId,
+                "phaseId": $stateParams.phaseId,
+                "blockId": $stateParams.blockId,
+                "Ugid": $stateParams.Ugid
+    });
+    }
+        
+     $scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "done"
+		},
+		{
+			stepName: "Phase Details",
+			status: "done"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "done"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "active"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];     
+    $scope.stepsDataEdit = [
+		
+		{
+			stepName: "Unit Generation",
+			status: "done"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "done"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "active"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
     $scope.nextPayBlock = function(block) {
         $state.go('/BlockStage'),
             {

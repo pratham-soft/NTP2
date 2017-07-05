@@ -1,6 +1,7 @@
 app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, $compile, $stateParams, myService, encyrptSvc) {
     var Phase_Proj_Id = $stateParams.projId;
     var Phase_Id = $stateParams.phaseId;
+    
  $scope.editgoback= function()
     {
         $state.go('/Phases');
@@ -232,6 +233,32 @@ app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $
     {
         $state.go('/Phases');
     };
+    $scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "active"
+		},
+		{
+			stepName: "Phase Details",
+			status: "pending"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "pending"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
     ($scope.getProjectList = function() {
         $scope.perFloorUnits = [];
         $scope.units = [];
@@ -455,6 +482,32 @@ $scope.goPhases = function()
     $scope.pageTitle = "Add Unit";
     $scope.addPhaseUnitBtn = "ture";
 
+       $scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "done"
+		},
+		{
+			stepName: "Phase Details",
+			status: "active"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "pending"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
     ($scope.getPhaseDetail = function() {
         angular.element(".loader").show();
         $scope.leadId = $stateParams.leadID;
@@ -780,7 +833,8 @@ $scope.goPhases = function()
                 angular.element(".loader").hide();
                 $state.go("/UnitGeneration", {
                     projId: projectId,
-                    phaseId: phaseId
+                    phaseId: phaseId,
+                    Ugid :0
                 });
             }).error(function() {
                 alert("Something went wrong.");

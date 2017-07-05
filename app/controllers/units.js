@@ -1,6 +1,32 @@
 app.controller("unitsCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService) {
     $scope.title = "Units";
-
+    $scope.Ugid = $stateParams.Ugid;
+$scope.stepsData = [
+		{
+			stepName: "Phase",
+			status: "done"
+		},
+		{
+			stepName: "Phase Details",
+			status: "done"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "active"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "pending"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "pending"
+		}
+	];
     $scope.projectListFun = function() {
         angular.element(".loader").show();
         $scope.projectList = myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -102,7 +128,8 @@ app.controller("unitsCtrl", function($scope,  $http, $state, $cookieStore, $stat
             $state.go("/ApplyCostSheet", {
                 "projectId": $stateParams.projId,
                 "phaseId": $stateParams.phaseId,
-                "blockId": $stateParams.blockId
+                "blockId": $stateParams.blockId,
+                "Ugid" : $stateParams.Ugid
             });
         }).error(function() {});
     }
