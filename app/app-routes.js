@@ -371,6 +371,36 @@ app.config(function($stateProvider, $urlRouterProvider) {
      .state('/leadsGeneratedRep', {
             url: '/leadsGeneratedRep',
             templateUrl: 'partials/leadsGeneratedRep.html',
-            controller: 'leadsGeneratedRep'
+            controller: 'leadsGeneratedRepCtrl'
+        })
+    .state('/unitsBlockedReport', {
+            url: '/unitsBlockedReport',
+            templateUrl: 'partials/unitsBlockedReport.html',
+            controller: 'unitsBlockedReportCtrl'
+        })
+    .state('/unitsAvailReport', {
+            url: '/unitsAvailReport',
+            templateUrl: 'partials/unitsAvailReport.html',
+            controller: 'unitsAvailReportCtrl'
+        })
+     .state('/customerReport', {
+            url: '/customerReport',
+            templateUrl: 'partials/customerReport.html',
+            controller: 'customerReportCtrl'
+        })
+    .state('/employeeReport', {
+            url: '/employeeReport',
+            templateUrl: 'partials/employeeReport.html',
+            controller: 'employeeReportCtrl'
+        })
+     .state('/agentReport', {
+            url: '/agentReport',
+            templateUrl: 'partials/agentReport.html',
+            controller: 'agentReportCtrl'
+        })
+    .state('/prospectReport', {
+            url: '/prospectReport',
+            templateUrl: 'partials/prospectReport.html',
+            controller: 'prospectReportCtrl'
         })
 });

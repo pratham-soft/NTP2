@@ -447,10 +447,13 @@ app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state
             }
         });
     }
-       $scope.UniqueCostSheet = function(item) {
+       $scope.UniqueCostSheet = function(unitObj,prospectId) {
+        $cookieStore.put("leadName",leadFullName)
+		$cookieStore.put("unitObj",unitObj);
+		$cookieStore.put("prospectId",prospectId);
         var modalInstance = $uibModal.open({
-            templateUrl: 'UniqueCostSheet.html',
-            controller: 'UniqueCostSheetCtrl',
+            templateUrl: 'quoteCostSheet.html',
+            controller: 'quoteCostSheetCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {
@@ -887,10 +890,13 @@ app.controller("prospectsUnitAllocationCtrl", function($scope,  $http, $cookieSt
             }
         });
     }
-    $scope.UniqueCostSheet = function(item) {
+      $scope.UniqueCostSheet = function(unitObj,prospectId) {
+        $cookieStore.put("leadName",leadFullName)
+		$cookieStore.put("unitObj",unitObj);
+		$cookieStore.put("prospectId",prospectId);
         var modalInstance = $uibModal.open({
-            templateUrl: 'UniqueCostSheet.html',
-            controller: 'UniqueCostSheetCtrl',
+            templateUrl: 'quoteCostSheet.html',
+            controller: 'quoteCostSheetCtrl',
             size: 'lg',
             backdrop: 'static',
             resolve: {

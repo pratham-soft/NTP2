@@ -94,7 +94,7 @@
                         <th>Block</th>
                         <th>Unit</th>
 						<th>Cost Sheet</th>
-                        <th>Unique Cost Sheet</th>
+                        <th>Quote</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -109,7 +109,7 @@
                         <a class="link" ng-click="viewUnitCostSheet(unit.UnitDtls_Id)">View</a>
                         </td>
                          <td class="text-center">
-                        <a class="link" ng-click="UniqueCostSheet(unit.UnitDtls_Id)">View</a>
+                        <a class="link" ng-click="UniqueCostSheet(unit,lead.user_id)">View</a>
                         </td>
 						<td>
 							<button type="button" class="btn btn-success" ng-click="bookUnit(unit,lead.user_id)">
@@ -485,13 +485,14 @@
         <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
     </div>
 </script>
-<script type="text/ng-template" id="UniqueCostSheet.html">
+<script type="text/ng-template" id="quoteCostSheet.html">
         <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">Unit Cost Sheet Details -> {{unitId}} - UnitDtlsId</h3>
+            <h3 class="modal-title" id="modal-title">Quote Cost Sheet Details -> {{unitId}} - UnitDtlsId</h3>
         </div>
-        <div class="modal-body" id="modal-body">
-            <div class="unitDetails">
+ <div class="modal-body" id="modal-body">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="unitDetails">
       <span>Customer Name: {{leadFullName}}</span>
       <span>Project: {{unitObj.Proj_Name}}</span>
       <span>Phase: {{unitObj.Phase_Name}}</span>
@@ -499,7 +500,7 @@
       <span>Flat No.: {{unitObj.UnitDtls_No}}</span>
       <span>Unit Type.: {{unitCostSheetDetail.UnitDtls_Type}}</span>
    </div>
-    <h3 class="text-center">Unit Cost Sheet -> {{unitCostSheetDetail.unitcostcal_Unitdtls_Id}} - UnitDtlsId</h3>
+    
    <table class="table borderDef">
       <!--
          <tr>
@@ -832,10 +833,70 @@
          </div>
       </div>
    </div>
-   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop10 padding0">
-      <button type="button" class="btn btn-success" ng-click="saveStep1()">Save &amp; Next</button>
+    </div>
+     </div>
+   <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
+        </div>
+
+    
+</script>
+<script type="text/ng-template" id="formula.html">
+   <div class="modal-header">
+       <button type="button" class="close" ng-click="close()">&times;</button>
+       <h3 class="modal-title" id="modal-title">Cost Component Formula - {{fieldCount}}</h3>>
    </div>
-</div>
+   <div class="modal-body" id="modal-body">
+       <div class="row">
+           <form name="formulaForm" class="form" method="POST" novalidate="novalidate">
+   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+               <label>Abbreviation</label>
+               <select class="form-control" name="abbreviation" ng-model="formula.abbreviation">
+                   <option value="">
+                       Select
+                   </option>
+                   <option value="SBA">
+                       SBA
+                   </option>
+                   <option value="APPS">
+                       APPS
+                   </option>
+               </select>
+           </div>
+           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+               <label>Operator</label>
+               <select class="form-control" name="operator" ng-model="formula.operator">
+                   <option value="">
+                       Select
+                   </option>
+                   <option value="+">
+                       +
+                   </option>
+                   <option value="-">
+                       -
+                   </option>
+                   <option value="*">
+                       *
+                   </option>
+                   <option value="/">
+                       /
+                   </option>
+                   <option value="%">
+                       %
+                   </option>
+               </select>
+           </div>
+           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+               <label class="dispBlock">&nbsp;</label>
+               <button type="button" class="btn btn-info" ng-click="addFormula(formula)">Add</button>
+           </div>
+           </form>
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center marginTop10">
+               <input type="text" class="form-control" placeholder="Formula Generated" name="formulaGen" id="formulaGen" ng-model="formulaGen"/>
+           </div>
+       </div>
+   </div>
+
 </script>
 <script type="text/ng-template" id="formula.html">
    <div class="modal-header">
@@ -891,7 +952,5 @@
                <input type="text" class="form-control" placeholder="Formula Generated" name="formulaGen" id="formulaGen" ng-model="formulaGen"/>
            </div>
        </div>
-       <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">Done</button>
-        </div>
+       
 </script>

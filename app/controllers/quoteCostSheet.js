@@ -1,6 +1,5 @@
-app.controller("UniqueCostSheetCtrl", function($scope,  $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, httpSvc,myService,$window) {
-    
-//    $scope.unitId = item;
+app.controller("quoteCostSheetCtrl", function($scope,  $rootScope, $stateParams, $cookieStore, $state, $compile, $uibModal, $uibModalInstance,httpSvc,myService,$window){
+//     $scope.unitId = item;
 //    ($scope.getUnitCostSheetDetails = function() {
 //        angular.element(".loader").show();
 //        $http({
@@ -23,9 +22,8 @@ app.controller("UniqueCostSheetCtrl", function($scope,  $rootScope, $stateParams
 //    $scope.ok = function() {
 //        $uibModalInstance.close();
 //    };
-//    
     
-    $scope.pageTitle = "Book Unit - Cost Details";
+	$scope.pageTitle = "Book Unit - Cost Details";
 	$scope.unitObj = $cookieStore.get("unitObj");
     $scope.leadFullName=$cookieStore.get("leadName");
     var previous_discount=0;
@@ -41,7 +39,6 @@ app.controller("UniqueCostSheetCtrl", function($scope,  $rootScope, $stateParams
         var unitId = $scope.unitObj.UnitDtls_Id;
     }
     
-	
 	
     $scope.updatedCostSheetObj = {};
     var count = 0;
@@ -139,14 +136,15 @@ app.controller("UniqueCostSheetCtrl", function($scope,  $rootScope, $stateParams
        // $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + obj2.cstcmpcalcval20);
         $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + previous_discount);
         $scope.updatedCostSheetObj.Untctcm_comments20 = "";
+        $scope.updatedCostSheetObj.untctcm_cust_Id= $scope.prospectId;
         
         console.log(JSON.stringify($scope.updatedCostSheetObj));
-		httpSvc.generateCustomerCostSheet($scope.updatedCostSheetObj).then(function(response) {
+		httpSvc.generateQuoteCostSheet($scope.updatedCostSheetObj).then(function(response) {
 			var res = response.data.Comm_ErrorDesc;
 			resArr = res.split('|');
 			$scope.finalCost = resArr[2];
                 // The below service will refresh the Cost sheet after discount
-                httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
+                httpSvc.getCustUnitCostSheet(unitId, $cookieStore.get('comp_guid'),$scope.prospectId).then(function(response) {
                 $scope.unitCostSheetDetail = response.data;
                 previous_discount = $scope.unitCostSheetDetail.cstcmpcalcval20;
     $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
@@ -155,13 +153,45 @@ app.controller("UniqueCostSheetCtrl", function($scope,  $rootScope, $stateParams
                
             
 		});
-               $scope.ok = function() {
-        $uibModalInstance.close();
           }
         else{
             alert("Discount can not be more than Total Cost")
         }
     }
-    
+      
+    $scope.ok = function() {
+        $uibModalInstance.close();
+	}
+  
 });
-       
+
+app.controller("bookUnitCostComponentFormulaCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, item) {
+    $scope.formula = {
+        abbreviation: '',
+        operator: ''
+    };
+    $scope.formulaGen = item.formulaVal;
+    $scope.fieldCount = item.index;
+    $scope.fieldName = "Untctcm_val_formula" + $scope.fieldCount;
+    $scope.close = function() {
+        $uibModalInstance.close();
+    };
+    $scope.addFormula = function(formObj) {
+        var preVal = angular.element("#formulaGen").val();
+        var formula = formObj.abbreviation + formObj.operator;
+        var finalFormula = preVal + formula;
+        //        angular.element("#formulaGen").val(finalFormula);
+        $scope.formulaGen = finalFormula;
+        $scope.formula = {
+            abbreviation: '',
+            operator: ''
+        };
+    };
+    $scope.saveFormula = function() {
+        /*console.log(fieldName);*/
+        if ($scope.formulaGen != "") {
+            $scope.updatedCostSheetObj[$scope.fieldName] = $scope.formulaGen;
+            $uibModalInstance.close();
+        }
+    };
+});

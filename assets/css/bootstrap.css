@@ -2126,6 +2126,7 @@ pre code {
   .col-lg-3 {
     width: 25%;
   }
+    
   .col-lg-2 {
     width: 16.66666667%;
   }
@@ -5859,7 +5860,7 @@ button.list-group-item-danger.active:focus {
   opacity: .5;
 }
 button.close {
-  -webkit-appearance: none;
+-webkit-appearance: none;
   padding: 0;
   cursor: pointer;
   background: transparent;

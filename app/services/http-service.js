@@ -15,6 +15,23 @@ app.service('httpSvc', function($http) {
         return promise;
 	}
 	
+     this.getCustUnitCostSheet = function(unitId, compId,custid) {
+        var promise = $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Cust/UntCstSheet/Gt",
+            ContentType: 'application/json',
+            data: {
+			  "UnitDtls_Id": unitId,
+			  "UnitDtls_comp_guid": compId,
+              "UnitDtls_Cust_UserId": custid
+			}
+        }).success(function(data) {
+            unitCostSheetDetail = data;
+            return unitCostSheetDetail;
+        }).error(function() {});
+        return promise;
+	}
+     
 	this.getUserDetails = function(userId, compId) {
         var promise = $http({
             method: "POST",
@@ -35,6 +52,19 @@ app.service('httpSvc', function($http) {
 		var promise = $http({
             method: "POST",
             url: appConfig.baseUrl+"/Proj/Cust/BldValforUtCtSt",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {
+            apiRsponse = data;
+            return apiRsponse;
+        }).error(function() {});
+        return promise;
+	}
+    
+    this.generateQuoteCostSheet = function(obj){
+		var promise = $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Proj/Cust/BldValforUtquoteCtSt",
             ContentType: 'application/json',
             data: obj
         }).success(function(data) {
