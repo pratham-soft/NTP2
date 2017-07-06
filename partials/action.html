@@ -142,13 +142,48 @@
 <script type="text/ng-template" id="previewTemp.html">
         <div class="modal-header">
 			<button type="button" class="close" ng-click="ok()">&times;</button>
-            <h3 class="modal-title" id="modal-title">Preview Template<h3>
+            <h3 class="modal-title" id="modal-title">Preview Template</h3>
         </div>
+
 		<div class="modal-body" id="modal-body">
-			<div id="contentEditor"></div>
-		</div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <label> </label>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="col-lg-4 col-md-4 col-sm-4 padding12">
+           
+               <select class="form-control" name="mergeFieldType" ng-model="template.mergeFieldType" ng-change="getFields2(template.mergeFieldType)">
+                  <option value="">Merge Field Types</option>
+                  <option ng-repeat="x in mergeFieldTypes" value="{{x.module_id}}">{{x.module_name}}</option>
+               </select>
+            
+           </div>   
+          <div class="col-lg-4 col-md-4 col-sm-4 padding12">
+      
+               <select class="form-control" name="fields" ng-model="template.fields" ng-change="copyMergedFields2(template.fields)">
+                  <option value="">Select Fields</option>
+                  <option ng-repeat="x in fields" value="{{x.modfield_actualfieldname}}">{{x.modfield_name}}</option>
+               </select>
+           
+           </div>
+           <div class="col-lg-3 col-md-3 col-sm-3 padding12">
+
+               <input type="text" class="form-control" placeholder="Copy Merged Fields" name="copyMergedFields" ng-model="template.copyMergedFields" ng-readonly="true">
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 padding12"> 
+                <button type="button" class="btn btn-primary" maxlength="160" ng-click="addEditor2()" ng-disabled="addEditorBtn"><span class="glyphicon glyphicon-plus-sign"></span> Add</button> </div>
+           </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <label> </label>
+            </div>
+            
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div id="contentEditor"></div>
+            </div>
+       </div>
         <div class="modal-footer">
 			<button type="button" class="btn btn-success" ng-click="saveTemplate()">Save Template</button>
-            <button type="button" class="btn btn-primary" ng-click="ok()">Done</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">Close</button>
         </div>
+        
 </script>

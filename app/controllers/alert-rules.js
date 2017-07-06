@@ -938,10 +938,12 @@ app.controller("actionCtrl", function($scope,  $http, $cookieStore, $state, $sta
 
 // $scope.getEmailTemplsFun();
 
-app.controller("previewTempCtrl", function($scope,  $uibModalInstance, $window, $compile, $http, $cookieStore, $stateParams, item) {
+app.controller("previewTempCtrl", function($scope,$rootScope,  $uibModalInstance, $window, $compile, $http, $cookieStore, $stateParams, item) {
 	var tempId = item.tempId;
 	var ruleId = $stateParams.ruleId;
     var tempName = item.tempName;
+    var tempbpdy = $('#contentEditor').summernote('code');
+    $scope.addEditorBtn=true;
 	$(function(){
 		var mailBody = item.tempBody;
 		$("#contentEditor").summernote("code", mailBody);
@@ -983,6 +985,62 @@ app.controller("previewTempCtrl", function($scope,  $uibModalInstance, $window, 
                 angular.element(".loader").hide();
             });
 	}
+    
+    $scope.getMergedFieldTypes2 = (function(){
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Comp/ModulesGetAlrt",
+            ContentType: 'application/json',
+            data: {
+                "module_id": 0
+            }
+        }).success(function(data) {
+            $scope.mergeFieldTypes2 = data;
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    })();
+    
+    
+     $scope.getFields2 = function(moduleId){
+        var ruleid =0;
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Comp/SubModulesGet",
+            ContentType: 'application/json',
+            data: {
+                "module_id": moduleId,
+                "ruleid" : ruleid
+            }
+        }).success(function(data) {
+            if(data[0].modfield_ErrorDesc == "-1 | Module fields do not exist for this Module"){
+                $rootScope.appMsg = "Module fields do not exist for this Module";
+                $rootScope.showAppMsg = true;
+                $scope.fields = [];
+                $scope.template.fields = "";
+                $scope.template.copyMergedFields = "";
+            }
+            else{
+                $rootScope.appMsg = "";
+                $rootScope.showAppMsg = false;
+                $scope.fields = data;   
+            }
+            angular.element(".loader").hide();
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    }
+    
+    $scope.copyMergedFields2 = function(field){
+        $scope.template.copyMergedFields = '$'+field+'$ ';
+        $scope.addEditorBtn=false;
+    }
+    $scope.addEditor2 = function(){
+            $('#contentEditor').summernote('editor.insertText', $scope.template.copyMergedFields);
+    };
 	
 });
 
