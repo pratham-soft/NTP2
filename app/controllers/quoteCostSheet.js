@@ -45,7 +45,7 @@ app.controller("quoteCostSheetCtrl", function($scope,  $rootScope, $stateParams,
     
 	$scope.getUnitCostSheet = (function() {
         angular.element(".loader").show();
-        httpSvc.getUnitCostSheet(unitId, $cookieStore.get('comp_guid')).then(function(response) {
+        httpSvc.getCustUnitCostSheet(unitId, $cookieStore.get('comp_guid'),$scope.prospectId).then(function(response) {
             $scope.unitCostSheetDetail = response.data;
             previous_discount = $scope.unitCostSheetDetail.cstcmpcalcval20;
         $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);

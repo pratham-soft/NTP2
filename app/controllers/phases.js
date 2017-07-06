@@ -144,60 +144,68 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
             alert("Not valid Form.");
         }
     };
-    $scope.goNextunit= function(formObj, formName) {
-        var noOfBlocks = $("#blockCount").val();
-        $scope.submit = true;
-        if ($scope[formName].$valid) {
-            var blockLst = [];
-            for (var i = 0; i < noOfBlocks; i++) {
-                var tmp = {};
-                tmp.Blocks_Name = formObj.blockName[i];
-                tmp.Blocks_Id = 0;
-                if (formObj.blockId[i] != undefined)
-                    tmp.Blocks_Id = formObj.blockId[i];
-                blockLst.push(tmp);
-            }
-
-            angular.element(".loader").show();
-            $http({
-                method: "POST",
-                url: appConfig.baseUrl+"/Proj/Phase/Save",
-                ContentType: 'application/json',
-                data: {
-                    "Phase_comp_guid": $cookieStore.get('comp_guid'),
-                    "Phase_Id": $stateParams.phaseId,
-                    "Phase_Proj_Id": formObj.projectName,
-                    "Phase_Name": formObj.phaseName,
-                    "Phase_Surveynos": formObj.surveyNos,
-                    "Phase_UnitMsmnt": {
-                        "UnitMsmnt_Id": formObj.unitOfMeasurement
-                    },
-                    "Phase_UnitType": {
-                        "UnitType_Id": formObj.phaseType
-                    },
-                    "Phase_NoofBlocks": noOfBlocks,
-                    "Phase_Location": formObj.location,
-                    "LstofBlocks": blockLst
-                }
-            }).success(function(data) {
-                console.log(data);
-                $scope.addPhaseResult = data;
-                angular.element(".loader").hide();
-                if ($scope.addPhaseResult.Comm_ErrorDesc.match('0|')) {
-                    $state.go("/EditUnit", {
+    
+    $scope.goNextunit = function(){
+         $state.go("/EditUnit", {
                         projId: Phase_Proj_Id,
                         phaseId: Phase_Id
-                    });
-                } else {
-                    alert("Something went wrong.");
-                }
-            }).error(function() {
-                angular.element(".loader").hide();
-            });
-        } else {
-            alert("Not valid Form.");
-        }
-    };
+                    });  
+      };
+    
+//    $scope.goNextunit= function(formObj, formName)  {
+//        var noOfBlocks = $("#blockCount").val();
+//        $scope.submit = true;
+//        if ($scope[formName].$valid) {
+//            var blockLst = [];
+//            for (var i = 0; i < noOfBlocks; i++) {
+//                var tmp = {};
+//                tmp.Blocks_Name = formObj.blockName[i];
+//                tmp.Blocks_Id = 0;
+//                if (formObj.blockId[i] != undefined)
+//                    tmp.Blocks_Id = formObj.blockId[i];
+//                blockLst.push(tmp);
+//            }
+//
+//            angular.element(".loader").show();
+//            $http({
+//                method: "POST",
+//                url: appConfig.baseUrl+"/Proj/Phase/Save",
+//                ContentType: 'application/json',
+//                data: {
+//                    "Phase_comp_guid": $cookieStore.get('comp_guid'),
+//                    "Phase_Id": $stateParams.phaseId,
+//                    "Phase_Proj_Id": formObj.projectName,
+//                    "Phase_Name": formObj.phaseName,
+//                    "Phase_Surveynos": formObj.surveyNos,
+//                    "Phase_UnitMsmnt": {
+//                        "UnitMsmnt_Id": formObj.unitOfMeasurement
+//                    },
+//                    "Phase_UnitType": {
+//                        "UnitType_Id": formObj.phaseType
+//                    },
+//                    "Phase_NoofBlocks": noOfBlocks,
+//                    "Phase_Location": formObj.location,
+//                    "LstofBlocks": blockLst
+//                }
+//            }).success(function(data) {
+//                console.log(data);
+//                $scope.addPhaseResult = data;
+//                angular.element(".loader").hide();
+//                if ($scope.addPhaseResult.Comm_ErrorDesc.match('0|')) {
+//                    $state.go("/EditUnit", {
+//                        projId: Phase_Proj_Id,
+//                        phaseId: Phase_Id
+//                    });
+//                } else {
+//                    alert("Something went wrong.");
+//                }
+//            }).error(function() {
+//                angular.element(".loader").hide();
+//            });
+//        } else {
+//            alert("Not valid Form.");
+//        }
+//    };
    
     $scope.deleteBlock = function(blockId, phaseId) {
         angular.element(".loader").show();
@@ -758,93 +766,101 @@ $scope.goPhases = function()
         }
         };
 
-     $scope.saveNextData = function(formObj, formName) {
-        $scope.submit = true;
-        console.log(formObj);
-        if ($scope[formName].$valid) {
-            //            alert("Valid Form");
-            angular.element(".loader").show();
-            $http({
-                method: "POST",
-                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
-                ContentType: 'application/json',
-                data: {
-                    "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
-                    "UnitTypeData_Phase_Id": phaseId,
-                    "UnitTypeData_ownrnm": formObj.ownerName,
-                    "UnitTypeData_sowodo": formObj.ownerSowodo,
-                    "UnitTypeData_dob": formObj.ownerDob,
-                    "UnitTypeData_add": formObj.ownerAddress,
-                    "UnitTypeData_pan": formObj.ownerPan,
-                    "UnitTypeData_minor": formObj.minor,
-                    "UnitTypeData_grdnm": formObj.guardianName,
-                    "UnitTypeData_gunsowodo": formObj.guardianSowodo,
-                    "UnitTypeData_gundob": formObj.guardianDob,
-                    "UnitTypeData_gunadd": formObj.guardianAddress,
-                    "UnitTypeData_gunpan": formObj.guardianPan,
-                    "UnitTypeData_gunrltnminor": formObj.relationshipWithMinor,
-                    "UnitTypeData_ttllndar": formObj.totalLandArea,
-                    "UnitTypeData_ttlhynlnd": formObj.totalHyneArea,
-                    "UnitTypeData_krblnd": formObj.totalKarabArea,
-                    "UnitTypeData_lndconv": formObj.landConverted,
-                    "UnitTypeData_convordr": formObj.conversionOrderDocNo,
-                    "UnitTypeData_convordrdt": formObj.conversionOrderDocDt,
-                    "UnitTypeData_planappvd": formObj.planApproved,
-                    "UnitTypeData_lstplappv": [{
-                        "plnappno": formObj.planApproveNo,
-                        "plnappdt": formObj.planApproveDt,
-                        "plnappaut": formObj.planApproveAuth
-                    }],
-                    "UnitTypeData_noc": formObj.nocObtained,
-                    "UnitTypeData_lstnoc": [{
-                        "nocdt": formObj.nocDate,
-                        "nocdocno": formObj.nocDocNo
-                    }],
-                    "UnitTypeData_rlqyn": formObj.relinquish,
-                    "UnitTypeData_lstlreq": [{
-                        "reqsno": formObj.docNum,
-                        "reqdocndt": formObj.docDate
-                    }],
-                    "UnitTypeData_lstrel": [{
-                        "relsno": "xx2",
-                        "relesnoplots": "xx4"
-                    }],
-                    "UnitTypeData_ttlsalearea": formObj.totalSaleArea,
-                    "UnitTypeData_ttlplots": formObj.totalPlots,
-                    "UnitTypeData_areafrroads": formObj.areaOfRoads,
-                    "UnitTypeData_araafrprks": formObj.areaOfParks,
-                    "UnitTypeData_arafrcivicamn": formObj.areaOfCivicAmen,
-                    "UnitTypeData_sprbltupara": formObj.superBuiltArea,
-                    "UnitTypeData_grdnara": formObj.gardenArea,
-                    "UnitTypeData_terara": formObj.terraceArea,
-                    "UnitTypeData_tergrdn": formObj.terraceGarden,
-                    "UnitTypeData_crptara": formObj.carpetArea,
-                    "UnitTypeData_pltnara": formObj.plinthArea,
-                    "UnitTypeData_noflors": formObj.noOfFloors,
-                    "UnitTypeData_nobdrms": formObj.noOfBedrooms,
-                    "UnitTypeData_cmnbtrms": formObj.commonBathrooms,
-                    "UnitTypeData_attchbtrms": formObj.attachedBathrooms,
-                    "UnitTypeData_srvntroom": formObj.servantRoom,
-                    "UnitTypeData_carprkara": formObj.carParkingArea,
-                    "UnitTypeData_Id": 0
-                }
-            }).success(function(data) {
-//                console.log(data);
-                angular.element(".loader").hide();
-                $state.go("/UnitGeneration", {
+    $scope.saveNextData = function(){
+         $state.go("/UnitGeneration", {
                     projId: projectId,
                     phaseId: phaseId,
                     Ugid :0
                 });
-            }).error(function() {
-                alert("Something went wrong.");
-                angular.element(".loader").hide();
-            });
-        } else {
-            alert("Not valid Form.");
-            console.log(formName.$error);
-        }
+        
     };
+    //     $scope.saveNextData = function(formObj, formName) {
+//        $scope.submit = true;
+//        console.log(formObj);
+//        if ($scope[formName].$valid) {
+//            //            alert("Valid Form");
+//            angular.element(".loader").show();
+//            $http({
+//                method: "POST",
+//                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
+//                ContentType: 'application/json',
+//                data: {
+//                    "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
+//                    "UnitTypeData_Phase_Id": phaseId,
+//                    "UnitTypeData_ownrnm": formObj.ownerName,
+//                    "UnitTypeData_sowodo": formObj.ownerSowodo,
+//                    "UnitTypeData_dob": formObj.ownerDob,
+//                    "UnitTypeData_add": formObj.ownerAddress,
+//                    "UnitTypeData_pan": formObj.ownerPan,
+//                    "UnitTypeData_minor": formObj.minor,
+//                    "UnitTypeData_grdnm": formObj.guardianName,
+//                    "UnitTypeData_gunsowodo": formObj.guardianSowodo,
+//                    "UnitTypeData_gundob": formObj.guardianDob,
+//                    "UnitTypeData_gunadd": formObj.guardianAddress,
+//                    "UnitTypeData_gunpan": formObj.guardianPan,
+//                    "UnitTypeData_gunrltnminor": formObj.relationshipWithMinor,
+//                    "UnitTypeData_ttllndar": formObj.totalLandArea,
+//                    "UnitTypeData_ttlhynlnd": formObj.totalHyneArea,
+//                    "UnitTypeData_krblnd": formObj.totalKarabArea,
+//                    "UnitTypeData_lndconv": formObj.landConverted,
+//                    "UnitTypeData_convordr": formObj.conversionOrderDocNo,
+//                    "UnitTypeData_convordrdt": formObj.conversionOrderDocDt,
+//                    "UnitTypeData_planappvd": formObj.planApproved,
+//                    "UnitTypeData_lstplappv": [{
+//                        "plnappno": formObj.planApproveNo,
+//                        "plnappdt": formObj.planApproveDt,
+//                        "plnappaut": formObj.planApproveAuth
+//                    }],
+//                    "UnitTypeData_noc": formObj.nocObtained,
+//                    "UnitTypeData_lstnoc": [{
+//                        "nocdt": formObj.nocDate,
+//                        "nocdocno": formObj.nocDocNo
+//                    }],
+//                    "UnitTypeData_rlqyn": formObj.relinquish,
+//                    "UnitTypeData_lstlreq": [{
+//                        "reqsno": formObj.docNum,
+//                        "reqdocndt": formObj.docDate
+//                    }],
+//                    "UnitTypeData_lstrel": [{
+//                        "relsno": "xx2",
+//                        "relesnoplots": "xx4"
+//                    }],
+//                    "UnitTypeData_ttlsalearea": formObj.totalSaleArea,
+//                    "UnitTypeData_ttlplots": formObj.totalPlots,
+//                    "UnitTypeData_areafrroads": formObj.areaOfRoads,
+//                    "UnitTypeData_araafrprks": formObj.areaOfParks,
+//                    "UnitTypeData_arafrcivicamn": formObj.areaOfCivicAmen,
+//                    "UnitTypeData_sprbltupara": formObj.superBuiltArea,
+//                    "UnitTypeData_grdnara": formObj.gardenArea,
+//                    "UnitTypeData_terara": formObj.terraceArea,
+//                    "UnitTypeData_tergrdn": formObj.terraceGarden,
+//                    "UnitTypeData_crptara": formObj.carpetArea,
+//                    "UnitTypeData_pltnara": formObj.plinthArea,
+//                    "UnitTypeData_noflors": formObj.noOfFloors,
+//                    "UnitTypeData_nobdrms": formObj.noOfBedrooms,
+//                    "UnitTypeData_cmnbtrms": formObj.commonBathrooms,
+//                    "UnitTypeData_attchbtrms": formObj.attachedBathrooms,
+//                    "UnitTypeData_srvntroom": formObj.servantRoom,
+//                    "UnitTypeData_carprkara": formObj.carParkingArea,
+//                    "UnitTypeData_Id": 0
+//                }
+//            }).success(function(data) {
+////                console.log(data);
+//                angular.element(".loader").hide();
+//                $state.go("/UnitGeneration", {
+//                    projId: projectId,
+//                    phaseId: phaseId,
+//                    Ugid :0
+//                });
+//            }).error(function() {
+//                alert("Something went wrong.");
+//                angular.element(".loader").hide();
+//            });
+//        } else {
+//            alert("Not valid Form.");
+//            console.log(formName.$error);
+//        }
+//    };
 });
 
 app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, myService) {
@@ -1144,90 +1160,92 @@ app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $s
         }
     };
     
-    
-    $scope.editPhaseNext =function(formObj, formName) {
-         $scope.submit = true;
-        console.log(formObj);
-        if ($scope[formName].$valid) {
-            //            alert("Valid Form");
-            angular.element(".loader").show();
-            $http({
-                method: "POST",
-                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
-                ContentType: 'application/json',
-                data: {
-                    "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
-                    "UnitTypeData_Phase_Id": phaseId,
-                    "UnitTypeData_ownrnm": formObj.ownerName,
-                    "UnitTypeData_sowodo": formObj.ownerSowodo,
-                    "UnitTypeData_dob": formObj.ownerDob,
-                    "UnitTypeData_add": formObj.ownerAddress,
-                    "UnitTypeData_pan": formObj.ownerPan,
-                    "UnitTypeData_minor": formObj.minor,
-                    "UnitTypeData_grdnm": formObj.guardianName,
-                    "UnitTypeData_gunsowodo": formObj.guardianSowodo,
-                    "UnitTypeData_gundob": formObj.guardianDob,
-                    "UnitTypeData_gunadd": formObj.guardianAddress,
-                    "UnitTypeData_gunpan": formObj.guardianPan,
-                    "UnitTypeData_gunrltnminor": formObj.relationshipWithMinor,
-                    "UnitTypeData_ttllndar": formObj.totalLandArea,
-                    "UnitTypeData_ttlhynlnd": formObj.totalHyneArea,
-                    "UnitTypeData_krblnd": formObj.totalKarabArea,
-                    "UnitTypeData_lndconv": formObj.landConverted,
-                    "UnitTypeData_convordr": formObj.conversionOrderDocNo,
-                    "UnitTypeData_convordrdt": formObj.conversionOrderDocDt,
-                    "UnitTypeData_planappvd": formObj.planApproved,
-                    "UnitTypeData_lstplappv": [{
-                        "plnappno": formObj.planApproveNo,
-                        "plnappdt": formObj.planApproveDt,
-                        "plnappaut": formObj.planApproveAuth
-                    }],
-                    "UnitTypeData_noc": formObj.nocObtained,
-                    "UnitTypeData_lstnoc": [{
-                        "nocdt": formObj.nocDate,
-                        "nocdocno": formObj.nocDocNo
-                    }],
-                    "UnitTypeData_rlqyn": formObj.relinquish,
-                    "UnitTypeData_lstlreq": [{
-                        "reqsno": formObj.docNum,
-                        "reqdocndt": formObj.docDate
-                    }],
-                    "UnitTypeData_lstrel": [{
-                        "relsno": "xx2",
-                        "relesnoplots": "xx4"
-                    }],
-                    "UnitTypeData_ttlsalearea": formObj.totalSaleArea,
-                    "UnitTypeData_ttlplots": formObj.totalPlots,
-                    "UnitTypeData_areafrroads": formObj.areaOfRoads,
-                    "UnitTypeData_araafrprks": formObj.areaOfParks,
-                    "UnitTypeData_arafrcivicamn": formObj.areaOfCivicAmen,
-                    "UnitTypeData_sprbltupara": formObj.superBuiltArea,
-                    "UnitTypeData_grdnara": formObj.gardenArea,
-                    "UnitTypeData_terara": formObj.terraceArea,
-                    "UnitTypeData_tergrdn": formObj.terraceGarden,
-                    "UnitTypeData_crptara": formObj.carpetArea,
-                    "UnitTypeData_pltnara": formObj.plinthArea,
-                    "UnitTypeData_noflors": formObj.noOfFloors,
-                    "UnitTypeData_nobdrms": formObj.noOfBedrooms,
-                    "UnitTypeData_cmnbtrms": formObj.commonBathrooms,
-                    "UnitTypeData_attchbtrms": formObj.attachedBathrooms,
-                    "UnitTypeData_srvntroom": formObj.servantRoom,
-                    "UnitTypeData_carprkara": formObj.carParkingArea,
-                    "UnitTypeData_Id": $scope.editTypeDataId
-                }
-            }).success(function(data) {
-                console.log(data);
-                angular.element(".loader").hide();
-                $state.go("/UnitGeneration", {
+    $scope.editPhaseNext =function(){
+         $state.go("/UnitGeneration", {
                     projId: projectId,
                     phaseId: phaseId
                 });
-            }).error(function() {
-                alert("Something went wrong.");
-                angular.element(".loader").hide();
-            });
-        } else {
-            alert("Not valid Form.");
-        }
-    };
+    }
+//    $scope.editPhaseNext =function(formObj, formName) {
+//         $scope.submit = true;
+//        console.log(formObj);
+//        if ($scope[formName].$valid) {
+//            //            alert("Valid Form");
+//            angular.element(".loader").show();
+//            $http({
+//                method: "POST",
+//                url: appConfig.baseUrl+"/Proj/UnitDt/Save",
+//                ContentType: 'application/json',
+//                data: {
+//                    "UnitTypeData_comp_guid": $cookieStore.get('comp_guid'),
+//                    "UnitTypeData_Phase_Id": phaseId,
+//                    "UnitTypeData_ownrnm": formObj.ownerName,
+//                    "UnitTypeData_sowodo": formObj.ownerSowodo,
+//                    "UnitTypeData_dob": formObj.ownerDob,
+//                    "UnitTypeData_add": formObj.ownerAddress,
+//                    "UnitTypeData_pan": formObj.ownerPan,
+//                    "UnitTypeData_minor": formObj.minor,
+//                    "UnitTypeData_grdnm": formObj.guardianName,
+//                    "UnitTypeData_gunsowodo": formObj.guardianSowodo,
+//                    "UnitTypeData_gundob": formObj.guardianDob,
+//                    "UnitTypeData_gunadd": formObj.guardianAddress,
+//                    "UnitTypeData_gunpan": formObj.guardianPan,
+//                    "UnitTypeData_gunrltnminor": formObj.relationshipWithMinor,
+//                    "UnitTypeData_ttllndar": formObj.totalLandArea,
+//                    "UnitTypeData_ttlhynlnd": formObj.totalHyneArea,
+//                    "UnitTypeData_krblnd": formObj.totalKarabArea,
+//                    "UnitTypeData_lndconv": formObj.landConverted,
+//                    "UnitTypeData_convordr": formObj.conversionOrderDocNo,
+//                    "UnitTypeData_convordrdt": formObj.conversionOrderDocDt,
+//                    "UnitTypeData_planappvd": formObj.planApproved,
+//                    "UnitTypeData_lstplappv": [{
+//                        "plnappno": formObj.planApproveNo,
+//                        "plnappdt": formObj.planApproveDt,
+//                        "plnappaut": formObj.planApproveAuth
+//                    }],
+//                    "UnitTypeData_noc": formObj.nocObtained,
+//                    "UnitTypeData_lstnoc": [{
+//                        "nocdt": formObj.nocDate,
+//                        "nocdocno": formObj.nocDocNo
+//                    }],
+//                    "UnitTypeData_rlqyn": formObj.relinquish,
+//                    "UnitTypeData_lstlreq": [{
+//                        "reqsno": formObj.docNum,
+//                        "reqdocndt": formObj.docDate
+//                    }],
+//                    "UnitTypeData_lstrel": [{
+//                        "relsno": "xx2",
+//                        "relesnoplots": "xx4"
+//                    }],
+//                    "UnitTypeData_ttlsalearea": formObj.totalSaleArea,
+//                    "UnitTypeData_ttlplots": formObj.totalPlots,
+//                    "UnitTypeData_areafrroads": formObj.areaOfRoads,
+//                    "UnitTypeData_araafrprks": formObj.areaOfParks,
+//                    "UnitTypeData_arafrcivicamn": formObj.areaOfCivicAmen,
+//                    "UnitTypeData_sprbltupara": formObj.superBuiltArea,
+//                    "UnitTypeData_grdnara": formObj.gardenArea,
+//                    "UnitTypeData_terara": formObj.terraceArea,
+//                    "UnitTypeData_tergrdn": formObj.terraceGarden,
+//                    "UnitTypeData_crptara": formObj.carpetArea,
+//                    "UnitTypeData_pltnara": formObj.plinthArea,
+//                    "UnitTypeData_noflors": formObj.noOfFloors,
+//                    "UnitTypeData_nobdrms": formObj.noOfBedrooms,
+//                    "UnitTypeData_cmnbtrms": formObj.commonBathrooms,
+//                    "UnitTypeData_attchbtrms": formObj.attachedBathrooms,
+//                    "UnitTypeData_srvntroom": formObj.servantRoom,
+//                    "UnitTypeData_carprkara": formObj.carParkingArea,
+//                    "UnitTypeData_Id": $scope.editTypeDataId
+//                }
+//            }).success(function(data) {
+//                console.log(data);
+//                angular.element(".loader").hide();
+//               
+//            }).error(function() {
+//                alert("Something went wrong.");
+//                angular.element(".loader").hide();
+//            });
+//        } else {
+//            alert("Not valid Form.");
+//        }
+//    };
     });

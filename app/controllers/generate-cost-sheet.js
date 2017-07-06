@@ -5,7 +5,7 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
     $scope.phaseId = $stateParams.phaseId;
     $scope.blockId = $stateParams.blockId;
     $scope.Ugid = $stateParams.Ugid;
-    $scope.activeBtn=true;
+   // $scope.activeBtn=true;
     $scope.pressCount=0;
       $scope.stepsData = [
 		{
@@ -119,39 +119,13 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
         });
     }
      $scope.generateCostSheetUnitsNext = function(templId) {
-        angular.element(".loader").show();
-        $http({
-            method: "POST",
-            url: appConfig.baseUrl+"/Proj/Blk/BldValforUtCtSt",
-            ContentType: 'application/json',
-            data: {
-                "untctcm_comp_guid": $cookieStore.get('comp_guid'),
-                "untctcm_Blocks_Id": parseInt(blockId),
-                "untctcm_Id": templId
-            }
-        }).success(function(data) {
-            console.log(data);
-            var res = data.Comm_ErrorDesc;
-            var resSplit = res.split('|');
-            if (resSplit[0] == 0) {
-                
-                $scope.getUnitsWithCostSheet(blockId);
-                $state.go('/BlockStage',{
+         $state.go('/BlockStage',{
                 "projId": $stateParams.projectId,
                 "phaseId": $stateParams.phaseId,
                 "blockId": $stateParams.blockId,
                 "Ugid" : $stateParams.Ugid
-            });          
-            }
-            $scope.pressCount=1;
-            angular.element(".loader").hide();
-        }).error(function() {
-            angular.element(".loader").hide();
-        });
-    }
+            });   }
 });
-
-
 app.controller("generatedCostSheetDetailsCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
     $scope.title = "Generated Cost Sheet Details";
     var blockId = $stateParams.blockId;
