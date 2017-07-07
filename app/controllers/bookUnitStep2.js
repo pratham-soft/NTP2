@@ -285,7 +285,7 @@ app.controller("bookUnitStep2Ctrl", function($scope,  $http, $rootScope, $stateP
                     "user_last_name": formObj.lastName,
                     "user_mobile_no":formObj.mobileNumber,
                     "user_email_address": formObj.emailId,
-                    "Cust_User_Id": $scope.leadId,
+                    "Cust_User_Id": prospectId,
                     "Cust_comp_guid": $cookieStore.get('comp_guid'),
                     "Cust_User_Id_Assgnto": 1,
                     "Cust_relationtype": relationType,

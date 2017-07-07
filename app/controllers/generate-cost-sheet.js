@@ -64,7 +64,7 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
                 "Blocks_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            console.log(data);
+           // console.log(data);
             $scope.showGrid = true;
             for(var i =0;i<data.length;i++){
                 if(data[i].UnitDtls_Premium==0){
@@ -106,7 +106,7 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
                 "untctcm_Id": templId
             }
         }).success(function(data) {
-            console.log(data);
+           // console.log(data);
             var res = data.Comm_ErrorDesc;
             var resSplit = res.split('|');
             if (resSplit[0] == 0) {
@@ -159,7 +159,7 @@ app.controller("generatedCostSheetDetailsCtrl", function($scope,  $http, $cookie
                 "Blocks_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            console.log(data);
+            //console.log(data);
             $scope.showGrid = true;
             for(var i =0;i<data.length;i++){
                 if(data[i].UnitDtls_Premium==0){
@@ -233,7 +233,7 @@ app.controller("unitCostSheetCtrl", function($scope,  $http, $cookieStore, $stat
                 "UnitDtls_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-            console.log("Atul Test " + JSON.stringify(data));
+            //console.log("Atul Test " + JSON.stringify(data));
             $scope.unitCostSheetDetail = data;
         $scope.unitCostSheetDetail["unitTotalAmtinWords"]=myService.convertNumberToWords($scope.unitCostSheetDetail.unitcostcal_custtotcost);
             angular.element(".loader").hide();

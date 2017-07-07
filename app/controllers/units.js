@@ -159,7 +159,8 @@ $scope.stepsData = [
             ContentType: 'application/json',
             data: unitsData
         }).success(function(data) {
-            console.log(data);
+            alert("Unit Details Saved");
+            //console.log(data);
 //            $state.go("/ApplyCostSheet", {
 //                "projectId": $stateParams.projId,
 //                "phaseId": $stateParams.phaseId,

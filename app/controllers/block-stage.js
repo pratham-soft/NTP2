@@ -301,6 +301,12 @@ $scope.blockId =$stateParams.blockId;
 
 
     $scope.addBlockStage = function(formObj, formName) {
+         var pymtschdValue = formObj.PaymentScheduleCalcValue;
+         var pymtschdCalcTypeValue =1;
+        if(pymtschdValue.includes('%'))
+            {
+             pymtschdCalcTypeValue=0;
+            }
         $scope.submit = true;
         if ($scope[formName].$valid) {
             angular.element(".loader").show();
@@ -313,7 +319,8 @@ $scope.blockId =$stateParams.blockId;
                     "blockstageName": formObj.name,
                     "blocksatgeCompleted": parseInt(formObj.completed),
                     "blockstageBlockId": item.blockId,
-                    "PaymentScheduleCalcValue":formObj.PaymentScheduleCalcValue
+                    "PaymentScheduleCalcValue":formObj.PaymentScheduleCalcValue,
+                    "PaymentScheduleCalcTypeValue" : pymtschdCalcTypeValue
                 }
             }).success(function(data) {
                 $uibModalInstance.close();

@@ -170,7 +170,7 @@
               <tr>
                 <td>Payment schedule Value</td>
                 <td>
-                  <input type="text" placeholder="" class="form-control" ng-model="blockStage.PaymentScheduleCalcValue" placeholder="Payment Schedule Value" ng-required="true" ng-class="{blankInput: blockStageForm.paymentScheduleValue.$error.required &amp;&amp; submit}" />
+                  <input type="text" name="PaymentScheduleCalcValue" placeholder="" class="form-control" ng-model="blockStage.PaymentScheduleCalcValue" placeholder="Payment Schedule Value" ng-required="true" ng-class="{blankInput: blockStageForm.PaymentScheduleCalcValue.$error.required &amp;&amp; submit}" />
                 </td>
              </tr>
               <tr>
@@ -188,10 +188,12 @@
      </form>
      </div>
     <div class="modal-footer" ng-show="blkStage.action == 'add'">
-          <button class="btn btn-primary" type="button" ng-click="addBlockStage(blockStage, 'blockStageForm')">Add Block Stage</button>
+          <button class="btn btn-primary" type="button" ng-click="addBlockStage(blockStage, 'blockStageForm')">Save</button>
+        <button type="button" class="btn btn-primary" ng-click="ok()">Close</button>
        </div>
        <div class="modal-footer" ng-show="blockStage.action == 'edit'">
           <button class="btn btn-primary" type="button" ng-click="editBlockStage(blockStage, 'blockStageForm')">Edit Block Stage</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">Close</button>
        </div>
 <!--
     <div class="modal-footer" ng-show="blockStage.action == 'add'">

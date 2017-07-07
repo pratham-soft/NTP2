@@ -126,14 +126,15 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
                     "LstofBlocks": blockLst
                 }
             }).success(function(data) {
-                console.log(data);
+               // console.log(data);
                 $scope.addPhaseResult = data;
                 angular.element(".loader").hide();
-                if ($scope.addPhaseResult.Comm_ErrorDesc.match('0|')) {
+                if ($scope.addPhaseResult.Comm_ErrorDesc.match('0|0')) {
 //                    $state.go("/EditUnit", {
 //                        projId: Phase_Proj_Id,
 //                        phaseId: Phase_Id
 //                    });
+                     alert("Your Block Data Saved");
                 } else {
                     alert("Something went wrong.");
                 }
