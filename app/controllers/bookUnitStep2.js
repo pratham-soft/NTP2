@@ -5,6 +5,7 @@ app.controller("bookUnitStep2Ctrl", function($scope,  $http, $rootScope, $stateP
 	var prospectId = $cookieStore.get('prospectId');
     $scope.exchangeUnit=$cookieStore.get('skip3rdStep');
     
+    
     if($cookieStore.get('skip3rdStep') != undefined){
      var skip3rdStep=$cookieStore.get('skip3rdStep'); // It's true here ,  and Its mean exchange will happen. and Cust already exists
      $scope.exchangeUnit=true;
@@ -173,7 +174,8 @@ app.controller("bookUnitStep2Ctrl", function($scope,  $http, $rootScope, $stateP
                     "Cust_gpa_permadd": formObj.permanentAddress,
                     "Cust_gpa_reltnwithcusty": formObj.relationWithcustomer,
                     "Cust_gpa_pan": formObj.gpaPan,
-                    "Cust_gpa_aadhar": formObj.gpaAadhar
+                    "Cust_gpa_aadhar": formObj.gpaAadhar,
+                     "unitdtls_id" : unitObj.UnitDtls_Id
                 }
             }).success(function(data) {
                 if(skip3rdStep==false){
