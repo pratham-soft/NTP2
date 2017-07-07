@@ -66,7 +66,7 @@ app.controller("exchangeUnitCtrl", function($scope,  $http, $state, $cookieStore
             $scope.phaseList = response.data;
             $scope.projectDetails.phase=parseInt($scope.phaseId);
 			
-			alert($scope.phaseId);
+		//	alert($scope.phaseId);
             $scope.blockListFun($scope.phaseId);
 			
 			
