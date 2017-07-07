@@ -131,8 +131,8 @@ app.controller("bookUnitStep1Ctrl", function($scope,  $rootScope, $stateParams, 
        // $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + obj2.cstcmpcalcval20);
         $scope.updatedCostSheetObj.Untctcm_val_formula20 = parseFloat(obj.discountVal + previous_discount);
         $scope.updatedCostSheetObj.Untctcm_comments20 = "";
-        
-        console.log(JSON.stringify($scope.updatedCostSheetObj));
+        $scope.updatedCostSheetObj.untctcm_cust_Id =$scope.prospectId;
+      //  console.log(JSON.stringify($scope.updatedCostSheetObj));
 		httpSvc.generateCustomerCostSheet($scope.updatedCostSheetObj).then(function(response) {
 			var res = response.data.Comm_ErrorDesc;
 			resArr = res.split('|');
