@@ -112,9 +112,14 @@
                          <td class="text-center">
                         <a class="link" ng-click="UniqueCostSheet(unit,lead.user_id)">View</a>
                         </td>
-						<td>
+						<td ng-show="unit.ProjDtl_Status!=7">
 							<button type="button" class="btn btn-success" ng-click="bookUnit(unit,lead.user_id)">
 								Book Unit
+							</button>
+						</td>
+                        <td ng-show="unit.ProjDtl_Status==7">
+							<button type="button" class="btn btn-success" ng-click="bookUnit(unit,lead.user_id)">
+								Cancel Unit
 							</button>
 						</td>
                     </tr>

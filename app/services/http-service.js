@@ -156,6 +156,19 @@ app.service('httpSvc', function($http) {
         return promise;
     }
     
+      this.BookingCheck = function(obj){
+       
+        var promise = $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Proj/Block/UnitStatus/Singunit",
+            ContentType: 'application/json',
+            data: obj
+        }).success(function(data) {        
+            apiRsponse = data;
+            return apiRsponse;
+        }).error(function() {});
+        return promise;
+    }
     
 });
 	

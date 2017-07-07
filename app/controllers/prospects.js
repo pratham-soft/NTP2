@@ -1,4 +1,4 @@
-app.controller("updateProspectsCtrl", function($scope,  $http, $cookieStore, $uibModal,$state) {
+app.controller("updateProspectsCtrl", function($scope,  $http, $cookieStore, $uibModal,$state,httpSvc) {
     $scope.searchLead = '';//set the default search/filter term
     $scope.selected=[];//stores checked items only
     $scope.salesfunnelnameValues=[];
@@ -265,7 +265,7 @@ app.controller("updateProspectsCtrl", function($scope,  $http, $cookieStore, $ui
   
     
 });
-app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter,$uibModal, encyrptSvc) {
+app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter,$uibModal, encyrptSvc,httpSvc) {
     $scope.timeslots = ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '07:00 PM', '07:30 PM', '08:30 PM'];
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
@@ -317,6 +317,7 @@ app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state
         $uibModalInstance.close();
     };
 
+   
     $scope.deleteRow = function(rowId) {
         angular.element("tr#" + rowId).remove();
     };
@@ -428,11 +429,35 @@ app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state
      var leadFullName=$scope.lead.user_first_name+' '+$scope.lead.user_middle_name+' '+$scope.lead.user_last_name;
 	
 	$scope.bookUnit = function(unitObj,prospectId){
-		$uibModalInstance.close();
-        $cookieStore.put("leadName",leadFullName)
-		$cookieStore.put("unitObj",unitObj);
-		$cookieStore.put("prospectId",prospectId);
-		$state.go('/BookUnit-Step1');
+         var objBookingCheck={};
+        objBookingCheck.UnitDtls_Id=unitObj.UnitDtls_Id;
+        objBookingCheck.UnitDtls_comp_guid=$cookieStore.get('comp_guid');
+          httpSvc.BookingCheck(objBookingCheck).then(function(response) {
+            var data = response.data;
+            if((data.UnitDtls_Status == 7))
+                { 
+                 if ((data.UnitDtls_Cust_UserId == prospectId))
+                        {
+                           $uibModalInstance.close();
+                           $cookieStore.put("leadName",leadFullName)
+                           $cookieStore.put("unitObj",unitObj);
+                           $cookieStore.put("prospectId",prospectId);
+                           $state.go('/BookUnit-Step1');   
+                        }
+                    else{
+                         alert("Booking is under progress for this Unit by another Customer. ");
+                    }
+                  
+                 }
+            else{
+                  $uibModalInstance.close();
+                   $cookieStore.put("leadName",leadFullName)
+                   $cookieStore.put("unitObj",unitObj);
+                   $cookieStore.put("prospectId",prospectId);
+                   $state.go('/BookUnit-Step1');  
+                }
+              });
+		
 	}
        $scope.viewUnitCostSheet = function(item) {
         var modalInstance = $uibModal.open({
