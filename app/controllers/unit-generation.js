@@ -1,58 +1,70 @@
-app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService) {
+app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService, encyrptSvc) {
    $scope.Ugid = $stateParams.Ugid;
     $scope.untDetails = [];
-    $scope.projectId = $stateParams.projId;
-    $scope.phaseId = $stateParams.phaseId;
-    $scope.blockId = $stateParams.blockId;
+    $scope.projectId = encyrptSvc.decyrpt($stateParams.projId);
+    $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
+    //$scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
     $scope.plotvillaReleaseNo = 0;
     $scope.showHideFormula = true;
     var unitNosArr = [];
     var plotsNosArr = [];
- $scope.stepsData = [
+   
+    $scope.stepsData = [
 		{
-			stepName: "Phase",
-			status: "done"
+			stepName: "Add Phase      ",
+			status: "done",
+            Num: "1"
 		},
 		{
 			stepName: "Phase Details",
-			status: "done"
+			status: "done",
+            Num: "2"
 		},
 		{
 			stepName: "Unit Generation",
-			status: "active"
+			status: "active",
+            Num: "3"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "4"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "5"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "6"
 		}
 	];
-
-    $scope.stepsDataEdit = [
+ 
+$scope.stepsDataEdit = [
 		{
 			stepName: "Unit Generation",
-			status: "active"
+			status: "active",
+            Num: "1"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "2"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "3"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "4"
 		}
 	];
+   
 
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
@@ -622,9 +634,10 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
             console.log(resSplit[0]);
             if (resSplit[0] == 0) {
                 $state.go("/Units", {
-                    projId: $scope.projectId,
-                    phaseId: $scope.phaseId,
-                    blockId: parentObj.block
+                    projId: encyrptSvc.encyrpt($scope.projectId),
+                    phaseId: encyrptSvc.encyrpt($scope.phaseId),
+                    blockId: encyrptSvc.encyrpt(parentObj.block),
+                    Ugid: encyrptSvc.encyrpt($scope.Ugid)
                 });
             }
         }).error(function() {
@@ -715,11 +728,12 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
         });
     }
     $scope.addBlockUnitNext = function(formObj, formName, parentObj){
+        $scope.blockId = parentObj.block;
         $state.go("/ApplyCostSheet", {
-                "projectId": $stateParams.projId,
-                "phaseId": $stateParams.phaseId,
-                "blockId": parentObj.block,
-                "Ugid": $stateParams.Ugid
+                "projectId": encyrptSvc.encyrpt($scope.projectId),
+                "phaseId": encyrptSvc.encyrpt($scope.phaseId),
+                "blockId": encyrptSvc.encyrpt($scope.blockId),
+                "Ugid": encyrptSvc.encyrpt($scope.Ugid)
             });
     }
     

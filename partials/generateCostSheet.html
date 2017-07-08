@@ -7,21 +7,33 @@
       <li class="active">{{title}}</li>
    </ol>
 </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30" ng-show="Ugid==0">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30 text-center" ng-show="Ugid==0">
    <div class="steps">
-      <div class="" ng-repeat="step in stepsData">
-         <div class="step {{step.status}}">{{step.stepName}}</div>
-         <div class="seperator1"></div>
+      <div class="" ng-repeat="step in stepsData track by $index" >
+          <div class="step {{step.status}}">{{step.Num}}</div>
+          <div ng-show="$index<5" class="seperator1"></div>
+        <div ng-show="$index==5" style="width: 60px;position: relative;top: -50px; display: inline-block;"> </div>
       </div>
    </div>
+    <div class="steps">
+    <div class="" ng-repeat="step in stepsData">
+        <div class="step1 {{step.status}}">{{step.stepName}}</div>
+        </div>
+    </div>
 </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30" ng-show="Ugid==1">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30 text-center" ng-show="Ugid==1">
    <div class="steps">
-      <div class="" ng-repeat="step in stepsDataEdit">
-         <div class="step {{step.status}}">{{step.stepName}}</div>
-         <div class="seperator1"></div>
+      <div class="" ng-repeat="step in stepsDataEdit track by $index" >
+          <div class="step {{step.status}}">{{step.Num}}</div>
+          <div ng-show="$index<3" class="seperator1"></div>
+        <div ng-show="$index==3" style="width: 60px;position: relative;top: -50px; display: inline-block;"> </div>
       </div>
    </div>
+    <div class="steps">
+    <div class="" ng-repeat="step in stepsDataEdit">
+        <div class="step1 {{step.status}}">{{step.stepName}}</div>
+        </div>
+    </div>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop20" ng-show="showGrid">
        <table class="table">

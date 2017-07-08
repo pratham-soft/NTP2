@@ -1,11 +1,12 @@
 
-app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService, encyrptSvc) {
     $scope.title = "Unit Listing After Edit";
-    var blockId = $stateParams.blockId;
-     $scope.projectId = $stateParams.projectId;
-    $scope.phaseId = $stateParams.phaseId;
-    $scope.blockId =$stateParams.blockId;
-    $scope.Ugid = $stateParams.Ugid;
+    
+     $scope.projectId = encyrptSvc.decyrpt($stateParams.projectId);
+    $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
+    $scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
+    $scope.Ugid = encyrptSvc.decyrpt($stateParams.Ugid);
+    
 //    ($scope.getBlockCostSheet = function() {
 //        angular.element(".loader").show();
 //        $http({
@@ -26,13 +27,13 @@ app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore
 //    })();
 
     ($scope.getUnitsWithCostSheet = function() {
-        angular.element(".loader").show();
+       // angular.element(".loader").show();
         $http({
             method: "POST",
             url: appConfig.baseUrl+"/Proj/Blk/UntdtlsViewGrd/Gt",
             ContentType: 'application/json',
             data: {
-                "Blocks_Id": blockId,
+                "Blocks_Id": $scope.blockId,
                 "Blocks_comp_guid": $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
@@ -68,56 +69,67 @@ app.controller("unitListingAfterEditCtrl", function($scope,  $http, $cookieStore
     };
     $scope.addBlockUnitsNext= function(){
         $state.go('/BlockStage',{
-                "projId": $stateParams.projectId,
-                "phaseId": $stateParams.phaseId,
-                "blockId": $stateParams.blockId,
-                "Ugid": $stateParams.Ugid
+                "projId": encyrptSvc.encyrpt($scope.projectId),
+                "phaseId":encyrptSvc.encyrpt($scope.phaseId),
+                "blockId": encyrptSvc.encyrpt($scope.blockId),
+                "Ugid": encyrptSvc.encyrpt($scope.Ugid)
     });
     }
         
+  
      $scope.stepsData = [
 		{
-			stepName: "Phase",
-			status: "done"
+			stepName: "Add Phase      ",
+			status: "done",
+            Num: "1"
 		},
 		{
 			stepName: "Phase Details",
-			status: "done"
+			status: "done",
+            Num: "2"
 		},
 		{
 			stepName: "Unit Generation",
-			status: "done"
+			status: "done",
+            Num: "3"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "done"
+			status: "done",
+            Num: "4"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "active"
+			status: "active",
+            Num: "5"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "6"
 		}
-	];     
+	];
     $scope.stepsDataEdit = [
 		
 		{
 			stepName: "Unit Generation",
-			status: "done"
+			status: "done",
+            Num: "1"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "done"
+			status: "done",
+            Num: "2"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "active"
+			status: "active",
+            Num: "3"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "4"
 		}
 	];
     $scope.nextPayBlock = function(block) {

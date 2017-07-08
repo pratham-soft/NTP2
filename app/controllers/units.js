@@ -1,30 +1,39 @@
-app.controller("unitsCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService) {
-    $scope.title = "Units";
-    $scope.Ugid = $stateParams.Ugid;
-$scope.stepsData = [
+app.controller("unitsCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService, encyrptSvc) {
+    $scope.title = "Unit Generation";
+     $scope.projId = encyrptSvc.decyrpt($stateParams.projId);
+    $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
+    $scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
+     $scope.Ugid = encyrptSvc.decyrpt($stateParams.Ugid);
+        $scope.stepsData = [
 		{
 			stepName: "Phase",
-			status: "done"
+			status: "done",
+            Num: "1"
 		},
 		{
 			stepName: "Phase Details",
-			status: "done"
+			status: "done",
+            Num: "2"
 		},
 		{
 			stepName: "Unit Generation",
-			status: "active"
+			status: "active",
+            Num: "3"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "4"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "5"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "6"
 		}
 	];
     $scope.projectListFun = function() {
@@ -51,22 +60,22 @@ $scope.stepsData = [
         });
     };
 
-    if ($stateParams.projId != "") {
+    if ($scope.projId != "") {
         $scope.projectListFun();
         $scope.disableProject = true;
     }
-    if ($stateParams.phaseId != "") {
-        $scope.phaseListFun($stateParams.projId);
+    if ($scope.phaseId != "") {
+        $scope.phaseListFun($scope.projId);
         $scope.disablePhase = true;
     }
-    if ($stateParams.blockId != "") {
-        $scope.blockListFun($stateParams.phaseId, $cookieStore.get('comp_guid'));
+    if ($scope.blockId != "") {
+        $scope.blockListFun($scope.phaseId, $cookieStore.get('comp_guid'));
         $scope.disableBlock = true;
     }
     $scope.unts = {
-        projectName: $stateParams.projId,
-        phase: $stateParams.phaseId,
-        block: $stateParams.blockId
+        projectName: $scope.projId,
+        phase: $scope.phaseId,
+        block: $scope.blockId
     };
     $scope.unitListFun = function(compId, blockId) {
         angular.element(".loader").show();
@@ -104,13 +113,13 @@ $scope.stepsData = [
         });
     };
 
-    $scope.unitListFun($cookieStore.get('comp_guid'), $stateParams.blockId);
+    $scope.unitListFun($cookieStore.get('comp_guid'), $scope.blockId);
  $scope.addBlockUnit = function(formObj, formName, parentObj){
                                   $state.go("/ApplyCostSheet", {
-                "projectId": $stateParams.projId,
-                "phaseId": $stateParams.phaseId,
-                "blockId": $stateParams.blockId,
-                "Ugid" : $stateParams.Ugid
+                "projectId": encyrptSvc.encyrpt($scope.projId),
+                "phaseId": encyrptSvc.encyrpt($scope.phaseId),
+                "blockId": encyrptSvc.encyrpt($scope.blockId),
+                "Ugid" : encyrptSvc.encyrpt($scope.Ugid)
             });
                                  
 }
@@ -134,8 +143,8 @@ $scope.stepsData = [
 //        }).success(function(data) {
 //            console.log(data);
 //            $state.go("/ApplyCostSheet", {
-//                "projectId": $stateParams.projId,
-//                "phaseId": $stateParams.phaseId,
+//                "projectId": $scope.projId,
+//                "phaseId": $scope.phaseId,
 //                "blockId": $stateParams.blockId,
 //                "Ugid" : $stateParams.Ugid
 //            });
@@ -162,8 +171,8 @@ $scope.stepsData = [
             alert("Unit Details Saved");
             //console.log(data);
 //            $state.go("/ApplyCostSheet", {
-//                "projectId": $stateParams.projId,
-//                "phaseId": $stateParams.phaseId,
+//                "projectId": $scope.projId,
+//                "phaseId": $scope.phaseId,
 //                "blockId": $stateParams.blockId
 ////            });
         }).error(function() {});
