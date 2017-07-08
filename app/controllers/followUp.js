@@ -424,7 +424,8 @@ app.controller("followUpCtrl", function($scope,  $http, $cookieStore, $state, $s
             url: appConfig.baseUrl+"/Comp/FollowupGet",
             ContentType: 'application/json',
             data: {
-                "schedule_comp_guid":$cookieStore.get('comp_guid')
+                "schedule_comp_guid":$cookieStore.get('comp_guid'),
+               "schedule_user_id_crtdby":$cookieStore.get('user_id')
             }
         }).success(function(data) {
             console.log(data);
