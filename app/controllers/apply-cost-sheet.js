@@ -162,7 +162,7 @@ $scope.stepsDataEdit = [
     ($scope.checkBlockUnits = function() {
         var compId = $cookieStore.get('comp_guid');
         angular.element(".loader").show();
-        myService.getUnitsByBlock(compId, $stateParams.blockId).then(function(response) {
+        myService.getUnitsByBlock(compId, $scope.blockId).then(function(response) {
             var blockFloorNumberArr = [];
             var blockFloors = response.data[1].Blocks_Floors;
             for (i = 1; i <= blockFloors; i++) {

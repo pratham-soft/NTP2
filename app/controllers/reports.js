@@ -57,11 +57,12 @@ app.controller("leadsGeneratedRepCtrl", function($scope, $http, $cookieStore, $s
             alert("Please Select Some Seach Parameter")
         }
     });
-
+$scope.getLeadList = function();
 });
+
 app.controller("unitsBlockedReportCtrl", function($scope) {});
 app.controller("custRepCtrl", function($scope) {});
-app.controller("unitsAvailReportCtrl", function($scope,$http,$cookieStore) {
+app.controller("unitsAvailReportCtrl", function($scope,$http,$cookieStore) {    
      ($scope.getunitAvailableList = function(unitAvailable) {
         if(unitAvailable!= undefined)
             {   
@@ -109,6 +110,7 @@ app.controller("unitsAvailReportCtrl", function($scope,$http,$cookieStore) {
         }
     
 });
+    
 });
 app.controller("agentReportCtrl", function($scope) {});
 app.controller("employeeReportCtrl", function($scope) {});
