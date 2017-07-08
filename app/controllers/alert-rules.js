@@ -1051,7 +1051,10 @@ app.controller("scheduleCtrl", function($scope,  $http, $cookieStore, $state, $s
     var actionId = $stateParams.actionId;
     $scope.minDate = new Date().toDateString();
     
-    if(actionId==20 || actionId==31 || actionId==25 || actionId == 27 || actionId == 28 || actionId== 19){
+    if(actionId==22 || actionId==29){
+        $scope.hideFreq=false;
+    }
+    else{
         $scope.hideFreq=true;
     }
     
@@ -1099,16 +1102,16 @@ app.controller("scheduleCtrl", function($scope,  $http, $cookieStore, $state, $s
     
   
     
-    $scope.checkErr = function(startDate,endDate) {
-    $scope.errMessage = '';
-   
-    startDate = startDate.split("/").reverse().join("-");
-    endDate = endDate.split("/").reverse().join("-");  
-    if((new Date(startDate) > new Date(endDate)) && (endDate!= "0001-01-01")){
-      alert('End Date should be greater than start date'); 
-        $scope.scheduleAlert.execEndDate='';
-    }
-};
+//    $scope.checkErr = function(startDate,endDate) {
+//    $scope.errMessage = '';
+//   
+//    startDate = startDate.split("/").reverse().join("-");
+//    endDate = endDate.split("/").reverse().join("-");  
+//    if((new Date(startDate) > new Date(endDate)) && (endDate!= "0001-01-01")){
+//      alert('End Date should be greater than start date'); 
+//        $scope.scheduleAlert.execEndDate='';
+//    }
+//};
     
 
     $scope.saveSchedule = function(formObj, formName) {
