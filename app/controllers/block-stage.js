@@ -1,8 +1,8 @@
-app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $rootScope, myService) {
-    $scope.projectId = $stateParams.projId;
-    $scope.phaseId = $stateParams.phaseId;
-    $scope.blockId =$stateParams.blockId;
-    $scope.Ugid =$stateParams.Ugid;
+app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $rootScope, myService, encyrptSvc) {
+    $scope.projectId = encyrptSvc.decyrpt($stateParams.projId);
+    $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
+    $scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
+    $scope.Ugid = encyrptSvc.decyrpt($stateParams.Ugid);
     ($scope.projectListFun = function() {
         angular.element(".loader").show();
         myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
@@ -66,50 +66,62 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
 //            angular.element(".loader").hide();
 //        });
 //    };
-     $scope.stepsData = [
-		{
-			stepName: "Phase",
-			status: "done"
-		},
-		{
-			stepName: "Phase Details",
-			status: "done"
-		},
-		{
-			stepName: "Unit Generation",
-			status: "done"
-		},
-		{
-			stepName: "Apply Cost Sheet",
-			status: "done"
-		},
-        {
-			stepName: "Generate Cost Sheet",
-			status: "done"
-		},
-        {
-			stepName: "Payment Schedule",
-			status: "active"
-		}
-	];
+    
      $scope.stepsDataEdit = [
 		{
 			stepName: "Unit Generation",
-			status: "done"
+			status: "done",
+            Num: "1"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "done"
+			status: "done",
+            Num: "2"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "done"
+			status: "done",
+            Num: "3"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "active"
+			status: "active",
+            Num: "4"
 		}
 	];
+      $scope.stepsData = [
+		{
+			stepName: "Add Phase      ",
+			status: "done",
+            Num: "1"
+		},
+		{
+			stepName: "Phase Details",
+			status: "done",
+            Num: "2"
+		},
+		{
+			stepName: "Unit Generation",
+			status: "done",
+            Num: "3"
+		},
+		{
+			stepName: "Apply Cost Sheet",
+			status: "done",
+            Num: "4"
+		},
+        {
+			stepName: "Generate Cost Sheet",
+			status: "done",
+            Num: "5"
+		},
+        {
+			stepName: "Payment Schedule",
+			status: "active",
+            Num: "6"
+		}
+	];
+ 
     $scope.blockListFun = function(phase) {
         $scope.perFloorUnits = [];
         $scope.units = [];
@@ -134,12 +146,12 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
             ContentType: 'application/json',
             data: {
                 "blockstageCompGuid": $cookieStore.get('comp_guid'),
-                "blockstageBlockId": blockId
+                "blockstageBlockId": $scope.blockId
             }
         }).success(function(data) {
                if(data[0].blocksatgeErrorDesc!='-1 | Block Stage Record does not exist')
                    {
-                     $rootScope.blockStageList = data;
+                     $scope.blockStageList = data;
                    }
             angular.element(".loader").hide();
         }).error(function() {
@@ -163,7 +175,7 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
                 console.log(data);
                 if(data[0].paymentscheduleByBlockErrorDesc!='-1 | Payment Schedule and Block Stage  Record does not exist')
                    {
-                    $rootScope.paymentScheduleList = data;
+                    $scope.paymentScheduleList = data;
                    }
                
                 angular.element(".loader").hide();
@@ -174,7 +186,7 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
         }
     };
 
-     $scope.getPaymentScheduleList($stateParams.blockId);
+     $scope.getPaymentScheduleList($scope.blockId);
     
     $scope.updatePaymentSchedule = function(formObj, formName) {
         $scope.submit = true;
@@ -262,7 +274,7 @@ app.controller("blockStageCtrl", function($scope,  $http, $state, $cookieStore, 
 });
 
 app.controller("blockStageChangeCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, $uibModal, $uibModalInstance, $rootScope, $window,item) {
-$scope.blockId =$stateParams.blockId;
+$scope.blockId =$scope.blockId;
     ($scope.getBlockStageDetail = function() {
         if (item.action == 'add') {
             $scope.blkStage = {
@@ -348,7 +360,7 @@ $scope.blockId =$stateParams.blockId;
         }).success(function(data) {
             if(data[0].paymentscheduleByBlockErrorDesc!='-1 | Payment Schedule and Block Stage  Record does not exist')
                    {
-                    $rootScope.paymentScheduleList = data;
+                    $scope.paymentScheduleList = data;
                    }
                
             angular.element(".loader").hide();
@@ -437,7 +449,7 @@ $scope.blockId =$stateParams.blockId;
                 }
             }).success(function(data) {
                 console.log(data);
-                $rootScope.paymentScheduleList = data;
+                $scope.paymentScheduleList = data;
                 angular.element(".loader").hide();
             }).error(function() {
                 alert('Something Went wrong.');

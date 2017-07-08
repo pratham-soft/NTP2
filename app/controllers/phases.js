@@ -148,8 +148,8 @@ app.controller("editPhasesCtrl", function($scope,  $http, $cookieStore, $state, 
     
     $scope.goNextunit = function(){
          $state.go("/EditUnit", {
-                        projId: Phase_Proj_Id,
-                        phaseId: Phase_Id
+                        projId: encyrptSvc.encyrpt(Phase_Proj_Id),
+                        phaseId: encyrptSvc.encyrpt(Phase_Id)
                     });  
       };
     
@@ -244,28 +244,34 @@ app.controller("addPhasesCtrl", function($scope,  $http, $cookieStore, $state, $
     };
     $scope.stepsData = [
 		{
-			stepName: "Phase",
-			status: "active"
+			stepName: "Add Phase      ",
+			status: "active",
+            Num: "1"
 		},
 		{
 			stepName: "Phase Details",
-			status: "pending"
+			status: "pending",
+            Num: "2"
 		},
 		{
 			stepName: "Unit Generation",
-			status: "pending"
+			status: "pending",
+            Num: "3"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "4"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "5"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "6"
 		}
 	];
     ($scope.getProjectList = function() {
@@ -477,7 +483,7 @@ app.controller("phasesCtrl", function($scope,  $http, $cookieStore, $state, $com
             $scope.projectDetails = {
                 projectName : formObj.projectName
             };*/
-        }
+        }   
     };
 });
 
@@ -490,31 +496,36 @@ $scope.goPhases = function()
     };
     $scope.pageTitle = "Add Unit";
     $scope.addPhaseUnitBtn = "ture";
-
-       $scope.stepsData = [
+ $scope.stepsData = [
 		{
-			stepName: "Phase",
-			status: "done"
+			stepName: "Add Phase ",
+			status: "done",
+            Num: "1"
 		},
 		{
 			stepName: "Phase Details",
-			status: "active"
+			status: "active",
+            Num: "2"
 		},
 		{
 			stepName: "Unit Generation",
-			status: "pending"
+			status: "pending",
+            Num: "3"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "4"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "pending"
+			status: "pending",
+            Num: "5"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "6"
 		}
 	];
     ($scope.getPhaseDetail = function() {
@@ -769,9 +780,9 @@ $scope.goPhases = function()
 
     $scope.saveNextData = function(){
          $state.go("/UnitGeneration", {
-                    projId: projectId,
-                    phaseId: phaseId,
-                    Ugid :0
+                    projId: encyrptSvc.encyrpt(projectId),
+                    phaseId: encyrptSvc.encyrpt(phaseId),
+                    Ugid : 0
                 });
         
     };
@@ -864,9 +875,9 @@ $scope.goPhases = function()
 //    };
 });
 
-app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, myService) {
-    var projectId = $stateParams.projId;
-    var phaseId = $stateParams.phaseId;
+app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, myService, encyrptSvc) {
+    var projectId = encyrptSvc.decyrpt($stateParams.projId);
+    var phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
 
             $scope.panNOvaladition = function()
         {
@@ -1163,8 +1174,8 @@ app.controller("editUnitCtrl", function($scope,  $http, $state, $cookieStore, $s
     
     $scope.editPhaseNext =function(){
          $state.go("/UnitGeneration", {
-                    projId: projectId,
-                    phaseId: phaseId
+                    projId: encyrptSvc.encyrpt(projectId),
+                    phaseId: encyrptSvc.encyrpt(phaseId)
                 });
     }
 //    $scope.editPhaseNext =function(formObj, formName) {

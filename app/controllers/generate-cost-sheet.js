@@ -1,39 +1,48 @@
-app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {
+app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService, encyrptSvc) {
     
     $scope.title = "Generate Cost Sheet";
-     $scope.projectId = $stateParams.projectId;
-    $scope.phaseId = $stateParams.phaseId;
-    $scope.blockId = $stateParams.blockId;
-    $scope.Ugid = $stateParams.Ugid;
-   // $scope.activeBtn=true;
+     $scope.projectId = encyrptSvc.decyrpt($stateParams.projectId);
+    $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
+    $scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
+    $scope.Ugid = encyrptSvc.decyrpt($stateParams.Ugid);
+    var    blockId= encyrptSvc.decyrpt($stateParams.blockId);
+    // $scope.activeBtn=true;
     $scope.pressCount=0;
-      $scope.stepsData = [
+     $scope.stepsData = [
 		{
-			stepName: "Phase",
-			status: "done"
+			stepName: "Add Phase      ",
+			status: "done",
+            Num: "1"
 		},
 		{
 			stepName: "Phase Details",
-			status: "done"
+			status: "done",
+            Num: "2"
 		},
 		{
 			stepName: "Unit Generation",
-			status: "done"
+			status: "done",
+            Num: "3"
 		},
 		{
 			stepName: "Apply Cost Sheet",
-			status: "done"
+			status: "done",
+            Num: "4"
 		},
         {
 			stepName: "Generate Cost Sheet",
-			status: "active"
+			status: "active",
+            Num: "5"
 		},
         {
 			stepName: "Payment Schedule",
-			status: "pending"
+			status: "pending",
+            Num: "6"
 		}
 	];
-    var blockId = $stateParams.blockId;
+ 
+
+    var blockId = $scope.blockId;
     ($scope.getBlockCostSheet = function() {
         angular.element(".loader").show();
         $http({
@@ -102,7 +111,7 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
             ContentType: 'application/json',
             data: {
                 "untctcm_comp_guid": $cookieStore.get('comp_guid'),
-                "untctcm_Blocks_Id": parseInt(blockId),
+                "untctcm_Blocks_Id": parseInt($scope.blockId),
                 "untctcm_Id": templId
             }
         }).success(function(data) {
@@ -120,10 +129,11 @@ app.controller("generateCostSheetCtrl", function($scope,  $http, $cookieStore, $
     }
      $scope.generateCostSheetUnitsNext = function(templId) {
          $state.go('/BlockStage',{
-                "projId": $stateParams.projectId,
-                "phaseId": $stateParams.phaseId,
-                "blockId": $stateParams.blockId,
-                "Ugid" : $stateParams.Ugid
+             
+                "projId": encyrptSvc.encyrpt($scope.projectId),
+                "phaseId": encyrptSvc.encyrpt($scope.phaseId),
+                "blockId": encyrptSvc.encyrpt($scope.blockId),
+                "Ugid" : encyrptSvc.encyrpt($scope.Ugid)
             });   }
 });
 app.controller("generatedCostSheetDetailsCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService) {

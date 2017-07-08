@@ -265,7 +265,7 @@ app.controller("updateProspectsCtrl", function($scope,  $http, $cookieStore, $ui
   
     
 });
-app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter,$uibModal, encyrptSvc,httpSvc) {
+app.controller("prospectDetailCtrl", function($scope, $window, $uibModalInstance, $state, $cookieStore, $http, myService, item, $filter,$uibModal, encyrptSvc,httpSvc) {
     $scope.timeslots = ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM', '07:00 PM', '07:30 PM', '08:30 PM'];
     $scope.leadType = ['hot', 'warm', 'cold'];
     $scope.states = ["Delhi"];
@@ -317,6 +317,49 @@ app.controller("prospectDetailCtrl", function($scope,  $uibModalInstance, $state
         $uibModalInstance.close();
     };
 
+     $scope.cancelUnit = function(unitObj) {
+         var result = confirm("Are you sure you want to Cancel this in Progress Booking Unit?");
+            if (result) {
+                unitObj["customer"]= $scope.lead;
+                unitObj['CustId']= $scope.lead.user_id
+                $uibModalInstance.close();
+                $scope.saveCancelUnit(unitObj);
+            }
+       
+    };
+     $scope.saveCancelUnit = function(unitObj) {
+         
+        angular.element(".loader").show();
+        $http({
+            method: "POST",
+            url: appConfig.baseUrl+"/Cust/Cancelunit",
+            ContentType: 'application/json',
+            data: {
+                "UnitCancel_Cust_User_Id"  : unitObj.CustId,
+                "UnitCancel_UnitDtls_Id"  : unitObj.UnitDtls_Id,
+                "UnitCancel_PenaltyVal"  : 1,
+                "UnitCancel_Paymentmade" :$scope.amountPaid,
+                "UnitCancel_RefundAmt":$scope.remarks,
+                "UnitCancel_UnitTotcost":$scope.totalAmount,
+                "UnitCancel_Penalty": $scope.paneltyAmount,
+                "UnitCancel_Feedback":  $scope.remarks,
+                "UnitCancel_Flag"  : 3 ,
+                "UnitCancel_Confirmed"  : 2  ,
+                "UnitCancel_blockid" :unitObj.Blocks_Id,
+                "comp_gui_id":$cookieStore.get('comp_guid')
+            }
+        }).success(function(data) {
+            $scope.cancelData=data;
+            angular.element(".loader").hide();
+           // console.log($scope.cancelData);
+            //$state.go('/Customers');
+            $uibModalInstance.close();
+            $window.location.reload();
+            
+        }).error(function() {
+            angular.element(".loader").hide();
+        });
+    };
    
     $scope.deleteRow = function(rowId) {
         angular.element("tr#" + rowId).remove();

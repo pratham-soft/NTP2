@@ -2,6 +2,7 @@ app.controller("unitsListingCtrl", function($scope,  $http, $cookieStore, $state
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
     $scope.unitTypeNo = 0;
+    
      $scope.selected = []; //stores checked items only
     (
         

@@ -1,4 +1,4 @@
-app.controller("unitVwEditCtrl", function($scope,  $http, $cookieStore, $state, $uibModal,$window, myService, $stateParams) {
+app.controller("unitVwEditCtrl", function($scope,  $http, $cookieStore, $state, $uibModal,$window, myService, $stateParams , encyrptSvc) {
     $scope.unitStatus = ['vacant', 'userinterest', 'mgmtquota', 'blockedbyadvnc', 'blockedbynotadvnc', 'sold'];
     $scope.unitStatusText = ['Vacant', 'User Interested', 'Management Quota', 'Blocked By Paying Advance', 'Blocked By Not Paying Advance', 'Sold'];
     
@@ -91,9 +91,9 @@ app.controller("unitVwEditCtrl", function($scope,  $http, $cookieStore, $state, 
         else
            {
              $state.go("/UnitGeneration", {
-                    projId: projectId,
-                    phaseId: phaseId,
-                    blockId:blockId,
+                    projId: encyrptSvc.encyrpt(projectId),
+                    phaseId: encyrptSvc.encyrpt(phaseId),
+                    blockId: encyrptSvc.encyrpt(blockId),
                     Ugid :1 
                });
         }

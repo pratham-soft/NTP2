@@ -112,7 +112,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'editUnitCtrl'
         })
         .state('/UnitGeneration', {
-            url: '/UnitGeneration/:projId/:phaseId/:blockId/:Ugid',
+            url: '/UnitGeneration/:projId/:phaseId/:Ugid',
             templateUrl: 'partials/unitGeneration.html',
             controller: 'unitGenerationCtrl'
         })
