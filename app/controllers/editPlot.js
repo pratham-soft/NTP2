@@ -360,7 +360,7 @@ app.controller("plotGenerationCtrl", function($scope,  $http, $state, $cookieSto
         }
         var unitsJson = [];
        
-            for (j = 0; j < formObj.length; j++) {
+            for (var j = 0; j < formObj.length; j++) {
                 var unitObj = {};
                 //var unitNo = plotsNosArr[j - 1];
  
@@ -421,8 +421,6 @@ app.controller("plotGenerationCtrl", function($scope,  $http, $state, $cookieSto
     
     $scope.goto=function(formName, formObj,parentObj){
         $state.go("/GeneratedCostSheetDetails", {
-//                    projId: $scope.projectId,
-//                    phaseId: $scope.phaseId,
                     blockId: parentObj.block
                 });
     };

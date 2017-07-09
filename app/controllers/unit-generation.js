@@ -4,7 +4,7 @@ app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieSto
     $scope.untDetails = [];
     $scope.projectId = encyrptSvc.decyrpt($stateParams.projId);
     $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
-   // $scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
+    $scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
    var myblockId=encyrptSvc.decyrpt($stateParams.blockId);
     $scope.plotvillaReleaseNo = 0;
     $scope.showHideFormula = true;
@@ -821,10 +821,10 @@ $scope.stepsDataEdit = [
             console.log(resSplit[0]);
             if (resSplit[0] == 0) {
                 $state.go("/ApplyCostSheet", {
-                    "projectId": encyrptSvc.encyrpt($scope.projectId),
-                    "phaseId": encyrptSvc.encyrpt($scope.phaseId),
-                    "blockId": encyrptSvc.encyrpt($scope.blockId),
-                    "Ugid": encyrptSvc.encyrpt($scope.Ugid)
+                    projectId: encyrptSvc.encyrpt($scope.projectId),
+                    phaseId: encyrptSvc.encyrpt($scope.phaseId),
+                    blockId: encyrptSvc.encyrpt(parentObj.block),
+                    Ugid: encyrptSvc.encyrpt($scope.Ugid)
                 });
             }
         }).error(function() {
@@ -895,10 +895,10 @@ $scope.stepsDataEdit = [
                 //                    blockId: parentObj.block
                 //                });
                 $state.go("/ApplyCostSheet", {
-                    "projectId": encyrptSvc.encyrpt($scope.projectId),
-                    "phaseId": encyrptSvc.encyrpt($scope.phaseId),
-                    "blockId": encyrptSvc.encyrpt($scope.blockId),
-                    "Ugid": encyrptSvc.encyrpt($scope.Ugid)
+                    projectId: encyrptSvc.encyrpt($scope.projectId),
+                    phaseId: encyrptSvc.encyrpt($scope.phaseId),
+                    blockId: encyrptSvc.encyrpt(parentObj.block),
+                    Ugid: encyrptSvc.encyrpt($scope.Ugid)
                 });
 
             }

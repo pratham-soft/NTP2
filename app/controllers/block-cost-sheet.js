@@ -150,7 +150,7 @@ app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, 
     
     
     ($scope.getBlockCostSheet = function(blockId) {
-        var blockId = $stateParams.blockId;
+        var blockId = encyrptSvc.decyrpt($stateParams.blockId);;
         angular.element(".loader").show();
         $http({
             method: "POST",
@@ -224,7 +224,7 @@ app.controller("editBlockCostSheetCtrl", function($scope,  $http, $cookieStore, 
         $scope.submit = true;
         if ($scope[formName].$valid) {
             formObj.untctcm_comp_guid = $cookieStore.get('comp_guid');
-            formObj.untctcm_Blocks_Id = $stateParams.blockId;
+            formObj.untctcm_Blocks_Id = encyrptSvc.decyrpt($stateParams.blockId);;
             formObj.untctcm_SBA = 0;
             formObj.untctcm_SiteArea = 0;
 
