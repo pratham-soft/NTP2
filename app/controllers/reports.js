@@ -26,27 +26,7 @@ app.controller("leadsGeneratedRepCtrl", function($scope, $http, $cookieStore, $s
                 "user_comp_guid" : $cookieStore.get('comp_guid')
             }
         }).success(function(data) {
-//            for (var i = 0; i < data.length; i++) {
-//                if (data[i].Proj_ErrorDesc == "0") {
-//                    if (data[i].Proj_Types.length > 1) {
-//                        var types = data[i].Proj_Types.split('#');
-//                        var typeValue = '';
-//                        for (var j = 0; j < types.length; j++) {
-//                            if (!(j == types.length - 1))
-//                                typeValue = typeValue + ' , ' + getTypeNameById(types[j]);
-//                            else
-//                                typeValue = typeValue + ' & ' + getTypeNameById(types[j]);
-//                        }
-//                        data[i].Proj_Types = typeValue.substring(2, typeValue.length);
-//                    } else {
-//                        data[i].Proj_Types = getTypeNameById(data[i].Proj_Types);
-//                    }
-//                }
-//            }
-//            if(data.LeadList>0)
-//                {
-//                    
-//                } 
+
             $scope.LeadList = data;
             angular.element(".loader").hide();
         }).error(function() {
@@ -57,7 +37,7 @@ app.controller("leadsGeneratedRepCtrl", function($scope, $http, $cookieStore, $s
             alert("Please Select Some Seach Parameter")
         }
     });
-$scope.getLeadList = function();
+
 });
 
 app.controller("unitsBlockedReportCtrl", function($scope) {});

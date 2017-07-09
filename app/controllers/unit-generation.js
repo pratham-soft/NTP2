@@ -1,9 +1,11 @@
 app.controller("unitGenerationCtrl", function($scope,  $http, $state, $cookieStore, $stateParams, $compile, myService, encyrptSvc) {
-   $scope.Ugid = $stateParams.Ugid;
+  //  $scope.Ugid = encyrptSvc.decyrpt($stateParams.Ugid); Aman changes 9 july as in previous page unit-vwEdit UGid was not encrypted
+    $scope.Ugid = $stateParams.Ugid; 
     $scope.untDetails = [];
     $scope.projectId = encyrptSvc.decyrpt($stateParams.projId);
     $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
-    //$scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
+   // $scope.blockId = encyrptSvc.decyrpt($stateParams.blockId);
+   var myblockId=encyrptSvc.decyrpt($stateParams.blockId);
     $scope.plotvillaReleaseNo = 0;
     $scope.showHideFormula = true;
     var unitNosArr = [];
@@ -646,15 +648,15 @@ $scope.stepsDataEdit = [
     };
 
 
-    ($scope.checkBlockUnits = function(blockId) {
-        if (blockId == undefined) {
-            blockId = $scope.blockId;
+    ($scope.checkBlockUnits = function(myblockId) {
+        if (myblockId == undefined) {
+            myblockId = $scope.blockId;
             //$scope.untGeneration.block=blockId;
         }
-        if (blockId != "") {
+        if (myblockId != "") {
             var compId = $cookieStore.get('comp_guid');
             angular.element(".loader").show();
-            myService.getUnitsByBlock(compId, blockId).then(function(response) {
+            myService.getUnitsByBlock(compId, myblockId).then(function(response) {
                 $scope.units = response.data[0];
                 $scope.blockFloorUnits = response.data[1].Blocks_UnitPerfloor;
                 $scope.UnitsArr = [];
@@ -694,9 +696,9 @@ $scope.stepsDataEdit = [
 
             })
         };
-    })();
+    });
 
-
+  $scope.checkBlockUnits(myblockId);
 
     $scope.addBlockUnit = function(formObj, formName, parentObj) {
         for (i = 0; i < formObj.length; i++) {
@@ -819,9 +821,10 @@ $scope.stepsDataEdit = [
             console.log(resSplit[0]);
             if (resSplit[0] == 0) {
                 $state.go("/ApplyCostSheet", {
-                    projId: $scope.projectId,
-                    phaseId: $scope.phaseId,
-                    blockId: parentObj.block
+                    "projectId": encyrptSvc.encyrpt($scope.projectId),
+                    "phaseId": encyrptSvc.encyrpt($scope.phaseId),
+                    "blockId": encyrptSvc.encyrpt($scope.blockId),
+                    "Ugid": encyrptSvc.encyrpt($scope.Ugid)
                 });
             }
         }).error(function() {
@@ -892,9 +895,10 @@ $scope.stepsDataEdit = [
                 //                    blockId: parentObj.block
                 //                });
                 $state.go("/ApplyCostSheet", {
-                    projId: $scope.projectId,
-                    phaseId: $scope.phaseId,
-                    blockId: parentObj.block
+                    "projectId": encyrptSvc.encyrpt($scope.projectId),
+                    "phaseId": encyrptSvc.encyrpt($scope.phaseId),
+                    "blockId": encyrptSvc.encyrpt($scope.blockId),
+                    "Ugid": encyrptSvc.encyrpt($scope.Ugid)
                 });
 
             }

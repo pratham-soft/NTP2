@@ -1,8 +1,6 @@
 app.controller("blockCostSheetCtrl", function($scope,  $http, $cookieStore, $state, $stateParams, $filter, $compile, $uibModal, myService , encyrptSvc) {
     $scope.title = "Block Cost Sheet";
- $scope.projectId = encyrptSvc.decyrpt($stateParams.projectId);
-    $scope.phaseId = encyrptSvc.decyrpt($stateParams.phaseId);
-    $scope.blockId =  encyrptSvc.decyrpt($stateParams.blockId);
+ 
     myService.getProjectList($cookieStore.get('comp_guid')).then(function(response) {
         $scope.projectList = response.data;
         angular.element(".loader").hide();
