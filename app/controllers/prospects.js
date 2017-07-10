@@ -1127,9 +1127,6 @@ app.controller("updateProPageCtrl", function($scope,  $uibModalInstance, $state,
             alert("Lead Updation Sucessful!");
             angular.element(".loader").hide();
             $scope.ok();
-            $state.go('/UpdateProspects');
-            //$scope.lead_source_list= data;
-           // $scope.getLeads();
         }).error(function() {
             angular.element(".loader").hide();
         });
@@ -1151,8 +1148,6 @@ app.controller("updateProPageCtrl", function($scope,  $uibModalInstance, $state,
             alert("Sales Funnel Updation Sucessful!");
             angular.element(".loader").hide();
             $scope.ok();
-            $state.go('/UpdateProspects');
-           // $scope.lead_source_list= data;
         }).error(function() {
             angular.element(".loader").hide();
         });
@@ -1174,8 +1169,6 @@ app.controller("updateProPageCtrl", function($scope,  $uibModalInstance, $state,
             alert("Assignment Updation Sucessful!");
             angular.element(".loader").hide();
             $scope.ok();
-            $state.go('/UpdateProspects');
-           // $scope.lead_source_list= data;
         }).error(function() {
             angular.element(".loader").hide();
         });
@@ -1195,9 +1188,7 @@ app.controller("updateProPageCtrl", function($scope,  $uibModalInstance, $state,
         }).success(function(data) {
             alert("Campaign Updated Sucessful!");
             angular.element(".loader").hide();
-            $scope.ok();
-            $state.go('/UpdateProspects');
-           // $scope.lead_source_list= data;
+            $scope.ok();      
         }).error(function() {
             angular.element(".loader").hide();
         });
@@ -1223,8 +1214,7 @@ app.controller("updateProPageCtrl", function($scope,  $uibModalInstance, $state,
     };
     
     $scope.ok = function() {
-    $uibModalInstance.close();
-         //$state.go('/UpdateProspects');
+    $uibModalInstance.close();    
         $window.location.reload();
     };
 

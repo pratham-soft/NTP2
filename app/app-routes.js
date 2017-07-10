@@ -263,11 +263,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/prospects.html',
             controller: 'updateProspectsCtrl'
         })
-        /*.state('/UpdateProspects', {
-            url: '/UpdateProspects',
-            templateUrl: 'partials/updateProspects.html',
-            controller: 'updateProspectsCtrl'
-        })*/
         .state('/AddProspect', {
             url: '/AddProspect',
             templateUrl: 'partials/addProspect.html',
